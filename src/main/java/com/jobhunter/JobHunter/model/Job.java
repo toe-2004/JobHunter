@@ -17,10 +17,10 @@ public class Job {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name="title")
+    @Column(name="title", nullable = false)
     private String title;
 
-    @Column(name="description", columnDefinition = "TEXT")
+    @Column(name="description", nullable = false, columnDefinition = "TEXT")
     private String description;
     
     @Column(name = "salary_min")
@@ -35,27 +35,31 @@ public class Job {
     @Column(name = "deadline")
     private LocalDateTime deadline;
     
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
 	@ManyToOne
-    @JoinColumn(name = "employer_id")
+    @JoinColumn(name = "employer_id", nullable = false)
     private Employer employer;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private EmploymentType employmentType;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private DurationType duration;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private ExperienceLevel experienceLevel;
     
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private JobStatus status;
 
     @OneToMany(mappedBy = "job")

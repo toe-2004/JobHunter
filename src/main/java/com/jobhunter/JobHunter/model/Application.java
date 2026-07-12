@@ -19,18 +19,18 @@ public class Application {
 	@Column(name = "curriculum_vitae")
 	private String curriculumVitae;
 
-	@Column(name = "cover_letter", columnDefinition = "TEXT")
+	@Column(name = "cover_letter", columnDefinition = "TEXT", nullable = false)
 	private String coverLetter;
 
-	@Column(name = "created_at")
+	@Column(name = "created_at", nullable = false)
 	private LocalDateTime createdAt;
 
 	@ManyToOne
-	@JoinColumn(name = "job_id")
+	@JoinColumn(name = "job_id", nullable = false)
 	private Job job;
 
 	@ManyToOne
-	@JoinColumn(name = "freelancer_id")
+	@JoinColumn(name = "freelancer_id", nullable = false)
 	private Freelancer freelancer;
 
 	@Enumerated(EnumType.STRING)

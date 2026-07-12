@@ -30,7 +30,7 @@ public class Employer {
 	private String companyPhone;
 
 	@NotBlank
-	@Column(name = "company_description")
+	@Column(name = "company_description", columnDefinition = "TEXT")
 	private String companyDescription;
 
 	@NotBlank

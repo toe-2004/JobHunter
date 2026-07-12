@@ -17,10 +17,10 @@ public class Engagement {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "title")
+	@Column(name = "title", nullable = false)
 	private String title;
 
-	@Column(name = "description", columnDefinition = "TEXT")
+	@Column(name = "description", columnDefinition = "TEXT", nullable = false)
 	private String description;
 
 	@Column(name = "monthly_rate")
@@ -33,15 +33,15 @@ public class Engagement {
 	private LocalDateTime endDate;
 
 	@ManyToOne
-	@JoinColumn(name = "employer_id")
+	@JoinColumn(name = "employer_id", nullable = false)
 	private Employer employer;
 
 	@ManyToOne
-	@JoinColumn(name = "freelancer_id")
+	@JoinColumn(name = "freelancer_id", nullable = false)
 	private Freelancer freelancer;
 
 	@ManyToOne
-	@JoinColumn(name = "category_id")
+	@JoinColumn(name = "category_id", nullable = false)
 	private Category category;
 
 	@Enumerated(EnumType.STRING)

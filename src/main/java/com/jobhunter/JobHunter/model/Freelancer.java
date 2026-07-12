@@ -18,7 +18,7 @@ public class Freelancer {
 	@JoinColumn(name = "user_id", nullable = false, unique = true)
 	private User user;
 
-	@Column(name = "title")
+	@Column(name = "title", nullable = false)
 	private String title;
 
 	@Column(name = "phone")
@@ -27,13 +27,13 @@ public class Freelancer {
 	@Column(name = "location")
 	private String location;
 
-	@Column(name = "summary")
+	@Column(name = "summary", columnDefinition = "TEXT")
 	private String summary;
 
-	@Column(name = "experience")
+	@Column(name = "experience", columnDefinition = "TEXT")
 	private String experience;
 
-	@Column(name = "education")
+	@Column(name = "education", columnDefinition = "TEXT")
 	private String education;
 
 	@OneToMany(mappedBy = "freelancer")
