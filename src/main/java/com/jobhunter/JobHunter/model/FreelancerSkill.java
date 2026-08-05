@@ -1,13 +1,18 @@
 package com.jobhunter.JobHunter.model;
 
-
 import jakarta.persistence.*;
-@Entity
-public class FreelancerSkill {
+import lombok.Getter;
+import lombok.Setter;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Entity
+@Getter
+@Setter
+@Table(
+    uniqueConstraints = @UniqueConstraint(
+        columnNames = {"freelancer_id", "skill_id"}
+    )
+)
+public class FreelancerSkill {
 
     public Long getId() {
 		return id;
@@ -33,11 +38,15 @@ public class FreelancerSkill {
 		this.skill = skill;
 	}
 
-	@ManyToOne
-    @JoinColumn(name = "freelancer_id")
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "freelancer_id", nullable = false)
     private Freelancer freelancer;
 
     @ManyToOne
-    @JoinColumn(name = "skill_id")
+    @JoinColumn(name = "skill_id", nullable = false)
     private Skill skill;
 }

@@ -1,11 +1,22 @@
 package com.jobhunter.JobHunter.model;
+
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
+@Table(
+    uniqueConstraints = @UniqueConstraint(
+        columnNames = {"job_id", "skill_id"}
+    )
+)
 public class JobSkill {
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-	
+
     public Long getId() {
 		return id;
 	}
@@ -31,10 +42,10 @@ public class JobSkill {
 	}
 
 	@ManyToOne
-    @JoinColumn(name = "job_id")
+    @JoinColumn(name = "job_id", nullable = false)
     private Job job;
 
     @ManyToOne
-    @JoinColumn(name = "skill_id")
+    @JoinColumn(name = "skill_id", nullable = false)
     private Skill skill;
 }

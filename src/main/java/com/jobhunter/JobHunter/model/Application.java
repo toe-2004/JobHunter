@@ -4,23 +4,19 @@ import java.time.LocalDateTime;
 import com.jobhunter.JobHunter.enumeration.ApplicationStatus;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
 public class Application {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    
-    @Column(name = "curriculum_vitae")
-    private String curriculumVitae;
-    
-    @Column(name="cover_letter", columnDefinition = "TEXT")
-    private String coverLetter;
-    
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-    
-    public Long getId() {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	public Long getId() {
 		return id;
 	}
 
@@ -36,6 +32,14 @@ public class Application {
 		this.curriculumVitae = curriculumVitae;
 	}
 
+	public String getCoverLetter() {
+		return coverLetter;
+	}
+
+	public void setCoverLetter(String coverLetter) {
+		this.coverLetter = coverLetter;
+	}
+
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
@@ -47,42 +51,51 @@ public class Application {
 	public Job getJob() {
 		return job;
 	}
+
 	public void setJob(Job job) {
 		this.job = job;
 	}
+
 	public Freelancer getFreelancer() {
 		return freelancer;
 	}
+
 	public void setFreelancer(Freelancer freelancer) {
 		this.freelancer = freelancer;
 	}
-	public String getCoverLetter() {
-		return coverLetter;
-	}
-	public void setCoverLetter(String coverLetter) {
-		this.coverLetter = coverLetter;
-	}
+
 	public ApplicationStatus getStatus() {
 		return status;
 	}
+
 	public void setStatus(ApplicationStatus status) {
 		this.status = status;
 	}
 
-    @ManyToOne
-    @JoinColumn(name = "job_id")
-    private Job job;
+	@Column(name = "curriculum_vitae")
+	private String curriculumVitae;
 
-    @ManyToOne
-    @JoinColumn(name = "freelancer_id")
-    private Freelancer freelancer;
+	@Column(name = "cover_letter", columnDefinition = "TEXT", nullable = false)
+	private String coverLetter;
 
-    @Enumerated(EnumType.STRING)
-    private ApplicationStatus status;
+	@Column(name = "created_at", nullable = false)
+	private LocalDateTime createdAt;
 
-    @PrePersist
-    public void prePersist() {
-        createdAt = LocalDateTime.now();
-    }
-    
+	@ManyToOne
+	@JoinColumn(name = "job_id", nullable = false)
+	private Job job;
+
+	@ManyToOne
+	@JoinColumn(name = "freelancer_id", nullable = false)
+	private Freelancer freelancer;
+
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private ApplicationStatus status = ApplicationStatus.PENDING;
+	
+	@PrePersist
+	public void prePersist() {
+		createdAt = LocalDateTime.now();
+	}
+
 }
