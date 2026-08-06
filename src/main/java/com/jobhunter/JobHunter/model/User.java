@@ -3,35 +3,16 @@ package com.jobhunter.JobHunter.model;
 import com.jobhunter.JobHunter.enumeration.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Table(name = "app_user")
+@Getter
+@Setter
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotBlank(message = "Fullname is required")
-    @Column(unique = true, nullable = false)
-    private String fullName;
-
-    @NotBlank(message = "Email is required")
-    @Email(message = "Please provide a valid email address")
-    @Column(unique = true, nullable = false)
-    private String email;
-
-    @NotBlank(message = "Password is required")
-    @Size(min = 8, message = "Password must be at least 8 characters long")
-    @Column(nullable = false)
-    private String password;
-
-    @Column(name = "profile_photo")
-    private String profilePhoto;
-
-    @OneToOne(mappedBy = "user")
-    private Employer employer;
-
-    public Long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -39,12 +20,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getFullName() {
-		return fullName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getEmail() {
@@ -71,6 +52,14 @@ public class User {
 		this.profilePhoto = profilePhoto;
 	}
 
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
 	public Employer getEmployer() {
 		return employer;
 	}
@@ -87,20 +76,34 @@ public class User {
 		this.freelancer = freelancer;
 	}
 
-	public Role getRole() {
-		return role;
-	}
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
+	@NotBlank(message = "Name is required")
+	@Column(unique = true, nullable = false)
+	private String name;
+
+	@NotBlank(message = "Email is required")
+	@Email(message = "Please provide a valid email address")
+	@Column(unique = true, nullable = false)
+	private String email;
+
+	@NotBlank(message = "Password is required")
+	@Size(min = 8, message = "Password must be at least 8 characters long")
+	@Column(nullable = false)
+	private String password;
+
+	@Column(name = "profile_photo")
+	private String profilePhoto;
+
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private Role role;
 
 	@OneToOne(mappedBy = "user")
-    private Freelancer freelancer;
-    
-    @Enumerated(EnumType.STRING)
-    private Role role;
+	private Employer employer;
 
-   
-    
+	@OneToOne(mappedBy = "user")
+	private Freelancer freelancer;
 }

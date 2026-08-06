@@ -1,17 +1,22 @@
 package com.jobhunter.JobHunter.model;
 import java.util.List;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
 public class Skill {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "skill_name")
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    public Long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -48,4 +53,6 @@ public class Skill {
 
     @OneToMany(mappedBy = "skill")
     private List<FreelancerSkill> freelancerSkills;
+
+	
 }

@@ -133,4 +133,54 @@
         </div>
     </div>
 </body>
+</html><!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+    		<title>Job Hunter</title>
+	</head>
+	<body>
+
+	<form th:action="@{/login}" method="post">
+
+    		<label>Email</label>
+
+    		<input 
+        type="email"
+        name="username"
+        placeholder="Enter your email"
+        required>
+
+    		<label>Password</label>
+
+    		<input
+        type="password"
+        name="password"
+        placeholder="Enter your password"
+        required>
+
+		<button type="submit">
+        	Login
+    		</button>
+
+		</form>
+
+
+		<br>
+
+		<div style="text-align:center;">
+
+    		<p>
+        		Don't have an account?
+    		</p>
+
+    		<a th:href="@{/register}">
+        		<button type="button">
+            Register
+        		</button>
+    		</a>
+
+</div>
+
+	</body>
 </html>
