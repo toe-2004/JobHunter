@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Profile</title>
+</head>
+<body>
+
+<h2>My Profile</h2>
+
+<p><b>Name:</b> <span th:text="${user.name}"></span></p>
+
+<p><b>Email:</b> <span th:text="${user.email}"></span></p>
+
+<p><b>Role:</b> <span th:text="${user.role}"></span></p>
+
+<img th:if="${user.profilePhoto != null}"
+     th:src="@{'/uploads/' + ${user.profilePhoto}}"
+     width="150">
+
+</body>
+</html>
