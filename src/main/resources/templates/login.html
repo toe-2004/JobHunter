@@ -1,51 +1,39 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Job Hunter</title>
+  </head>
+  <body>
+    <form th:action="@{/login}" method="post">
+      <label>Email</label>
 
-	<head>
-    		<title>Job Hunter</title>
-	</head>
-	<body>
-
-	<form th:action="@{/login}" method="post">
-
-    		<label>Email</label>
-
-    		<input 
+      <input
         type="email"
         name="username"
         placeholder="Enter your email"
-        required>
+        required
+      />
 
-    		<label>Password</label>
+      <label>Password</label>
 
-    		<input
+      <input
         type="password"
         name="password"
         placeholder="Enter your password"
-        required>
+        required
+      />
 
-		<button type="submit">
-        	Login
-    		</button>
+      <button type="submit">Login</button>
+    </form>
 
-		</form>
+    <br />
 
+    <div style="text-align: center">
+      <p>Don't have an account?</p>
 
-		<br>
-
-		<div style="text-align:center;">
-
-    		<p>
-        		Don't have an account?
-    		</p>
-
-    		<a th:href="@{/register}">
-        		<button type="button">
-            Register
-        		</button>
-    		</a>
-
-</div>
-
-	</body>
+      <a th:href="@{/register}">
+        <button type="button">Register</button>
+      </a>
+    </div>
+  </body>
 </html>

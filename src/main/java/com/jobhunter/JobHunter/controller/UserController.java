@@ -17,21 +17,32 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    
+
     @GetMapping("/all-users")
-    public String showUsers(Model model){
+    public String showUsers(Model model) {
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
         return "users";
     }
-    
+
     @GetMapping("/dashboard")
     public String profile(Model model) {
         User user = userService.getCurrentUser();
         model.addAttribute("user", user);
         return "dashboard";
     }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
     
+    @GetMapping("/register")
+    public String registerPage(Model model) {
+        model.addAttribute("user", new User());
+        return "register";
+    }
+
     @PostMapping("/register")
     public String registerUser(
             @Valid @ModelAttribute("user") User user,
@@ -48,6 +59,11 @@ public class UserController {
             return "register";
         }
         return "redirect:/login";
+    }
+
+    @GetMapping("/choose-role")
+    public String chooseRole() {
+        return "choose-role";
     }
 
 }

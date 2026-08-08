@@ -1,0 +1,57 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Employer Registration</title>
+  </head>
+
+  <body>
+    <h1>Create Employer Profile</h1>
+
+    <div th:if="${error}">
+      <p th:text="${error}"></p>
+    </div>
+
+    <form
+      th:action="@{/employer/register}"
+      th:object="${employerForm}"
+      method="post"
+    >
+      <div>
+        <label>Company Name</label>
+        <input type="text" th:field="*{companyName}" />
+
+        <div th:errors="*{companyName}"></div>
+      </div>
+
+      <div>
+        <label>Company Email</label>
+        <input type="email" th:field="*{companyEmail}" />
+
+        <div th:errors="*{companyEmail}"></div>
+      </div>
+
+      <div>
+        <label>Company Phone</label>
+        <input type="text" th:field="*{companyPhone}" />
+
+        <div th:errors="*{companyPhone}"></div>
+      </div>
+
+      <div>
+        <label>Company Location</label>
+        <input type="text" th:field="*{companyLocation}" />
+
+        <div th:errors="*{companyLocation}"></div>
+      </div>
+
+      <div>
+        <label>Company Description</label>
+        <textarea th:field="*{companyDescription}" rows="5"></textarea>
+
+        <div th:errors="*{companyDescription}"></div>
+      </div>
+
+      <button type="submit">Create Employer Account</button>
+    </form>
+  </body>
+</html>

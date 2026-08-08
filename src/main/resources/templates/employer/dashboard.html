@@ -1,0 +1,100 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Employer Dashboard</title>
+  </head>
+
+  <body>
+    <h1>
+      Welcome,
+      <span th:text="${employer.user.name}"> Employer </span>
+    </h1>
+
+    <h2>Company Information</h2>
+
+    <p>
+      Company:
+      <span th:text="${employer.companyName}"> Company Name </span>
+    </p>
+
+    <p>
+      Email:
+      <span th:text="${employer.companyEmail}"> email@example.com </span>
+    </p>
+
+    <p>
+      Phone:
+      <span th:text="${employer.companyPhone}"> Phone </span>
+    </p>
+
+    <p>
+      Location:
+      <span th:text="${employer.companyLocation}"> Location </span>
+    </p>
+
+    <h2>Statistics</h2>
+
+    <p>
+      Total Jobs:
+      <span th:text="${jobCount}"> 0 </span>
+    </p>
+
+    <h2>Recent Jobs</h2>
+
+    <div th:if="${recentJobs.isEmpty()}">
+      <p>No jobs created yet.</p>
+    </div>
+
+    <div th:each="job : ${recentJobs}">
+      <h3 th:text="${job.title}">Job Title</h3>
+
+      <p>
+        Category:
+        <span th:text="${job.category.name}"> Category </span>
+      </p>
+
+      <p>
+        Created:
+        <span th:text="${#temporals.format(job.createdAt,'dd MMM yyyy')}">
+          Date
+        </span>
+      </p>
+    </div>
+
+    <h2>Recent Applications</h2>
+
+    <div th:if="${recentApplications.isEmpty()}">
+      <p>No applications yet.</p>
+    </div>
+
+    <div th:each="application : ${recentApplications}">
+      <p>
+        Freelancer:
+
+        <span th:text="${application.freelancer.user.name}">
+          Freelancer Name
+        </span>
+      </p>
+
+      <p>
+        Job:
+
+        <span th:text="${application.job.title}"> Job Title </span>
+      </p>
+
+      <p>
+        Applied:
+
+        <span
+          th:text="${#temporals.format(application.createdAt,'dd MMM yyyy')}"
+        >
+          Date
+        </span>
+      </p>
+    </div>
+
+    <a th:href="@{/employer/profile}"> My Profile </a>
+    <br>
+    <a th:href="@{/employer/profile/edit}"> Edit Profile </a>
+  </body>
+</html>
