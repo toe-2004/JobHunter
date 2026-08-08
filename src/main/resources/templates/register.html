@@ -1,184 +1,83 @@
+<!-- register.html -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - JobHunter</title>
-
+    <link rel="shortcut icon" href="/images/logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/register.css}"
     <style>
-
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial, Helvetica, sans-serif;
-        }
-
-        body{
-            background:#f4f6f9;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            min-height:100vh;
-            padding:20px;
-        }
-
-        .container{
-            width:420px;
-            background:white;
-            padding:30px;
-            border-radius:10px;
-            box-shadow:0 0 10px rgba(0,0,0,.2);
-        }
-
-        h2{
-            text-align:center;
-            margin-bottom:25px;
-            color:#333;
-        }
-
-        label{
-            display:block;
-            margin-bottom:5px;
-            font-weight:bold;
-        }
-
-        input{
-            width:100%;
-            padding:10px;
-            border:1px solid #ccc;
-            border-radius:5px;
-            margin-bottom:5px;
-        }
-
-        input:focus{
-            outline:none;
-            border-color:#007bff;
-        }
-
-        .error{
-            color:red;
-            font-size:14px;
-            margin-bottom:12px;
-        }
-
-        .success{
-            color:green;
-            text-align:center;
-            margin-bottom:15px;
-        }
-
-        button{
-            width:100%;
-            padding:12px;
-            background:#007bff;
-            color:white;
-            border:none;
-            border-radius:5px;
-            cursor:pointer;
-            font-size:16px;
-            margin-top:10px;
-        }
-
-        button:hover{
-            background:#0056b3;
-        }
-
-        .link{
-            text-align:center;
-            margin-top:20px;
-        }
-
-        .link a{
-            text-decoration:none;
-            color:#007bff;
-            font-weight:bold;
-        }
-
-        .link a:hover{
-            text-decoration:underline;
-        }
-
     </style>
 
 </head>
-
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <h2>Create Account</h2>
-
-    
-    <div class="error"
-         th:if="${error}"
-         th:text="${error}">
-    </div>
-
-    
-    <div class="success"
-         th:if="${success}"
-         th:text="${success}">
-    </div>
-
-    <form th:action="@{/register}"
-          th:object="${user}"
-          method="post"
-          enctype="multipart/form-data">
-
-        <label>Name</label>
-        <input type="text"
-               th:field="*{name}"
-               placeholder="Enter your name">
-
-        <div class="error"
-             th:if="${#fields.hasErrors('name')}"
-             th:errors="*{name}">
+        <h1>Register</h1>
+        <div class="success"
+            th:if="${success}"
+            th:text="${success}">
         </div>
 
+        <form th:action="@{/register}" th:object="${user}" method="post" enctype="multipart/form-data">
 
-        <label>Email</label>
-        <input type="email"
-               th:field="*{email}"
-               placeholder="Enter your email">
+            <label>Name</label>
+            <input type="text"
+                th:field="*{name}"
+                placeholder="Enter your name">
 
-        <div class="error"
-             th:if="${#fields.hasErrors('email')}"
-             th:errors="*{email}">
+            <div class="error"
+                th:if="${#fields.hasErrors('name')}"
+                th:errors="*{name}">
+            </div>
+
+
+            <label>Email</label>
+            <input type="email"
+                th:field="*{email}"
+                placeholder="Enter your email">
+            <div class="error"
+                th:if="${#fields.hasErrors('email')}"
+                th:errors="*{email}">
+            </div>
+            <div class="error"
+                th:if="${error}"
+                th:text="${error}">
+            </div>
+
+
+            <label>Password</label>
+            <input type="password"
+                th:field="*{password}"
+                placeholder="Minimum 8 characters">
+            <div class="error"
+                th:if="${#fields.hasErrors('password')}"
+                th:errors="*{password}">
+            </div>
+
+
+            <label>Profile Photo</label>
+            <input type="file"
+                name="photo"
+                accept="image/*">
+
+
+            <button type="submit">
+                Register
+            </button>
+
+        </form>
+
+        <div class="link">
+            Already have an account?
+            <a th:href="@{/login}">
+                Login
+            </a>
         </div>
 
-
-        <label>Password</label>
-        <input type="password"
-               th:field="*{password}"
-               placeholder="Minimum 8 characters">
-
-        <div class="error"
-             th:if="${#fields.hasErrors('password')}"
-             th:errors="*{password}">
-        </div>
-
-
-        <label>Profile Photo</label>
-        <input type="file"
-               name="photo"
-               accept="image/*">
-
-
-        <button type="submit">
-            Register
-        </button>
-
-    </form>
-
-    <div class="link">
-        Already have an account?
-        <a th:href="@{/login}">
-            Login
-        </a>
     </div>
-
-</div>
-
 </body>
 </html>

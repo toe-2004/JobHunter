@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<!-- Side Bar -->
+    <div class="sidebar" th:fragment="sidebar">
+        <div class="sidebar-brand">
+          <ul class="navbar nav justify-content-center">
+            <li class="nav-item dropdown px-2 d-lg-none ff">
+              <!-- Add "dropdown-toggle" class and role="button" -->
+              <a href="#" class="nav-link" data-bs-toggle="dropdown" role="button" data-bs-display="static" aria-expanded="false">
+                <i class="fa-solid fa-bars" style="color: #ffffff;"></i>
+              </a>
+              <!-- Wrap dropdown items in <li> tags -->
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li><a href="/myprofile" class="dropdown-item"><i class="fa-solid fa-user"></i>My Profile</a></li>
+                <li><a href="/home" class="dropdown-item"><i class="fas fa-home"></i>Home</a></li>
+                <li><a href="/hire/myhires" class="dropdown-item"><i class="fas fa-briefcase"></i>Hire Requests</a></li>
+                <li><a href="myapplications" class="dropdown-item"><i class="fas fa-briefcase"></i>Applied Jobs</a></li>
+                <li><a href="/login"><i class="fa-solid fa-right-from-bracket"></i>Logout </a></li>
+              </ul>
+            </li>
+            <li class="nav-item ss">
+              <h4 class="mb-0">
+                <i class="fa-solid fa-briefcase"></i> Job Hunter
+              </h4>
+            </li>
+          </ul>
+        </div>
+        <nav class="sidebar-nav flex-column">
+            <a href="/myprofile" class="active"><i class="fa-solid fa-user"></i>My Profile</a>
+            <a href="/home"><i class="fas fa-home"></i>Home</a>
+            <a href="/hire/myhires"><i class="fas fa-briefcase"></i>Hire Requests</a>
+            <a href="/myapplications"><i class="fas fa-briefcase"></i>Applied Jobs</a>
+            <a href="/login"><i class="fa-solid fa-right-from-bracket"></i>Logout </a>
+        </nav>
+    </div>
+        
+</body>
+</html>
