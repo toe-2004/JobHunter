@@ -1,0 +1,45 @@
+<div>
+  <h2>Company Details</h2>
+
+  <p>
+    <strong>Company name:</strong>
+    <span th:text="${employer.companyName}">Company Name</span>
+  </p>
+
+  <p>
+    <strong>Company email:</strong>
+    <span th:text="${employer.companyEmail}">email@example.com</span>
+  </p>
+
+  <p>
+    <strong>Phone:</strong>
+    <span th:text="${employer.companyPhone}">Phone</span>
+  </p>
+
+  <p>
+    <strong>Location:</strong>
+    <span th:text="${employer.companyLocation}">Location</span>
+  </p>
+</div>
+
+<div>
+  <h2>Company Description</h2>
+
+  <p th:text="${employer.companyDescription}">Description</p>
+</div>
+
+<div>
+  <h2>Account Owner</h2>
+
+  <p>
+    <strong>Name:</strong>
+    <span th:text="${employer.user.name}">Owner Name</span>
+  </p>
+
+  <p>
+    <strong>Role:</strong>
+    Employer
+  </p>
+
+  <a th:href="@{/employer/profile/edit}"> Edit Profile </a>
+</div>

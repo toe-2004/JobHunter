@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>Edit Employer Profile</title>
+</head>
+
+<body>
+
+    <h1>Edit Employer Profile</h1>
+
+    <form th:action="@{/employer/profile/edit}"
+          th:object="${profile}"
+          method="post"
+          novalidate>
+
+        <div>
+            <label for="companyName">Company name</label>
+            <input type="text"
+                   id="companyName"
+                   th:field="*{companyName}"
+                   th:errorclass="is-invalid">
+
+            <div th:errors="*{companyName}"></div>
+        </div>
+
+        <div>
+            <label for="companyEmail">Company email</label>
+            <input type="email"
+                   id="companyEmail"
+                   th:field="*{companyEmail}"
+                   th:errorclass="is-invalid">
+
+            <div th:errors="*{companyEmail}"></div>
+        </div>
+
+        <div>
+            <label for="companyPhone">Company phone</label>
+            <input type="text"
+                   id="companyPhone"
+                   th:field="*{companyPhone}"
+                   th:errorclass="is-invalid">
+
+            <div th:errors="*{companyPhone}"></div>
+        </div>
+
+        <div>
+            <label for="companyLocation">Company location</label>
+            <input type="text"
+                   id="companyLocation"
+                   th:field="*{companyLocation}"
+                   th:errorclass="is-invalid">
+
+            <div th:errors="*{companyLocation}"></div>
+        </div>
+
+        <div>
+            <label for="companyDescription">Company description</label>
+            <textarea id="companyDescription"
+                      th:field="*{companyDescription}"
+                      rows="4"
+                      th:errorclass="is-invalid"></textarea>
+
+            <div th:errors="*{companyDescription}"></div>
+        </div>
+
+        <div>
+            <label for="name">Your name</label>
+            <input type="text"
+                   id="name"
+                   th:field="*{name}"
+                   th:errorclass="is-invalid">
+
+            <div th:errors="*{name}"></div>
+        </div>
+
+        <button type="submit">Save changes</button>
+
+        <a th:href="@{/employer/profile}">Cancel</a>
+
+    </form>
+
+</body>
+</html>

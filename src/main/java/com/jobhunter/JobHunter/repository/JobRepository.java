@@ -1,7 +1,14 @@
 package com.jobhunter.JobHunter.repository;
-import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.jobhunter.JobHunter.model.Employer;
 import com.jobhunter.JobHunter.model.Job;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface JobRepository extends JpaRepository<Job, Long>{
+import java.util.List;
 
+public interface JobRepository extends JpaRepository<Job, Long> {
+
+    long countByEmployer(Employer employer);
+
+    List<Job> findTop5ByEmployerOrderByCreatedAtDesc(Employer employer);
 }
