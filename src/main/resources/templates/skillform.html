@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Create Skill</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        .form-container {
+            width: 400px;
+            margin: auto;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="form-container">
+
+
+<h2>Create Skill</h2>
+
+
+<form th:action="@{/freelancer/skill}"
+      th:object="${skill}"
+      method="post">
+
+
+    <label>
+        Skill Name
+    </label>
+
+
+    <input type="text"
+           th:field="*{name}"
+           placeholder="Example: Java"
+           required>
+
+
+    <button type="submit">
+        Save Skill
+    </button>
+
+</form>
+
+<br>
+
+
+<a th:href="@{/freelancer/profile}">
+    Cancel
+</a>
+
+
+</div>
+
+
+</body>
+
+</html>

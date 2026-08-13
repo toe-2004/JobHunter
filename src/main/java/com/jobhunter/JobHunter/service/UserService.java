@@ -58,16 +58,20 @@ public class UserService {
                     Files.createDirectories(uploadPath);
                 }
                 Files.copy(
-                        photo.getInputStream(),
-                        uploadPath.resolve(fileName),
-                        StandardCopyOption.REPLACE_EXISTING);
+                    photo.getInputStream(),
+                    uploadPath.resolve(fileName),
+                    StandardCopyOption.REPLACE_EXISTING
+                );
+                
                 user.setProfilePhoto(fileName);
 
             } catch (IOException e) {
                 throw new RuntimeException("Could not save image.", e);
             }
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(
+        	    passwordEncoder.encode(user.getPassword())
+        	);
         userRepository.save(user);
         return "success";
     }

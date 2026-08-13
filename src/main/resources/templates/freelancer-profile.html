@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>My Freelancer Profile</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        .profile-card {
+            width: 600px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<h2>My Freelancer Profile</h2>
+
+
+<a th:href="@{/freelancer/edit}">
+
+    <button type="button">
+        Edit Profile
+    </button>
+
+</a>
+
+
+<div class="profile-card">
+<p>
+	<span class="label">
+            Name:
+        </span>
+
+        <span th:text="${freelancer.user.name}">
+        </span>
+
+    </p>
+	 <p>
+
+        <span class="label">
+            Email:
+        </span>
+
+        <span th:text="${freelancer.user.email}">
+        </span>
+
+    </p>
+	<p>
+
+        <span class="label">
+            Title:
+        </span>
+
+        <span th:text="${freelancer.title}">
+        </span>
+
+    </p>
+	<p>
+
+        <span class="label">
+            Phone:
+        </span>
+
+        <span th:text="${freelancer.phone}">
+        </span>
+
+    </p>
+	 <p>
+
+        <span class="label">
+            Location:
+        </span>
+
+        <span th:text="${freelancer.location}">
+        </span>
+
+    </p>
+	<p>
+
+        <span class="label">
+            Summary:
+        </span>
+
+        <span th:text="${freelancer.summary}">
+        </span>
+
+    </p>
+	<p>
+
+        <span class="label">
+            Experience:
+        </span>
+
+        <span th:text="${freelancer.experience}">
+        </span>
+
+    </p>
+	<p>
+
+        <span class="label">
+            Education:
+        </span>
+
+        <span th:text="${freelancer.education}">
+        </span>
+
+    </p>
+	<img th:if="${freelancer.user.profilePhoto != null}"
+         th:src="@{'/uploads/' + ${freelancer.user.profilePhoto}}"
+         width="150">
+	<h3>
+        Skills
+    </h3>
+	<ul>
+
+        <li th:each="fs : ${freelancer.freelancerSkills}">
+
+            <span th:text="${fs.skill.name}">
+            </span>
+
+        </li>
+
+    </ul>
+
+</div>
+
+
+</body>
+
+</html>

@@ -1,7 +1,24 @@
 package com.jobhunter.JobHunter.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import com.jobhunter.JobHunter.enumeration.Role;
+import com.jobhunter.JobHunter.model.Freelancer;
+import com.jobhunter.JobHunter.model.FreelancerSkill;
+import com.jobhunter.JobHunter.model.Skill;
+import com.jobhunter.JobHunter.model.User;
+import com.jobhunter.JobHunter.repository.FreelancerRepository;
+import com.jobhunter.JobHunter.repository.FreelancerSkillRepository;
+import com.jobhunter.JobHunter.repository.SkillRepository;
+import com.jobhunter.JobHunter.repository.UserRepository;
 
 @Service
 public class FreelancerService {
-
+  
 }
