@@ -11,11 +11,11 @@
                         class="profile-photo">
 
                 <div class="profile-info">
-                    <span class="username" text="">
+                    <span class="username" th:text="${employer.user.name}">
                         Username
                     </span>
                     <span class="user-role">
-                        Freelancer
+                        Employer
                     </span>
                 </div>
             </a>
@@ -30,13 +30,6 @@
             </button>
 
                 <ul class="dropdown-menu dropdown-menu-end">
-
-                    <li>
-                        <a href="/myprofile" class="dropdown-item">
-                            <i class="fa-solid fa-user"></i>
-                            My Profile
-                        </a>
-                    </li>
 
                     <li>
                         <a href="/home" class="dropdown-item">
@@ -84,11 +77,6 @@
 
     <nav class="sidebar-nav d-none d-lg-flex flex-column">
 
-        <a href="/myprofile" class="active">
-            <i class="fa-solid fa-user"></i>
-            My Profile
-        </a>
-
         <a href="/home">
             <i class="fas fa-home"></i>
             Home
@@ -111,7 +99,7 @@
 
     </nav>
 
-    <a href="" class="sidebar-profile d-none d-lg-flex">
+    <a th:href="@{/employer/profile}" class="sidebar-profile d-none d-lg-flex">
 
         <img th:src="@{/images/default_profile.jpg}"
                 alt="Profile Photo"
@@ -120,12 +108,12 @@
         <div class="profile-info">
 
             <span class="username"
-                    text="">
+                    th:text="${employer.user.name}">
                 Username
             </span>
 
             <span class="user-role">
-                Freelancer
+                Employer
             </span>
 
         </div>

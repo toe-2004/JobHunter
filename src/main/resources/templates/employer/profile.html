@@ -1,45 +1,120 @@
-<div>
-  <h2>Company Details</h2>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-  <p>
-    <strong>Company name:</strong>
-    <span th:text="${employer.companyName}">Company Name</span>
-  </p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <p>
-    <strong>Company email:</strong>
-    <span th:text="${employer.companyEmail}">email@example.com</span>
-  </p>
+    <title>Company Profile</title>
 
-  <p>
-    <strong>Phone:</strong>
-    <span th:text="${employer.companyPhone}">Phone</span>
-  </p>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/profile_employer.css}">
+</head>
 
-  <p>
-    <strong>Location:</strong>
-    <span th:text="${employer.companyLocation}">Location</span>
-  </p>
+<body>
+<div class="dashboard-layout">
+
+    <div class="sidebar-container">
+        <div th:replace="~{fragments/sidebar_for_employer :: sidebar}"></div>
+    </div>
+    
+    <main class="main-content">
+        <div class="profile-container">
+
+            <div class="profile-header">
+
+                <img
+                    th:src="@{/images/default_profile.jpg}"
+                    alt="Company Photo"
+                    class="company-photo">
+
+                <div class="company-info">
+                    <h1 th:text="${employer.companyName}">
+                        Company Name
+                    </h1>
+                    <p>Company Profile</p>
+                </div>
+
+            </div>
+
+            <div class="profile-card">
+
+                <h2>Company Details</h2>
+                <div class="info-row">
+                    <div class="info-label">Company Name</div>
+                    <div class="info-value"
+                        th:text="${employer.companyName}">
+                        Company Name
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">Company Email</div>
+                    <div class="info-value"
+                        th:text="${employer.companyEmail}">
+                        email@example.com
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">Phone</div>
+                    <div class="info-value"
+                        th:text="${employer.companyPhone}">
+                        Phone
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">Location</div>
+                    <div class="info-value"
+                        th:text="${employer.companyLocation}">
+                        Location
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="profile-card">
+                <h2>Company Description</h2>
+                <p class="description"
+                  th:text="${employer.companyDescription}">
+                    Company description goes here.
+                </p>
+            </div>
+
+            <div class="profile-card">
+                <h2>Account Owner</h2>
+                <div class="info-row">
+                    <div class="info-label">Name</div>
+                    <div class="info-value"
+                        th:text="${employer.user.name}">
+                        Owner Name
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="info-label">Role</div>
+
+                    <div class="info-value">
+                        <span class="role-badge">
+                            Employer
+                        </span>
+                    </div>
+                </div>
+
+                <a th:href="@{/employer/profile/edit}"
+                  class="edit-btn">
+                    <i class="fas fa-edit"></i>
+                    Edit Profile
+                </a>
+
+            </div>
+
+        </div>
+    </main>
 </div>
-
-<div>
-  <h2>Company Description</h2>
-
-  <p th:text="${employer.companyDescription}">Description</p>
-</div>
-
-<div>
-  <h2>Account Owner</h2>
-
-  <p>
-    <strong>Name:</strong>
-    <span th:text="${employer.user.name}">Owner Name</span>
-  </p>
-
-  <p>
-    <strong>Role:</strong>
-    Employer
-  </p>
-
-  <a th:href="@{/employer/profile/edit}"> Edit Profile </a>
-</div>
+</body>
+</html>
