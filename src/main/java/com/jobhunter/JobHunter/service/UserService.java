@@ -62,15 +62,16 @@ public class UserService {
                     uploadPath.resolve(fileName),
                     StandardCopyOption.REPLACE_EXISTING
                 );
-                user.setPassword(
-                	    passwordEncoder.encode(user.getPassword())
-                	);
+                
                 user.setProfilePhoto(fileName);
 
             } catch(IOException e) {
                 throw new RuntimeException("Could not save image.", e);
           }
         }
+        user.setPassword(
+        	    passwordEncoder.encode(user.getPassword())
+        	);
         userRepository.save(user);
         return "success";
     }

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Create Freelancer Profile</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        .form-container {
+            width: 500px;
+            margin: auto;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .skill {
+            margin: 8px 0;
+        }
+
+        .skill input {
+            width: auto;
+        }
+
+        .add-skill {
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="form-container">
+
+
+<h2>Freelancer Profile</h2>
+
+
+<form th:action="@{/freelancer/profile}"
+      method="post"
+      th:object="${freelancer}">
+
+
+
+
+    <label>
+        Professional Title
+    </label>
+
+    <input type="text"
+           th:field="*{title}"
+           placeholder="Example: Java Developer"
+           required>
+
+
+
+    <label>
+        Phone
+    </label>
+
+    <input type="text"
+           th:field="*{phone}"
+           placeholder="Phone number">
+
+
+
+
+    <label>
+        Location
+    </label>
+
+    <input type="text"
+           th:field="*{location}"
+           placeholder="Yangon">
+
+
+   
+
+    <label>
+        Summary
+    </label>
+
+    <textarea th:field="*{summary}"
+              rows="5"
+              placeholder="Introduce yourself">
+    </textarea>
+
+
+
+    <label>
+        Experience
+    </label>
+
+    <textarea th:field="*{experience}"
+              rows="5">
+    </textarea>
+
+
+
+
+    <label>
+        Education
+    </label>
+
+    <textarea th:field="*{education}"
+              rows="5">
+    </textarea>
+
+
+
+    <h3>Skills</h3>
+
+
+
+
+    <a class="add-skill"
+       th:href="@{/freelancer/skill}">
+
+        <button type="button">
+            + Create Skill
+        </button>
+
+    </a>
+
+
+    <br><br>
+
+
+    <div th:each="skill : ${skills}"
+         class="skill">
+
+
+        <label>
+
+            <input type="checkbox"
+                   name="skillIds"
+                   th:value="${skill.id}">
+
+
+            <span th:text="${skill.name}">
+            </span>
+
+
+        </label>
+
+
+    </div>
+
+
+    <br>
+
+
+    <button type="submit">
+        Save Profile
+    </button>
+
+
+</form>
+
+
+</div>
+
+
+</body>
+
+</html>

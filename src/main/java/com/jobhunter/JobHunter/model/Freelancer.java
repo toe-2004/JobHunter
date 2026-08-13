@@ -1,6 +1,6 @@
 package com.jobhunter.JobHunter.model;
 
-import java.util.List;
+import java.util.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -94,13 +94,15 @@ public class Freelancer {
 		this.engagements = engagements;
 	}
 
-	public List<FreelancerSkill> getFreelancerSkills() {
+
+	public Set<FreelancerSkill> getFreelancerSkills() {
 		return freelancerSkills;
 	}
 
-	public void setFreelancerSkills(List<FreelancerSkill> freelancerSkills) {
+	public void setFreelancerSkills(Set<FreelancerSkill> freelancerSkills) {
 		this.freelancerSkills = freelancerSkills;
 	}
+
 
 	@OneToOne
 	@JoinColumn(name = "user_id", nullable = false, unique = true)
@@ -129,7 +131,7 @@ public class Freelancer {
 
 	@OneToMany(mappedBy = "freelancer")
 	private List<Engagement> engagements;
-
+	
 	@OneToMany(mappedBy = "freelancer")
-	private List<FreelancerSkill> freelancerSkills;
+	private Set<FreelancerSkill> freelancerSkills = new HashSet<>();
 }
