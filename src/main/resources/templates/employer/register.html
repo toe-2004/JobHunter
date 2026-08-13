@@ -1,57 +1,98 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/employer_register&profile_edit_form.css}">
     <title>Employer Registration</title>
-  </head>
 
-  <body>
-    <h1>Create Employer Profile</h1>
+</head>
 
-    <div th:if="${error}">
-      <p th:text="${error}"></p>
+<body>
+
+    <div class="form-container">
+
+        <div class="form-header">
+            <h1>Create Employer Profile</h1>
+            <p>Enter your company information to create an employer account.</p>
+        </div>
+
+        <div th:if="${error != null and !#strings.isEmpty(error)}" class="general-error">
+            <p th:text="${error}"></p>
+        </div>
+
+        <form th:action="@{/employer/register}"
+              th:object="${employerForm}"
+              method="post">
+
+            <div class="form-group">
+                <label for="companyName">Company Name</label>
+                <input type="text"
+                       id="companyName"
+                       th:field="*{companyName}"
+                       placeholder="Enter company name">
+
+                <div class="error" th:errors="*{companyName}"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="companyEmail">Company Email</label>
+                <input type="email"
+                       id="companyEmail"
+                       th:field="*{companyEmail}"
+                       placeholder="Enter company email">
+
+                <div class="error" th:errors="*{companyEmail}"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="companyPhone">Company Phone</label>
+                <input type="text"
+                       id="companyPhone"
+                       th:field="*{companyPhone}"
+                       placeholder="Enter company phone">
+
+                <div class="error" th:errors="*{companyPhone}"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="companyLocation">Company Location</label>
+                <input type="text"
+                       id="companyLocation"
+                       th:field="*{companyLocation}"
+                       placeholder="Enter company location">
+
+                <div class="error" th:errors="*{companyLocation}"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="companyDescription">Company Description</label>
+                <textarea id="companyDescription"
+                          th:field="*{companyDescription}"
+                          placeholder="Tell us about your company..."></textarea>
+
+                <div class="error" th:errors="*{companyDescription}"></div>
+            </div>
+
+            <div class="button-group">
+                <a th:href="@{/choose-role}" class="back-btn">
+                    Go Back to Choose Role
+                </a>
+
+                <button type="submit" class="submit-btn">
+                    Create Employer Account
+                </button>
+            </div>
+
+        </form>
+
     </div>
 
-    <form
-      th:action="@{/employer/register}"
-      th:object="${employerForm}"
-      method="post"
-    >
-      <div>
-        <label>Company Name</label>
-        <input type="text" th:field="*{companyName}" />
+</body>
 
-        <div th:errors="*{companyName}"></div>
-      </div>
-
-      <div>
-        <label>Company Email</label>
-        <input type="email" th:field="*{companyEmail}" />
-
-        <div th:errors="*{companyEmail}"></div>
-      </div>
-
-      <div>
-        <label>Company Phone</label>
-        <input type="text" th:field="*{companyPhone}" />
-
-        <div th:errors="*{companyPhone}"></div>
-      </div>
-
-      <div>
-        <label>Company Location</label>
-        <input type="text" th:field="*{companyLocation}" />
-
-        <div th:errors="*{companyLocation}"></div>
-      </div>
-
-      <div>
-        <label>Company Description</label>
-        <textarea th:field="*{companyDescription}" rows="5"></textarea>
-
-        <div th:errors="*{companyDescription}"></div>
-      </div>
-
-      <button type="submit">Create Employer Account</button>
-    </form>
-  </body>
 </html>
