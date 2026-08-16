@@ -5,7 +5,7 @@
 
     <meta charset="UTF-8">
 
-    <title>My Jobs</title>
+    <title>Available Jobs</title>
 
     <style>
 
@@ -21,10 +21,6 @@
             margin: auto;
         }
 
-        h1 {
-            margin-bottom: 25px;
-        }
-
         .job-card {
             background: white;
             padding: 25px;
@@ -36,7 +32,6 @@
         .job-title {
             font-size: 24px;
             font-weight: bold;
-            margin-bottom: 10px;
         }
 
         .description {
@@ -48,7 +43,6 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 15px;
-            margin: 15px 0;
         }
 
         .info-box {
@@ -63,10 +57,6 @@
             margin-bottom: 5px;
         }
 
-        .skills {
-            margin-top: 15px;
-        }
-
         .skill {
             display: inline-block;
             background: #e8f5e9;
@@ -76,104 +66,43 @@
             border-radius: 15px;
         }
 
-        .actions {
-            margin-top: 20px;
-        }
-
-        .edit-btn {
+        .apply-btn {
             display: inline-block;
             padding: 10px 20px;
-            background: #1976d2;
+            background: #2e7d32;
             color: white;
             text-decoration: none;
             border-radius: 5px;
+            margin-top: 20px;
         }
 
-        .edit-btn:hover {
-            background: #125ca1;
+        .apply-btn:hover {
+            background: #1b5e20;
         }
 
-        .no-jobs {
-            background: white;
-            padding: 30px;
-            text-align: center;
-            border-radius: 8px;
+        .closed {
+            color: red;
+            font-weight: bold;
         }
-		
-		
-		.status-btn,
-		.delete-btn {
-		    display: inline-block;
-		    padding: 10px 20px;
-		    border: none;
-		    border-radius: 5px;
-		    color: white;
-		    cursor: pointer;
-		    text-decoration: none;
-		    margin-left: 10px;
-		}
 
-		.status-btn {
-		    background: #ff9800;
-		}
+        .open {
+            color: green;
+            font-weight: bold;
+        }
 
-		.status-btn:hover {
-		    background: #e68900;
-		}
-
-		.delete-btn {
-		    background: #d32f2f;
-		}
-
-		.delete-btn:hover {
-		    background: #b71c1c;
-		}
-
-		.open-status {
-		    color: green;
-		    font-weight: bold;
-		}
-
-		.closed-status {
-		    color: red;
-		    font-weight: bold;
-		}
-
-		
-		.applications-btn {
-		    display: inline-block;
-		    padding: 10px 20px;
-		    background: #7b1fa2;
-		    color: white;
-		    text-decoration: none;
-		    border-radius: 5px;
-		    margin-left: 10px;
-		}
-
-		.applications-btn:hover {
-		    background: #5e1780;
-		}
     </style>
 
 </head>
 
-
 <body>
-
 
 <div class="container">
 
-    <h1>My Jobs</h1>
+    <h1>Available Jobs</h1>
 
+    <div th:if="${#lists.isEmpty(jobs)}">
 
-    <div th:if="${#lists.isEmpty(jobs)}"
-         class="no-jobs">
-
-        <h3>No jobs found.</h3>
-
-        <a th:href="@{/create-job}">
-            Create your first job
-        </a>
+        <h3>No jobs available.</h3>
 
     </div>
 
@@ -185,13 +114,13 @@
              th:text="${job.title}">
         </div>
 
+
         <div class="description"
              th:text="${job.description}">
         </div>
 
 
         <div class="info">
-
 
             <div class="info-box">
 
@@ -220,7 +149,7 @@
             <div class="info-box">
 
                 <span class="label">
-                    Experience Level
+                    Experience
                 </span>
 
                 <span th:text="${job.experienceLevel}">
@@ -277,29 +206,30 @@
             </div>
 
 
-			<div class="info-box">
+            <div class="info-box">
 
-			    <span class="label">
-			        Status
-			    </span>
+                <span class="label">
+                    Status
+                </span>
 
-			    <span th:if="${job.status.name() == 'OPEN'}"
-			          class="open-status">
-			        OPEN
-			    </span>
+                <span th:if="${job.status.name() == 'OPEN'}"
+                      class="open">
+                    OPEN
+                </span>
 
-			    <span th:if="${job.status.name() == 'CLOSED'}"
-			          class="closed-status">
-			        CLOSED
-			    </span>
+                <span th:if="${job.status.name() == 'CLOSED'}"
+                      class="closed">
+                    CLOSED
+                </span>
 
-			</div>
+            </div>
 
         </div>
 
 
+        <!-- Skills -->
 
-        <div class="skills">
+        <div style="margin-top: 20px;">
 
             <strong>Skills:</strong>
 
@@ -315,49 +245,46 @@
         </div>
 
 
-		<div class="actions">
+        <!-- Apply 
 
-		 
-		    <a class="edit-btn"
-		       th:href="@{/edit-job/{id}(id=${job.id})}">
-		        Edit
-		    </a>
+        <a th:if="${job.status.name() == 'OPEN'}"
+           th:href="@{/apply-job/{id}(id=${job.id})}"
+           class="apply-btn">
 
-		    <form th:action="@{/job-status/{id}(id=${job.id})}"
-		          method="post"
-		          style="display:inline;">
+            Apply Now
 
-		        <button type="submit"
-		                class="status-btn"
-		                th:text="${job.status.name() == 'OPEN'
-		                          ? 'Close Job'
-		                          : 'Open Job'}">
-		            Close Job
-		        </button>
+        </a>-->
+		
+		<!-- Apply button -->
+		<a th:if="${job.status.name() == 'OPEN' 
+		           and !appliedJobIds.contains(job.id)}"
+		   th:href="@{/apply-job/{id}(id=${job.id})}"
+		   class="apply-btn">
 
-		    </form>
+		    Apply Now
 
-			<a class="applications-btn"
-			   th:href="@{/employer/jobs/{jobId}/applications(jobId=${job.id})}">
-			    View Applications
-			</a>
+		</a>
 
-		    <form th:action="@{/delete-job/{id}(id=${job.id})}"
-		          method="post"
-		          style="display:inline;"
-		          onsubmit="return confirm('Are you sure you want to delete this job?');">
+		<!-- Already applied -->
+		<span th:if="${job.status.name() == 'OPEN' 
+		             and appliedJobIds.contains(job.id)}"
+		      class="applied-btn">
 
-		        <button type="submit"
-		                class="delete-btn">
-		            Delete
-		        </button>
+		    Already Applied
 
-		    </form>
+		</span>
 
-		</div>
+
+        <span th:if="${job.status.name() == 'CLOSED'}"
+              class="closed">
+
+            Applications Closed
+
+        </span>
+
+    </div>
 
 </div>
-
 
 </body>
 

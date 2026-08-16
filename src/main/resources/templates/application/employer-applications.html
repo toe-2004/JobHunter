@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Job Applications</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 30px;
+        }
+
+        .container {
+            width: 1000px;
+            margin: auto;
+        }
+
+        .application {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .shortlist {
+            background: #ffc107;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .accept {
+            background: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .reject {
+            background: #dc3545;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cover-letter {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+        }
+		
+		.cv-btn {
+		    display: inline-block;
+		    padding: 10px 15px;
+		    background: #007bff;
+		    color: white;
+		    text-decoration: none;
+		    border-radius: 5px;
+		}
+
+		.cv-btn:hover {
+		    background: #0056b3;
+		}
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <h1>
+
+        Applications for:
+
+        <span th:text="${job.title}">
+            Job Title
+        </span>
+
+    </h1>
+
+
+
+
+    <div th:if="${#lists.isEmpty(applications)}">
+
+        <p>No applications yet.</p>
+
+    </div>
+
+
+
+    <div
+        th:each="app : ${applications}"
+        class="application">
+
+
+        <h2>
+
+            Application #
+
+            <span th:text="${app.id}">
+                1
+            </span>
+
+        </h2>
+
+
+
+        <p>
+
+            <strong>Freelancer ID:</strong>
+
+            <span
+                th:text="${app.freelancer.id}">
+                0
+            </span>
+
+        </p>
+
+
+
+        <p>
+
+            <strong>Status:</strong>
+
+            <span
+                class="status"
+                th:text="${app.status}">
+                PENDING
+            </span>
+
+        </p>
+
+
+
+        <p>
+
+            <strong>Applied Date:</strong>
+
+            <span
+                th:text="${app.createdAt}">
+                Date
+            </span>
+
+        </p>
+
+
+
+
+        <p>
+
+            <strong>Cover Letter:</strong>
+
+        </p>
+
+        <div
+            class="cover-letter"
+            th:text="${app.coverLetter}">
+
+            Cover Letter
+
+        </div>
+
+		
+		<p>
+		    <strong>CV:</strong>
+
+		    <a th:href="@{/application/{id}/cv(id=${app.id})}"
+		       class="cv-btn"
+		       target="_blank">
+
+		        Download CV
+
+		    </a>
+		</p>
+
+
+        <div th:if="${app.status == T(com.jobhunter.JobHunter.enumeration.ApplicationStatus).PENDING}">
+
+
+
+
+            <form
+                th:action="@{/employer/applications/{id}/status(id=${app.id})}"
+                method="post"
+                style="display:inline;">
+
+                <input
+                    type="hidden"
+                    name="status"
+                    value="SHORTLISTED">
+
+                <button
+                    type="submit"
+                    class="shortlist">
+
+                    Shortlist
+
+                </button>
+
+            </form>
+
+
+            <form
+                th:action="@{/employer/applications/{id}/status(id=${app.id})}"
+                method="post"
+                style="display:inline;">
+
+                <input
+                    type="hidden"
+                    name="status"
+                    value="REJECTED">
+
+                <button
+                    type="submit"
+                    class="reject">
+
+                    Reject
+
+                </button>
+
+            </form>
+
+
+        </div>
+
+
+        <div th:if="${app.status == T(com.jobhunter.JobHunter.enumeration.ApplicationStatus).SHORTLISTED}">
+
+
+
+            <form
+                th:action="@{/employer/applications/{id}/status(id=${app.id})}"
+                method="post"
+                style="display:inline;">
+
+                <input
+                    type="hidden"
+                    name="status"
+                    value="ACCEPTED">
+
+                <button
+                    type="submit"
+                    class="accept">
+
+                    Accept
+
+                </button>
+
+            </form>
+
+
+            <form
+                th:action="@{/employer/applications/{id}/status(id=${app.id})}"
+                method="post"
+                style="display:inline;">
+
+                <input
+                    type="hidden"
+                    name="status"
+                    value="REJECTED">
+
+                <button
+                    type="submit"
+                    class="reject">
+
+                    Reject
+
+                </button>
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

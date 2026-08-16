@@ -132,51 +132,35 @@
 
 
 
-    <h3>Skills</h3>
+	<h3>Skills</h3>
 
+	<a class="add-skill"
+	   th:href="@{/freelancer/skill}">
 
+	    <button type="button">
+	        + Create Skill
+	    </button>
 
+	</a>
 
-    <a class="add-skill"
-       th:href="@{/freelancer/skill}">
+	<br><br>
 
-        <button type="button">
-            + Create Skill
-        </button>
+	<div th:each="skill : ${skills}">
 
-    </a>
+	    <input type="checkbox"
+	           name="skillIds"
+	           th:value="${skill.id}"
+	           th:checked="${selectedSkillIds.contains(skill.id)}">
 
+	    <span th:text="${skill.name}"></span>
 
-    <br><br>
+	</div>
 
+	<br>
 
-    <div th:each="skill : ${skills}"
-         class="skill">
-
-
-        <label>
-
-            <input type="checkbox"
-                   name="skillIds"
-                   th:value="${skill.id}">
-
-
-            <span th:text="${skill.name}">
-            </span>
-
-
-        </label>
-
-
-    </div>
-
-
-    <br>
-
-
-    <button type="submit">
-        Save Profile
-    </button>
+	<button type="submit">
+	    Save Profile
+	</button>
 
 
 </form>

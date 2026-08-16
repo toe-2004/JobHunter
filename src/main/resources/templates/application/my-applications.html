@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>My Applications</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 30px;
+        }
+
+        .container {
+            width: 1000px;
+            margin: auto;
+        }
+
+        .application-card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .job-title {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 7px 15px;
+            border-radius: 15px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .shortlisted {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .accepted {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .rejected {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .withdrawn {
+            background: #e2e3e5;
+            color: #41464b;
+        }
+
+        .withdraw-btn {
+            margin-top: 15px;
+            padding: 9px 18px;
+            background: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>My Applications</h1>
+
+
+    <div th:if="${#lists.isEmpty(applications)}">
+
+        <h3>You haven't applied for any jobs yet.</h3>
+
+    </div>
+
+
+    <div th:each="app : ${applications}"
+         class="application-card">
+
+
+        <div class="job-title"
+             th:text="${app.job.title}">
+        </div>
+
+
+        <p>
+            Applied:
+            <span th:text="${app.createdAt}">
+            </span>
+        </p>
+
+
+        <p>
+            Cover Letter:
+            <span th:text="${app.coverLetter}">
+            </span>
+        </p>
+
+
+
+
+        <span class="status"
+              th:classappend="${app.status.name().toLowerCase()}"
+              th:text="${app.status}">
+        </span>
+
+
+
+
+        <div th:if="${app.status.name() == 'PENDING'
+                     or app.status.name() == 'SHORTLISTED'}">
+
+            <form th:action="@{/application/{id}/withdraw(
+                              id=${app.id})}"
+                  method="post">
+
+                <button type="submit"
+                        class="withdraw-btn"
+                        onclick="return confirm('Withdraw this application?')">
+
+                    Withdraw
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
