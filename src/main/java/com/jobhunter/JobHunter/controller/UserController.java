@@ -25,11 +25,11 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/dashboard")
+    @GetMapping("/freelancer/dashboard")
     public String profile(Model model) {
         User user = userService.getCurrentUser();
         model.addAttribute("user", user);
-        return "dashboard";
+        return "freelancer/dashboard";
     }
 
     @GetMapping("/login")

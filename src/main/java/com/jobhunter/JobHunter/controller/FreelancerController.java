@@ -37,12 +37,12 @@ public class FreelancerController {
         if (optionalFreelancer.isPresent()) {
             Freelancer freelancer = optionalFreelancer.get();
             model.addAttribute("freelancer",freelancer);
-            return "freelancer-profile";
+            return "freelancer/freelancer-profile";
         }
         Freelancer freelancer = new Freelancer();
         model.addAttribute("freelancer",freelancer);
         model.addAttribute("skills", skillRepository.findAll());
-        return "freelancer-create";
+        return "freelancer/freelancer-create";
     }
 
     @Transactional
@@ -130,7 +130,7 @@ public class FreelancerController {
     @GetMapping("/freelancer/skill")
     public String showSkillForm(Model model) {
         model.addAttribute("skill",new Skill());
-        return "skillform";
+        return "freelancer/skillform";
     }
 
     @PostMapping("/freelancer/skill")
@@ -170,7 +170,7 @@ public class FreelancerController {
         if (optionalFreelancer.isEmpty()) {
             model.addAttribute("freelancer", new Freelancer());
             model.addAttribute("skills",skillRepository.findAll());
-            return "freelancer-create";
+            return "freelancer/freelancer-create";
         }
 
         Freelancer freelancer = optionalFreelancer.get();
@@ -178,6 +178,6 @@ public class FreelancerController {
         model.addAttribute("skills",skillRepository.findAll());
 
 
-        return "freelancer-create";
+        return "freelancer/freelancer-create";
     }
 }
