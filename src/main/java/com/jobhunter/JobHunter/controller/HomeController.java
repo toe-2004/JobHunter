@@ -16,6 +16,14 @@ public class HomeController {
     public String home() {
         return "login";
     }
+    @GetMapping("/test")
+    public String test() {
+        return "employer/test";
+    }
+    @GetMapping("/test1")
+    public String test1() {
+        return "employer/test1";
+    }
     
     // @GetMapping("/login")
     // public String login() {

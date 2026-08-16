@@ -27,24 +27,39 @@ public class FreelancerController {
     @Autowired
     private FreelancerSkillRepository freelancerSkillRepository;
 
+    
     @GetMapping("/freelancer/profile")
     public String viewProfile(Model model) {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userRepository.findByEmail(auth.getName()).orElseThrow(() -> new RuntimeException("User not found"));
+        Authentication auth =
+                SecurityContextHolder.getContext().getAuthentication();
 
-        Optional<Freelancer> optionalFreelancer = freelancerRepository.findByUser(user);
+        User user = userRepository.findByEmail(auth.getName())
+                .orElseThrow(() ->
+                        new RuntimeException("User not found"));
+
+        Optional<Freelancer> optionalFreelancer =
+                freelancerRepository.findByUser(user);
+
         if (optionalFreelancer.isPresent()) {
+
             Freelancer freelancer = optionalFreelancer.get();
-            model.addAttribute("freelancer",freelancer);
-            return "freelancer/freelancer-profile";
+
+            model.addAttribute(
+                    "freelancer",
+                    freelancer
+            );
+
+            return "freelancer-profile";
         }
+
         Freelancer freelancer = new Freelancer();
         model.addAttribute("freelancer",freelancer);
         model.addAttribute("skills", skillRepository.findAll());
-        return "freelancer/freelancer-create";
+        return "freelancer-create";
     }
-
+    
+    
     @Transactional
     @PostMapping("/freelancer/profile")
     public String saveProfile(
@@ -154,29 +169,54 @@ public class FreelancerController {
 
         return "redirect:/freelancer/edit";
     }
-
+    
     @GetMapping("/freelancer/edit")
     public String editFreelancer(Model model) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        Authentication auth =
+                SecurityContextHolder.getContext().getAuthentication();
 
         User user = userRepository.findByEmail(auth.getName())
-                        .orElseThrow(() ->
-                                new RuntimeException(
-                                        "User not found"));
+                .orElseThrow(() ->
+                        new RuntimeException("User not found"));
 
         Optional<Freelancer> optionalFreelancer =
                 freelancerRepository.findByUser(user);
 
         if (optionalFreelancer.isEmpty()) {
+
             model.addAttribute("freelancer", new Freelancer());
             model.addAttribute("skills",skillRepository.findAll());
-            return "freelancer/freelancer-create";
+            return "freelancer-create";
         }
 
         Freelancer freelancer = optionalFreelancer.get();
-        model.addAttribute("freelancer",freelancer);
-        model.addAttribute("skills",skillRepository.findAll());
 
+        Set<Long> selectedSkillIds = new HashSet<>();
+
+        for (FreelancerSkill freelancerSkill :
+                freelancer.getFreelancerSkills()) {
+
+            selectedSkillIds.add(
+                    freelancerSkill.getSkill().getId()
+            );
+        }
+
+        model.addAttribute(
+                "freelancer",
+                freelancer
+        );
+
+ 
+        model.addAttribute(
+                "skills",
+                skillRepository.findAll()
+        );
+
+        model.addAttribute(
+                "selectedSkillIds",
+                selectedSkillIds
+        );
 
         return "freelancer/freelancer-create";
     }

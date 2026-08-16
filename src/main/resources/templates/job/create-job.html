@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Create Freelancer Profile</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        .form-container {
+            width: 500px;
+            margin: auto;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .skill {
+            margin: 8px 0;
+        }
+
+        .skill input {
+            width: auto;
+        }
+
+        .add-skill {
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="form-container">
+
+
+	<h2 th:text="${job.id == null ? 'Create Job' : 'Edit Job'}">
+	    Create Job
+	</h2>
+
+<form th:action="${job.id == null}
+                ? @{/create-job}
+                : @{/edit-job/{id}(id=${job.id})}"
+      method="post"
+      th:object="${job}">
+
+
+
+
+    <label>
+        Job Title
+    </label>
+
+    <input type="text"
+           th:field="*{title}"
+           placeholder="Example: Job Title"
+           required>
+		   
+		   
+		   <div class="mb-3">
+		          <label class="form-label">Description</label>
+		          <textarea class="form-control" rows="5" th:field="*{description}" required></textarea>
+		      </div>
+
+		      <div class="row mb-3">
+		          <div class="col">
+		              <label class="form-label">Salary Min</label>
+		              <input type="number" step="0.01" class="form-control" th:field="*{salaryMin}">
+		          </div>
+		          <div class="col">
+		              <label class="form-label">Salary Max</label>
+		              <input type="number" step="0.01" class="form-control" th:field="*{salaryMax}">
+		          </div>
+		          <div class="col">
+		              <label class="form-label">Fixed Budget</label>
+		              <input type="number" step="0.01" class="form-control" th:field="*{budget}">
+		          </div>
+		      </div>
+			  
+			  <div class="mb-3">
+			          <label class="form-label">Application Deadline</label>
+			          <input type="datetime-local" class="form-control" th:field="*{deadline}">
+			      </div>
+
+
+
+				  <select class="form-select" th:field="*{category}" required>
+				      <option value="">-- Select Category --</option>
+
+				      <option th:each="c : ${categories}"
+				              th:value="${c.id}"
+				              th:text="${c.name}">
+				      </option>
+				  </select>
+
+		      <div class="row mb-3">
+		          <div class="col">
+		              <label class="form-label">Employment Type</label>
+		              <select class="form-select" th:field="*{employmentType}">
+		                  <option th:each="t : ${employmentTypes}" th:value="${t}" th:text="${t}"></option>
+		              </select>
+		          </div>
+		          <div class="col">
+		              <label class="form-label">Duration</label>
+		              <select class="form-select" th:field="*{duration}">
+		                  <option th:each="d : ${durations}" th:value="${d}" th:text="${d}"></option>
+		              </select>
+		          </div>
+		          <div class="col">
+		              <label class="form-label">Experience Level</label>
+		              <select class="form-select" th:field="*{experienceLevel}">
+		                  <option th:each="e : ${experienceLevels}" th:value="${e}" th:text="${e}"></option>
+		              </select>
+		          </div>
+		      </div>
+
+    <h3>Skills</h3>
+
+
+
+
+	<a th:href="${job.id == null}
+	        ? @{/job/skill}
+	        : @{/job/skill(jobId=${job.id})}">
+
+	    <button type="button">
+	        + Create Skill
+	    </button>
+
+	</a>
+
+    <br><br>
+
+
+	<h3>Skills</h3>
+
+	<div th:each="skill : ${skills}">
+
+	    <label>
+
+	        <input type="checkbox"
+	               name="skillIds"
+	               th:value="${skill.id}"
+	               th:checked="${selectedSkillIds != null
+	                    and selectedSkillIds.contains(skill.id)}">
+
+	        <span th:text="${skill.name}"></span>
+
+	    </label>
+
+	</div>
+
+    <br>
+
+
+	<button type="submit"
+	        th:text="${job.id == null ? 'Create Job' : 'Update Job'}">
+	    Create Job
+	</button>
+
+
+</form>
+
+
+</div>
+
+
+</body>
+
+</html>
