@@ -208,6 +208,8 @@ public class ApplicationController {
                         new RuntimeException("Job not found"));
 
         List<Application> applications = applicationRepository.findByJob(job);
+        Employer employer = job.getEmployer();
+        model.addAttribute("employer", employer);
         model.addAttribute("job",job);
         model.addAttribute("applications",applications);
         return "application/employer-applications";
