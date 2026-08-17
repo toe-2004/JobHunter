@@ -1,0 +1,486 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #f5f7fb;
+    font-family: 'Poppins', sans-serif;
+    color: #252a34;
+}
+
+.page {
+    width: 100%;
+    padding: 50px 20px;
+}
+
+.form-container {
+    max-width: 850px;
+    margin: auto;
+    background: white;
+    border-radius: 18px;
+    box-shadow:0 10px 35px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+}
+
+.profile-header {
+    padding: 35px 40px;
+    border-bottom:1px solid #eeeeee;
+}
+
+.profile-header h1 {
+    margin: 0 0 8px;
+    font-size: 27px;
+    font-weight: 700;
+    color: #20232a;
+}
+
+.profile-header p {
+    margin: 0;
+    color: #777;
+    font-size: 14px;
+}
+
+.form-body {
+    padding: 35px 40px 40px;
+}
+
+.form-section {
+    margin-bottom: 30px;
+}
+
+.section-title {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group.full {
+    grid-column:1 / -1;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #444;
+}
+
+input,
+textarea,
+select {
+    width: 100%;
+    border:1px solid #dedede;
+    border-radius: 9px;
+    padding: 12px 14px;
+    font-family:'Poppins', sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: 0.2s;
+    background: white;
+}
+
+input {
+    height: 46px;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.6;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #4f46e5;
+    box-shadow:0 0 0 3px rgba(79, 70, 229, 0.08);
+}
+
+.skills-header {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.skills-header .section-title {
+    margin: 0;
+}
+
+.create-skill-btn {
+    border: none;
+    background: #f0efff;
+    color: #4f46e5;
+    padding: 9px 14px;
+    border-radius: 7px;
+    font-family:'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.create-skill-btn:hover {
+    background: #4f46e5;
+    color: white;
+}
+
+.skill-help {
+    font-size: 12px;
+    color: #888;
+    margin:0 0 10px;
+}
+
+.skills-select {
+    min-height: 130px;
+    padding: 5px;
+}
+
+.skills-select option {
+    padding: 9px 10px;
+    border-radius: 5px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content:flex-end;
+    align-items: center;
+    gap:10px;
+    padding-top:20px;
+    border-top:1px solid #eeeeee;
+}
+
+.cancel-profile-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px 24px;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+
+    background: white;
+    color: #555;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.cancel-profile-btn:hover {
+    background: #f5f5f5;
+    border-color: #ccc;
+    color: #333;
+}
+
+.save-btn {
+    border: none;
+    background: #4f46e5;
+    color: white;
+    padding:12px 24px;
+    border-radius: 8px;
+    font-family:'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.save-btn:hover {
+    background: #4338ca;
+    transform:translateY(-1px);
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background:rgba(20, 24, 35, 0.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 9999;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 430px;
+    height: auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow:0 20px 50px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    animation: modalOpen 0.2s ease;
+    top: auto;
+    left: auto;
+}
+
+@keyframes modalOpen {
+
+    from {
+        opacity: 0;
+        transform:translateY(-10px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding:20px 22px;
+    border-bottom:1px solid #eeeeee;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.close-btn {
+    border: none;
+    background: transparent;
+    color: #777;
+    font-size: 25px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: #222;
+}
+
+.modal-body {
+    padding: 22px;
+}
+
+.modal-body p {
+    margin:0 0 18px;
+    font-size: 12px;
+    color: #777;
+}
+
+.modal-body label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.modal-body input {
+    width: 100%;
+    height: 45px;
+    padding:10px 13px;
+    border:1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    font-family:'Poppins', sans-serif;
+}
+
+.modal-body input:focus {
+    border-color: #4f46e5;
+    box-shadow:0 0 0 3px rgba(79, 70, 229, 0.08);
+}
+
+.modal-footer {
+    display: flex;
+    justify-content:flex-end;
+    gap: 10px;
+    padding:15px 22px 20px;
+}
+
+.cancel-btn {
+    border:1px solid #ddd;
+    background: white;
+    color: #555;
+    padding:10px 18px;
+    border-radius: 7px;
+    font-family:'Poppins', sans-serif;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background: #f5f5f5;
+}
+
+.create-btn {
+    border: none;
+    background: #4f46e5;
+    color: white;
+    padding:10px 18px;
+    border-radius: 7px;
+    font-family:'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.create-btn:hover {
+    background: #4338ca;
+}
+
+@media (max-width: 700px) {
+
+    .page {
+        padding:20px 12px;
+    }
+
+    .profile-header {
+        padding:25px 22px;
+    }
+
+    .form-body {
+        padding:25px 22px;
+    }
+
+    .form-row {
+        grid-template-columns:1fr;
+        gap: 0;
+    }
+
+    .skills-header {
+        align-items:flex-start;
+        gap: 10px;
+        flex-direction:column;
+    }
+
+    .form-actions {
+        justify-content:stretch;
+    }
+
+    .save-btn {
+        width: 100%;
+    }
+
+}
+
+.skill-dropdown {
+    position: relative;
+    width: 100%;
+}
+
+.skill-dropdown-btn {
+    width: 100%;
+    min-height: 46px;
+    padding: 12px 14px;
+    border: 1px solid #dedede;
+    border-radius: 9px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    color: #555;
+    cursor: pointer;
+    text-align: left;
+}
+
+.skill-dropdown-btn:hover {
+    border-color: #4f46e5;
+}
+
+.dropdown-arrow {
+    font-size: 10px;
+    color: #777;
+    transition: transform 0.2s;
+}
+
+.skill-dropdown.open .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.skill-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #dedede;
+    border-radius: 9px;
+    box-shadow:0 8px 25px rgba(0, 0, 0, 0.10);
+    max-height: 220px;
+    overflow-y: auto;
+    z-index: 100;
+    display: none;
+    padding: 5px;
+}
+
+.skill-dropdown.open .skill-dropdown-menu {
+    display: block;
+}
+
+.skill-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 7px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+.skill-option:hover {
+    background: #f5f4ff;
+}
+
+.skill-option.selected {
+    background: #f0efff;
+    color: #4f46e5;
+    font-weight: 500;
+}
+
+.skill-check {
+    width: 18px;
+    height: 18px;
+    border: 1px solid #d5d5d5;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: transparent;
+    flex-shrink: 0;
+}
+
+.skill-option.selected .skill-check {
+    background: #4f46e5;
+    border-color: #4f46e5;
+    color: white;
+}

@@ -1,0 +1,557 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f6f7fb;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.page-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar-container {
+    width: 250px;
+    min-width: 250px;
+}
+
+.main-content {
+    flex: 1;
+    padding: 35px 45px;
+}
+
+.form-container {
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+.form-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 32px 38px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e8eaf0;
+}
+
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-header h2 {
+    margin: 0;
+    font-size: 27px;
+    font-weight: 700;
+    color: #222;
+}
+
+.page-header p {
+    margin: 7px 0 0;
+    color: #777;
+    font-size: 14px;
+}
+
+.form-section {
+    margin-bottom: 28px;
+}
+
+.section-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #292d32;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.form-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 7px;
+}
+
+.required {
+    color: #e74c3c;
+}
+
+.form-control,
+.form-select {
+    min-height: 44px;
+    border: 1px solid #dfe2e8;
+    border-radius: 7px;
+    font-size: 14px;
+    padding: 9px 12px;
+    box-shadow: none;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.10);
+}
+
+textarea.form-control {
+    min-height: 130px;
+    resize: vertical;
+}
+
+.salary-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.details-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.skills-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.skills-header .section-title {
+    margin: 0;
+}
+
+.create-skill-btn {
+    border: none;
+    background: #f0efff;
+    color: #4f46e5;
+    padding: 9px 14px;
+    border-radius: 7px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.create-skill-btn:hover {
+    background: #4f46e5;
+    color: white;
+}
+
+.skill-dropdown {
+    position: relative;
+    width: 100%;
+}
+
+.skill-dropdown-btn {
+    width: 100%;
+    min-height: 46px;
+    padding: 12px 14px;
+    border: 1px solid #dedede;
+    border-radius: 9px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    color: #555;
+    cursor: pointer;
+    text-align: left;
+}
+
+.skill-dropdown-btn:hover {
+    border-color: #4f46e5;
+}
+
+.dropdown-arrow {
+    font-size: 10px;
+    color: #777;
+    transition: transform 0.2s;
+}
+
+.skill-dropdown.open .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.skill-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #dedede;
+    border-radius: 9px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.10);
+    max-height: 220px;
+    overflow-y: auto;
+    z-index: 100;
+    display: none;
+    padding: 5px;
+}
+
+.skill-dropdown.open .skill-dropdown-menu {
+    display: block;
+}
+
+.skill-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 7px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+.skill-option:hover {
+    background: #f5f4ff;
+}
+
+.skill-option.selected {
+    background: #f0efff;
+    color: #4f46e5;
+    font-weight: 500;
+}
+
+.skill-check {
+    width: 18px;
+    height: 18px;
+    border: 1px solid #d5d5d5;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: transparent;
+    flex-shrink: 0;
+}
+
+.skill-option.selected .skill-check {
+    background: #4f46e5;
+    border-color: #4f46e5;
+    color: white;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 30px;
+    padding-top: 22px;
+    border-top: 1px solid #eeeeee;
+}
+
+.cancel-btn {
+    padding: 10px 22px;
+    border-radius: 7px;
+    border: 1px solid #d7d9df;
+    background: white;
+    color: #555;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.cancel-btn:hover {
+    background: #f5f5f5;
+    color: #333;
+}
+
+.submit-btn {
+    border: none;
+    padding: 10px 24px;
+    border-radius: 7px;
+    background: #6366f1;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.submit-btn:hover {
+    background: #4f46e5;
+}
+
+@media (max-width: 1000px) {
+
+    .main-content {
+        padding: 25px;
+    }
+
+    .salary-row,
+    .details-row {
+        grid-template-columns: 1fr;
+    }
+
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+
+    .sidebar-container {
+        width: 200px;
+        min-width: 200px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .form-card {
+        padding: 25px 20px;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .skill-header {
+        align-items: flex-start;
+        gap: 15px;
+        flex-direction: column;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .submit-btn,
+    .cancel-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.skill-dropdown {
+    position: relative;
+    width: 100%;
+}
+
+.skill-dropdown-btn {
+    width: 100%;
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: #ffffff;
+    border: 1px solid #dfe2e8;
+    border-radius: 7px;
+    color: #555;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.skill-dropdown-btn:hover {
+    border-color: #6366f1;
+}
+
+.dropdown-arrow {
+    font-size: 11px;
+    color: #777;
+    transition: 0.2s;
+}
+
+.skill-dropdown.open .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.skill-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    right: 0;
+    max-height: 220px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #dfe2e8;
+    border-radius: 7px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    padding: 6px;
+    display: none;
+    z-index: 100;
+}
+
+.skill-dropdown.open .skill-dropdown-menu {
+    display: block;
+}
+
+.skill-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #444;
+    cursor: pointer;
+}
+
+.skill-option:hover {
+    background: #f5f6ff;
+}
+
+.skill-option.selected {
+    background: #eef0ff;
+    color: #4f46e5;
+}
+
+.skill-check {
+    width: 18px;
+    font-size: 13px;
+    color: transparent;
+}
+
+.skill-option.selected .skill-check {
+    color: #6366f1;
+}
+
+.no-skills {
+    padding: 12px;
+    text-align: center;
+    color: #888;
+    font-size: 13px;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.2s ease;
+    z-index: 9999;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.skill-modal {
+    width: 440px;
+    max-width: calc(100% - 40px);
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+    transform: translateY(-15px);
+    transition: 0.2s ease;
+}
+
+.modal-overlay.active .skill-modal {
+    transform: translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 22px 24px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #292d32;
+}
+
+.modal-header p {
+    margin: 5px 0 0;
+    font-size: 13px;
+    color: #888;
+}
+
+.close-btn {
+    border: none;
+    background: transparent;
+    font-size: 26px;
+    line-height: 1;
+    color: #777;
+    cursor: pointer;
+    padding: 0;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+.modal-body label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+}
+
+.modal-body input {
+    width: 100%;
+    min-height: 44px;
+    padding: 9px 12px;
+    border: 1px solid #dfe2e8;
+    border-radius: 7px;
+    outline: none;
+    font-size: 14px;
+}
+
+.modal-body input:focus {
+    border-color: #6366f1;
+    box-shadow:0 0 0 3px rgba(99, 102, 241, 0.10);
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 16px 24px;
+    border-top: 1px solid #eeeeee;
+}
+
+.modal-cancel-btn {
+    padding: 9px 18px;
+    border-radius: 7px;
+    border: 1px solid #d7d9df;
+    background: white;
+    color: #555;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.modal-cancel-btn:hover {
+    background: #f5f5f5;
+}
+
+.modal-create-btn {
+    padding: 9px 20px;
+    border: none;
+    border-radius: 7px;
+    background: #6366f1;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.modal-create-btn:hover {
+    background: #4f46e5;
+}

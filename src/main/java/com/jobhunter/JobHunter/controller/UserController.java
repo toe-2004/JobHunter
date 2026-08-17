@@ -25,12 +25,7 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/freelancer/dashboard")
-    public String profile(Model model) {
-        User user = userService.getCurrentUser();
-        model.addAttribute("user", user);
-        return "freelancer/dashboard";
-    }
+   
 
     @GetMapping("/login")
     public String login() {

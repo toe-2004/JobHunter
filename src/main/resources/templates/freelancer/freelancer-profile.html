@@ -1,155 +1,245 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>My Freelancer Profile</title>
 
-    <style>
-
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-        }
-
-        .profile-card {
-            width: 600px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-        }
-
-        .label {
-            font-weight: bold;
-        }
-
-        button {
-            padding: 10px 20px;
-            background: green;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-    </style>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/profile_freelancer.css}">
+    <script th:src="@{/js/bootstrap.bundle.min.js}" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap"
+      rel="stylesheet">
 
 </head>
 
-
 <body>
 
+    <!-- Freelancer Sidebar -->
+    <div th:replace="~{fragments/sidebar_for_freelancer :: sidebar}"></div>
 
-<h2>My Freelancer Profile</h2>
+    <!-- Main-content -->
+    <main class="main-content">
+
+        <div class="profile-container">
+
+            <div class="page-header">
+
+                <div>
+                    <h1 class="page-title">My Profile</h1>
+                    <p class="page-subtitle">Manage and showcase your freelancer profile</p>
+                </div>
+
+            </div>
+
+            <div class="profile-hero">
+
+                <div class="profile-image-wrapper">
+
+                    <img th:if="${freelancer.user.profilePhoto != null}"
+                        th:src="@{'/uploads/' + ${freelancer.user.profilePhoto}}"
+                        alt="Profile Photo"
+                        class="profile-image">
+                    <div th:if="${freelancer.user.profilePhoto == null}" class="default-avatar">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+                </div>
+
+                <div class="profile-hero-info">
+
+                    <h2 class="profile-name"
+                        th:text="${freelancer.user.name}">
+                        Freelancer Name
+                    </h2>
+                    <div class="profile-title"
+                        th:text="${freelancer.title}">
+                        Freelancer Title
+                    </div>
+
+                </div>
+                <a th:href="@{/freelancer/edit}" class="edit-profile-btn">
+                    <i class="fa-solid fa-pen"></i>
+                    Edit Profile
+                </a>
+
+            </div>
+
+            <div class="profile-card">
+
+                <div class="card-header-custom">
+
+                    <div class="card-header-icon">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <h3>Personal Information</h3>
+
+                </div>
+
+                <div class="card-body-custom">
+
+                    <div class="info-grid">
+
+                        <div class="info-item">
+
+                            <span class="info-label">Name</span>
+                            <span class="info-value"
+                                th:text="${freelancer.user.name}">
+                                Freelancer Name
+                            </span>
+
+                        </div>
+
+                        <div class="info-item">
+
+                            <span class="info-label">Email</span>
+                            <span class="info-value"
+                                th:text="${freelancer.user.email}">
+                            </span>
+
+                        </div>
+
+                        <div class="info-item">
+
+                            <span class="info-label">Phone</span>
+                            <span class="info-value"
+                                th:text="${freelancer.phone}">
+                            </span>
+
+                        </div>
+                        <div class="info-item">
+
+                            <span class="info-label">Location</span>
+                            <span class="info-value"
+                                th:text="${freelancer.location}">
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="profile-card">
+
+                <div class="card-header-custom">
+
+                    <div class="card-header-icon">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <h3>Skills</h3>
+
+                </div>
 
 
-<a th:href="@{/freelancer/edit}">
+                <div class="card-body-custom">
 
-    <button type="button">
-        Edit Profile
-    </button>
+                    <div class="skills-container">
 
-</a>
+                        <span class="skill-badge"
+                            th:each="fs : ${freelancer.freelancerSkills}">
+                            <i class="fa-solid fa-check"></i>
+                            <span th:text="${fs.skill.name}"></span>
+                        </span>
 
+                        <span class="empty-text"
+                            th:if="${#lists.isEmpty(freelancer.freelancerSkills)}">
+                            No skills added yet.
+                        </span>
 
-<div class="profile-card">
-<p>
-	<span class="label">
-            Name:
-        </span>
+                    </div>
 
-        <span th:text="${freelancer.user.name}">
-        </span>
+                </div>
 
-    </p>
-	 <p>
+            </div>
 
-        <span class="label">
-            Email:
-        </span>
+            <div class="profile-card">
 
-        <span th:text="${freelancer.user.email}">
-        </span>
+                <div class="card-header-custom">
 
-    </p>
-	<p>
+                    <div class="card-header-icon">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                    <h3>About Me</h3>
 
-        <span class="label">
-            Title:
-        </span>
+                </div>
 
-        <span th:text="${freelancer.title}">
-        </span>
+                <div class="card-body-custom">
 
-    </p>
-	<p>
+                    <p class="description"
+                        th:if="${freelancer.summary != null and !#strings.isEmpty(freelancer.summary)}"
+                        th:text="${freelancer.summary}">
+                    </p>
+                    <span class="empty-text"
+                        th:if="${freelancer.summary == null or #strings.isEmpty(freelancer.summary)}">
+                        No summary added yet. Add one to introduce yourself to employers.
+                    </span>
 
-        <span class="label">
-            Phone:
-        </span>
+                </div>
 
-        <span th:text="${freelancer.phone}">
-        </span>
+            </div>
 
-    </p>
-	 <p>
+            <div class="profile-card">
 
-        <span class="label">
-            Location:
-        </span>
+                <div class="card-header-custom">
 
-        <span th:text="${freelancer.location}">
-        </span>
+                    <div class="card-header-icon">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                    <h3>Education</h3>
 
-    </p>
-	<p>
+                </div>
+                <div class="card-body-custom">
 
-        <span class="label">
-            Summary:
-        </span>
+                    <p class="description"
+                        th:if="${freelancer.education != null and !#strings.isEmpty(freelancer.education)}"
+                        th:text="${freelancer.education}">
+                    </p>
+                    <span class="empty-text"
+                        th:if="${freelancer.education == null or #strings.isEmpty(freelancer.education)}">
+                        No education information added yet.
+                    </span>
 
-        <span th:text="${freelancer.summary}">
-        </span>
+                </div>
 
-    </p>
-	<p>
+            </div>
 
-        <span class="label">
-            Experience:
-        </span>
+            <div class="profile-card">
 
-        <span th:text="${freelancer.experience}">
-        </span>
+                <div class="card-header-custom">
 
-    </p>
-	<p>
+                    <div class="card-header-icon">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+                    <h3>Experience</h3>
 
-        <span class="label">
-            Education:
-        </span>
+                </div>
+                <div class="card-body-custom">
 
-        <span th:text="${freelancer.education}">
-        </span>
+                    <p class="description"
+                        th:if="${freelancer.experience != null and !#strings.isEmpty(freelancer.experience)}"
+                        th:text="${freelancer.experience}">
+                    </p>
+                    <span class="empty-text"
+                        th:if="${freelancer.experience == null or #strings.isEmpty(freelancer.experience)}">
+                        No experience information added yet.
+                    </span>
 
-    </p>
-	<img th:if="${freelancer.user.profilePhoto != null}"
-         th:src="@{'/uploads/' + ${freelancer.user.profilePhoto}}"
-         width="150">
-	<h3>
-        Skills
-    </h3>
-	<ul>
+                </div>
 
-        <li th:each="fs : ${freelancer.freelancerSkills}">
+            </div>
+           
+        </div>
 
-            <span th:text="${fs.skill.name}">
-            </span>
-
-        </li>
-
-    </ul>
-
-</div>
-
+    </main>
 
 </body>
 

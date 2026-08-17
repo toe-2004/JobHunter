@@ -211,14 +211,14 @@
 
                     </div>
 
-                    <div th:each="application : ${recentApplications}"
+                    <div th:each="app : ${recentApplications}"
                          class="application-item">
 
                         <div class="freelancer-name">
 
                             <i class="fas fa-user"></i>
 
-                            <span th:text="${application.freelancer.user.name}">
+                            <span th:text="${app.freelancer.user.name}">
                                 Freelancer Name
                             </span>
 
@@ -228,7 +228,7 @@
 
                             <i class="fas fa-briefcase"></i>
 
-                            <span th:text="${application.job.title}">
+                            <span th:text="${app.job.title}">
                                 Job Title
                             </span>
 
@@ -239,7 +239,7 @@
                             <i class="far fa-calendar"></i>
 
                             Applied
-                            <span th:text="${#temporals.format(application.createdAt,'dd MMM yyyy')}">
+                            <span th:text="${#temporals.format(app.createdAt,'dd MMM yyyy')}">
                                 Date
                             </span>
 

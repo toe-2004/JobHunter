@@ -9,6 +9,7 @@ import com.jobhunter.JobHunter.model.*;
 import com.jobhunter.JobHunter.repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -41,12 +42,35 @@ public class JobController {
 
     @GetMapping("/create-job")
     public String showCreateJobForm(Model model) {
+        
+        Authentication auth =
+        SecurityContextHolder
+                .getContext()
+                .getAuthentication();
+
+        User user = userRepository
+                .findByEmail(auth.getName())
+                .orElseThrow(() ->
+                        new RuntimeException("User not found"));
+
+        Employer employer = employerRepository
+                .findByUserId(user.getId())
+                .orElseThrow(() ->
+                        new RuntimeException("Employer not found"));
+
+        model.addAttribute("employer", employer);
+
 
         model.addAttribute("job", new Job());
 
         model.addAttribute(
                 "skills",
                 skillRepository.findAll()
+        );
+
+        model.addAttribute(
+                "selectedSkillIds",
+                new ArrayList<Long>()
         );
 
         model.addAttribute(
@@ -120,70 +144,95 @@ public class JobController {
     }
     
     
-    @GetMapping("/job/skill")
-    public String showSkillForm(
-            @RequestParam(value = "jobId", required = false) Long jobId,
-            Model model) {
+//     @GetMapping("/job/skill")
+//     public String showSkillForm(
+//             @RequestParam(value = "jobId", required = false) Long jobId,
+//             Model model) {
 
-        model.addAttribute("skill", new Skill());
+//         model.addAttribute("skill", new Skill());
 
-        model.addAttribute("jobId", jobId);
+//         model.addAttribute("jobId", jobId);
 
-        return "job/jobskillform";
-    }
+//         return "job/jobskillform";
+//     }
 
-    @PostMapping("/job/skill")
-    public String saveSkill(@ModelAttribute("skill") Skill skill,
-    		 @RequestParam(value = "jobId", required = false) Long jobId
-    		) {
+//     @PostMapping("/job/skill")
+//     public String saveSkill(@ModelAttribute("skill") Skill skill,
+//     		 @RequestParam(value = "jobId", required = false) Long jobId
+//     		) {
 
-        String skillName = skill.getName() == null
-                        ? ""
-                        : skill.getName().trim();
+//         String skillName = skill.getName() == null
+//                         ? ""
+//                         : skill.getName().trim();
+
+//         if (skillName.isEmpty()) {
+//             throw new RuntimeException("Skill name cannot be empty");
+//         }
+
+//         Optional<Skill> existingSkill = skillRepository.findByNameIgnoreCase(skillName);
+//         if (existingSkill.isEmpty()) {
+
+//             Skill newSkill = new Skill();
+//             newSkill.setName(skillName);
+//             skillRepository.save(newSkill);
+//         }
+        
+//         if (jobId != null) {
+//             return "redirect:/edit-job/" + jobId;
+//         }
+
+//         return "redirect:/create-job";
+//     }
+    
+        @PostMapping("/job/skill")
+        @ResponseBody
+        public ResponseEntity<Skill> saveSkill(@RequestParam("name") String name) {
+
+        String skillName = name == null ? "" : name.trim();
 
         if (skillName.isEmpty()) {
-            throw new RuntimeException("Skill name cannot be empty");
+                return ResponseEntity.badRequest().build();
         }
 
-        Optional<Skill> existingSkill = skillRepository.findByNameIgnoreCase(skillName);
-        if (existingSkill.isEmpty()) {
+        Optional<Skill> existingSkill =
+                skillRepository.findByNameIgnoreCase(skillName);
 
-            Skill newSkill = new Skill();
-            newSkill.setName(skillName);
-            skillRepository.save(newSkill);
-        }
-        
-        if (jobId != null) {
-            return "redirect:/edit-job/" + jobId;
+        if (existingSkill.isPresent()) {
+                return ResponseEntity.ok(existingSkill.get());
         }
 
-        return "redirect:/create-job";
-    }
-    
-    @GetMapping("/my-jobs")
-    public String viewMyJobs(Model model) {
+        Skill newSkill = new Skill();
+        newSkill.setName(skillName);
 
-        Authentication auth =
-                SecurityContextHolder.getContext()
-                        .getAuthentication();
+        Skill savedSkill = skillRepository.save(newSkill);
 
-        User user = userRepository
-                .findByEmail(auth.getName())
-                .orElseThrow(() ->
-                        new RuntimeException("User not found"));
+        return ResponseEntity.ok(savedSkill);
+        }
 
-        Employer employer = employerRepository
-                .findByUserId(user.getId())
-                .orElseThrow(() ->
-                        new RuntimeException("Employer not found"));
+        @GetMapping("/my-jobs")
+        public String viewMyJobs(Model model) {
 
-        List<Job> jobs =
-                jobRepository.findByEmployer(employer);
+                Authentication auth =
+                        SecurityContextHolder.getContext()
+                                .getAuthentication();
 
-        model.addAttribute("jobs", jobs);
+                User user = userRepository
+                        .findByEmail(auth.getName())
+                        .orElseThrow(() ->
+                                new RuntimeException("User not found"));
 
-        return "job/my-jobs";
-    }
+                Employer employer = employerRepository
+                        .findByUserId(user.getId())
+                        .orElseThrow(() ->
+                                new RuntimeException("Employer not found"));
+
+                List<Job> jobs =
+                        jobRepository.findByEmployer(employer);
+
+                model.addAttribute("jobs", jobs);
+
+                return "job/my-jobs";
+        }
     
     @GetMapping("/edit-job/{id}")
     public String editJob(
