@@ -7,6 +7,7 @@ import com.jobhunter.JobHunter.enumeration.ExperienceLevel;
 import com.jobhunter.JobHunter.enumeration.JobStatus;
 import com.jobhunter.JobHunter.model.*;
 import com.jobhunter.JobHunter.repository.*;
+import com.jobhunter.JobHunter.service.JobService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,14 @@ public class JobController {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private FreelancerRepository freelancerRepository;
+    
 
+    @Autowired
+    private ApplicationRepository applicationRepository;
+    
     @Autowired
     private SkillRepository skillRepository;
 
@@ -38,6 +46,9 @@ public class JobController {
 
     @Autowired
     private JobSkillRepository jobSkillRepository;
+    
+    @Autowired
+    private JobService jobService;
 
 
     @GetMapping("/create-job")
@@ -427,6 +438,42 @@ public String editJob(
         jobRepository.save(job);
 
         return "redirect:/my-jobs";
+    }
+    
+    @GetMapping("/job-details/{id}")
+    public String viewAvailableJobs(
+            @PathVariable Long id,
+            Model model,
+            Authentication auth) {
+
+        Job job = jobService.getJobById(id);
+
+        model.addAttribute("job", job);
+
+        if (auth != null && auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_FREELANCER"))) {
+
+            Freelancer freelancer = freelancerRepository
+                    .findByUserEmail(auth.getName())
+                    .orElseThrow(() -> new RuntimeException("Freelancer not found"));
+
+            boolean alreadyApplied =
+                    applicationRepository.existsByFreelancerAndJob(freelancer, job);
+
+            model.addAttribute("alreadyApplied", alreadyApplied);
+        }
+
+        return "job/job-details";
+    }
+    
+    @GetMapping("/jobHome")
+    public String jobs(Model model) {
+
+        List<Job> jobs = jobService.getAllJobs();
+
+        model.addAttribute("jobs", jobs);
+
+        return "job/jobHome";
     }
     
    

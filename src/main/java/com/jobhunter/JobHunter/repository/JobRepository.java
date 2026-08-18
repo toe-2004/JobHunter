@@ -15,4 +15,6 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     List<Job> findTop5ByEmployerOrderByCreatedAtDesc(Employer employer);
     
     List<Job> findByEmployer(Employer employer);
+    
+    List<Job> findTop4ByOrderByCreatedAtDesc();
 }

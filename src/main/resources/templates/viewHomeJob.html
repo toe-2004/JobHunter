@@ -1,0 +1,69 @@
+<div class="job-card" th:each="job : ${latestJobs}">
+
+    <h2 th:text="${job.title}"></h2>
+
+    <p>
+        <strong>Category:</strong>
+        <span th:text="${job.category.name}"></span>
+    </p>
+
+    <p>
+        <strong>Employment Type:</strong>
+        <span th:text="${job.employmentType}"></span>
+    </p>
+
+    <p>
+        <strong>Experience:</strong>
+        <span th:text="${job.experienceLevel}"></span>
+    </p>
+
+    <p>
+        <strong>Salary:</strong>
+        <span th:text="${job.salaryMin}"></span>
+        -
+        <span th:text="${job.salaryMax}"></span>
+    </p>
+
+    <p>
+        <strong>Status:</strong>
+        <span th:text="${job.status}"></span>
+    </p>
+
+    <a th:href="@{/job-details/{id}(id=${job.id})}">
+        View Details
+    </a>
+	
+	
+
+</div>
+
+
+<h1>Freelancers</h1>
+
+<div class="freelancer-card"
+     th:each="freelancer : ${freelancers}">
+
+    <h2 th:text="${freelancer.title}"></h2>
+
+    <p>
+        <strong>Education:</strong>
+        <span th:text="${freelancer.education}"></span>
+    </p>
+
+    <p>
+        <strong>Experience:</strong>
+        <span th:text="${freelancer.experience}"></span>
+    </p>
+
+    <p>
+        <strong>Location:</strong>
+        <span th:text="${freelancer.location}"></span>
+    </p>
+
+   
+	
+	<a th:href="@{/freelancer-details/{id}(id=${freelancer.id})}">
+	    View Details
+	</a>
+
+</div>

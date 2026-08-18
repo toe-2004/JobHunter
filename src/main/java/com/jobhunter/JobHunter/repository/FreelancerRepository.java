@@ -1,4 +1,5 @@
 package com.jobhunter.JobHunter.repository;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -15,5 +16,11 @@ public interface FreelancerRepository extends JpaRepository<Freelancer, Long>{
 	Optional<Freelancer> findByUserId(Long userId);
 
 	Optional<Freelancer> findByUserEmail(String email);
+	
+	List<Freelancer> findAll();
+	
+	 List<Freelancer> findTop4ByOrderByIdDesc();
+	
+	
 
 }

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Job Details</title>
+		<style>
+		    .apply-btn {
+		        background-color: #007bff;
+		        color: white;
+		        border: none;
+		        padding: 12px 25px;
+		        border-radius: 6px;
+		        cursor: pointer;
+		        font-size: 16px;
+		        font-weight: bold;
+		    }
+
+		    .apply-btn:hover {
+		        background-color: #0056b3;
+		    }
+		</style>
+		
+</head>
+
+<body>
+
+<h1>Job Details</h1>
+
+<div>
+
+    <h2 th:text="${job.title}"></h2>
+
+    <p>
+        <strong>Description:</strong>
+        <span th:text="${job.description}"></span>
+    </p>
+
+    <p>
+        <strong>Category:</strong>
+        <span th:text="${job.category.name}"></span>
+    </p>
+
+    <p>
+        <strong>Budget:</strong>
+        <span th:text="${job.budget}"></span>
+    </p>
+
+    <p>
+        <strong>Salary Min:</strong>
+        <span th:text="${job.salaryMin}"></span>
+    </p>
+
+    <p>
+        <strong>Salary Max:</strong>
+        <span th:text="${job.salaryMax}"></span>
+    </p>
+
+    <p>
+        <strong>Employment Type:</strong>
+        <span th:text="${job.employmentType}"></span>
+    </p>
+
+    <p>
+        <strong>Experience Level:</strong>
+        <span th:text="${job.experienceLevel}"></span>
+    </p>
+
+    <p>
+        <strong>Duration:</strong>
+        <span th:text="${job.duration}"></span>
+    </p>
+
+    <p>
+        <strong>Deadline:</strong>
+        <span th:text="${job.deadline}"></span>
+    </p>
+
+    <p>
+        <strong>Status:</strong>
+        <span th:text="${job.status}"></span>
+    </p>
+
+    <p>
+        <strong>Created At:</strong>
+        <span th:text="${job.createdAt}"></span>
+    </p>
+	<div sec:authorize="hasRole('FREELANCER')">
+
+	  
+	    <a th:if="${job.status.name() == 'OPEN' and !alreadyApplied}"
+	       th:href="@{/apply-job/{id}(id=${job.id})}"
+	       class="apply-btn">
+
+	        Apply Now
+
+	    </a>
+
+	    
+	    <span th:if="${job.status.name() == 'OPEN' and alreadyApplied}"
+	          class="applied-btn">
+
+	        Already Applied
+
+	    </span>
+
+	   
+	    <span th:if="${job.status.name() == 'CLOSED'}"
+	          class="closed">
+
+	        Applications Closed
+
+	    </span>
+
+	</div>
+    <a href="/jobHome">Back to Jobs</a>
+
+</div>
+
+</body>
+</html>

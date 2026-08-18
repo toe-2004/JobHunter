@@ -1,0 +1,36 @@
+<div class="job-card" th:each="job : ${jobs}">
+
+    <h2 th:text="${job.title}"></h2>
+
+    <p>
+        <strong>Category:</strong>
+        <span th:text="${job.category.name}"></span>
+    </p>
+
+    <p>
+        <strong>Employment Type:</strong>
+        <span th:text="${job.employmentType}"></span>
+    </p>
+
+    <p>
+        <strong>Experience:</strong>
+        <span th:text="${job.experienceLevel}"></span>
+    </p>
+
+    <p>
+        <strong>Salary:</strong>
+        <span th:text="${job.salaryMin}"></span>
+        -
+        <span th:text="${job.salaryMax}"></span>
+    </p>
+
+    <p>
+        <strong>Status:</strong>
+        <span th:text="${job.status}"></span>
+    </p>
+
+    <a th:href="@{/job-details/{id}(id=${job.id})}">
+        View Details
+    </a>
+
+</div>
