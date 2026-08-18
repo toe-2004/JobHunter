@@ -1,267 +1,3 @@
-// package com.jobhunter.JobHunter.controller;
-// import java.util.*;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.stereotype.Controller;
-// import org.springframework.transaction.annotation.Transactional;
-// import org.springframework.ui.Model;
-// import org.springframework.web.bind.annotation.*;
-// import org.springframework.security.core.Authentication;
-// import org.springframework.security.core.context.SecurityContextHolder;
-
-// import com.jobhunter.JobHunter.enumeration.Role;
-// import com.jobhunter.JobHunter.model.*;
-// import com.jobhunter.JobHunter.repository.*;
-// import com.jobhunter.JobHunter.service.UserService;
-
-// @Controller
-// public class FreelancerController {
-
-//     @Autowired
-//     private UserRepository userRepository;
-
-//     @Autowired
-//     private UserService userService;
-
-//     @Autowired
-//     private FreelancerRepository freelancerRepository;
-
-//     @Autowired
-//     private SkillRepository skillRepository;
-
-//     @Autowired
-//     private FreelancerSkillRepository freelancerSkillRepository;
-
-
-//      @GetMapping("/freelancer/dashboard")
-//     public String profile(Model model) {
-//         User user = userService.getCurrentUser();
-//         model.addAttribute("user", user);
-//         Authentication auth =
-//                 SecurityContextHolder.getContext().getAuthentication();
-
-//         user = userRepository.findByEmail(auth.getName())
-//                 .orElseThrow(() ->
-//                         new RuntimeException("User not found"));
-
-//         Optional<Freelancer> optionalFreelancer =
-//                 freelancerRepository.findByUser(user);
-//         if (optionalFreelancer.isPresent()) {
-//             model.addAttribute("freelancer", optionalFreelancer.get());
-//         }
-//         return "freelancer/dashboard";
-//     }
-
-
-//      @GetMapping("/freelancer/create")
-//     public String createFreelancer(Model model) {
-//         Authentication auth =
-//                 SecurityContextHolder.getContext().getAuthentication();
-
-//         User user = userRepository.findByEmail(auth.getName())
-//                 .orElseThrow(() ->
-//                         new RuntimeException("User not found"));
-//                         model.addAttribute("user", user);
-//                          Freelancer freelancer = new Freelancer();
-//         model.addAttribute("freelancer",freelancer);
-//         model.addAttribute("skills", skillRepository.findAll());
-//         model.addAttribute("selectedSkillIds", new HashSet<Long>());
-//         return "freelancer/freelancer-create";
-//     }
-
-    
-//     @GetMapping("/freelancer/profile")
-//     public String viewProfile(Model model) {
-
-//         Authentication auth =
-//                 SecurityContextHolder.getContext().getAuthentication();
-
-//         User user = userRepository.findByEmail(auth.getName())
-//                 .orElseThrow(() ->
-//                         new RuntimeException("User not found"));
-//         model.addAttribute("user", user);
-//         Optional<Freelancer> optionalFreelancer =
-//                 freelancerRepository.findByUser(user);
-
-//         if (optionalFreelancer.isPresent()) {
-
-//             Freelancer freelancer = optionalFreelancer.get();
-
-//             model.addAttribute(
-//                     "freelancer",
-//                     freelancer
-//             );
-
-//             return "freelancer/freelancer-profile";
-//         }
-
-//         Freelancer freelancer = new Freelancer();
-//         model.addAttribute("freelancer",freelancer);
-//         model.addAttribute("skills", skillRepository.findAll());
-//         return "freelancer/freelancer-create";
-//     }
-    
-    
-//     @Transactional
-//     @PostMapping("/freelancer/profile")
-//     public String saveProfile(
-//             @ModelAttribute("freelancer") Freelancer freelancer,
-//             @RequestParam( value = "skillIds", required = false)Set<Long> skillIds) {
-//         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//         User user = userRepository.findByEmail(auth.getName()).orElseThrow(() ->new RuntimeException("User not found"));
-
-//         Optional<Freelancer> optionalFreelancer = freelancerRepository.findByUser(user);
-//         Freelancer savedFreelancer;
-//         if (optionalFreelancer.isEmpty()) {
-//             freelancer.setUser(user);
-//             savedFreelancer = freelancerRepository.save(freelancer);
-
-//             user.setRole(Role.FREELANCER);
-//             userRepository.save(user);
-//         }
-
-//         else {
-//             savedFreelancer =
-//                     optionalFreelancer.get();
-
-
-//             savedFreelancer.setTitle(
-//                     freelancer.getTitle());
-
-//             savedFreelancer.setPhone(
-//                     freelancer.getPhone());
-
-//             savedFreelancer.setLocation(
-//                     freelancer.getLocation());
-
-//             savedFreelancer.setSummary(
-//                     freelancer.getSummary());
-
-//             savedFreelancer.setExperience(
-//                     freelancer.getExperience());
-
-//             savedFreelancer.setEducation(
-//                     freelancer.getEducation());
-
-
-//             savedFreelancer =
-//                     freelancerRepository.save(
-//                             savedFreelancer);
-//         }
-
-//         freelancerSkillRepository
-//                 .deleteByFreelancer(savedFreelancer);
-
-//         if (skillIds != null) {
-
-//             for (Long skillId : skillIds) {
-
-
-//                 Skill skill =
-//                         skillRepository.findById(skillId)
-//                                 .orElseThrow(() ->
-//                                         new RuntimeException(
-//                                                 "Skill not found: "
-//                                                         + skillId));
-
-//                 FreelancerSkill freelancerSkill =
-//                         new FreelancerSkill();
-
-
-//                 freelancerSkill.setFreelancer(
-//                         savedFreelancer);
-
-//                 freelancerSkill.setSkill(
-//                         skill);
-
-
-//                 freelancerSkillRepository.save(
-//                         freelancerSkill);
-//             }
-//         }
-
-
-//         return "redirect:/freelancer/profile";
-//     }
-
-//     @GetMapping("/freelancer/skill")
-//     public String showSkillForm(Model model) {
-//         model.addAttribute("skill",new Skill());
-//         return "freelancer/skillform";
-//     }
-
-//     @PostMapping("/freelancer/skill")
-//     public String saveSkill(@ModelAttribute("skill") Skill skill) {
-
-//         String skillName = skill.getName() == null
-//                         ? ""
-//                         : skill.getName().trim();
-
-//         if (skillName.isEmpty()) {
-//             throw new RuntimeException("Skill name cannot be empty");
-//         }
-
-//         Optional<Skill> existingSkill = skillRepository.findByNameIgnoreCase(skillName);
-//         if (existingSkill.isEmpty()) {
-
-//             Skill newSkill = new Skill();
-//             newSkill.setName(skillName);
-//             skillRepository.save(newSkill);
-//         }
-
-//         return "redirect:/freelancer/edit";
-//     }
-    
-//     @GetMapping("/freelancer/edit")
-//     public String editFreelancer(Model model) {
-
-//         Authentication auth =
-//                 SecurityContextHolder.getContext().getAuthentication();
-
-//         User user = userRepository.findByEmail(auth.getName())
-//                 .orElseThrow(() ->
-//                         new RuntimeException("User not found"));
-
-//         Optional<Freelancer> optionalFreelancer =
-//                 freelancerRepository.findByUser(user);
-
-//         if (optionalFreelancer.isEmpty()) {
-
-//             model.addAttribute("freelancer", new Freelancer());
-//             model.addAttribute("skills",skillRepository.findAll());
-//             return "freelancer/freelancer-create";
-//         }
-
-//         Freelancer freelancer = optionalFreelancer.get();
-
-//         Set<Long> selectedSkillIds = new HashSet<>();
-
-//         for (FreelancerSkill freelancerSkill :
-//                 freelancer.getFreelancerSkills()) {
-
-//             selectedSkillIds.add(
-//                     freelancerSkill.getSkill().getId()
-//             );
-//         }
-
-//         model.addAttribute(
-//                 "freelancer",
-//                 freelancer
-//         );
-
- 
-//         model.addAttribute(
-//                 "skills",
-//                 skillRepository.findAll()
-//         );
-
-//         model.addAttribute(
-//                 "selectedSkillIds",
-//                 selectedSkillIds
-//         );
-
-//         return "freelancer/freelancer-create";
-//     }
-// }
 package com.jobhunter.JobHunter.controller;
 
 import java.util.*;
@@ -293,6 +29,12 @@ public class FreelancerController {
 
     @Autowired
     private FreelancerRepository freelancerRepository;
+    
+    @Autowired
+    private ApplicationRepository applicationRepository;
+    
+    @Autowired
+    private EngagementRepository engagementRepository;
 
     @Autowired
     private SkillRepository skillRepository;
@@ -303,43 +45,44 @@ public class FreelancerController {
     @Autowired
     private FreelancerSkillRepository freelancerSkillRepository;
 
-
-    // =========================================================
-    // FREELANCER DASHBOARD
-    // =========================================================
-
     @GetMapping("/freelancer/dashboard")
     public String profile(Model model) {
-
-        User user = userService.getCurrentUser();
-
-        model.addAttribute("user", user);
 
         Authentication auth =
                 SecurityContextHolder.getContext().getAuthentication();
 
-        user = userRepository.findByEmail(auth.getName())
-                .orElseThrow(() ->
-                        new RuntimeException("User not found"));
+        User user = userRepository.findByEmail(auth.getName())
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
+        model.addAttribute("user", user);
+
+    
         Optional<Freelancer> optionalFreelancer =
                 freelancerRepository.findByUser(user);
 
-        if (optionalFreelancer.isPresent()) {
-
-            model.addAttribute(
-                    "freelancer",
-                    optionalFreelancer.get()
-            );
+        if (optionalFreelancer.isEmpty()) {
+            throw new RuntimeException("Freelancer not found");
         }
+
+        Freelancer freelancer = optionalFreelancer.get();
+
+        model.addAttribute("freelancer", freelancer);
+
+        Long freelancerId = freelancer.getId();
+
+       
+        long appliedJobsCount = applicationRepository.countByFreelancerId(freelancerId);
+        long hireRequestsCount = engagementRepository.countByFreelancerId(freelancerId);
+        List<Application> recentApplications = applicationRepository.findTop4ByFreelancerIdOrderByCreatedAtDesc(freelancerId);
+        List<Engagement> recentHireRequests = engagementRepository.findTop4ByFreelancerIdOrderByStartDateDesc(freelancerId);
+
+        model.addAttribute("appliedJobsCount", appliedJobsCount);
+        model.addAttribute("hireRequestsCount", hireRequestsCount);
+        model.addAttribute("recentApplications", recentApplications);
+        model.addAttribute("recentHireRequests", recentHireRequests);
 
         return "freelancer/dashboard";
     }
-
-
-    // =========================================================
-    // CREATE FREELANCER PROFILE
-    // =========================================================
 
     @GetMapping("/freelancer/create")
     public String createFreelancer(Model model) {
@@ -358,22 +101,18 @@ public class FreelancerController {
         model.addAttribute(
                 "freelancer",
                 freelancer
-        );
-
-        // All available skills
+        ); 
         model.addAttribute(
                 "skills",
                 skillRepository.findAll()
         );
 
-        // Selected skills
+        
         model.addAttribute(
                 "selectedSkillIds",
                 new HashSet<Long>()
         );
 
-        // IMPORTANT:
-        // This is used by the Create Skill popup
         model.addAttribute(
                 "skill",
                 new Skill()
@@ -381,11 +120,6 @@ public class FreelancerController {
 
         return "freelancer/freelancer-create";
     }
-
-
-    // =========================================================
-    // VIEW FREELANCER PROFILE
-    // =========================================================
 
     @GetMapping("/freelancer/profile")
     public String viewProfile(Model model) {
@@ -417,7 +151,7 @@ public class FreelancerController {
         }
 
 
-        // If profile doesn't exist yet
+      
 
         Freelancer freelancer =
                 new Freelancer();
@@ -446,9 +180,7 @@ public class FreelancerController {
     }
 
 
-    // =========================================================
-    // SAVE / UPDATE FREELANCER PROFILE
-    // =========================================================
+
 
     @Transactional
     @PostMapping("/freelancer/profile")
@@ -496,12 +228,6 @@ public class FreelancerController {
 
             userRepository.save(user);
         }
-
-
-        // =====================================================
-        // UPDATE EXISTING FREELANCER
-        // =====================================================
-
         else {
 
             savedFreelancer =
@@ -538,11 +264,6 @@ public class FreelancerController {
                             savedFreelancer
                     );
         }
-
-
-        // =====================================================
-        // UPDATE SKILLS
-        // =====================================================
 
         freelancerSkillRepository
                 .deleteByFreelancer(savedFreelancer);
@@ -586,10 +307,6 @@ public class FreelancerController {
     }
 
 
-    // =========================================================
-    // OLD CREATE SKILL PAGE
-    // =========================================================
-
     @GetMapping("/freelancer/skill")
     public String showSkillForm(Model model) {
 
@@ -601,10 +318,6 @@ public class FreelancerController {
         return "freelancer/skillform";
     }
 
-
-    // =========================================================
-    // SAVE NEW SKILL
-    // =========================================================
 
     @PostMapping("/freelancer/skill")
     public String saveSkill(
@@ -641,16 +354,9 @@ public class FreelancerController {
         }
 
 
-        // After creating the skill,
-        // return to the freelancer form.
-
         return "redirect:/freelancer/edit";
     }
 
-
-    // =========================================================
-    // EDIT FREELANCER
-    // =========================================================
 
     @GetMapping("/freelancer/edit")
     public String editFreelancer(Model model) {
@@ -676,11 +382,6 @@ public class FreelancerController {
                 freelancerRepository
                         .findByUser(user);
 
-
-        // =====================================================
-        // NO PROFILE YET
-        // =====================================================
-
         if (optionalFreelancer.isEmpty()) {
 
             model.addAttribute(
@@ -698,8 +399,6 @@ public class FreelancerController {
                     new HashSet<Long>()
             );
 
-            // IMPORTANT
-            // Needed for popup
 
             model.addAttribute(
                     "skill",
@@ -709,11 +408,6 @@ public class FreelancerController {
 
             return "freelancer/freelancer-create";
         }
-
-
-        // =====================================================
-        // EXISTING PROFILE
-        // =====================================================
 
         Freelancer freelancer =
                 optionalFreelancer.get();
@@ -752,8 +446,6 @@ public class FreelancerController {
         );
 
 
-        // IMPORTANT
-        // Needed for popup
 
         model.addAttribute(
                 "skill",
@@ -781,13 +473,54 @@ public class FreelancerController {
             @PathVariable Long id,
             Model model) {
 
-        Freelancer freelancer =
-                freelancerService.getFreelancerById(id);
+        Freelancer freelancer =freelancerService.getFreelancerById(id);
 
         model.addAttribute("freelancer", freelancer);
 
         return "freelancer/freelancer-details";
     }
     
+    @GetMapping("/freelancer-application-lists")
+    public String applicationList(Model model) {
+
+        Authentication auth =
+                SecurityContextHolder.getContext()
+                        .getAuthentication();
+
+        User user = userRepository.findByEmail(auth.getName())
+                .orElseThrow(() ->new RuntimeException("User not found"));
+
+        model.addAttribute("user", user);
+
+        Freelancer freelancer =freelancerRepository.findByUser(user)
+                        .orElseThrow(() ->new RuntimeException("Freelancer not found"));
+
+        List<Application> applications =applicationRepository.findByFreelancerIdOrderByCreatedAtDesc(
+                                freelancer.getId());
+
+        model.addAttribute("applications", applications);
+
+        return "freelancer/freelancer-application-lists";
+    }
+    @GetMapping("/freelancer-recent-hire-requests")
+    public String allHireRequests(Model model) {
+
+        Authentication auth =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        User user = userRepository.findByEmail(auth.getName())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        model.addAttribute("user", user);
+
+        Freelancer freelancer = freelancerRepository.findByUser(user)
+                .orElseThrow(() -> new RuntimeException("Freelancer not found"));
+
+        List<Engagement> hireRequests = engagementRepository.findByFreelancerIdOrderByStartDateDesc(freelancer.getId());
+
+        model.addAttribute("hireRequests", hireRequests);
+
+        return "freelancer/recent-hire-requests";
+    }
    
 }

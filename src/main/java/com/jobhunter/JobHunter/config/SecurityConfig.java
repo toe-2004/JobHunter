@@ -28,7 +28,9 @@ public class SecurityConfig {
                                 "/viewHomeJob",
                                 "/freelancers",
                                 "/freelancer-details/**",
-                                "/freelancers-home")
+                                "/freelancers-home",
+                                "/companies",
+                                "/company/**")
                         .permitAll()
                         .anyRequest().authenticated())
 

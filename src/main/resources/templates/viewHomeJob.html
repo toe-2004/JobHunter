@@ -67,3 +67,69 @@
 	</a>
 
 </div>
+
+
+<section class="companies-section">
+
+    <div class="section-header">
+
+        <h2>Featured Companies</h2>
+
+        <a th:href="@{/companies}"
+           class="view-all-btn">
+
+            View All
+
+        </a>
+
+    </div>
+
+
+
+
+    <div th:if="${latestEmployers == null || latestEmployers.isEmpty()}"
+         class="empty-state">
+
+        <p>No companies available.</p>
+
+    </div>
+
+
+  
+    <div class="companies-grid">
+
+        <div th:each="employer : ${latestEmployers}"
+             class="company-card">
+
+
+          
+            <a th:href="@{/company/{id}(id=${employer.id})}"
+               class="company-link">
+
+
+             
+
+                <img th:if="${employer.user.profilePhoto != null}"
+                     th:src="@{'/uploads/' + ${employer.user.profilePhoto}}"
+                     alt="Company Photo"
+                     class="company-photo">
+
+
+               
+
+               
+                <h3 th:text="${employer.companyName}">
+                    Company Name
+                </h3>
+
+                <p th:text="${employer.companyLocation}">
+                    Yangon
+                </p>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>

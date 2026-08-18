@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.jobhunter.JobHunter.model.Employer;
 import com.jobhunter.JobHunter.model.User;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -16,5 +17,9 @@ public interface EmployerRepository extends JpaRepository<Employer, Long> {
     Optional<Employer> findByUserId(Long userId);
 
     Optional<Employer> findByUserEmail(String email);
+    
+    List<Employer> findTop4ByOrderByIdDesc();
+
+    List<Employer> findAllByOrderByIdDesc();
 
 }

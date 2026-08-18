@@ -32,11 +32,7 @@ public class UserController {
         return "login";
     }
     
-    // @GetMapping("/register")
-    // public String registerPage(Model model) {
-    //     model.addAttribute("user", new User());
-    //     return "register";
-    // }
+
 
     @PostMapping("/register")
     public String registerUser(
