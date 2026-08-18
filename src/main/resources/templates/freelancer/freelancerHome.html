@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Freelancers</title>
+</head>
+
+<body>
+
+<h1>Freelancers</h1>
+
+<div class="freelancer-card"
+     th:each="freelancer : ${freelancers}">
+
+    <h2 th:text="${freelancer.title}"></h2>
+
+    <p>
+        <strong>Education:</strong>
+        <span th:text="${freelancer.education}"></span>
+    </p>
+
+    <p>
+        <strong>Experience:</strong>
+        <span th:text="${freelancer.experience}"></span>
+    </p>
+
+    <p>
+        <strong>Location:</strong>
+        <span th:text="${freelancer.location}"></span>
+    </p>
+
+   
+	
+	<a th:href="@{/freelancer-details/{id}(id=${freelancer.id})}">
+	    View Details
+	</a>
+
+</div>
+
+</body>
+</html>

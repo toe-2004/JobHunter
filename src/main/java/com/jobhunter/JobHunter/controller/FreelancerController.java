@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.jobhunter.JobHunter.enumeration.Role;
 import com.jobhunter.JobHunter.model.*;
 import com.jobhunter.JobHunter.repository.*;
+import com.jobhunter.JobHunter.service.FreelancerService;
 
 @Controller
 public class FreelancerController {
@@ -23,6 +24,9 @@ public class FreelancerController {
 
     @Autowired
     private SkillRepository skillRepository;
+    
+    @Autowired
+    private FreelancerService freelancerService;
 
     @Autowired
     private FreelancerSkillRepository freelancerSkillRepository;
@@ -244,4 +248,31 @@ public class FreelancerController {
 
         return "freelancer-create";
     }
+    
+    
+    @GetMapping("/freelancers")
+    public String freelancers(Model model) {
+
+        List<Freelancer> freelancers =
+                freelancerService.getAllFreelancers();
+
+        model.addAttribute("freelancers", freelancers);
+
+        return "freelancer/freelancerHome";
+    }
+    
+    @GetMapping("/freelancer-details/{id}")
+    public String freelancerDetails(
+            @PathVariable Long id,
+            Model model) {
+
+        Freelancer freelancer =
+                freelancerService.getFreelancerById(id);
+
+        model.addAttribute("freelancer", freelancer);
+
+        return "freelancer/freelancer-details";
+    }
+    
+   
 }

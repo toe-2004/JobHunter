@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Freelancer Details</title>
+
+	<style>
+	    * {
+	        box-sizing: border-box;
+	    }
+
+	    body {
+	        margin: 0;
+	        padding: 40px;
+	        font-family: Arial, sans-serif;
+	        background: #f5f7fb;
+	        color: #333;
+	    }
+
+	    .container {
+	        max-width: 850px;
+	        margin: 0 auto;
+	    }
+
+	    .page-title {
+	        text-align: center;
+	        margin-bottom: 30px;
+	        color: #222;
+	    }
+
+	    .profile-card {
+	        background: white;
+	        border-radius: 12px;
+	        padding: 35px;
+	        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+	    }
+
+	    /* Profile header */
+
+	    .profile-header {
+	        text-align: center;
+	        border-bottom: 1px solid #eee;
+	        padding-bottom: 25px;
+	        margin-bottom: 25px;
+	    }
+
+	    .profile-photo {
+	        width: 140px;
+	        height: 140px;
+	        border-radius: 50%;
+	        object-fit: cover;
+	        border: 4px solid #007bff;
+	        margin-bottom: 15px;
+	    }
+
+	    .profile-header h2 {
+	        margin: 5px 0;
+	        color: #222;
+	        font-size: 26px;
+	    }
+
+	    .profile-title {
+	        color: #007bff;
+	        font-size: 18px;
+	        margin-top: 5px;
+	    }
+
+	    /* Information */
+
+	    .info-section {
+	        margin-bottom: 25px;
+	    }
+
+	    .info-section h3 {
+	        margin-bottom: 15px;
+	        color: #222;
+	        border-bottom: 2px solid #007bff;
+	        padding-bottom: 8px;
+	    }
+
+	    .info-row {
+	        display: flex;
+	        padding: 10px 0;
+	        border-bottom: 1px solid #f0f0f0;
+	    }
+
+	    .label {
+	        font-weight: bold;
+	        width: 150px;
+	        color: #555;
+	    }
+
+	    .value {
+	        flex: 1;
+	        color: #333;
+	    }
+
+	    /* Summary */
+
+	    .summary {
+	        line-height: 1.7;
+	        color: #555;
+	    }
+
+	    /* Skills */
+
+	    .skills {
+	        display: flex;
+	        flex-wrap: wrap;
+	        gap: 8px;
+	    }
+
+	    .skill {
+	        background: #e8f1ff;
+	        color: #007bff;
+	        padding: 7px 14px;
+	        border-radius: 20px;
+	        font-size: 14px;
+	        font-weight: bold;
+	    }
+
+	    /* Buttons */
+
+	    .actions {
+	        margin-top: 30px;
+	        display: flex;
+	        gap: 15px;
+	        justify-content: center;
+	    }
+
+	    .hire-btn {
+	        display: inline-block;
+	        background: #28a745;
+	        color: white;
+	        text-decoration: none;
+	        padding: 12px 30px;
+	        border-radius: 6px;
+	        font-weight: bold;
+	        transition: 0.2s;
+	    }
+
+	    .hire-btn:hover {
+	        background: #218838;
+	    }
+
+	    .back-btn {
+	        display: inline-block;
+	        background: #6c757d;
+	        color: white;
+	        text-decoration: none;
+	        padding: 12px 30px;
+	        border-radius: 6px;
+	        font-weight: bold;
+	        transition: 0.2s;
+	    }
+
+	    .back-btn:hover {
+	        background: #545b62;
+	    }
+
+	    /* Mobile */
+
+	    @media (max-width: 700px) {
+
+	        body {
+	            padding: 20px;
+	        }
+
+	        .profile-card {
+	            padding: 20px;
+	        }
+
+	        .info-row {
+	            flex-direction: column;
+	            gap: 5px;
+	        }
+
+	        .label {
+	            width: auto;
+	        }
+
+	        .actions {
+	            flex-direction: column;
+	        }
+
+	        .hire-btn,
+	        .back-btn {
+	            text-align: center;
+	        }
+	    }
+	</style>
+
+</head>
+
+<body>
+
+<h1>Freelancer Details</h1>
+
+<div class="container">
+
+    <h1 class="page-title">Freelancer Details</h1>
+
+    <div class="profile-card">
+
+      
+        <div class="profile-header">
+
+            <img th:if="${freelancer.user.profilePhoto != null}"
+                 th:src="@{'/uploads/' + ${freelancer.user.profilePhoto}}"
+                 class="profile-photo">
+
+            <h2 th:text="${freelancer.user.name}"></h2>
+
+            <div class="profile-title"
+                 th:text="${freelancer.title}">
+            </div>
+
+        </div>
+
+        <div class="info-section">
+
+            <h3>Personal Information</h3>
+
+            <div class="info-row">
+                <span class="label">Email:</span>
+                <span class="value"
+                      th:text="${freelancer.user.email}">
+                </span>
+            </div>
+
+            <div class="info-row">
+                <span class="label">Phone:</span>
+                <span class="value"
+                      th:text="${freelancer.phone}">
+                </span>
+            </div>
+
+            <div class="info-row">
+                <span class="label">Location:</span>
+                <span class="value"
+                      th:text="${freelancer.location}">
+                </span>
+            </div>
+
+        </div>
+
+        <div class="info-section">
+
+            <h3>Professional Information</h3>
+
+            <div class="info-row">
+                <span class="label">Experience:</span>
+                <span class="value"
+                      th:text="${freelancer.experience}">
+                </span>
+            </div>
+
+            <div class="info-row">
+                <span class="label">Education:</span>
+                <span class="value"
+                      th:text="${freelancer.education}">
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="info-section">
+
+            <h3>About</h3>
+
+            <p class="summary"
+               th:text="${freelancer.summary}">
+            </p>
+
+        </div>
+
+        <div class="info-section">
+
+            <h3>Skills</h3>
+
+            <div class="skills">
+
+                <span class="skill"
+                      th:each="fs : ${freelancer.freelancerSkills}"
+                      th:text="${fs.skill.name}">
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="actions">
+
+            <div sec:authorize="hasRole('EMPLOYER')">
+
+                <a th:href="@{/hire-freelancer/{id}(id=${freelancer.id})}"
+                   class="hire-btn">
+
+                    Hire Freelancer
+
+                </a>
+
+            </div>
+
+            <a th:href="@{/freelancers}"
+               class="back-btn">
+
+                Back to Freelancers
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

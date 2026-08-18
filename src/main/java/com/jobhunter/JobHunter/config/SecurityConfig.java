@@ -22,7 +22,13 @@ public class SecurityConfig {
                                 "/register",
                                 "/css/**",
                                 "/js/**",
-                                "/uploads/**")
+                                "/uploads/**",
+                                "/jobHome",
+                                "/job-details/**",
+                                "/viewHomeJob",
+                                "/freelancers",
+                                "/freelancer-details/**",
+                                "/freelancers-home")
                         .permitAll()
                         .anyRequest().authenticated())
 
