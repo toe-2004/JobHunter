@@ -167,6 +167,12 @@ body {
     font-size: 13px;
 }
 
+.stat-number {
+    font-size: 26px;
+    font-weight: 600;
+    color: #0F172A;
+}
+
 .stat-info > span:last-child {
     color: #263238;
     font-size: 25px;

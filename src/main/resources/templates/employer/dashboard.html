@@ -140,24 +140,40 @@
                               th:text="${jobCount}">
                             0
                         </span>
-						
-						<span class="stat-label">
-						        Pending Jobs
-						</span>
 
-						<span class="stat-number"
-						       th:text="${pendingCount}">
-						              0
-						 </span>
-						 
-						 <span class="stat-label">
-						 			Shortlist Jobs
-						 </span>
+                    </div>
 
-						 <span class="stat-number"
-						 			 th:text="${shortlistedCount}">
-						 				0
-						 </span>
+                </div>
+
+                <div class="stat-box">
+
+                    <div class="stat-icon">
+
+                        <i class="fas fa-paper-plane"></i>
+
+                    </div>
+
+                    <div class="stat-info">
+
+                        <span class="stat-label">Pending Jobs</span>
+                        <span class="stat-number" th:text="${pendingCount}">0</span>
+
+                    </div>
+
+                </div>
+
+                <div class="stat-box">
+
+                    <div class="stat-icon">
+
+                        <i class="fas fa-paper-plane"></i>
+
+                    </div>
+
+                    <div class="stat-info">
+
+                        <span class="stat-label">Shortlisted Jobs</span>
+                        <span class="stat-number" th:text="${shortlistedCount}">0</span>
 
                     </div>
 

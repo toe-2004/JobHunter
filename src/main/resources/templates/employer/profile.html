@@ -26,11 +26,20 @@
 
             <div class="profile-header">
 
-				<img th:if="${employer.user.profilePhoto != null}"
-				         th:src="@{'/uploads/' + ${employer.user.profilePhoto}}"
-				         alt="Company Photo"
-				         class="company-photo">
+				<div class="company-photo-wrapper">
 
+                    <img th:if="${employer.user.profilePhoto != null}"
+                        th:src="@{'/uploads/' + ${employer.user.profilePhoto}}"
+                        alt="Company Photo"
+                        class="company-photo">
+
+                    <a th:href="@{/employer/profile/edit}"
+                    class="photo-edit-btn"
+                    title="Edit Profile">
+                        <i class="fas fa-edit"></i>
+                    </a>
+
+                </div>
 
                 <div class="company-info">
                     <h1 th:text="${employer.companyName}">

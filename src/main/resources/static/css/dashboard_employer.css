@@ -114,17 +114,27 @@ body {
 }
 
 .statistics-card {
-    background: #FFFFFF;
-    border-radius: 16px;
-    padding: 25px;
-    margin-bottom: 25px;
-    box-shadow: 0 4px 15px rgba(30, 41, 59, 0.05);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    background: #ffffff;
+    border: 1px solid #e3edf5;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 3px 12px rgba(33, 150, 243, 0.06);
 }
 
 .stat-box {
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 15px;
+    padding: 15px;
+    border-right: 1px solid #edf2f6;
+}
+
+.stat-box:last-child {
+    border-right: none;
 }
 
 .stat-icon {

@@ -105,7 +105,7 @@
                         <div class="stat-info">
 
                             <span class="stat-label">Applied Jobs</span>
-                            <span th:text="${appliedJobsCount}">0</span>
+                            <span class="stat-number" th:text="${appliedJobsCount}">0</span>
 
                         </div>
 
@@ -121,7 +121,7 @@
                         <div class="stat-info">
 
                             <span class="stat-label">Hire Requests</span>
-                           <span th:text="${hireRequestsCount}">0</span>
+                           <span class="stat-number" th:text="${hireRequestsCount}">0</span>
 
                         </div>
 
@@ -138,7 +138,7 @@
 
 							<h2>Recent Applications</h2>
 
-							<a th:href="@{/freelancer-application-lists}"
+							<a th:href="@{/my-applications}"
 								class="view-all-btn">
 								View All
 							</a>
@@ -226,7 +226,7 @@
 
 							<h2>Recent Hire Requests</h2>
 
-							<a th:href="@{/freelancer-recent-hire-requests}"
+							<a th:href="@{/my-engagements}"
 							class="view-all-btn">
 								View All
 							</a>

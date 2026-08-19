@@ -33,6 +33,9 @@ public class EngagementController {
     @Autowired
     private EngagementRepository engagementRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/hire-freelancer/{id}")
     public String showHireForm(
             @PathVariable Long id,
@@ -96,10 +99,41 @@ public class EngagementController {
         return "redirect:/employer-engagements";
     }
 
-    @GetMapping("/my-engagements")
-    public String myEngagements(
-            Model model,
-            Authentication auth) {
+//     @GetMapping("/my-engagements")
+//     public String myEngagements(
+//             Model model,
+//             Authentication auth) {
+
+//         Freelancer freelancer =
+//                 freelancerRepository
+//                         .findByUserEmail(auth.getName())
+//                         .orElseThrow(() ->
+//                                 new RuntimeException(
+//                                         "Freelancer not found"
+//                                 ));
+
+//         List<Engagement> engagements =
+//                 engagementRepository
+//                         .findByFreelancer(freelancer);
+
+//         model.addAttribute(
+//                 "engagements",
+//                 engagements
+//         );
+//         model.addAttribute('user', user);
+
+//         return "engagement/my-engagements";
+//     }
+
+        @GetMapping("/my-engagements")
+        public String myEngagements(
+                Model model,
+                Authentication auth) {
+
+        User user = userRepository
+                .findByEmail(auth.getName())
+                .orElseThrow(() ->
+                        new RuntimeException("User not found"));
 
         Freelancer freelancer =
                 freelancerRepository
@@ -113,13 +147,12 @@ public class EngagementController {
                 engagementRepository
                         .findByFreelancer(freelancer);
 
-        model.addAttribute(
-                "engagements",
-                engagements
-        );
+        model.addAttribute("user", user);
+        model.addAttribute("freelancer", freelancer);
+        model.addAttribute("engagements", engagements);
 
         return "engagement/my-engagements";
-    }
+}
 
     @GetMapping("/employer-engagements")
     public String employerEngagements(
