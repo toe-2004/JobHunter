@@ -1,27 +1,98 @@
-<!-- Side Bar -->
 <div class="sidebar" th:fragment="sidebar">
+
     <div class="sidebar-brand">
-        <ul class="navbar nav justify-content-center">
-        <li class="nav-item dropdown px-2 d-lg-none ff">
-            <!-- Add "dropdown-toggle" class and role="button" -->
-            <a href="#" class="nav-link" data-bs-toggle="dropdown" role="button" data-bs-display="static" aria-expanded="false">
-            <i class="fa-solid fa-bars" style="color: #ffffff;"></i>
-            </a>
-            <!-- Wrap dropdown items in <li> tags -->
-            <ul class="dropdown-menu dropdown-menu-right">
-            <li><a href="/home" class="dropdown-item"><i class="fas fa-home"></i>Home</a></li>
-            <li><a href="/login"><i class="fa-solid fa-right-from-bracket"></i>Logout </a></li>
-            </ul>
-        </li>
-        <li class="nav-item ss">
+
+        <div class="mobile-header d-lg-none">
+
+            <!-- <a href="/myprofile" class="mobile-profile">
+                <img th:if="${user.profilePhoto != null}" th:src="@{'/uploads/' + ${user.profilePhoto}}" 
+                        alt="Profile Photo"
+                        class="profile-photo">
+
+                <div class="profile-info">
+                    <span class="username" th:text="${user.name}">
+                        Username
+                    </span>
+                    <span class="user-role">
+                        Guest
+                    </span>
+                </div>
+            </a> -->
+
+            <div class="mobile-menu dropdown">
+                <button href="#"
+                    class="btn menu-button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+
+                    <i class="fa-solid fa-bars"></i>
+            </button>
+
+                <ul class="dropdown-menu dropdown-menu-end">
+
+                    <li>
+                        <a href="/viewHomeJob" class="dropdown-item">
+                            <i class="fas fa-home"></i>
+                            Home
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/login" class="dropdown-item">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Logout
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="desktop-brand d-none d-lg-block">
+
             <h4 class="mb-0">
-            <i class="fa-solid fa-briefcase"></i> Job Hunter
+                <i class="fa-solid fa-briefcase"></i>
+                Job Hunter
             </h4>
-        </li>
-        </ul>
+
+        </div>
+
     </div>
-    <nav class="sidebar-nav flex-column">
-        <a href="/home"><i class="fas fa-home"></i>Home</a>
-        <a href="/login"><i class="fa-solid fa-right-from-bracket"></i>Logout </a>
+
+    <nav class="sidebar-nav d-none d-lg-flex flex-column">
+
+        <a href="/viewHomeJob">
+            <i class="fas fa-home"></i>
+            Home
+        </a>
+
+        <a href="/login">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </a>
+
     </nav>
+
+    <!-- <a th:href="@{/freelancer/profile}" class="sidebar-profile d-none d-lg-flex">
+
+        <img th:if="${user.profilePhoto != null}" th:src="@{'/uploads/' + ${user.profilePhoto}}"
+                alt="Profile Photo"
+                class="profile-photo">
+
+        <div class="profile-info">
+
+            <span class="username"
+                    th:text="${user.name}">
+                Username
+            </span>
+
+            <span class="user-role">
+                Guest
+            </span>
+
+        </div>
+
+    </a> -->
+
 </div>

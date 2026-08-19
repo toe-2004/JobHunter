@@ -7,21 +7,20 @@
 
 body {
     min-height: 100vh;
-    background: #f4f6f9;
+    background: #F8FAFC;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* padding: 30px; */
 }
 
 .form-container {
     width: 100%;
     max-width: 600px;
-    background: white;
+    background: #FFFFFF;
     padding: 35px 40px;
     border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    border: 1px solid #2ec408;
+    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
+    border: 1px solid #90CAF9;
 }
 
 .form-header {
@@ -30,15 +29,15 @@ body {
 }
 
 .form-header h1 {
-    color: #222;
+    color: #0F172A;
     font-size: 28px;
     margin-bottom: 10px;
 }
 
 .form-header p {
-    color: #777;
+    color: #64748B;
     font-size: 14px;
-    margin-bottom:0;
+    margin-bottom: 0;
 }
 
 .form-group {
@@ -48,7 +47,7 @@ body {
 .form-group label {
     display: block;
     margin-bottom: 7px;
-    color: #333;
+    color: #1E293B;
     font-size: 14px;
     font-weight: 600;
 }
@@ -57,17 +56,19 @@ body {
 .form-group textarea {
     width: 100%;
     padding: 12px 14px;
-    border: 1px solid #a4a7a3;
+    border: 1px solid #E5E7EB;
     border-radius: 7px;
     font-size: 14px;
     outline: none;
     transition: 0.2s;
+    background: #FFFFFF;
+    color: #1E293B;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: #2ec408;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    border-color: #2196F3;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.10);
 }
 
 .form-group textarea {
@@ -108,27 +109,27 @@ body {
 }
 
 .back-btn {
-    background: #1052e1;
-    color: white;
-    border: 1px solid #ddd;
-    transition: 0.2s
+    background: #1976D2;
+    color: #FFFFFF;
+    border: 1px solid #1976D2;
+    transition: 0.2s;
 }
 
 .back-btn:hover {
-    background: white;
-    color: #1052e1;
-    border: 1px solid #1052e1;
+    background: #E3F2FD;
+    color: #1976D2;
+    border: 1px solid #90CAF9;
 }
 
 .submit-btn {
-    border: none;
-    background: #2ec408;
-    color: white;
-    transition: 0.2s
+    border: 1px solid #2196F3;
+    background: #2196F3;
+    color: #FFFFFF;
+    transition: 0.2s;
 }
 
 .submit-btn:hover {
-    background: white;
-    color: #2ec408;
-    border: 1px solid #2ec408;
+    background: #FFFFFF;
+    color: #1976D2;
+    border: 1px solid #1976D2;
 }

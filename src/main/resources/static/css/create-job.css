@@ -4,9 +4,9 @@
 
 body {
     margin: 0;
-    background: #f6f7fb;
+    background: #F8FAFC;
     font-family: Arial, sans-serif;
-    color: #333;
+    color: #1E293B;
 }
 
 .page-container {
@@ -30,11 +30,11 @@ body {
 }
 
 .form-card {
-    background: #ffffff;
+    background: #FFFFFF;
     border-radius: 12px;
     padding: 32px 38px;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
-    border: 1px solid #e8eaf0;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+    border: 1px solid #E5E7EB;
 }
 
 .page-header {
@@ -45,12 +45,12 @@ body {
     margin: 0;
     font-size: 27px;
     font-weight: 700;
-    color: #222;
+    color: #0F172A;
 }
 
 .page-header p {
     margin: 7px 0 0;
-    color: #777;
+    color: #64748B;
     font-size: 14px;
 }
 
@@ -61,37 +61,43 @@ body {
 .section-title {
     font-size: 17px;
     font-weight: 700;
-    color: #292d32;
+    color: #0F172A;
     margin-bottom: 18px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #eeeeee;
+    border-bottom: 1px solid #E5E7EB;
 }
 
 .form-label {
     font-size: 14px;
     font-weight: 600;
-    color: #444;
+    color: #1E293B;
     margin-bottom: 7px;
 }
 
 .required {
-    color: #e74c3c;
+    color: #1976D2;
 }
 
 .form-control,
 .form-select {
     min-height: 44px;
-    border: 1px solid #dfe2e8;
+    border: 1px solid #E5E7EB;
     border-radius: 7px;
     font-size: 14px;
     padding: 9px 12px;
     box-shadow: none;
+    color: #1E293B;
+    background: #FFFFFF;
+}
+
+.form-control::placeholder {
+    color: #94A3B8;
 }
 
 .form-control:focus,
 .form-select:focus {
-    border-color: #6366f1;
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.10);
+    border-color: #2196F3;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.10);
 }
 
 textarea.form-control {
@@ -124,8 +130,8 @@ textarea.form-control {
 
 .create-skill-btn {
     border: none;
-    background: #f0efff;
-    color: #4f46e5;
+    background: #E3F2FD;
+    color: #1976D2;
     padding: 9px 14px;
     border-radius: 7px;
     font-family: 'Poppins', sans-serif;
@@ -136,8 +142,8 @@ textarea.form-control {
 }
 
 .create-skill-btn:hover {
-    background: #4f46e5;
-    color: white;
+    background: #2196F3;
+    color: #FFFFFF;
 }
 
 .skill-dropdown {
@@ -149,26 +155,26 @@ textarea.form-control {
     width: 100%;
     min-height: 46px;
     padding: 12px 14px;
-    border: 1px solid #dedede;
+    border: 1px solid #E5E7EB;
     border-radius: 9px;
-    background: white;
+    background: #FFFFFF;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-family: 'Poppins', sans-serif;
     font-size: 13px;
-    color: #555;
+    color: #64748B;
     cursor: pointer;
     text-align: left;
 }
 
 .skill-dropdown-btn:hover {
-    border-color: #4f46e5;
+    border-color: #2196F3;
 }
 
 .dropdown-arrow {
     font-size: 10px;
-    color: #777;
+    color: #64748B;
     transition: transform 0.2s;
 }
 
@@ -181,10 +187,10 @@ textarea.form-control {
     top: calc(100% + 5px);
     left: 0;
     right: 0;
-    background: white;
-    border: 1px solid #dedede;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
     border-radius: 9px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.10);
+    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.10);
     max-height: 220px;
     overflow-y: auto;
     z-index: 100;
@@ -203,24 +209,25 @@ textarea.form-control {
     padding: 10px 12px;
     border-radius: 7px;
     font-size: 13px;
+    color: #1E293B;
     cursor: pointer;
     transition: 0.15s;
 }
 
 .skill-option:hover {
-    background: #f5f4ff;
+    background: #E3F2FD;
 }
 
 .skill-option.selected {
-    background: #f0efff;
-    color: #4f46e5;
+    background: #E3F2FD;
+    color: #1976D2;
     font-weight: 500;
 }
 
 .skill-check {
     width: 18px;
     height: 18px;
-    border: 1px solid #d5d5d5;
+    border: 1px solid #CBD5E1;
     border-radius: 4px;
     display: flex;
     align-items: center;
@@ -231,9 +238,9 @@ textarea.form-control {
 }
 
 .skill-option.selected .skill-check {
-    background: #4f46e5;
-    border-color: #4f46e5;
-    color: white;
+    background: #2196F3;
+    border-color: #2196F3;
+    color: #FFFFFF;
 }
 
 .form-actions {
@@ -242,31 +249,31 @@ textarea.form-control {
     gap: 12px;
     margin-top: 30px;
     padding-top: 22px;
-    border-top: 1px solid #eeeeee;
+    border-top: 1px solid #E5E7EB;
 }
 
 .cancel-btn {
     padding: 10px 22px;
     border-radius: 7px;
-    border: 1px solid #d7d9df;
-    background: white;
-    color: #555;
+    border: 1px solid #E5E7EB;
+    background: #FFFFFF;
+    color: #64748B;
     text-decoration: none;
     font-size: 14px;
     font-weight: 600;
 }
 
 .cancel-btn:hover {
-    background: #f5f5f5;
-    color: #333;
+    background: #F8FAFC;
+    color: #1E293B;
 }
 
 .submit-btn {
     border: none;
     padding: 10px 24px;
     border-radius: 7px;
-    background: #6366f1;
-    color: white;
+    background: #2196F3;
+    color: #FFFFFF;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
@@ -274,7 +281,7 @@ textarea.form-control {
 }
 
 .submit-btn:hover {
-    background: #4f46e5;
+    background: #1976D2;
 }
 
 @media (max-width: 1000px) {
@@ -341,22 +348,22 @@ textarea.form-control {
     align-items: center;
     justify-content: space-between;
     padding: 10px 14px;
-    background: #ffffff;
-    border: 1px solid #dfe2e8;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
     border-radius: 7px;
-    color: #555;
+    color: #64748B;
     font-size: 14px;
     text-align: left;
     cursor: pointer;
 }
 
 .skill-dropdown-btn:hover {
-    border-color: #6366f1;
+    border-color: #2196F3;
 }
 
 .dropdown-arrow {
     font-size: 11px;
-    color: #777;
+    color: #64748B;
     transition: 0.2s;
 }
 
@@ -371,10 +378,10 @@ textarea.form-control {
     right: 0;
     max-height: 220px;
     overflow-y: auto;
-    background: white;
-    border: 1px solid #dfe2e8;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
     border-radius: 7px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
     padding: 6px;
     display: none;
     z-index: 100;
@@ -391,17 +398,17 @@ textarea.form-control {
     padding: 10px 12px;
     border-radius: 6px;
     font-size: 14px;
-    color: #444;
+    color: #1E293B;
     cursor: pointer;
 }
 
 .skill-option:hover {
-    background: #f5f6ff;
+    background: #E3F2FD;
 }
 
 .skill-option.selected {
-    background: #eef0ff;
-    color: #4f46e5;
+    background: #E3F2FD;
+    color: #1976D2;
 }
 
 .skill-check {
@@ -411,13 +418,13 @@ textarea.form-control {
 }
 
 .skill-option.selected .skill-check {
-    color: #6366f1;
+    color: #2196F3;
 }
 
 .no-skills {
     padding: 12px;
     text-align: center;
-    color: #888;
+    color: #94A3B8;
     font-size: 13px;
 }
 
@@ -427,7 +434,7 @@ textarea.form-control {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(15, 23, 42, 0.45);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -445,9 +452,9 @@ textarea.form-control {
 .skill-modal {
     width: 440px;
     max-width: calc(100% - 40px);
-    background: white;
+    background: #FFFFFF;
     border-radius: 12px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 15px 40px rgba(15, 23, 42, 0.18);
     transform: translateY(-15px);
     transition: 0.2s ease;
 }
@@ -461,20 +468,20 @@ textarea.form-control {
     justify-content: space-between;
     align-items: flex-start;
     padding: 22px 24px;
-    border-bottom: 1px solid #eeeeee;
+    border-bottom: 1px solid #E5E7EB;
 }
 
 .modal-header h2 {
     margin: 0;
     font-size: 20px;
     font-weight: 700;
-    color: #292d32;
+    color: #0F172A;
 }
 
 .modal-header p {
     margin: 5px 0 0;
     font-size: 13px;
-    color: #888;
+    color: #64748B;
 }
 
 .close-btn {
@@ -482,13 +489,13 @@ textarea.form-control {
     background: transparent;
     font-size: 26px;
     line-height: 1;
-    color: #777;
+    color: #94A3B8;
     cursor: pointer;
     padding: 0;
 }
 
 .close-btn:hover {
-    color: #333;
+    color: #1E293B;
 }
 
 .modal-body {
@@ -500,22 +507,27 @@ textarea.form-control {
     margin-bottom: 7px;
     font-size: 14px;
     font-weight: 600;
-    color: #444;
+    color: #1E293B;
 }
 
 .modal-body input {
     width: 100%;
     min-height: 44px;
     padding: 9px 12px;
-    border: 1px solid #dfe2e8;
+    border: 1px solid #E5E7EB;
     border-radius: 7px;
     outline: none;
     font-size: 14px;
+    color: #1E293B;
+}
+
+.modal-body input::placeholder {
+    color: #94A3B8;
 }
 
 .modal-body input:focus {
-    border-color: #6366f1;
-    box-shadow:0 0 0 3px rgba(99, 102, 241, 0.10);
+    border-color: #2196F3;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.10);
 }
 
 .modal-footer {
@@ -523,35 +535,36 @@ textarea.form-control {
     justify-content: flex-end;
     gap: 10px;
     padding: 16px 24px;
-    border-top: 1px solid #eeeeee;
+    border-top: 1px solid #E5E7EB;
 }
 
 .modal-cancel-btn {
     padding: 9px 18px;
     border-radius: 7px;
-    border: 1px solid #d7d9df;
-    background: white;
-    color: #555;
+    border: 1px solid #E5E7EB;
+    background: #FFFFFF;
+    color: #64748B;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
 }
 
 .modal-cancel-btn:hover {
-    background: #f5f5f5;
+    background: #F8FAFC;
+    color: #1E293B;
 }
 
 .modal-create-btn {
     padding: 9px 20px;
     border: none;
     border-radius: 7px;
-    background: #6366f1;
-    color: white;
+    background: #2196F3;
+    color: #FFFFFF;
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
 }
 
 .modal-create-btn:hover {
-    background: #4f46e5;
+    background: #1976D2;
 }

@@ -6,15 +6,34 @@
     <meta charset="UTF-8">
 
     <title>My Applications</title>
-
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
     <style>
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            padding: 30px;
+            margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f8fc;
+    color: #263238;
         }
+        .dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+}
 
+.sidebar-container {
+    flex-shrink: 0;
+}
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+    padding: 30px;
+    margin-left: 250px;
+    padding: 35px;
+    min-height: 100vh;
+}
         .container {
             width: 1000px;
             margin: auto;
@@ -81,7 +100,13 @@
 </head>
 
 <body>
+<div class="dashboard-layout">
 
+        <!-- Sidebar -->
+        <div class="sidebar-container">
+            <div th:replace="~{fragments/sidebar_for_freelancer :: sidebar}"></div>
+        </div>
+<div class="main-content">
 <div class="container">
 
     <h1>My Applications</h1>
@@ -149,7 +174,8 @@
     </div>
 
 </div>
-
+</div>
+</div>
 </body>
 
 </html>

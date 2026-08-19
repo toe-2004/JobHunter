@@ -5,9 +5,9 @@
 body {
     margin: 0;
     min-height: 100vh;
-    background: #f5f7fb;
+    background: #F8FAFC;
     font-family: 'Poppins', sans-serif;
-    color: #252a34;
+    color: #1E293B;
 }
 
 .page {
@@ -18,27 +18,27 @@ body {
 .form-container {
     max-width: 850px;
     margin: auto;
-    background: white;
+    background: #FFFFFF;
     border-radius: 18px;
-    box-shadow:0 10px 35px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 10px 35px rgba(15, 23, 42, 0.07);
     overflow: hidden;
 }
 
 .profile-header {
     padding: 35px 40px;
-    border-bottom:1px solid #eeeeee;
+    border-bottom: 1px solid #E5E7EB;
 }
 
 .profile-header h1 {
     margin: 0 0 8px;
     font-size: 27px;
     font-weight: 700;
-    color: #20232a;
+    color: #0F172A;
 }
 
 .profile-header p {
     margin: 0;
-    color: #777;
+    color: #64748B;
     font-size: 14px;
 }
 
@@ -54,12 +54,12 @@ body {
     font-size: 17px;
     font-weight: 600;
     margin-bottom: 20px;
-    color: #222;
+    color: #0F172A;
 }
 
 .form-row {
     display: grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
@@ -68,7 +68,7 @@ body {
 }
 
 .form-group.full {
-    grid-column:1 / -1;
+    grid-column: 1 / -1;
 }
 
 label {
@@ -76,21 +76,22 @@ label {
     font-size: 13px;
     font-weight: 600;
     margin-bottom: 8px;
-    color: #444;
+    color: #1E293B;
 }
 
 input,
 textarea,
 select {
     width: 100%;
-    border:1px solid #dedede;
+    border: 1px solid #E5E7EB;
     border-radius: 9px;
     padding: 12px 14px;
-    font-family:'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 13px;
     outline: none;
     transition: 0.2s;
-    background: white;
+    background: #FFFFFF;
+    color: #1E293B;
 }
 
 input {
@@ -103,16 +104,21 @@ textarea {
     line-height: 1.6;
 }
 
+input::placeholder,
+textarea::placeholder {
+    color: #94A3B8;
+}
+
 input:focus,
 textarea:focus,
 select:focus {
-    border-color: #4f46e5;
-    box-shadow:0 0 0 3px rgba(79, 70, 229, 0.08);
+    border-color: #2196F3;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.10);
 }
 
 .skills-header {
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
 }
@@ -123,11 +129,11 @@ select:focus {
 
 .create-skill-btn {
     border: none;
-    background: #f0efff;
-    color: #4f46e5;
+    background: #E3F2FD;
+    color: #1976D2;
     padding: 9px 14px;
     border-radius: 7px;
-    font-family:'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
@@ -135,14 +141,14 @@ select:focus {
 }
 
 .create-skill-btn:hover {
-    background: #4f46e5;
-    color: white;
+    background: #2196F3;
+    color: #FFFFFF;
 }
 
 .skill-help {
     font-size: 12px;
-    color: #888;
-    margin:0 0 10px;
+    color: #94A3B8;
+    margin: 0 0 10px;
 }
 
 .skills-select {
@@ -157,11 +163,11 @@ select:focus {
 
 .form-actions {
     display: flex;
-    justify-content:flex-end;
+    justify-content: flex-end;
     align-items: center;
-    gap:10px;
-    padding-top:20px;
-    border-top:1px solid #eeeeee;
+    gap: 10px;
+    padding-top: 20px;
+    border-top: 1px solid #E5E7EB;
 }
 
 .cancel-profile-btn {
@@ -171,11 +177,11 @@ select:focus {
 
     padding: 12px 24px;
 
-    border: 1px solid #ddd;
+    border: 1px solid #E5E7EB;
     border-radius: 8px;
 
-    background: white;
-    color: #555;
+    background: #FFFFFF;
+    color: #64748B;
 
     font-family: 'Poppins', sans-serif;
     font-size: 13px;
@@ -188,18 +194,18 @@ select:focus {
 }
 
 .cancel-profile-btn:hover {
-    background: #f5f5f5;
-    border-color: #ccc;
-    color: #333;
+    background: #F8FAFC;
+    border-color: #90CAF9;
+    color: #1E293B;
 }
 
 .save-btn {
     border: none;
-    background: #4f46e5;
-    color: white;
-    padding:12px 24px;
+    background: #2196F3;
+    color: #FFFFFF;
+    padding: 12px 24px;
     border-radius: 8px;
-    font-family:'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
@@ -207,16 +213,22 @@ select:focus {
 }
 
 .save-btn:hover {
-    background: #4338ca;
-    transform:translateY(-1px);
+    background: #1976D2;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(33, 150, 243, 0.20);
 }
+
+
+/* ================================
+   MODAL
+================================ */
 
 .modal-overlay {
     position: fixed;
     inset: 0;
     width: 100%;
     height: 100%;
-    background:rgba(20, 24, 35, 0.55);
+    background: rgba(15, 23, 42, 0.55);
     display: none;
     align-items: center;
     justify-content: center;
@@ -234,9 +246,9 @@ select:focus {
     width: 100%;
     max-width: 430px;
     height: auto;
-    background: white;
+    background: #FFFFFF;
     border-radius: 15px;
-    box-shadow:0 20px 50px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.20);
     overflow: hidden;
     animation: modalOpen 0.2s ease;
     top: auto;
@@ -247,33 +259,34 @@ select:focus {
 
     from {
         opacity: 0;
-        transform:translateY(-10px) scale(0.98);
+        transform: translateY(-10px) scale(0.98);
     }
 
     to {
         opacity: 1;
-        transform:translateY(0) scale(1);
+        transform: translateY(0) scale(1);
     }
 }
 
 .modal-header {
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: center;
-    padding:20px 22px;
-    border-bottom:1px solid #eeeeee;
+    padding: 20px 22px;
+    border-bottom: 1px solid #E5E7EB;
 }
 
 .modal-header h2 {
     margin: 0;
     font-size: 18px;
     font-weight: 600;
+    color: #0F172A;
 }
 
 .close-btn {
     border: none;
     background: transparent;
-    color: #777;
+    color: #94A3B8;
     font-size: 25px;
     cursor: pointer;
     padding: 0;
@@ -281,7 +294,7 @@ select:focus {
 }
 
 .close-btn:hover {
-    color: #222;
+    color: #1E293B;
 }
 
 .modal-body {
@@ -289,9 +302,9 @@ select:focus {
 }
 
 .modal-body p {
-    margin:0 0 18px;
+    margin: 0 0 18px;
     font-size: 12px;
-    color: #777;
+    color: #64748B;
 }
 
 .modal-body label {
@@ -299,95 +312,70 @@ select:focus {
     margin-bottom: 7px;
     font-size: 13px;
     font-weight: 600;
+    color: #1E293B;
 }
 
 .modal-body input {
     width: 100%;
     height: 45px;
-    padding:10px 13px;
-    border:1px solid #ddd;
+    padding: 10px 13px;
+    border: 1px solid #E5E7EB;
     border-radius: 8px;
     outline: none;
-    font-family:'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    color: #1E293B;
 }
 
 .modal-body input:focus {
-    border-color: #4f46e5;
-    box-shadow:0 0 0 3px rgba(79, 70, 229, 0.08);
+    border-color: #2196F3;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.10);
 }
 
 .modal-footer {
     display: flex;
-    justify-content:flex-end;
+    justify-content: flex-end;
     gap: 10px;
-    padding:15px 22px 20px;
+    padding: 15px 22px 20px;
+    border-top: 1px solid #E5E7EB;
 }
 
 .cancel-btn {
-    border:1px solid #ddd;
-    background: white;
-    color: #555;
-    padding:10px 18px;
+    border: 1px solid #E5E7EB;
+    background: #FFFFFF;
+    color: #64748B;
+    padding: 10px 18px;
     border-radius: 7px;
-    font-family:'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
     cursor: pointer;
 }
 
 .cancel-btn:hover {
-    background: #f5f5f5;
+    background: #F8FAFC;
+    color: #1E293B;
+    border-color: #90CAF9;
 }
 
 .create-btn {
     border: none;
-    background: #4f46e5;
-    color: white;
-    padding:10px 18px;
+    background: #2196F3;
+    color: #FFFFFF;
+    padding: 10px 18px;
     border-radius: 7px;
-    font-family:'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
 }
 
 .create-btn:hover {
-    background: #4338ca;
+    background: #1976D2;
 }
 
-@media (max-width: 700px) {
 
-    .page {
-        padding:20px 12px;
-    }
-
-    .profile-header {
-        padding:25px 22px;
-    }
-
-    .form-body {
-        padding:25px 22px;
-    }
-
-    .form-row {
-        grid-template-columns:1fr;
-        gap: 0;
-    }
-
-    .skills-header {
-        align-items:flex-start;
-        gap: 10px;
-        flex-direction:column;
-    }
-
-    .form-actions {
-        justify-content:stretch;
-    }
-
-    .save-btn {
-        width: 100%;
-    }
-
-}
+/* ================================
+   SKILL DROPDOWN
+================================ */
 
 .skill-dropdown {
     position: relative;
@@ -398,26 +386,26 @@ select:focus {
     width: 100%;
     min-height: 46px;
     padding: 12px 14px;
-    border: 1px solid #dedede;
+    border: 1px solid #E5E7EB;
     border-radius: 9px;
-    background: white;
+    background: #FFFFFF;
     display: flex;
     align-items: center;
     justify-content: space-between;
     font-family: 'Poppins', sans-serif;
     font-size: 13px;
-    color: #555;
+    color: #64748B;
     cursor: pointer;
     text-align: left;
 }
 
 .skill-dropdown-btn:hover {
-    border-color: #4f46e5;
+    border-color: #2196F3;
 }
 
 .dropdown-arrow {
     font-size: 10px;
-    color: #777;
+    color: #94A3B8;
     transition: transform 0.2s;
 }
 
@@ -430,10 +418,10 @@ select:focus {
     top: calc(100% + 5px);
     left: 0;
     right: 0;
-    background: white;
-    border: 1px solid #dedede;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
     border-radius: 9px;
-    box-shadow:0 8px 25px rgba(0, 0, 0, 0.10);
+    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.10);
     max-height: 220px;
     overflow-y: auto;
     z-index: 100;
@@ -452,24 +440,26 @@ select:focus {
     padding: 10px 12px;
     border-radius: 7px;
     font-size: 13px;
+    color: #1E293B;
     cursor: pointer;
     transition: 0.15s;
 }
 
 .skill-option:hover {
-    background: #f5f4ff;
+    background: #E3F2FD;
+    color: #1976D2;
 }
 
 .skill-option.selected {
-    background: #f0efff;
-    color: #4f46e5;
+    background: #E3F2FD;
+    color: #1976D2;
     font-weight: 500;
 }
 
 .skill-check {
     width: 18px;
     height: 18px;
-    border: 1px solid #d5d5d5;
+    border: 1px solid #90CAF9;
     border-radius: 4px;
     display: flex;
     align-items: center;
@@ -480,7 +470,46 @@ select:focus {
 }
 
 .skill-option.selected .skill-check {
-    background: #4f46e5;
-    border-color: #4f46e5;
-    color: white;
+    background: #2196F3;
+    border-color: #2196F3;
+    color: #FFFFFF;
+}
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 700px) {
+
+    .page {
+        padding: 20px 12px;
+    }
+
+    .profile-header {
+        padding: 25px 22px;
+    }
+
+    .form-body {
+        padding: 25px 22px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .skills-header {
+        align-items: flex-start;
+        gap: 10px;
+        flex-direction: column;
+    }
+
+    .form-actions {
+        justify-content: stretch;
+    }
+
+    .save-btn {
+        width: 100%;
+    }
 }

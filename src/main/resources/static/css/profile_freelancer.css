@@ -5,8 +5,8 @@
 body {
     margin: 0;
     font-family: 'Roboto', sans-serif;
-    background: #f6f8fb;
-    color: #252a34;
+    background: #F8FAFC;
+    color: #1E293B;
 }
 
 .main-content {
@@ -31,25 +31,25 @@ body {
     margin: 0;
     font-size: 27px;
     font-weight: 700;
-    color: #1f2937;
+    color: #0F172A;
 }
 
 .page-subtitle {
     margin: 7px 0 0;
     font-size: 13px;
-    color: #8a919d;
+    color: #94A3B8;
 }
 
 .profile-hero {
-    background: #ffffff;
+    background: #FFFFFF;
     border-radius: 18px;
     padding: 30px;
     display: flex;
     align-items: center;
     gap: 25px;
     margin-bottom: 22px;
-    border: 1px solid #edf0f4;
-    box-shadow: 0 6px 25px rgba(30, 41, 59, 0.05);
+    border: 1px solid #E5E7EB;
+    box-shadow: 0 6px 25px rgba(15, 23, 42, 0.05);
 }
 
 .profile-image-wrapper {
@@ -62,21 +62,21 @@ body {
     height: 125px;
     object-fit: cover;
     border-radius: 50%;
-    border: 5px solid #f2f0f7;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 5px solid #E3F2FD;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08);
 }
 
 .default-avatar {
     width: 125px;
     height: 125px;
     border-radius: 50%;
-    background: #edeaf5;
-    color: #1f4bdd;
+    background: #E3F2FD;
+    color: #2196F3;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 48px;
-    border: 5px solid #f2f0f7;
+    border: 5px solid #E3F2FD;
 }
 
 .profile-hero-info {
@@ -87,18 +87,18 @@ body {
     font-size: 25px;
     font-weight: 700;
     margin: 0 0 8px;
-    color: #202631;
+    color: #0F172A;
 }
 
 .profile-title {
     font-size: 14px;
-    color: #1f4bdd;
+    color: #1976D2;
     font-weight: 600;
     margin-bottom: 12px;
 }
 
 .profile-summary-short {
-    color: #8a919d;
+    color: #64748B;
     font-size: 13px;
     line-height: 1.7;
     max-width: 650px;
@@ -111,8 +111,8 @@ body {
     justify-content: center;
     text-decoration: none;
     border: none;
-    background: #1f4bdd;
-    color: white;
+    background: #2196F3;
+    color: #FFFFFF;
     padding: 11px 20px;
     border-radius: 9px;
     font-family: 'Roboto', sans-serif;
@@ -127,24 +127,24 @@ body {
 }
 
 .edit-profile-btn:hover {
-    background: #1d3174;
-    color: white;
+    background: #1976D2;
+    color: #FFFFFF;
     transform: translateY(-1px);
-    box-shadow: 0 5px 14px rgba(36, 39, 139, 0.2);
+    box-shadow: 0 5px 14px rgba(33, 150, 243, 0.20);
 }
 
 .profile-card {
-    background: #ffffff;
+    background: #FFFFFF;
     border-radius: 18px;
-    border: 1px solid #edf0f4;
-    box-shadow: 0 6px 25px rgba(30, 41, 59, 0.04);
+    border: 1px solid #E5E7EB;
+    box-shadow: 0 6px 25px rgba(15, 23, 42, 0.04);
     margin-bottom: 22px;
     overflow: hidden;
 }
 
 .card-header-custom {
     padding: 21px 25px;
-    border-bottom: 1px solid #edf0f4;
+    border-bottom: 1px solid #E5E7EB;
     display: flex;
     align-items: center;
     gap: 11px;
@@ -154,8 +154,8 @@ body {
     width: 35px;
     height: 35px;
     border-radius: 9px;
-    background: #edeff8;
-    color: #1f4bdd;
+    background: #E3F2FD;
+    color: #2196F3;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -166,7 +166,7 @@ body {
     margin: 0;
     font-size: 16px;
     font-weight: 600;
-    color: #252a34;
+    color: #0F172A;
 }
 
 .card-body-custom {
@@ -187,7 +187,7 @@ body {
     display: block;
     font-size: 11px;
     font-weight: 600;
-    color: #9aa1ab;
+    color: #94A3B8;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 7px;
@@ -197,7 +197,7 @@ body {
     display: block;
     font-size: 13px;
     font-weight: 500;
-    color: #303641;
+    color: #1E293B;
     word-break: break-word;
 }
 
@@ -210,7 +210,7 @@ body {
 .description {
     font-size: 14px;
     line-height: 1.9;
-    color: #626b75;
+    color: #64748B;
     margin: 0;
     white-space: pre-line;
     overflow-wrap: anywhere;
@@ -220,7 +220,7 @@ body {
 }
 
 .empty-text {
-    color: #a4a9b1;
+    color: #94A3B8;
     font-size: 13px;
     font-style: italic;
 }
@@ -235,9 +235,9 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: #dbe7fa;
-    color: #1f4bdd;
-    border: 1px solid #dedcef;
+    background: #E3F2FD;
+    color: #1976D2;
+    border: 1px solid #90CAF9;
     padding: 8px 13px;
     border-radius: 20px;
     font-size: 12px;

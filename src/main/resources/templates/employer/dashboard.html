@@ -147,7 +147,7 @@
 
             </div>
 
-            <div class="dashboard-grid">
+            <!-- <div class="dashboard-grid">
 
                 <div class="dashboard-card">
 
@@ -249,8 +249,161 @@
 
                 </div>
 
-            </div>
+            </div> -->
 
+<div class="dashboard-grid">
+
+    <!-- Recent Jobs Table -->
+    <div class="dashboard-card">
+
+        <div class="table-header">
+            <h2>Recent Jobs</h2>
+        </div>
+
+        <div th:if="${recentJobs.isEmpty()}"
+             class="empty-state">
+
+            <i class="fas fa-briefcase"></i>
+            <p>No jobs created yet.</p>
+
+        </div>
+
+        <div class="table-responsive"
+             th:unless="${recentJobs.isEmpty()}">
+
+            <table class="dashboard-table">
+
+                <thead>
+                    <tr>
+                        <th>Job Title</th>
+                        <th>Category</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr th:each="job : ${recentJobs}">
+
+                        <td>
+                            <div class="table-job-title">
+                                <i class="fas fa-briefcase"></i>
+
+                                <span th:text="${job.title}">
+                                    Job Title
+                                </span>
+                            </div>
+                        </td>
+
+                        <td>
+                            <span class="category-badge"
+                                  th:text="${job.category.name}">
+                                Category
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="date-text">
+                                <i class="far fa-calendar"></i>
+
+                                <span th:text="${#temporals.format(job.createdAt,'dd MMM yyyy')}">
+                                    Date
+                                </span>
+                            </span>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- Recent Applications Table -->
+    <div class="dashboard-card">
+
+        <div class="table-header">
+            <h2>Recent Applications</h2>
+        </div>
+
+        <div th:if="${recentApplications.isEmpty()}"
+             class="empty-state">
+
+            <i class="fas fa-file-alt"></i>
+            <p>No applications yet.</p>
+
+        </div>
+
+        <div class="table-responsive"
+             th:unless="${recentApplications.isEmpty()}">
+
+            <table class="dashboard-table">
+
+                <thead>
+                    <tr>
+                        <th>Freelancer</th>
+                        <th>Job</th>
+                        <th>Applied</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr th:each="app : ${recentApplications}">
+
+                        <td>
+                            <div class="freelancer-cell">
+
+                                <div class="freelancer-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+
+                                <span th:text="${app.freelancer.user.name}">
+                                    Freelancer Name
+                                </span>
+
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="job-cell">
+
+                                <i class="fas fa-briefcase"></i>
+
+                                <span th:text="${app.job.title}">
+                                    Job Title
+                                </span>
+
+                            </div>
+                        </td>
+
+                        <td>
+                            <span class="date-text">
+
+                                <i class="far fa-calendar"></i>
+
+                                <span th:text="${#temporals.format(app.createdAt,'dd MMM yyyy')}">
+                                    Date
+                                </span>
+
+                            </span>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
         </div>
 
     </main>
