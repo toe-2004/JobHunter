@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Edit Profile</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            width: 500px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            margin-bottom: 25px;
+        }
+
+        .profile-image {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .profile-image img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ddd;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 6px;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .save-btn {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background: #28a745;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .save-btn:hover {
+            background: #218838;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Edit Profile</h1>
+
+    <form th:action="@{/freelancer-update-profile}"
+          method="post"
+          enctype="multipart/form-data">
+
+    
+
+        <div class="profile-image">
+
+            <img th:if="${user.profilePhoto != null}"
+                 th:src="@{'/uploads/' + ${user.profilePhoto}}"
+                 alt="Profile Photo">
+
+          
+
+        </div>
+
+
+   
+
+        <label>Name</label>
+
+        <input type="text"
+               name="name"
+               th:value="${user.name}"
+               required>
+
+
+  
+
+        <label>Profile Photo</label>
+
+        <input type="file"
+               name="profilePhoto"
+               accept="image/*">
+
+
+     
+
+        <button type="submit"
+                class="save-btn">
+
+            Save Changes
+
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

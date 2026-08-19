@@ -99,24 +99,29 @@
 
     </nav>
 
-    <a th:href="@{/freelancer/profile}" class="sidebar-profile d-none d-lg-flex">
+	<a th:href="@{/freelancer-profile}"
+	   class="sidebar-profile d-none d-lg-flex">
 
-        <img th:if="${user.profilePhoto != null}" th:src="@{'/uploads/' + ${user.profilePhoto}}"
-                alt="Profile Photo"
-                class="profile-photo">
+	    <img th:if="${user.profilePhoto != null}"
+	         th:src="@{'/uploads/' + ${user.profilePhoto}}"
+	         alt="Profile Photo"
+	         class="profile-photo">
 
-        <div class="profile-info">
+	   
 
-            <span class="username"
-                  th:text="${user.name}">
-            </span>
+	    <div class="profile-info">
 
-            <span class="user-role" 
-                  th:text="${user.role}">
-            </span>
+	        <span class="username"
+	              th:text="${user.name}">
+	            Username
+	        </span>
 
-        </div>
+	        <span class="user-role">
+	            Freelancer
+	        </span>
 
-    </a>
+	    </div>
+
+	</a>
 
 </div>
