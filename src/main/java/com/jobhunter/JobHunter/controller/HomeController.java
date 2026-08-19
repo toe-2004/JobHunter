@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 
 import com.jobhunter.JobHunter.model.*;
 import com.jobhunter.JobHunter.repository.SkillRepository;
+import com.jobhunter.JobHunter.service.EmployerService;
 import com.jobhunter.JobHunter.service.FreelancerService;
 import com.jobhunter.JobHunter.service.JobService;
 
@@ -22,6 +23,8 @@ public class HomeController {
 	 
     @Autowired
     private FreelancerService freelancerService;
+    @Autowired
+    private EmployerService employerService;
 	@Autowired
     private JobService jobService;
 
@@ -59,11 +62,18 @@ public class HomeController {
         model.addAttribute("latestJobs", latestJobs);
         List<Freelancer> freelancers =
                 freelancerService.getLatest4Freelancers();
+        List<Employer> latestEmployers =
+                employerService.getLatest4Employers();
+
+        model.addAttribute("latestEmployers", latestEmployers);
+
 
         model.addAttribute("freelancers", freelancers);
 
 
         return "viewHomeJob";
     }
+    
+ 
 
 }

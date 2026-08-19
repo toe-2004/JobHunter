@@ -133,5 +133,19 @@ public class EmployerService {
                 .orElseThrow(() -> new IllegalStateException(
                         "Employer profile not found"));
     }
+    
+    public List<Employer> getLatest4Employers() {
+        return employerRepository.findTop4ByOrderByIdDesc();
+    }
+
+    public List<Employer> getAllEmployers() {
+        return employerRepository.findAllByOrderByIdDesc();
+    }
+
+    public Employer getEmployerById(Long id) {
+        return employerRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Employer not found"));
+    }
 
 }

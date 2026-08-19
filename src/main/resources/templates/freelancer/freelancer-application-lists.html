@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Applications</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+        }
+
+        .dashboard-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar-container {
+            width: 250px;
+            flex-shrink: 0;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 35px;
+        }
+
+        .page-container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            font-size: 28px;
+            color: #222;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            padding: 10px 18px;
+            background: #6c757d;
+            color: white;
+            border-radius: 6px;
+        }
+
+        .back-btn:hover {
+            background: #555;
+            color: white;
+        }
+
+        .applications-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .application-item {
+            padding: 18px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .application-item:last-child {
+            border-bottom: none;
+        }
+
+        .application-row {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .company-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #ddd;
+        }
+
+        .application-details {
+            flex: 1;
+        }
+
+        .company-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 5px;
+        }
+
+        .position-name {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .category-name {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .application-status {
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+        }
+
+        .empty-state i {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .empty-state p {
+            font-size: 16px;
+        }
+		
+		.application-link {
+		    text-decoration: none;
+		    color: inherit;
+		    display: block;
+		}
+
+		.application-link:hover {
+		    color: inherit;
+		}
+
+		.application-item {
+		    padding: 18px 0;
+		    border-bottom: 1px solid #eee;
+		    cursor: pointer;
+		    transition: background-color 0.2s ease;
+		}
+
+		.application-item:hover {
+		    background-color: #f8f9fa;
+		}
+
+		.application-item:last-child {
+		    border-bottom: none;
+		}
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="dashboard-layout">
+
+
+
+    <div class="sidebar-container">
+
+        <div th:replace="~{fragments/sidebar_for_freelancer :: sidebar}">
+        </div>
+
+    </div>
+
+
+ 
+
+    <main class="main-content">
+
+        <div class="page-container">
+
+
+
+            <div class="page-header">
+
+                <h1>
+                    My Applications
+                </h1>
+
+                <a th:href="@{/freelancer/dashboard}"
+                   class="back-btn">
+
+                    <i class="fas fa-arrow-left"></i>
+                    Dashboard
+
+                </a>
+
+            </div>
+
+
+    
+
+            <div class="applications-card">
+
+
+      
+
+                <div th:if="${applications == null || applications.isEmpty()}"
+                     class="empty-state">
+
+                    <i class="fas fa-file-alt"></i>
+
+                    <p>
+                        You have not applied for any jobs yet.
+                    </p>
+
+                </div>
+
+
+
+				<div th:each="app : ${applications}"
+				     class="application-item">
+
+				    <a th:href="@{/job-details/{id}(id=${app.job.id})}"
+				       class="application-link">
+
+				        <div class="application-row">
+
+
+				            <img th:if="${app.job.employer.user.profilePhoto != null}"
+				                 th:src="@{'/uploads/' + ${app.job.employer.user.profilePhoto}}"
+				                 alt="Company Photo"
+				                 class="company-photo">
+
+
+				         
+
+				            <div class="application-details">
+
+				              
+				                <div class="company-name"
+				                     th:text="${app.job.employer.companyName}">
+
+				                    Company Name
+
+				                </div>
+
+
+				              
+
+				                <div class="position-name"
+				                     th:text="${app.job.title}">
+
+				                    Job Title
+
+				                </div>
+
+
+				             
+
+				                <div class="category-name"
+				                     th:text="${app.job.category.name}">
+
+				                    Category
+
+				                </div>
+
+
+				             
+
+				                
+				            </div>
+
+
+				         
+
+				            <span class="application-status"
+				                  th:text="${app.status}">
+
+				                PENDING
+
+				            </span>
+
+				        </div>
+
+				    </a>
+
+				</div>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+
+</body>
+
+</html>

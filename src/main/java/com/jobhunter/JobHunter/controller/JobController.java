@@ -154,46 +154,7 @@ public class JobController {
         return "redirect:/my-jobs";
     }
     
-    
-//     @GetMapping("/job/skill")
-//     public String showSkillForm(
-//             @RequestParam(value = "jobId", required = false) Long jobId,
-//             Model model) {
 
-//         model.addAttribute("skill", new Skill());
-
-//         model.addAttribute("jobId", jobId);
-
-//         return "job/jobskillform";
-//     }
-
-//     @PostMapping("/job/skill")
-//     public String saveSkill(@ModelAttribute("skill") Skill skill,
-//     		 @RequestParam(value = "jobId", required = false) Long jobId
-//     		) {
-
-//         String skillName = skill.getName() == null
-//                         ? ""
-//                         : skill.getName().trim();
-
-//         if (skillName.isEmpty()) {
-//             throw new RuntimeException("Skill name cannot be empty");
-//         }
-
-//         Optional<Skill> existingSkill = skillRepository.findByNameIgnoreCase(skillName);
-//         if (existingSkill.isEmpty()) {
-
-//             Skill newSkill = new Skill();
-//             newSkill.setName(skillName);
-//             skillRepository.save(newSkill);
-//         }
-        
-//         if (jobId != null) {
-//             return "redirect:/edit-job/" + jobId;
-//         }
-
-//         return "redirect:/create-job";
-//     }
     
         @PostMapping("/job/skill")
         @ResponseBody
@@ -244,119 +205,9 @@ public class JobController {
 
                 return "job/my-jobs";
         }
-    
-//     @GetMapping("/edit-job/{id}")
-//     public String editJob(
-//             @PathVariable Long id,
-//             Model model) {
 
-//         Job job = jobRepository.findById(id)
-//                 .orElseThrow(() ->
-//                         new RuntimeException("Job not found"));
 
-//         List<Long> selectedSkillIds = job.getJobSkills()
-//                 .stream()
-//                 .map(jobSkill -> jobSkill.getSkill().getId())
-//                 .toList();
 
-//         model.addAttribute("job", job);
-
-//         model.addAttribute(
-//                 "selectedSkillIds",
-//                 selectedSkillIds
-//         );
-
-//         model.addAttribute(
-//                 "skills",
-//                 skillRepository.findAll()
-//         );
-
-//         model.addAttribute(
-//                 "categories",
-//                 categoryRepository.findAll()
-//         );
-
-//         model.addAttribute(
-//                 "employmentTypes",
-//                 EmploymentType.values()
-//         );
-
-//         model.addAttribute(
-//                 "durations",
-//                 DurationType.values()
-//         );
-
-//         model.addAttribute(
-//                 "experienceLevels",
-//                 ExperienceLevel.values()
-//         );
-
-//         return "job/create-job";
-//     }
-
-@GetMapping("/edit-job/{id}")
-public String editJob(
-        @PathVariable Long id,
-        Model model) {
-
-    Authentication auth =
-            SecurityContextHolder.getContext().getAuthentication();
-
-    User user = userRepository
-            .findByEmail(auth.getName())
-            .orElseThrow(() ->
-                    new RuntimeException("User not found"));
-
-    Employer employer = employerRepository
-            .findByUserId(user.getId())
-            .orElseThrow(() ->
-                    new RuntimeException("Employer not found"));
-
-    Job job = jobRepository.findById(id)
-            .orElseThrow(() ->
-                    new RuntimeException("Job not found"));
-
-    List<Long> selectedSkillIds = job.getJobSkills()
-            .stream()
-            .map(jobSkill -> jobSkill.getSkill().getId())
-            .toList();
-
-    model.addAttribute("employer", employer);
-
-    model.addAttribute("job", job);
-
-    model.addAttribute(
-            "selectedSkillIds",
-            selectedSkillIds
-    );
-
-    model.addAttribute(
-            "skills",
-            skillRepository.findAll()
-    );
-
-    model.addAttribute(
-            "categories",
-            categoryRepository.findAll()
-    );
-
-    model.addAttribute(
-            "employmentTypes",
-            EmploymentType.values()
-    );
-
-    model.addAttribute(
-            "durations",
-            DurationType.values()
-    );
-
-    model.addAttribute(
-            "experienceLevels",
-            ExperienceLevel.values()
-    );
-
-    return "job/create-job";
-}
     
     @Transactional
     @PostMapping("/edit-job/{id}")
@@ -404,6 +255,70 @@ public String editJob(
         jobRepository.save(existingJob);
 
         return "redirect:/my-jobs";
+    }
+    
+    @GetMapping("/edit-job/{id}")
+    public String editJob(
+            @PathVariable Long id,
+            Model model) {
+
+        Authentication auth =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        User user = userRepository
+                .findByEmail(auth.getName())
+                .orElseThrow(() ->
+                        new RuntimeException("User not found"));
+
+        Employer employer = employerRepository
+                .findByUserId(user.getId())
+                .orElseThrow(() ->
+                        new RuntimeException("Employer not found"));
+
+        Job job = jobRepository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Job not found"));
+
+        List<Long> selectedSkillIds = job.getJobSkills()
+                .stream()
+                .map(jobSkill -> jobSkill.getSkill().getId())
+                .toList();
+
+        model.addAttribute("employer", employer);
+
+        model.addAttribute("job", job);
+
+        model.addAttribute(
+                "selectedSkillIds",
+                selectedSkillIds
+        );
+
+        model.addAttribute(
+                "skills",
+                skillRepository.findAll()
+        );
+
+        model.addAttribute(
+                "categories",
+                categoryRepository.findAll()
+        );
+
+        model.addAttribute(
+                "employmentTypes",
+                EmploymentType.values()
+        );
+
+        model.addAttribute(
+                "durations",
+                DurationType.values()
+        );
+
+        model.addAttribute(
+                "experienceLevels",
+                ExperienceLevel.values()
+        );
+
+        return "job/create-job";
     }
     
     @PostMapping("/delete-job/{id}")
