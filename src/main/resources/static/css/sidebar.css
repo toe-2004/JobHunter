@@ -302,6 +302,11 @@ body {
         display: flex !important;
     }
 
+    .mobile-profile .user-role {
+        font-size: 10px;
+        color:white;
+    }
+
     .sidebar-nav,
     .sidebar-profile {
         display: none !important;

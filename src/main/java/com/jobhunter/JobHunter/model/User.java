@@ -106,4 +106,9 @@ public class User {
 
 	@OneToOne(mappedBy = "user")
 	private Freelancer freelancer;
+
+    public User orElseThrow(Object object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
+    }
 }

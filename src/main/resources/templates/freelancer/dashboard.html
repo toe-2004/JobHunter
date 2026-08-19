@@ -15,84 +15,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap"
           rel="stylesheet">
 		  
-	<style>
-		
-		.dashboard-card-header {
-		    display: flex;
-		    justify-content: space-between;
-		    align-items: center;
-		    margin-bottom: 20px;
-			width: 400px;
-		}
-
-		.dashboard-card-header h2 {
-		    margin: 0;
-		}
-
-		.view-all-btn {
-		    text-decoration: none;
-		    padding: 8px 16px;
-		    border-radius: 6px;
-		    font-size: 14px;
-		    font-weight: 600;
-		    border: 1px solid #ddd;
-		    transition: 0.2s;
-		}
-
-		.view-all-btn:hover {
-		    text-decoration: none;
-		}
-		.application-link {
-		    display: block;
-		    text-decoration: none;
-		    color: inherit;
-		}
-
-		.application-link:hover {
-		    color: inherit;
-		    text-decoration: none;
-		}
-
-		.application-item {
-		    cursor: pointer;
-		    transition: background-color 0.2s ease;
-		}
-
-		.application-item:hover {
-		    background-color: #f8f9fa;
-		    border-radius: 8px;
-		}
-
-		.application-item:hover .position-name {
-		    color: #007bff;
-		}
-		
-		.hire-request-link {
-		    display: block;
-		    text-decoration: none;
-		    color: inherit;
-		}
-
-		.hire-request-link:hover {
-		    text-decoration: none;
-		    color: inherit;
-		}
-
-		.hire-request-item {
-		    cursor: pointer;
-		    transition: background-color 0.2s ease;
-		}
-
-		.hire-request-item:hover {
-		    background-color: #f8f9fa;
-		    border-radius: 8px;
-		}
-
-		.hire-request-item:hover .hire-company-name {
-		    color: #007bff;
-		}
-	</style>
-
 </head>
 
 <body>
@@ -209,213 +131,177 @@
 
 				<div class="dashboard-grid">
 
-						<div class="dashboard-grid">
+					<!-- Recent Applications -->
+					<div class="dashboard-card">
 
-						    <!-- Recent Applications -->
-							<div class="dashboard-card">
+						<div class="dashboard-card-header">
 
-							    <div class="dashboard-card-header">
+							<h2>Recent Applications</h2>
 
-							        <h2>Recent Applications</h2>
-
-							        <a th:href="@{/freelancer-application-lists}"
-							           class="view-all-btn">
-							            View All
-							        </a>
-
-							    </div>
-
-
-							  
-
-							    <div th:if="${recentApplications == null || recentApplications.isEmpty()}"
-							         class="empty-state">
-
-							        <i class="fas fa-file-alt"></i>
-
-							        <p>There are no recent applications.</p>
-
-							    </div>
-
-
-							  
-							    <div th:each="app : ${recentApplications}"
-							         class="application-item">
-
-							     
-
-							        <a th:href="@{/job-details/{id}(id=${app.job.id})}"
-							           class="application-link">
-
-							            <div class="application-row">
-
-
-							              
-
-							                <img th:if="${app.job.employer.user.profilePhoto != null}"
-							                     th:src="@{'/uploads/' + ${app.job.employer.user.profilePhoto}}"
-							                     alt="Company Photo"
-							                     class="company-photo">
-
-
-							                
-
-							                <div class="application-details">
-
-							                   
-
-							                    <div class="company-name"
-							                         th:text="${app.job.employer.companyName}">
-
-							                        Company Name
-
-							                    </div>
-
-
-							                 
-
-							                    <div class="position-name"
-							                         th:text="${app.job.title}">
-
-							                        Job Title
-
-							                    </div>
-
-
-							                   
-
-							                    <div class="category-name"
-							                         th:text="${app.job.category.name}">
-
-							                        Category
-
-							                    </div>
-
-							                </div>
-
-
-							               
-							                <span class="application-status"
-							                      th:text="${app.status}">
-
-							                    PENDING
-
-							                </span>
-
-							            </div>
-
-							        </a>
-
-							    </div>
-
-							</div>
-					  
-						<div class="dashboard-card">
-
-						    <div class="dashboard-card-header">
-
-						        <h2>Recent Hire Requests</h2>
-
-						        <a th:href="@{/freelancer-recent-hire-requests}"
-						           class="view-all-btn">
-
-						            View All
-
-						        </a>
-
-						    </div>
-
-
-						  
-
-						    <div th:if="${recentHireRequests == null || recentHireRequests.isEmpty()}"
-						         class="empty-state">
-
-						        <i class="fas fa-handshake"></i>
-
-						        <p>There are no recent hire requests.</p>
-
-						    </div>
-
-
-						   
-
-						    <div th:each="engagement : ${recentHireRequests}"
-						         class="hire-request-item">
-
-
-						        <!-- Clickable Company Information -->
-
-						        <a th:href="@{/company/{id}(id=${engagement.employer.id})}"
-						           class="hire-request-link">
-
-
-						            <div class="hire-request-row">
-
-
-						               
-						                <img th:if="${engagement.employer.user.profilePhoto != null}"
-						                     th:src="@{'/uploads/' + ${engagement.employer.user.profilePhoto}}"
-						                     alt="Company Photo"
-						                     class="company-photo">
-
-
-						              
-						                <div class="hire-request-details">
-
-
-						                   
-
-						                    <div class="hire-company-name"
-						                         th:text="${engagement.employer.companyName}">
-
-						                        Company Name
-
-						                    </div>
-
-
-						                   
-
-						                    <div class="hire-position"
-						                         th:text="${engagement.title}">
-
-						                        Engagement Title
-
-						                    </div>
-
-
-						                  
-
-						                    <div class="hire-category"
-						                         th:text="${engagement.category.name}">
-
-						                        Category
-
-						                    </div>
-
-
-						                </div>
-
-
-						                
-
-						                <span class="hire-status"
-						                      th:text="${engagement.status}">
-
-						                    PENDING
-
-						                </span>
-
-
-						            </div>
-
-						        </a>
-
-						    </div>
+							<a th:href="@{/freelancer-application-lists}"
+								class="view-all-btn">
+								View All
+							</a>
 
 						</div>
+
+						<div th:if="${recentApplications == null || recentApplications.isEmpty()}"
+								class="empty-state">
+
+							<i class="fas fa-file-alt"></i>
+
+							<p>There are no recent applications.</p>
+
+						</div>
+
+						<div th:each="app : ${recentApplications}"
+								class="application-item">
+
+							<a th:href="@{/job-details/{id}(id=${app.job.id})}"
+								class="application-link">
+
+								<div class="application-row">
+
+									<img th:if="${app.job.employer.user.profilePhoto != null}"
+											th:src="@{'/uploads/' + ${app.job.employer.user.profilePhoto}}"
+											alt="Company Photo"
+											class="company-photo">
+
+
+									
+
+									<div class="application-details">
+
+										
+
+										<div class="company-name"
+												th:text="${app.job.employer.companyName}">
+
+											Company Name
+
+										</div>
+
+
+										
+
+										<div class="position-name"
+												th:text="${app.job.title}">
+
+											Job Title
+
+										</div>
+
+
+										
+
+										<div class="category-name"
+												th:text="${app.job.category.name}">
+
+											Category
+
+										</div>
+
+									</div>
+
+									<span class="application-status"
+										th:classappend="${app.status.name() == 'ACCEPTED'} ? ' status-accepted' :
+														(${app.status.name() == 'REJECTED'} ? ' status-rejected' :
+														(${app.status.name() == 'SHORTLISTED'} ? ' status-shortlisted' :
+														' status-pending'))"
+										th:text="${app.status}">
+										PENDING
+									</span>
+
+								</div>
+
+							</a>
+
+						</div>
+
+					</div>
+				
+					<div class="dashboard-card">
+
+						<div class="dashboard-card-header">
+
+							<h2>Recent Hire Requests</h2>
+
+							<a th:href="@{/freelancer-recent-hire-requests}"
+							class="view-all-btn">
+								View All
+							</a>
+
+						</div>
+
+						<div th:if="${recentHireRequests == null || recentHireRequests.isEmpty()}"
+							class="empty-state">
+							<i class="fas fa-handshake"></i>
+							<p>There are no recent hire requests.</p>
+
+						</div>
+
+						<div th:each="engagement : ${recentHireRequests}"
+							class="hire-request-item">
+
+							<!-- Clickable Company Information -->
+
+							<a th:href="@{/company/{id}(id=${engagement.employer.id})}"
+							class="hire-request-link">
+
+								<div class="hire-request-row">
+
+									<img th:if="${engagement.employer.user.profilePhoto != null}"
+										th:src="@{'/uploads/' + ${engagement.employer.user.profilePhoto}}"
+										alt="Company Photo"
+										class="company-photo">
+
+									<div class="hire-request-details">
+									
+										<div class="hire-company-name"
+											th:text="${engagement.employer.companyName}">
+
+											Company Name
+
+										</div>
+
+										<div class="hire-position"
+											th:text="${engagement.title}">
+
+											Engagement Title
+
+										</div>
+
+										<div class="hire-category"
+											th:text="${engagement.category.name}">
+
+											Category
+
+										</div>
+
+									</div>
+
+									<span class="hire-status"
+										th:text="${engagement.status}">
+
+										PENDING
+
+									</span>
+
+								</div>
+
+							</a>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
         </main>
 
     </div>
+
 </body>
 </html>
