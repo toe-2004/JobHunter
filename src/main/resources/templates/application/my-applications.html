@@ -75,6 +75,31 @@
             border-radius: 5px;
             cursor: pointer;
         }
+		
+		.application-link {
+				    display: block;
+				    text-decoration: none;
+				    color: inherit;
+				}
+
+				.application-link:hover {
+				    color: inherit;
+				    text-decoration: none;
+				}
+
+				.application-item {
+				    cursor: pointer;
+				    transition: background-color 0.2s ease;
+				}
+
+				.application-item:hover {
+				    background-color: #f8f9fa;
+				    border-radius: 8px;
+				}
+
+				.application-item:hover .position-name {
+				    color: #007bff;
+				}
 
     </style>
 
@@ -96,7 +121,8 @@
 
     <div th:each="app : ${applications}"
          class="application-card">
-
+		 <a th:href="@{/job-details/{id}(id=${app.job.id})}"
+		 							           class="application-link">
 
         <div class="job-title"
              th:text="${app.job.title}">
@@ -145,7 +171,7 @@
             </form>
 
         </div>
-
+	</a>
     </div>
 
 </div>

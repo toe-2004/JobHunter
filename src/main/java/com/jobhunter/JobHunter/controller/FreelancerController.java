@@ -212,10 +212,6 @@ public class FreelancerController {
         Freelancer savedFreelancer;
 
 
-        // =====================================================
-        // CREATE NEW FREELANCER
-        // =====================================================
-
         if (optionalFreelancer.isEmpty()) {
 
             freelancer.setUser(user);

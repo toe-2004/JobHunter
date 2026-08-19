@@ -2,10 +2,12 @@ package com.jobhunter.JobHunter.controller;
 
 import com.jobhunter.JobHunter.dto.EmployerProfileDto;
 import com.jobhunter.JobHunter.dto.EmployerRegistrationDto;
+import com.jobhunter.JobHunter.enumeration.ApplicationStatus;
 import com.jobhunter.JobHunter.model.Application;
 import com.jobhunter.JobHunter.model.Employer;
 import com.jobhunter.JobHunter.model.Job;
 import com.jobhunter.JobHunter.model.User;
+import com.jobhunter.JobHunter.repository.ApplicationRepository;
 import com.jobhunter.JobHunter.service.EmployerService;
 import com.jobhunter.JobHunter.service.UserService;
 
@@ -31,6 +33,8 @@ public class EmployerController {
 
     @Autowired
     private EmployerService employerService;
+    @Autowired
+    private ApplicationRepository applicationRepository;
     @Autowired
     private UserService userService;
 
@@ -60,6 +64,13 @@ public class EmployerController {
         List<Job> recentJobs = employerService.getRecentJobs();
         List<Application> recentApplications = employerService.getRecentApplications();
 
+        long pendingCount = applicationRepository.countByJobEmployerAndStatus(employer,ApplicationStatus.PENDING);
+
+        long shortlistedCount = applicationRepository.countByJobEmployerAndStatus(employer,ApplicationStatus.SHORTLISTED);
+
+        model.addAttribute("pendingCount", pendingCount);
+
+        model.addAttribute("shortlistedCount", shortlistedCount);
         model.addAttribute("employer", employer);
         model.addAttribute("jobCount", employerService.getJobCount());
         model.addAttribute("recentJobs", recentJobs);
@@ -98,5 +109,15 @@ public class EmployerController {
             bindingResult.reject("profile.error", ex.getMessage());
             return "employer/profile-edit";
         }
+    }
+    
+    public long getPendingCount(Employer employer) {
+
+        return applicationRepository.countByJobEmployerAndStatus(employer,ApplicationStatus.PENDING);
+    }
+
+    public long getShortlistedCount(Employer employer) {
+
+        return applicationRepository.countByJobEmployerAndStatus(employer,ApplicationStatus.SHORTLISTED);
     }
 }
