@@ -1,5 +1,10 @@
 package com.jobhunter.JobHunter.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -211,10 +216,6 @@ public class FreelancerController {
 
         Freelancer savedFreelancer;
 
-
-        // =====================================================
-        // CREATE NEW FREELANCER
-        // =====================================================
 
         if (optionalFreelancer.isEmpty()) {
 
@@ -521,6 +522,63 @@ public class FreelancerController {
         model.addAttribute("hireRequests", hireRequests);
 
         return "freelancer/recent-hire-requests";
+    }
+    
+    @GetMapping("/freelancer-profile")
+    public String freelancerProfile(
+            Authentication auth,
+            Model model) {
+
+        User user = userRepository.findByEmail(auth.getName())
+                .orElseThrow(() ->
+                        new RuntimeException("User not found"));
+
+        Freelancer freelancer = freelancerRepository
+                .findByUser(user)
+                .orElseThrow(() ->
+                        new RuntimeException("Freelancer not found"));
+
+        model.addAttribute("user", user);
+        model.addAttribute("freelancer", freelancer);
+
+        return "freelancer/profile";
+    }
+    @PostMapping("/freelancer-update-profile")
+    public String updateFreelancerProfile(
+            @RequestParam("name") String name,
+            @RequestParam(value = "profilePhoto", required = false) MultipartFile profilePhoto,
+            Authentication auth) throws IOException {
+
+        User user = userRepository.findByEmail(auth.getName())
+                .orElseThrow(() ->
+                        new RuntimeException("User not found"));
+
+      
+        user.setName(name);
+
+     
+        if (profilePhoto != null && !profilePhoto.isEmpty()) {
+
+            String fileName = UUID.randomUUID() + "_" + profilePhoto.getOriginalFilename();
+
+            Path uploadPath = Paths.get("uploads");
+
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            Files.copy(
+                    profilePhoto.getInputStream(),
+                    uploadPath.resolve(fileName),
+                    StandardCopyOption.REPLACE_EXISTING
+            );
+
+            user.setProfilePhoto(fileName);
+        }
+
+        userRepository.save(user);
+
+        return "redirect:/freelancer/profile";
     }
    
 }
