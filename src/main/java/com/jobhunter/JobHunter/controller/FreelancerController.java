@@ -191,11 +191,11 @@ public class FreelancerController {
     @PostMapping("/freelancer/profile")
     public String saveProfile(
             @ModelAttribute("freelancer") Freelancer freelancer,
-            @RequestParam(
-                    value = "skillIds",
-                    required = false
-            )
-            Set<Long> skillIds) {
+            @RequestParam(value = "skillIds",required = false)
+            Set<Long> skillIds,
+            Model model,
+            @RequestParam(value = "profilePhoto",required = false)MultipartFile profilePhoto
+    ) throws IOException {
 
 
         Authentication auth =
@@ -203,16 +203,18 @@ public class FreelancerController {
                         .getContext()
                         .getAuthentication();
 
+        User user =
+                userRepository
+                        .findByEmail(auth.getName())
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        "User not found"
+                                )
+                        );
 
-        User user = userRepository
-                .findByEmail(auth.getName())
-                .orElseThrow(() ->
-                        new RuntimeException("User not found"));
 
 
-        Optional<Freelancer> optionalFreelancer =
-                freelancerRepository.findByUser(user);
-
+        Optional<Freelancer> optionalFreelancer = freelancerRepository.findByUser(user);
 
         Freelancer savedFreelancer;
 
@@ -221,19 +223,18 @@ public class FreelancerController {
 
             freelancer.setUser(user);
 
-            savedFreelancer =
-                    freelancerRepository.save(freelancer);
-
+            savedFreelancer = freelancerRepository.save(freelancer);
 
             user.setRole(Role.FREELANCER);
 
             userRepository.save(user);
         }
+
+
         else {
 
             savedFreelancer =
                     optionalFreelancer.get();
-
 
             savedFreelancer.setTitle(
                     freelancer.getTitle()
@@ -259,12 +260,12 @@ public class FreelancerController {
                     freelancer.getEducation()
             );
 
-
             savedFreelancer =
                     freelancerRepository.save(
                             savedFreelancer
                     );
         }
+
 
         freelancerSkillRepository
                 .deleteByFreelancer(savedFreelancer);
@@ -275,7 +276,8 @@ public class FreelancerController {
             for (Long skillId : skillIds) {
 
                 Skill skill =
-                        skillRepository.findById(skillId)
+                        skillRepository
+                                .findById(skillId)
                                 .orElseThrow(() ->
                                         new RuntimeException(
                                                 "Skill not found: "
@@ -283,19 +285,14 @@ public class FreelancerController {
                                         )
                                 );
 
-
                 FreelancerSkill freelancerSkill =
                         new FreelancerSkill();
-
 
                 freelancerSkill.setFreelancer(
                         savedFreelancer
                 );
 
-                freelancerSkill.setSkill(
-                        skill
-                );
-
+                freelancerSkill.setSkill(skill);
 
                 freelancerSkillRepository.save(
                         freelancerSkill
@@ -304,9 +301,40 @@ public class FreelancerController {
         }
 
 
+        if (profilePhoto != null &&
+                !profilePhoto.isEmpty()) {
+
+            String fileName =
+                    profilePhoto.getOriginalFilename();
+
+            Path uploadPath =
+                    Paths.get("uploads/");
+
+            if (!Files.exists(uploadPath)) {
+
+                Files.createDirectories(
+                        uploadPath
+                );
+            }
+
+            Path filePath =
+                    uploadPath.resolve(fileName);
+
+            Files.copy(
+                    profilePhoto.getInputStream(),
+                    filePath,
+                    StandardCopyOption.REPLACE_EXISTING
+            );
+
+         
+            user.setProfilePhoto(fileName);
+
+            userRepository.save(user);
+        }
+
+
         return "redirect:/freelancer/profile";
     }
-
 
     @GetMapping("/freelancer/skill")
     public String showSkillForm(Model model) {
@@ -323,7 +351,6 @@ public class FreelancerController {
     @PostMapping("/freelancer/skill")
     public String saveSkill(
             @ModelAttribute("skill") Skill skill) {
-
 
         String skillName =
                 skill.getName() == null
@@ -406,6 +433,7 @@ public class FreelancerController {
                     new Skill()
             );
 
+            model.addAttribute("user", user);
 
             return "freelancer/freelancer-create";
         }
@@ -452,7 +480,7 @@ public class FreelancerController {
                 "skill",
                 new Skill()
         );
-
+        model.addAttribute("user", user);
 
         return "freelancer/freelancer-create";
     }

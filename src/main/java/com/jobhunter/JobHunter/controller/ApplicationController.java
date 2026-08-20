@@ -173,17 +173,6 @@ public class ApplicationController {
         return "redirect:/my-applications";
     }
 
-    //View application for freelancer
-    // @GetMapping("/my-applications")
-    // public String myApplications(Model model) {
-
-    //     Authentication auth =SecurityContextHolder.getContext().getAuthentication();
-    //     Freelancer freelancer = freelancerRepository.findByUserEmail(auth.getName()).orElseThrow(() ->new RuntimeException("Freelancer not found"));
-    //     List<Application> applications = applicationRepository.findByFreelancer(freelancer);
-    //     model.addAttribute("user",user);
-    //     model.addAttribute("applications",applications);
-    //     return "application/my-applications";
-    // }
 
     //View application for freelancer
     @GetMapping("/my-applications")

@@ -23,5 +23,5 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     
     List<Job> findByCategory(Category category);
 
-    
+   
 }

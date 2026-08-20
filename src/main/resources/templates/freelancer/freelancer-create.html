@@ -16,7 +16,49 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<style>
+		.profile-photo-section {
+		    display: flex;
+		    align-items: center;
+		    gap: 25px;
+		    margin-top: 15px;
+		}
 
+		.current-photo {
+		    width: 120px;
+		    height: 120px;
+		    flex-shrink: 0;
+		}
+
+		.profile-preview {
+		    width: 120px;
+		    height: 120px;
+		    object-fit: cover;
+		    border-radius: 50%;
+		    border: 3px solid #e5e7eb;
+		}
+
+		.photo-input {
+		    display: flex;
+		    flex-direction: column;
+		    gap: 10px;
+		}
+
+		.photo-input label {
+		    font-weight: 600;
+		}
+
+		.photo-input input[type="file"] {
+		    padding: 10px;
+		    border: 1px solid #ddd;
+		    border-radius: 8px;
+		    background: #fff;
+		}
+
+		.photo-input small {
+		    color: #777;
+		}
+	</style>
 </head>
 
 <body>
@@ -37,12 +79,52 @@
 
             <div class="form-body">
 
-                <form th:action="@{/freelancer/profile}"
-                    method="post"
-                    th:object="${freelancer}">
-
+               
+				<form th:action="@{/freelancer/profile}"
+					      method="post"
+					      th:object="${freelancer}"
+					      enctype="multipart/form-data">
+						  
                     <div class="form-section">
-                        
+						<!-- Profile Photo -->
+						<div class="form-section">
+
+						    <div class="section-title">
+						        Profile Photo
+						    </div>
+
+						    <div class="profile-photo-section">
+
+						    
+						        <div class="current-photo">
+
+									<img th:if="${user.profilePhoto != null}"
+									     th:src="@{'/uploads/' + ${user.profilePhoto}}"
+									     alt="Profile Photo"
+									     class="profile-preview">
+
+						           
+
+						        </div>
+
+						        <div class="photo-input">
+
+						            <label for="profilePhoto">
+						                Change Profile Photo
+						            </label>
+
+						            <input type="file"
+						                   id="profilePhoto"
+						                   name="profilePhoto"
+						                   accept="image/*">
+
+						            
+
+						        </div>
+
+						    </div>
+
+						</div>
                         <div class="section-title">
                             Basic Information
                         </div>
