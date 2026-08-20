@@ -465,7 +465,7 @@ public class FreelancerController {
                 freelancerService.getAllFreelancers();
 
         model.addAttribute("freelancers", freelancers);
-
+        model.addAttribute("currentPage", "freelancers");
         return "freelancer/freelancerHome";
     }
  
@@ -478,6 +478,7 @@ public class FreelancerController {
         Freelancer freelancer =freelancerService.getFreelancerById(id);
 
         model.addAttribute("freelancer", freelancer);
+        model.addAttribute("currentPage","freelancers");
 
         return "freelancer/freelancer-details";
     }

@@ -24,8 +24,8 @@ public class JobService {
 	        return jobRepository.findAll();
 	    }
 	    
-	    public List<Job> getLatest4Jobs() {
-	        return jobRepository.findTop4ByOrderByCreatedAtDesc();
+	    public List<Job> getLatest3Jobs() {
+	        return jobRepository.findTop3ByOrderByCreatedAtDesc();
 	    }
 	    
 	    public List<Job> getLatest6Jobs() {

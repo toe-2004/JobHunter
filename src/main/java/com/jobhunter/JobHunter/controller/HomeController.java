@@ -66,7 +66,7 @@ public class HomeController {
     @GetMapping("/viewHomeJob")
     public String home(@RequestParam(required = false) Long categoryId,Model model) {
 
-        List<Job> latestJobs = jobService.getLatest4Jobs();
+        List<Job> latestJobs = jobService.getLatest3Jobs();
 
         model.addAttribute("latestJobs", latestJobs);
         List<Freelancer> freelancers =
@@ -99,7 +99,7 @@ public class HomeController {
 
 
         model.addAttribute("freelancers", freelancers);
-
+        model.addAttribute("currentPage", "home");
 
         return "viewHomeJob";
     }

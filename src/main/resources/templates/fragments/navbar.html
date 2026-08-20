@@ -19,31 +19,43 @@
         <div class="collapse navbar-collapse" id="navbarMenu">
 
             <ul class="navbar-nav mx-auto">
-
+                
                 <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/viewHomeJob}">
+                    <a th:href="@{/viewHomeJob}"
+                       class="nav-link"
+                       th:classappend="${currentPage == 'home'} ? ' active' : ''">
                         Home
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link" href="">
+                    <a th:href="@{/all-jobs}"
+                    class="nav-link"
+                    th:classappend="${currentPage != null and currentPage == 'jobs'} ? ' active' : ''">
                         Jobs
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link" href="">
+                    <a th:href="@{/categories}"
+                       class="nav-link"
+                       th:classappend="${currentPage == 'categories'} ? ' active' : ''">
+                        Categories
+                    </a>
+                </li>                
+                <li class="nav-item">
+                    <a th:href="@{/companies}"
+                       class="nav-link"
+                       th:classappend="${currentPage == 'companies'} ? ' active' : ''">
                         Companies
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link" href="">
+                    <a th:href="@{/freelancers}"
+                    class="nav-link"
+                    th:classappend="${currentPage != null and currentPage == 'freelancers'} ? ' active' : ''">
                         Freelancers
                     </a>
                 </li>
-
+                
             </ul>
 
 			<div class="nav-buttons">

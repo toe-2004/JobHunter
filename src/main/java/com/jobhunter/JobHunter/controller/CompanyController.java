@@ -24,7 +24,7 @@ public class CompanyController {
 	                employerService.getAllEmployers();
 
 	        model.addAttribute("employers", employers);
-
+			model.addAttribute("currentPage","companies");
 	        return "company/company-list";
 	    }
 	   

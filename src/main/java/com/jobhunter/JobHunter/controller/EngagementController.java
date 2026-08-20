@@ -52,6 +52,7 @@ public class EngagementController {
                 "categories",
                 categoryRepository.findAll()
         );
+        model.addAttribute("currentPage","freelancers");
 
         return "engagement/hire-freelancer";
     }
@@ -149,6 +150,7 @@ public class EngagementController {
                 "engagements",
                 engagements
         );
+        model.addAttribute("employer", employer);
 
         return "engagement/employer-engagements";
     }

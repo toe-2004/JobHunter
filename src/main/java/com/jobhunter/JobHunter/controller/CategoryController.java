@@ -27,7 +27,7 @@ public class CategoryController {
         List<Category> categories = categoryRepository.findAll();
 
         model.addAttribute("categories", categories);
-
+        model.addAttribute("currentPage", "categories");
         return "category/all-categories";
     }
 	 
@@ -51,7 +51,7 @@ public class CategoryController {
 
             jobs = jobRepository.findAll();
         }
-
+        model.addAttribute("currentPage", "categories");
         model.addAttribute("jobs", jobs);
 
         return "category/jobs";

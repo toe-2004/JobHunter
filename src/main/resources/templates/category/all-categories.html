@@ -4,103 +4,148 @@
 <head>
 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>All Categories</title>
+    <title>All Categories | JobHunter</title>
 
-    <style>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script th:src="@{/js/bootstrap.bundle.min.js}" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f7fb;
-            margin: 0;
-            padding: 40px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        h1 {
-            margin-bottom: 30px;
-        }
-
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .category-card {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            text-decoration: none;
-            color: #222;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-            transition: 0.2s;
-        }
-
-        .category-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-        }
-
-        .category-icon {
-            font-size: 30px;
-            margin-bottom: 15px;
-        }
-
-        .category-card h3 {
-            margin: 0 0 10px;
-        }
-
-        .category-card p {
-            color: #777;
-        }
-
-        @media (max-width: 900px) {
-            .category-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .category-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/all-categories.css}">
 
 </head>
 
 <body>
 
-<div class="container">
 
-    <h1>All Categories</h1>
+<!-- NAVBAR -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <div class="category-grid">
+<!-- MAIN CONTENT -->
+<main class="categories-page">
+
+    <div class="categories-header">
+
+        <div class="header-icon">
+
+            <i class="fa-solid fa-layer-group"></i>
+
+        </div>
+
+        <h1>
+
+            Explore <span>Job Categories</span>
+
+        </h1>
+
+        <p>
+
+            Discover opportunities across different industries and find
+            the type of work that matches your skills and career goals.
+
+        </p>
+
+        <div class="category-summary">
+
+            <span>
+
+                <i class="fa-solid fa-folder-open"></i>
+
+                <strong th:text="${categories.size()}">
+                    0
+                </strong>
+
+                Categories Available
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <div th:if="${categories != null && !categories.isEmpty()}"
+         class="category-grid">
 
         <a th:each="category : ${categories}"
-		th:href="@{/category-jobs(categoryId=${category.id})}"
-				   	           class="category-card">
-		   
-            <div class="category-icon">
 
-                <i class="fa-solid fa-code"></i>
+           th:href="@{/category-jobs(categoryId=${category.id})}"
+
+           class="category-card">
+
+            <div class="category-icon"
+                th:switch="${category.name}">
+
+                <i th:case="'3D Modeling'"
+                class="fa-solid fa-cube"></i>
+
+                <i th:case="'Blockchain'"
+                class="fa-solid fa-link"></i>
+
+                <i th:case="'Content Writing'"
+                class="fa-solid fa-pen-fancy"></i>
+
+                <i th:case="'Cybersecurity'"
+                class="fa-solid fa-shield-halved"></i>
+
+                <i th:case="'Data Science'"
+                class="fa-solid fa-chart-simple"></i>
+
+                <i th:case="'Database Administration'"
+                class="fa-solid fa-database"></i>
+
+                <i th:case="'DevOps and Cloud'"
+                class="fa-solid fa-cloud"></i>
+
+                <i th:case="'Game Development'"
+                class="fa-solid fa-gamepad"></i>
+
+                <i th:case="'Graphic Design'"
+                class="fa-solid fa-palette"></i>
+
+                <i th:case="'Machine Learning'"
+                class="fa-solid fa-brain"></i>
+
+                <i th:case="'Mobile Development'"
+                class="fa-solid fa-mobile-screen-button"></i>
+
+                <i th:case="'SEO and Marketing'"
+                class="fa-solid fa-magnifying-glass-dollar"></i>
+
+                <i th:case="'UI UX Design'"
+                class="fa-solid fa-pen-ruler"></i>
+
+                <i th:case="'Video Editing'"
+                class="fa-solid fa-film"></i>
+
+                <i th:case="'Web Development'"
+                class="fa-solid fa-code"></i>
+
+                <i th:case="*"
+                class="fa-solid fa-folder"></i>
 
             </div>
 
             <h3 th:text="${category.name}">
+
                 Category Name
+
             </h3>
 
-            <p>
+            <p class="category-jobs">
 
-                <span th:text="${category.jobs.size()}">
+                <span class="job-number"
+                      th:text="${category.jobs.size()}">
+
                     0
+
                 </span>
 
                 jobs available
@@ -111,7 +156,29 @@
 
     </div>
 
-</div>
+    <div th:if="${categories == null || categories.isEmpty()}"
+         class="empty-state">
+
+        <i class="fa-regular fa-folder-open"></i>
+
+        <h3>
+
+            No Categories Found
+
+        </h3>
+
+        <p>
+
+            There are currently no job categories available.
+
+        </p>
+
+    </div>
+
+</main>
+
+<!-- FOOTER -->
+<div th:replace="~{fragments/footer :: footer}"></div>
 
 </body>
 

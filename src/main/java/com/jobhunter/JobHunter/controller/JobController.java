@@ -377,6 +377,7 @@ public class JobController {
 
             model.addAttribute("alreadyApplied", alreadyApplied);
         }
+        model.addAttribute("currentPage", "jobs");
 
         return "job/job-details";
     }
@@ -396,7 +397,7 @@ public class JobController {
         List<Job> jobs = jobRepository.findAll();
 
         model.addAttribute("jobs", jobs);
-
+        model.addAttribute("currentPage", "jobs");
         return "job/all-jobs";
     }
    

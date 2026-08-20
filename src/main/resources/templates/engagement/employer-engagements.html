@@ -4,215 +4,316 @@
 <head>
 
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Hire Offers</title>
+    <title>My Hire Requests</title>
 
-    <style>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/employer-engagements.css}">
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f7fb;
-            margin: 0;
-            padding: 40px;
-        }
-
-        .container {
-            width: 1100px;
-            margin: auto;
-        }
-
-        h1 {
-            margin-bottom: 25px;
-        }
-
-        .offer-card {
-            background: white;
-            padding: 25px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
-        }
-
-        .info {
-            margin: 8px 0;
-        }
-
-        .label {
-            font-weight: bold;
-        }
-
-        .status {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-
-        .pending {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .accepted {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .rejected {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        .empty {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-    </style>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:stc="@{/js/employer-engagements.js}"></script>
 
 </head>
 
+
 <body>
 
-<div class="container">
+<div class="dashboard-layout">
 
-    <h1>My Hire Offers</h1>
+    <!-- SIDEBAR -->
 
+    <div class="sidebar-container">
 
-    <div th:if="${#lists.isEmpty(engagements)}"
-         class="empty">
-
-        <h3>You have not sent any hire offers.</h3>
+        <div th:replace="~{fragments/sidebar_for_employer :: sidebar}"></div>
 
     </div>
 
+    <!-- MAIN CONTENT -->
 
-    <div th:each="engagement : ${engagements}"
-         class="offer-card">
+    <main class="main-content">
 
+        <div class="requests-wrapper">
 
-        <h2 th:text="${engagement.title}">
-            Engagement Title
-        </h2>
+            <div class="page-header">
 
+                <div class="page-header-left">
 
-        <p class="info">
+                    <div class="page-icon">
 
-            <span class="label">
-                Freelancer:
-            </span>
+                        <i class="fa-solid fa-handshake"></i>
 
-            <span th:text="${engagement.freelancer.user.name}">
-            </span>
+                    </div>
 
-        </p>
+                    <div>
 
+                        <h1>
+                            Hire Requests
+                        </h1>
 
-        <p class="info">
+                        <p>
+                            Manage the hire requests you have sent to freelancers.
+                        </p>
 
-            <span class="label">
-                Freelancer Email:
-            </span>
+                    </div>
 
-            <span th:text="${engagement.freelancer.user.email}">
-            </span>
+                </div>
 
-        </p>
+            </div>
 
+            <div th:if="${#lists.isEmpty(engagements)}"
+                 class="empty-state">
 
-        <p class="info">
+                <div class="empty-icon">
 
-            <span class="label">
-                Freelancer Title:
-            </span>
+                    <i class="fa-regular fa-handshake"></i>
 
-            <span th:text="${engagement.freelancer.title}">
-            </span>
+                </div>
 
-        </p>
+                <h3>
+                    No hire requests yet
+                </h3>
 
+                <p>
+                    Hire requests you send to freelancers will appear here.
+                </p>
 
-        <p class="info">
+            </div>
 
-            <span class="label">
-                Description:
-            </span>
+            <div th:each="engagement : ${engagements}"
+                 class="request-card">
 
-            <span th:text="${engagement.description}">
-            </span>
+                <div class="card-top"></div>
 
-        </p>
+                <div class="card-body">
 
+                    <div class="request-heading">
 
-        <p class="info">
+                        <div class="request-heading-left">
 
-            <span class="label">
-                Category:
-            </span>
+                            <div class="request-label">
 
-            <span th:text="${engagement.category.name}">
-            </span>
+                                <i class="fa-solid fa-paper-plane"></i>
 
-        </p>
+                                Hire Request
 
+                            </div>
 
-        <p class="info">
+                        </div>
 
-            <span class="label">
-                Monthly Rate:
-            </span>
+                        <span th:classappend="${engagement.status.name() == 'PENDING'} ? ' pending' :
+                                              (${engagement.status.name() == 'ACCEPTED'} ? ' accepted' : ' rejected')"
+                              class="status">
 
-            <span th:text="${engagement.monthlyRate}">
-            </span>
+                            <i class="fa-solid fa-circle"></i>
 
-        </p>
+                            <span th:text="${engagement.status}">
+                                PENDING
+                            </span>
 
+                        </span>
 
-        <p class="info">
+                    </div>
 
-            <span class="label">
-                Start Date:
-            </span>
+                    <div class="people-position-row">
 
-            <span th:text="${engagement.startDate}">
-            </span>
+                        <div>
 
-        </p>
+                            <div class="section-label">
 
+                                <i class="fa-solid fa-user"></i>
 
-        <p class="info">
+                                Sent To
 
-            <span class="label">
-                End Date:
-            </span>
+                            </div>
 
-            <span th:text="${engagement.endDate}">
-            </span>
+                            <div class="freelancer-info">
 
-        </p>
+                                <div class="freelancer-avatar">
 
+                                    <i class="fa-solid fa-user"></i>
 
-        <p class="info">
+                                </div>
 
-            <span class="label">
-                Status:
-            </span>
+                                <div class="freelancer-details">
 
-            <span th:classappend="${engagement.status.name() == 'PENDING'} ? ' pending' :
-                                  (${engagement.status.name() == 'ACCEPTED'} ? ' accepted' : ' rejected')"
-                  class="status"
-                  th:text="${engagement.status}">
-            </span>
+                                    <p class="freelancer-name"
+                                       th:text="${engagement.freelancer.user.name}">
 
-        </p>
+                                        Freelancer Name
 
+                                    </p>
 
-    </div>
+                                    <p class="freelancer-meta">
+
+                                        <span th:text="${engagement.freelancer.title}">
+                                            Freelancer Title
+                                        </span>
+
+                                        <span> · </span>
+
+                                        <span class="freelancer-email"
+                                              th:text="${engagement.freelancer.user.email}">
+                                            freelancer@email.com
+                                        </span>
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div>
+
+                            <div class="section-label">
+
+                                <i class="fa-solid fa-briefcase"></i>
+
+                                For Position
+
+                            </div>
+
+                            <div class="position-info">
+
+                                <div class="position-icon">
+
+                                    <i class="fa-solid fa-briefcase"></i>
+
+                                </div>
+
+                                <div class="position-name"
+                                     th:text="${engagement.title}">
+
+                                    Frontend Developer
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="details-grid">
+
+                        <div class="detail-item">
+
+                            <div class="detail-label">
+
+                                <i class="fa-solid fa-layer-group"></i>
+
+                                Category
+
+                            </div>
+
+                            <div class="detail-value"
+                                 th:text="${engagement.category.name}">
+
+                                Web Development
+
+                            </div>
+
+                        </div>
+
+                        <div class="detail-item">
+
+                            <div class="detail-label">
+
+                                <i class="fa-solid fa-money-bill"></i>
+
+                                Monthly Rate
+
+                            </div>
+
+                            <div class="detail-value"
+                                 th:text="${engagement.monthlyRate + ' Kyats'}">
+
+                                500,000 Kyats
+
+                            </div>
+
+                        </div>
+
+                        <div class="detail-item">
+
+                            <div class="detail-label">
+
+                                <i class="fa-regular fa-calendar"></i>
+
+                                Start Date
+
+                            </div>
+
+                            <div class="detail-value"
+                                 th:text="${#temporals.format(engagement.startDate,'dd MMM yyyy, hh:mm a')}">
+
+                                01 Sep 2026, 09:00 AM
+
+                            </div>
+
+                        </div>
+
+                        <div class="detail-item">
+
+                            <div class="detail-label">
+
+                                <i class="fa-regular fa-calendar-check"></i>
+
+                                End Date
+
+                            </div>
+
+                            <div class="detail-value"
+                                 th:text="${#temporals.format(engagement.endDate,'dd MMM yyyy, hh:mm a')}">
+
+                                30 Nov 2026, 05:00 PM
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="description-section">
+
+                        <div class="description-header">
+
+                            <i class="fa-regular fa-file-lines"></i>
+
+                            Engagement Description
+
+                        </div>
+
+                        <p class="description-text"
+                           th:text="${engagement.description}">
+
+                            Engagement description goes here.
+
+                        </p>
+
+                        <button type="button"
+                                class="see-more-btn">
+
+                            See more
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
 
 </div>
-
+<script th:src="@{/js/employer-engagements.js}"></script>
 </body>
 
 </html>

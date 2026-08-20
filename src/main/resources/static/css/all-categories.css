@@ -1,0 +1,240 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #f7faff;
+    color: #172033;
+}
+
+.categories-page {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 65px 32px 90px;
+}
+
+.categories-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 55px;
+}
+
+.header-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    background: #e3f2fd;
+    color: #1976d2;
+    font-size: 27px;
+}
+
+.categories-header h1 {
+    margin: 0 0 14px;
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: #172033;
+}
+
+.categories-header h1 span {
+    color: #1976d2;
+}
+
+.categories-header p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #64748b;
+}
+
+.category-summary {
+    display: flex;
+    justify-content: center;
+    margin-top: 22px;
+}
+
+.category-summary span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 17px;
+    border-radius: 30px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow:
+        0 4px 15px rgba(15, 23, 42, 0.04);
+}
+
+.category-summary i {
+    color: #1976d2;
+    font-size: 12px;
+}
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.category-card {
+    min-height: 198px;
+    padding: 32px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    background: #ffffff;
+    border: 1px solid #dfe5eb;
+    border-radius: 16px;
+    text-decoration: none;
+    color: #172033;
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-3px);
+    border-color: #70b8ff;
+    box-shadow:
+        0 14px 32px rgba(33, 150, 243, 0.10);
+    color: #172033;
+}
+
+.category-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    background: #e3f2fd;
+    color: #2196f3;
+    font-size: 24px;
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+}
+
+.category-card:hover .category-icon {
+    transform: translateY(-2px);
+    background: #d8edfc;
+}
+
+.category-card h3 {
+    margin: 0 0 7px;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #075edb;
+}
+
+.category-jobs {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 400;
+    color: #8b9bb1;
+}
+
+.job-number {
+    color: #8b9bb1;
+    font-weight: 400;
+}
+
+.empty-state {
+    padding: 70px 20px;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 16px;
+}
+
+.empty-state i {
+    margin-bottom: 20px;
+    font-size: 45px;
+    color: #90caf9;
+}
+
+.empty-state h3 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #172033;
+}
+
+.empty-state p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+@media (max-width: 1100px) {
+
+    .category-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+}
+
+@media (max-width: 800px) {
+
+    .categories-page {
+        padding: 55px 22px 70px;
+    }
+
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .categories-header h1 {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 520px) {
+
+    .categories-page {
+        padding: 40px 16px 60px;
+    }
+
+    .categories-header {
+        margin-bottom: 35px;
+    }
+
+    .header-icon {
+        width: 58px;
+        height: 58px;
+        font-size: 24px;
+    }
+
+    .categories-header h1 {
+        font-size: 27px;
+        letter-spacing: -0.5px;
+    }
+
+    .categories-header p {
+        font-size: 13px;
+    }
+
+    .category-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .category-card {
+        min-height: 180px;
+        padding: 27px 22px;
+    }
+}

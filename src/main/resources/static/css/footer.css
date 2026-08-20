@@ -10,6 +10,7 @@ footer {
     color: #90caf9;
     margin-bottom: 15px;
     display: block;
+    text-decoration: none;
 }
 
 .footer-description {
@@ -37,6 +38,7 @@ footer {
 .footer-links a {
     color: #94a3b8;
     font-size: 12px;
+    text-decoration: none;
 }
 
 .footer-links a:hover {

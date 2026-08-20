@@ -9,157 +9,714 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Companies</title>
+    <title>Companies | JobHunter</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <script th:src="@{/js/bootstrap.bundle.min.js}" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+
 
     <style>
 
+        * {
+            box-sizing: border-box;
+        }
+
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f6fa;
+
+            font-family: 'Poppins', sans-serif;
+
+            background: #f7faff;
+
+            color: #172033;
         }
 
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
+
+        /* =========================
+           MAIN PAGE
+        ========================= */
+
+        .companies-page {
+
+            max-width: 1320px;
+
+            margin: 0 auto;
+
+            padding: 65px 32px 90px;
         }
 
-        .page-header {
+
+        /* =========================
+           PAGE HEADER
+        ========================= */
+
+        .companies-header {
+
+            text-align: center;
+
+            max-width: 720px;
+
+            margin: 0 auto 55px;
+        }
+
+
+        /* HEADER ICON */
+
+        .companies-header .header-icon {
+
+            width: 64px;
+            height: 64px;
+
+            margin: 0 auto 20px;
+
             display: flex;
-            justify-content: space-between;
+
             align-items: center;
-            margin-bottom: 30px;
+            justify-content: center;
+
+            border-radius: 18px;
+
+            background: #e3f2fd;
+
+            color: #1976d2;
+
+            font-size: 27px;
         }
 
-        .page-header h1 {
+
+        /* HEADER TITLE */
+
+        .companies-header h1 {
+
+            margin: 0 0 14px;
+
+            font-size: 38px;
+
+            font-weight: 800;
+
+            letter-spacing: -1px;
+
+            color: #172033;
+        }
+
+
+        .companies-header h1 span {
+
+            color: #1976d2;
+        }
+
+
+        /* HEADER DESCRIPTION */
+
+        .companies-header p {
+
             margin: 0;
+
+            font-size: 15px;
+
+            line-height: 1.8;
+
+            color: #64748b;
         }
 
-        .back-btn {
-            text-decoration: none;
-            padding: 10px 18px;
-            background: #6c757d;
-            color: white;
-            border-radius: 6px;
+
+        /* =========================
+           COMPANY SUMMARY
+        ========================= */
+
+        .company-summary {
+
+            display: flex;
+
+            justify-content: center;
+
+            margin-top: 22px;
         }
+
+
+        .company-summary span {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 8px 17px;
+
+            border-radius: 30px;
+
+            background: #ffffff;
+
+            border: 1px solid #e2e8f0;
+
+            color: #475569;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            box-shadow:
+                0 4px 15px rgba(15, 23, 42, 0.04);
+        }
+
+
+        .company-summary i {
+
+            color: #1976d2;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================
+           COMPANY GRID
+        ========================= */
 
         .companies-grid {
+
             display: grid;
+
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
+
+            gap: 30px;
         }
+
+
+        /* =========================
+           COMPANY CARD
+        ========================= */
 
         .company-card {
-            background: white;
-            padding: 25px;
-            text-align: center;
-            border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-            transition: 0.2s;
+
+            min-height: 198px;
+
+            padding: 32px 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #ffffff;
+
+            border: 1px solid #dfe5eb;
+
+            border-radius: 16px;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
         }
+
 
         .company-card:hover {
-            transform: translateY(-5px);
+
+            transform: translateY(-3px);
+
+            border-color: #70b8ff;
+
+            box-shadow:
+                0 14px 32px rgba(33, 150, 243, 0.10);
         }
+
+
+        /* =========================
+           COMPANY LINK
+        ========================= */
 
         .company-link {
+
+            width: 100%;
+
             text-decoration: none;
-            color: inherit;
+
+            color: #172033;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
         }
+
 
         .company-link:hover {
-            color: inherit;
+
+            color: #172033;
         }
+
+
+        /* =========================
+           COMPANY PHOTO
+        ========================= */
 
         .company-photo {
-            width: 80px;
-            height: 80px;
+
+            width: 78px;
+
+            height: 78px;
+
             border-radius: 50%;
+
             object-fit: cover;
+
+            border: 3px solid #e3f2fd;
+
+            padding: 2px;
+
+            background: #ffffff;
+
+            transition:
+                transform 0.25s ease;
         }
+
+
+        .company-card:hover .company-photo {
+
+            transform: scale(1.05);
+        }
+
+
+        /* =========================
+           COMPANY PLACEHOLDER
+        ========================= */
+
+        .company-placeholder {
+
+            width: 78px;
+
+            height: 78px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #e3f2fd;
+
+            color: #2196f3;
+
+            font-size: 28px;
+
+            border: 3px solid #bbdefb;
+
+            transition:
+                transform 0.25s ease;
+        }
+
+
+        .company-card:hover .company-placeholder {
+
+            transform: scale(1.05);
+        }
+
+
+        /* =========================
+           COMPANY NAME
+        ========================= */
 
         .company-card h3 {
-            margin: 15px 0 8px;
+
+            margin: 16px 0 7px;
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+            line-height: 1.4;
+
+            color: #075edb;
+
+            text-align: center;
         }
 
+
+        /* =========================
+           LOCATION
+        ========================= */
+
         .company-location {
-            color: #777;
+
+            margin: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 5px;
+
+            color: #8b9bb1;
+
+            font-size: 13px;
+
+            line-height: 1.4;
+
+            text-align: center;
+        }
+
+
+        .company-location i {
+
+            color: #2196f3;
+
+            font-size: 11px;
+        }
+
+
+        /* =========================
+           EMPTY STATE
+        ========================= */
+
+        .empty-state {
+
+            padding: 70px 20px;
+
+            text-align: center;
+
+            background: #ffffff;
+
+            border: 1px solid #e5eaf0;
+
+            border-radius: 16px;
+        }
+
+
+        .empty-icon {
+
+            margin-bottom: 20px;
+
+            font-size: 45px;
+
+            color: #90caf9;
+        }
+
+
+        .empty-state h3 {
+
+            margin: 0 0 8px;
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+            color: #172033;
+        }
+
+
+        .empty-state p {
+
+            margin: 0;
+
+            color: #64748b;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 1100px) {
+
+            .companies-grid {
+
+                grid-template-columns: repeat(3, 1fr);
+
+                gap: 24px;
+            }
+        }
+
+
+        @media (max-width: 800px) {
+
+            .companies-page {
+
+                padding: 55px 22px 70px;
+            }
+
+
+            .companies-grid {
+
+                grid-template-columns: repeat(2, 1fr);
+
+                gap: 20px;
+            }
+
+
+            .companies-header h1 {
+
+                font-size: 32px;
+            }
+        }
+
+
+        @media (max-width: 520px) {
+
+            .companies-page {
+
+                padding: 40px 16px 60px;
+            }
+
+
+            .companies-header {
+
+                margin-bottom: 35px;
+            }
+
+
+            .companies-header .header-icon {
+
+                width: 58px;
+
+                height: 58px;
+
+                font-size: 24px;
+            }
+
+
+            .companies-header h1 {
+
+                font-size: 27px;
+
+                letter-spacing: -0.5px;
+            }
+
+
+            .companies-header p {
+
+                font-size: 13px;
+            }
+
+
+            .companies-grid {
+
+                grid-template-columns: 1fr;
+
+                gap: 16px;
+            }
+
+
+            .company-card {
+
+                min-height: 180px;
+
+                padding: 27px 22px;
+            }
         }
 
     </style>
 
 </head>
 
+
 <body>
 
-<div class="container">
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 
-    <div class="page-header">
+<!-- =========================
+     MAIN CONTENT
+========================= -->
 
-        <h1>All Companies</h1>
-
-        <a th:href="@{/viewHomeJob}"
-           class="back-btn">
-
-            Home
-
-        </a>
-
-    </div>
+<main class="companies-page">
 
 
- 
+    <!-- =========================
+         PAGE HEADER
+    ========================= -->
 
-    <div th:if="${employers == null || employers.isEmpty()}">
-
-        <p>No companies found.</p>
-
-    </div>
+    <div class="companies-header">
 
 
+        <div class="header-icon">
+
+            <i class="fa-solid fa-building"></i>
+
+        </div>
 
 
-    <div class="companies-grid">
+        <h1>
 
-        <div th:each="employer : ${employers}"
-             class="company-card">
+            Explore <span>Companies</span>
 
-            <a th:href="@{/company/{id}(id=${employer.id})}"
-               class="company-link">
+        </h1>
 
 
-               
+        <p>
 
-                <img th:if="${employer.user.profilePhoto != null}"
-                     th:src="@{'/uploads/' + ${employer.user.profilePhoto}}"
-                     class="company-photo"
-                     alt="Company Photo">
+            Explore companies, discover exciting opportunities,
+            and find the right workplace for your career goals.
 
-
+        </p>
 
 
-             
+        <div class="company-summary">
 
-                <h3 th:text="${employer.companyName}">
-                    Company Name
-                </h3>
+            <span>
 
+                <i class="fa-solid fa-building-circle-check"></i>
 
-          
+                <strong
+                    th:text="${employers != null ? employers.size() : 0}">
+                    0
+                </strong>
 
-                <p class="company-location"
-                   th:text="${employer.companyLocation}">
-                    Yangon
-                </p>
+                Companies Available
 
-            </a>
+            </span>
 
         </div>
 
     </div>
 
-</div>
+
+    <!-- =========================
+         EMPTY STATE
+    ========================= -->
+
+    <div th:if="${employers == null || employers.isEmpty()}"
+         class="empty-state">
+
+
+        <div class="empty-icon">
+
+            <i class="fa-regular fa-building"></i>
+
+        </div>
+
+
+        <h3>
+
+            No Companies Found
+
+        </h3>
+
+
+        <p>
+
+            There are currently no companies available.
+
+        </p>
+
+    </div>
+
+
+    <!-- =========================
+         COMPANIES
+    ========================= -->
+
+    <div th:if="${employers != null && !employers.isEmpty()}"
+         class="companies-grid">
+
+
+        <div th:each="employer : ${employers}"
+             class="company-card">
+
+
+            <a th:href="@{/company/{id}(id=${employer.id})}"
+               class="company-link">
+
+
+                <!-- =========================
+                     COMPANY PHOTO
+                ========================= -->
+
+                <img th:if="${employer.user != null
+                            && employer.user.profilePhoto != null
+                            && !employer.user.profilePhoto.isEmpty()}"
+
+                     th:src="@{'/uploads/' + ${employer.user.profilePhoto}}"
+
+                     class="company-photo"
+
+                     alt="Company Photo">
+
+
+                <!-- =========================
+                     PLACEHOLDER
+                ========================= -->
+
+                <div th:if="${employer.user == null
+                            || employer.user.profilePhoto == null
+                            || employer.user.profilePhoto.isEmpty()}"
+
+                     class="company-placeholder">
+
+                    <i class="fa-solid fa-building"></i>
+
+                </div>
+
+
+                <!-- =========================
+                     COMPANY NAME
+                ========================= -->
+
+                <h3 th:text="${employer.companyName}">
+
+                    Company Name
+
+                </h3>
+
+
+                <!-- =========================
+                     LOCATION
+                ========================= -->
+
+                <p class="company-location">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    <span th:text="${employer.companyLocation != null
+                                    && !employer.companyLocation.isEmpty()
+                                    ? employer.companyLocation
+                                    : 'Location not specified'}">
+
+                        Yangon
+
+                    </span>
+
+                </p>
+
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
 
 </body>
 
