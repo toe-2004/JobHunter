@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Jobs</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #222;
+        }
+
+
+        /* =========================
+           PAGE
+        ========================= */
+
+        .jobs-page {
+            padding: 50px 0;
+        }
+
+        .jobs-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .page-header p {
+            margin-top: 8px;
+            color: #777;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #333;
+            background: white;
+            padding: 10px 18px;
+            border-radius: 7px;
+            border: 1px solid #ddd;
+        }
+
+        .back-btn:hover {
+            background: #f0f0f0;
+        }
+
+
+        /* =========================
+           JOB GRID
+        ========================= */
+
+        .job-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 25px;
+        }
+
+
+        /* =========================
+           JOB CARD
+        ========================= */
+
+        .job-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .job-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #e8e8e8;
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.10);
+        }
+
+
+        /* =========================
+           TOP
+        ========================= */
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 18px;
+        }
+
+        .company-logo {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 10px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: #eef2ff;
+            color: #4f46e5;
+
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-open {
+            background: #e8f7ee;
+            color: #198754;
+        }
+
+        .status-closed {
+            background: #fce8e8;
+            color: #dc3545;
+        }
+
+
+        /* =========================
+           TITLE
+        ========================= */
+
+        .job-title {
+            font-size: 21px;
+            font-weight: 700;
+
+            margin-bottom: 8px;
+        }
+
+        .company-name {
+            color: #666;
+            font-size: 15px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =========================
+           DETAILS
+        ========================= */
+
+        .job-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            margin-bottom: 20px;
+        }
+
+        .job-detail {
+            display: flex;
+            align-items: center;
+
+            color: #666;
+            font-size: 14px;
+        }
+
+        .job-detail i {
+            width: 20px;
+            margin-right: 8px;
+
+            color: #666;
+        }
+
+
+        /* =========================
+           BOTTOM
+        ========================= */
+
+        .job-bottom {
+            border-top: 1px solid #eee;
+
+            padding-top: 18px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .salary {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .salary span {
+            font-weight: normal;
+            color: #777;
+            font-size: 13px;
+        }
+
+        .posted-date {
+            color: #888;
+            font-size: 12px;
+        }
+
+
+        /* =========================
+           EMPTY
+        ========================= */
+
+        .empty-state {
+            background: white;
+            border-radius: 12px;
+
+            padding: 60px 20px;
+
+            text-align: center;
+
+            border: 1px solid #eee;
+        }
+
+        .empty-state i {
+            font-size: 50px;
+            color: #aaa;
+
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: #777;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 992px) {
+
+            .job-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 576px) {
+
+            .jobs-page {
+                padding: 30px 0;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .page-header h1 {
+                font-size: 26px;
+            }
+
+            .job-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<section class="jobs-page">
+
+    <div class="jobs-container">
+
+
+
+        <div class="page-header">
+
+            <div>
+
+  
+
+                <h1 th:if="${selectedCategory != null}"
+                    th:text="${selectedCategory.name}">
+
+                    Category Jobs
+
+                </h1>
+
+
+
+                <h1 th:if="${selectedCategory == null}">
+
+                    All Jobs
+
+                </h1>
+
+
+                <p th:if="${selectedCategory != null}">
+
+                    Jobs available in this category
+
+                </p>
+
+                <p th:if="${selectedCategory == null}">
+
+                    Browse all available jobs
+
+                </p>
+
+            </div>
+
+
+            
+
+        </div>
+
+
+
+
+        <div class="empty-state"
+             th:if="${jobs == null || jobs.isEmpty()}">
+
+            <i class="fa-solid fa-briefcase"></i>
+
+            <h3>
+                No Jobs Found
+            </h3>
+
+            <p th:if="${selectedCategory != null}"
+               th:text="'There are currently no jobs available in ' 
+                       + ${selectedCategory.name}">
+
+                No jobs available in this category.
+
+            </p>
+
+            <p th:if="${selectedCategory == null}">
+
+                There are currently no jobs available.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="job-grid"
+             th:if="${jobs != null && !jobs.isEmpty()}">
+
+
+
+            <div th:each="job : ${jobs}">
+
+                <a th:href="@{/job-details/{id}(id=${job.id})}"
+                   class="job-card-link">
+
+
+                    <div class="job-card">
+
+
+                        <div class="job-header">
+
+
+                            <div class="company-logo">
+
+                                <span
+                                    th:if="${job.employer != null
+                                    && job.employer.companyName != null
+                                    && job.employer.companyName.length() >= 2}"
+                                    th:text="${job.employer.companyName
+                                    .substring(0,2)
+                                    .toUpperCase()}">
+
+                                    CO
+
+                                </span>
+
+                                <span
+                                    th:if="${job.employer == null
+                                    || job.employer.companyName == null
+                                    || job.employer.companyName.length() < 2}">
+
+                                    CO
+
+                                </span>
+
+                            </div>
+
+
+
+                            <span class="status status-open"
+                                  th:if="${job.status != null
+                                  && job.status.name() == 'OPEN'}">
+
+                                OPEN
+
+                            </span>
+
+
+                            <span class="status status-closed"
+                                  th:if="${job.status != null
+                                  && job.status.name() == 'CLOSED'}">
+
+                                CLOSED
+
+                            </span>
+
+                        </div>
+
+
+
+                        <div class="job-title"
+                             th:text="${job.title}">
+
+                            Software Engineer
+
+                        </div>
+
+
+
+                        <div class="company-name"
+                             th:if="${job.employer != null}"
+                             th:text="${job.employer.companyName}">
+
+                            Company Name
+
+                        </div>
+
+
+                        <div class="job-details">
+
+
+
+                            <div class="job-detail">
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                                <span
+                                    th:if="${job.employer != null}"
+                                    th:text="${job.employer.companyLocation}">
+
+                                    Yangon
+
+                                </span>
+
+                            </div>
+
+
+
+                            <div class="job-detail">
+
+                                <i class="fa-solid fa-clock"></i>
+
+                                <span th:text="${job.employmentType}">
+
+                                    HOURLY
+
+                                </span>
+
+                            </div>
+
+
+
+                            <div class="job-detail">
+
+                                <i class="fa-solid fa-user-tie"></i>
+
+                                <span th:text="${job.experienceLevel}">
+
+                                    ENTRY
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="job-detail">
+
+                                <i class="fa-solid fa-calendar-days"></i>
+
+                                <span th:text="${job.duration}">
+
+                                    ONE_TO_THREE_MONTHS
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+
+               
+
+                        <div class="job-bottom">
+
+
+                           
+
+                            <div class="salary">
+
+                                <span th:text="${job.salaryMin}">
+
+                                    100
+
+                                </span>
+
+                                -
+
+                                <span th:text="${job.salaryMax}">
+
+                                    200
+
+                                </span>
+
+                                <span>
+                                    / month
+                                </span>
+
+                            </div>
+
+
+                     
+                            <div class="posted-date">
+
+                                <i class="fa-regular fa-clock"></i>
+
+                                <span
+                                    th:text="${job.createdAt}">
+
+                                    Posted date
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+</body>
+
+</html>

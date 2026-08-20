@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>All Jobs</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        .job-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .job-card-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .job-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            transition: 0.2s;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+
+        .job-company-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background: #eef2ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .job-card h3 {
+            margin: 10px 0;
+        }
+
+        .company-name {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .job-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .job-bottom {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .job-salary {
+            font-weight: bold;
+        }
+
+        .job-type {
+            background: #eef2ff;
+            padding: 6px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+		
+		.job-company-logo {
+		    width: 60px;
+		    height: 60px;
+		    border-radius: 10px;
+		    overflow: hidden;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    background: #f1f5f9;
+		}
+
+		.company-photo {
+		    width: 100%;
+		    height: 100%;
+		    object-fit: cover;
+		    display: block;
+		}
+
+        @media (max-width: 900px) {
+
+            .job-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .job-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>All Jobs</h1>
+
+    <div class="job-grid">
+
+        <a th:each="job : ${jobs}"
+           th:href="@{/job-details/{id}(id=${job.id})}"
+           class="job-card-link">
+
+            <div class="job-card">
+
+				<div class="job-company-logo">
+
+				    <img th:if="${job.employer.user.profilePhoto != null}"
+				         th:src="@{'/uploads/' + ${job.employer.user.profilePhoto}}"
+				         alt="Company Photo"
+				         class="company-photo">
+
+				</div>
+
+                <h3 th:text="${job.title}">
+                    Software Engineer
+                </h3>
+
+
+                <div class="company-name"
+                     th:text="${job.employer.companyName}">
+                    Company
+                </div>
+
+
+                <div class="job-details">
+
+                    <span>
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <span th:text="${job.employer.companyLocation}">
+                            Yangon
+                        </span>
+                    </span>
+
+
+                    <span>
+                        <i class="fa-solid fa-clock"></i>
+
+                        <span th:text="${job.employmentType}">
+                            HOURLY
+                        </span>
+                    </span>
+
+
+                    <span>
+                        <i class="fa-solid fa-calendar"></i>
+
+                        <span th:text="${job.timeAgo}">
+                            Date
+                        </span>
+                    </span>
+
+                </div>
+
+
+                <div class="job-bottom">
+
+                    <div class="job-salary">
+
+                        <span th:text="${job.salaryMin}">
+                            100
+                        </span>
+
+                        -
+
+                        <span th:text="${job.salaryMax}">
+                            200
+                        </span>
+
+                        <span>/month</span>
+
+                    </div>
+
+
+                    <span class="job-type"
+                          th:text="${job.employmentType}">
+                        HOURLY
+                    </span>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

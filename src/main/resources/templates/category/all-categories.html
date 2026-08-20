@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>All Categories</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .category-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #222;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            transition: 0.2s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+        }
+
+        .category-icon {
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .category-card h3 {
+            margin: 0 0 10px;
+        }
+
+        .category-card p {
+            color: #777;
+        }
+
+        @media (max-width: 900px) {
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>All Categories</h1>
+
+    <div class="category-grid">
+
+        <a th:each="category : ${categories}"
+		th:href="@{/category-jobs(categoryId=${category.id})}"
+				   	           class="category-card">
+		   
+            <div class="category-icon">
+
+                <i class="fa-solid fa-code"></i>
+
+            </div>
+
+            <h3 th:text="${category.name}">
+                Category Name
+            </h3>
+
+            <p>
+
+                <span th:text="${category.jobs.size()}">
+                    0
+                </span>
+
+                jobs available
+
+            </p>
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

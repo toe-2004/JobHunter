@@ -468,6 +468,7 @@ public class FreelancerController {
 
         return "freelancer/freelancerHome";
     }
+ 
     
     @GetMapping("/freelancer-details/{id}")
     public String freelancerDetails(

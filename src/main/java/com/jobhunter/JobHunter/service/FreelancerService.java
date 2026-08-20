@@ -32,6 +32,7 @@ public class FreelancerService {
 	    
 	}
 	
+	
 	public List<Freelancer> getLatest4Freelancers() {
 	    return freelancerRepository.findTop4ByOrderByIdDesc();
 	}

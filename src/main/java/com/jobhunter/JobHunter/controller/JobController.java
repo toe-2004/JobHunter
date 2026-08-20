@@ -390,6 +390,16 @@ public class JobController {
 
         return "job/jobHome";
     }
+    @GetMapping("/all-jobs")
+    public String allJobs(Model model) {
+
+        List<Job> jobs = jobRepository.findAll();
+
+        model.addAttribute("jobs", jobs);
+
+        return "job/all-jobs";
+    }
+   
     
    
 }
