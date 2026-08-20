@@ -91,7 +91,7 @@
 
                                 <p>
                                     <i class="fa-solid fa-building"></i>
-                                    Employer
+                                    Company
                                 </p>
 
                                 <p class="email"
@@ -217,7 +217,7 @@
 
                                     <i class="fa-regular fa-calendar"></i>
 
-                                    <span th:text="${engagement.startDate}">
+                                    <span th:text="${#temporals.format(engagement.startDate, 'MMM dd, yyyy')}">
                                         Start Date
                                     </span>
 
@@ -235,7 +235,7 @@
 
                                     <i class="fa-regular fa-calendar-check"></i>
 
-                                    <span th:text="${engagement.endDate}">
+                                    <span th:text="${#temporals.format(engagement.endDate, 'MMM dd, yyyy')}">
                                         End Date
                                     </span>
 
