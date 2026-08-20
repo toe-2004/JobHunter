@@ -99,32 +99,6 @@ public class EngagementController {
         return "redirect:/employer-engagements";
     }
 
-//     @GetMapping("/my-engagements")
-//     public String myEngagements(
-//             Model model,
-//             Authentication auth) {
-
-//         Freelancer freelancer =
-//                 freelancerRepository
-//                         .findByUserEmail(auth.getName())
-//                         .orElseThrow(() ->
-//                                 new RuntimeException(
-//                                         "Freelancer not found"
-//                                 ));
-
-//         List<Engagement> engagements =
-//                 engagementRepository
-//                         .findByFreelancer(freelancer);
-
-//         model.addAttribute(
-//                 "engagements",
-//                 engagements
-//         );
-//         model.addAttribute('user', user);
-
-//         return "engagement/my-engagements";
-//     }
-
         @GetMapping("/my-engagements")
         public String myEngagements(
                 Model model,

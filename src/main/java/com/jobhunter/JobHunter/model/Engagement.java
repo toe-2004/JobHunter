@@ -102,6 +102,21 @@ public class Engagement {
 
 	@Column(name = "description", columnDefinition = "TEXT", nullable = false)
 	private String description;
+	
+	@PrePersist
+	protected void onCreate() {
+	    createdAt = LocalDateTime.now();
+	}
+	public LocalDateTime getCreatedAt() {
+	    return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+	    this.createdAt = createdAt;
+	}
+	
+	@Column(name = "created_at")
+    private LocalDateTime createdAt;
 
 	@Column(name = "monthly_rate")
 	private BigDecimal monthlyRate;

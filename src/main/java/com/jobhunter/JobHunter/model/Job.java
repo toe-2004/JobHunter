@@ -7,6 +7,8 @@ import com.jobhunter.JobHunter.enumeration.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -199,5 +201,40 @@ public class Job {
     @PrePersist
     public void prePersist() {
         createdAt = LocalDateTime.now();
+    }
+    
+    
+    
+
+    public String getTimeAgo() {
+
+        if (createdAt == null) {
+            return "";
+        }
+
+        LocalDateTime now = LocalDateTime.now();
+
+        long days = Duration.between(createdAt, now).toDays();
+
+        if (days == 0) {
+
+            long hours = Duration.between(createdAt, now).toHours();
+
+            if (hours == 0) {
+                return "Just now";
+            }
+
+            if (hours == 1) {
+                return "1 hour ago";
+            }
+
+            return hours + " hours ago";
+        }
+
+        if (days == 1) {
+            return "1 day ago";
+        }
+
+        return days + " days ago";
     }
 }

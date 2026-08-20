@@ -1,5 +1,6 @@
 package com.jobhunter.JobHunter.repository;
 
+import com.jobhunter.JobHunter.model.Category;
 import com.jobhunter.JobHunter.model.Employer;
 import com.jobhunter.JobHunter.model.Job;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,4 +18,10 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     List<Job> findByEmployer(Employer employer);
     
     List<Job> findTop4ByOrderByCreatedAtDesc();
+    List<Job> findTop6ByOrderByCreatedAtDesc();
+    List<Job> findByCategoryId(Long categoryId);
+    
+    List<Job> findByCategory(Category category);
+
+    
 }

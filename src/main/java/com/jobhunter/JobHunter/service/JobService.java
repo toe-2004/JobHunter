@@ -27,5 +27,9 @@ public class JobService {
 	    public List<Job> getLatest4Jobs() {
 	        return jobRepository.findTop4ByOrderByCreatedAtDesc();
 	    }
+	    
+	    public List<Job> getLatest6Jobs() {
+	        return jobRepository.findTop6ByOrderByCreatedAtDesc();
+	    }
 
 }

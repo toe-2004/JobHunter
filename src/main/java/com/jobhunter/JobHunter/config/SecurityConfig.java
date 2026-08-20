@@ -30,7 +30,10 @@ public class SecurityConfig {
                                 "/freelancer-details/**",
                                 "/freelancers-home",
                                 "/companies",
-                                "/company/**")
+                                "/company/**",
+                                "/categories",
+                                "/all-jobs",
+                                "/category-jobs")
                         .permitAll()
                         .anyRequest().authenticated())
 

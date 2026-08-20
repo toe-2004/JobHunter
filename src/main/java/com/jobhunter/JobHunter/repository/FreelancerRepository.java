@@ -19,7 +19,8 @@ public interface FreelancerRepository extends JpaRepository<Freelancer, Long>{
 	
 	List<Freelancer> findAll();
 	
-	 List<Freelancer> findTop4ByOrderByIdDesc();
+	List<Freelancer> findTop4ByOrderByIdDesc();
+	
 	
 	
 

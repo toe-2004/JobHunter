@@ -1,141 +1,7 @@
-<!-- <div class="job-card" th:each="job : ${latestJobs}">
-
-    <h2 th:text="${job.title}"></h2>
-
-    <p>
-        <strong>Category:</strong>
-        <span th:text="${job.category.name}"></span>
-    </p>
-
-    <p>
-        <strong>Employment Type:</strong>
-        <span th:text="${job.employmentType}"></span>
-    </p>
-
-    <p>
-        <strong>Experience:</strong>
-        <span th:text="${job.experienceLevel}"></span>
-    </p>
-
-    <p>
-        <strong>Salary:</strong>
-        <span th:text="${job.salaryMin}"></span>
-        -
-        <span th:text="${job.salaryMax}"></span>
-    </p>
-
-    <p>
-        <strong>Status:</strong>
-        <span th:text="${job.status}"></span>
-    </p>
-
-    <a th:href="@{/job-details/{id}(id=${job.id})}">
-        View Details
-    </a>
-	
-	
-
-</div>
-
-
-<h1>Freelancers</h1>
-
-<div class="freelancer-card"
-     th:each="freelancer : ${freelancers}">
-
-    <h2 th:text="${freelancer.title}"></h2>
-
-    <p>
-        <strong>Education:</strong>
-        <span th:text="${freelancer.education}"></span>
-    </p>
-
-    <p>
-        <strong>Experience:</strong>
-        <span th:text="${freelancer.experience}"></span>
-    </p>
-
-    <p>
-        <strong>Location:</strong>
-        <span th:text="${freelancer.location}"></span>
-    </p>
-
-   
-	
-	<a th:href="@{/freelancer-details/{id}(id=${freelancer.id})}">
-	    View Details
-	</a>
-
-</div>
-
-
-<section class="companies-section">
-
-    <div class="section-header">
-
-        <h2>Featured Companies</h2>
-
-        <a th:href="@{/companies}"
-           class="view-all-btn">
-
-            View All
-
-        </a>
-
-    </div>
-
-
-
-
-    <div th:if="${latestEmployers == null || latestEmployers.isEmpty()}"
-         class="empty-state">
-
-        <p>No companies available.</p>
-
-    </div>
-
-
-  
-    <div class="companies-grid">
-
-        <div th:each="employer : ${latestEmployers}"
-             class="company-card">
-
-
-          
-            <a th:href="@{/company/{id}(id=${employer.id})}"
-               class="company-link">
-
-
-             
-
-                <img th:if="${employer.user.profilePhoto != null}"
-                     th:src="@{'/uploads/' + ${employer.user.profilePhoto}}"
-                     alt="Company Photo"
-                     class="company-photo">
-
-
-               
-
-               
-                <h3 th:text="${employer.companyName}">
-                    Company Name
-                </h3>
-
-                <p th:text="${employer.companyLocation}">
-                    Yangon
-                </p>
-
-            </a>
-
-        </div>
-
-    </div>
-
-</section> -->
 
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -171,69 +37,7 @@
             text-decoration: none;
         }
 
-        /* =========================
-           NAVBAR
-        ========================= */
-
-        /* .navbar-custom {
-            height: 78px;
-            background: #ffffff;
-            border-bottom: 1px solid #e5e7eb;
-            display: flex;
-            align-items: center;
-        }
-
-        .navbar-brand {
-            font-size: 25px;
-            font-weight: 800;
-            color: #2196f3 !important;
-        }
-
-        .navbar-brand i {
-            margin-right: 7px;
-        }
-
-        .nav-link {
-            color: #475569 !important;
-            font-size: 14px;
-            font-weight: 500;
-            margin: 0 8px;
-            transition: 0.2s;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            color: #2196f3 !important;
-        }
-
-        .login-btn {
-            border: 1px solid #2196f3;
-            color: #2196f3;
-            padding: 9px 20px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            margin-right: 10px;
-        }
-
-        .login-btn:hover {
-            background: #e3f2fd;
-            color: #1976d2;
-        }
-
-        .signup-btn {
-            background: #2196f3;
-            color: white;
-            padding: 10px 21px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .signup-btn:hover {
-            background: #1976d2;
-            color: white;
-        } */
+       
 
         /* =========================
            HERO
@@ -561,50 +365,231 @@
             font-weight: 600;
         }
 
-        /* =========================
-           CATEGORIES
-        ========================= */
+		/* ==============================
+		   JOB CATEGORY SECTION
+		   ============================== */
 
-        .category-card {
-            padding: 25px 20px;
-            border: 1px solid #e5e7eb;
-            border-radius: 13px;
-            transition: 0.25s;
-            background: white;
-            height: 100%;
-        }
+		.section {
+		    padding: 70px 0;
+		    background: #ffffff;
+		}
 
-        .category-card:hover {
-            border-color: #90caf9;
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(33, 150, 243, 0.1);
-        }
+		.section .container {
+		    max-width: 1200px;
+		    margin: 0 auto;
+		}
 
-        .category-icon {
-            width: 48px;
-            height: 48px;
-            background: #e3f2fd;
-            color: #2196f3;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            margin-bottom: 17px;
-        }
 
-        .category-card h5 {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
+		/* ==============================
+		   SECTION HEADER
+		   ============================== */
 
-        .category-card p {
-            color: #94a3b8;
-            font-size: 12px;
-            margin: 0;
-        }
+		.section-header {
+		    display: flex;
+		    justify-content: space-between;
+		    align-items: flex-end;
+		    margin-bottom: 35px;
+		}
 
+		.section-title {
+		    margin: 0;
+		    font-size: 30px;
+		    font-weight: 700;
+		    color: #1f2937;
+		}
+
+		.section-subtitle {
+		    margin: 8px 0 0;
+		    font-size: 15px;
+		    color: #6b7280;
+		}
+
+
+		/* ==============================
+		   VIEW ALL
+		   ============================== */
+
+		.view-all {
+		    display: inline-flex;
+		    align-items: center;
+		    gap: 8px;
+
+		    text-decoration: none;
+		    color: #2563eb;
+
+		    font-size: 15px;
+		    font-weight: 600;
+
+		    white-space: nowrap;
+		}
+
+		.view-all i {
+		    font-size: 13px;
+		    transition: transform 0.2s ease;
+		}
+
+		.view-all:hover {
+		    color: #1d4ed8;
+		}
+
+		.view-all:hover i {
+		    transform: translateX(4px);
+		}
+
+
+		/* ==============================
+		   CATEGORY CARD
+		   ============================== */
+
+		.category-card {
+		    display: flex;
+		    flex-direction: column;
+
+		    height: 100%;
+		    min-height: 190px;
+
+		    padding: 25px 22px;
+
+		    background: #ffffff;
+
+		    border: 1px solid #e5e7eb;
+		    border-radius: 12px;
+
+		    text-decoration: none;
+		    color: #1f2937;
+
+		    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+		    transition:
+		        transform 0.2s ease,
+		        box-shadow 0.2s ease,
+		        border-color 0.2s ease;
+		}
+
+
+		/* Hover */
+
+		.category-card:hover {
+		    transform: translateY(-5px);
+
+		    border-color: #2563eb;
+
+		    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.10);
+
+		    color: #1f2937;
+		}
+
+
+		/* ==============================
+		   CATEGORY ICON
+		   ============================== */
+
+		.category-icon {
+		    width: 52px;
+		    height: 52px;
+
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+
+		    margin-bottom: 18px;
+
+		    border-radius: 10px;
+
+		    background: #eff6ff;
+		    color: #2563eb;
+
+		    font-size: 22px;
+
+		    transition: 0.2s ease;
+		}
+
+		.category-card:hover .category-icon {
+		    background: #2563eb;
+		    color: #ffffff;
+		}
+
+
+		/* ==============================
+		   CATEGORY NAME
+		   ============================== */
+
+		.category-card h3 {
+		    margin: 0 0 10px;
+
+		    font-size: 18px;
+		    font-weight: 600;
+
+		    color: #1f2937;
+
+		    line-height: 1.4;
+		}
+
+
+		/* ==============================
+		   JOB COUNT
+		   ============================== */
+
+		.category-card p {
+		    margin: 0;
+
+		    font-size: 14px;
+		    color: #6b7280;
+		}
+
+		.category-card p span {
+		    font-weight: 600;
+		    color: #374151;
+		}
+
+
+		/* ==============================
+		   RESPONSIVE
+		   ============================== */
+
+		@media (max-width: 768px) {
+
+		    .section {
+		        padding: 50px 0;
+		    }
+
+		    .section-header {
+		        align-items: flex-start;
+		        gap: 15px;
+		    }
+
+		    .section-title {
+		        font-size: 25px;
+		    }
+
+		    .section-subtitle {
+		        font-size: 14px;
+		    }
+
+		    .category-card {
+		        min-height: 175px;
+		        padding: 20px;
+		    }
+
+		}
+
+
+		@media (max-width: 576px) {
+
+		    .section-header {
+		        flex-direction: column;
+		        align-items: flex-start;
+		    }
+
+		    .section-title {
+		        font-size: 23px;
+		    }
+
+		    .category-card {
+		        min-height: 160px;
+		    }
+
+		}
         /* =========================
            JOB CARDS
         ========================= */
@@ -911,217 +896,334 @@
             background: #e3f2fd;
             color: #1565c0;
         }
+		
+		/*freelancer card design*/
+		<style>
 
-        /* =========================
-           FOOTER
-        ========================= */
+		    /* ==============================
+		       FREELANCER SECTION
+		       ============================== */
 
-        /* footer {
-            background: #0f172a;
-            padding: 55px 0 25px;
-            color: white;
-        }
+		    .freelancer-section {
+		        padding: 40px 0;
+		    }
 
-        .footer-brand {
-            font-size: 22px;
-            font-weight: 800;
-            color: #90caf9;
-            margin-bottom: 15px;
-            display: block;
-        }
 
-        .footer-description {
-            color: #94a3b8;
-            font-size: 12px;
-            line-height: 1.8;
-            max-width: 300px;
-        }
+		    /* ==============================
+		       FREELANCER CARD LINK
+		       ============================== */
 
-        .footer-title {
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 18px;
-        }
+		    .freelancer-card-link {
+		        text-decoration: none;
+		        color: inherit;
+		        display: block;
+		        height: 100%;
+		    }
 
-        .footer-links {
-            list-style: none;
-            padding: 0;
-        }
 
-        .footer-links li {
-            margin-bottom: 10px;
-        }
+		    /* ==============================
+		       FREELANCER CARD
+		       ============================== */
 
-        .footer-links a {
-            color: #94a3b8;
-            font-size: 12px;
-        }
+		    .freelancer-card {
 
-        .footer-links a:hover {
-            color: #90caf9;
-        }
+		        background: #ffffff;
 
-        .footer-bottom {
-            border-top: 1px solid #1e293b;
-            margin-top: 40px;
-            padding-top: 20px;
-            color: #64748b;
-            font-size: 11px;
-            display: flex;
-            justify-content: space-between;
-        } */
+		        border: 1px solid #e5e7eb;
 
-        /* =========================
-           RESPONSIVE
-        ========================= */
+		        border-radius: 12px;
 
-        @media (max-width: 991px) {
+		        padding: 25px 20px;
 
-            .hero {
-                padding: 55px 0;
-            }
+		        text-align: center;
 
-            .hero h1 {
-                font-size: 42px;
-            }
+		        height: 100%;
 
-            .hero-visual {
-                margin-top: 40px;
-            }
+		        min-height: 280px;
 
-            .nav-buttons {
-                margin-top: 15px;
-            }
-        }
+		        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
 
-        @media (max-width: 767px) {
+		        transition:
+		            transform 0.3s ease,
+		            box-shadow 0.3s ease,
+		            border-color 0.3s ease;
 
-            .hero h1 {
-                font-size: 35px;
-            }
+		        display: flex;
 
-            .hero p {
-                font-size: 14px;
-            }
+		        flex-direction: column;
 
-            .search-box {
-                flex-direction: column;
-                gap: 8px;
-            }
+		        align-items: center;
+		    }
 
-            .search-item {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid #e5e7eb;
-            }
 
-            .search-btn {
-                width: 100%;
-            }
+		    /* ==============================
+		       CARD HOVER
+		       ============================== */
 
-            .hero-main-card {
-                width: 300px;
-                right: 0;
-            }
+		    .freelancer-card:hover {
 
-            .floating-one {
-                left: 0;
-            }
+		        transform: translateY(-6px);
 
-            .section {
-                padding: 55px 0;
-            }
+		        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
 
-            .section-header {
-                align-items: flex-start;
-            }
+		        border-color: #28a745;
+		    }
 
-            .section-title {
-                font-size: 25px;
-            }
 
-            .view-all {
-                margin-top: 8px;
-            }
+		    /* ==============================
+		       PROFILE IMAGE
+		       ============================== */
 
-            .stat-item {
-                border-right: none;
-                margin-bottom: 25px;
-            }
+		    .freelancer-image {
 
-            .cta-box {
-                padding: 40px 20px;
-            }
+		        width: 100px;
 
-            .cta-box h2 {
-                font-size: 25px;
-            }
+		        height: 100px;
 
-            .footer-bottom {
-                flex-direction: column;
-                gap: 8px;
-            }
-        }
-        .job-card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-}
+		        object-fit: cover;
 
-.job-card-link:hover {
-    color: inherit;
-    text-decoration: none;
-}
+		        border-radius: 50%;
 
-.job-card {
-    cursor: pointer;
-    transition: all 0.25s ease;
-}
+		        border: 3px solid #f1f3f5;
 
-.job-card-link:hover .job-card {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.10);
-}
+		        margin-bottom: 18px;
 
-.freelancer-card-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-}
+		        background: #f5f5f5;
 
-.freelancer-card-link:hover {
-    color: inherit;
-    text-decoration: none;
-}
+		        transition: transform 0.3s ease;
+		    }
 
-.freelancer-card {
-    cursor: pointer;
-    transition: all 0.25s ease;
-}
 
-.freelancer-card-link:hover .freelancer-card {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.10);
-}
+		    .freelancer-card:hover .freelancer-image {
 
-.company-link {
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-}
+		        transform: scale(1.05);
+		    }
 
-.company-link:hover {
-    text-decoration: none;
-    color: inherit;
-}
 
-.company-card {
-    transition: all 0.25s ease;
-}
+		    /* ==============================
+		       FREELANCER NAME
+		       ============================== */
 
-.company-link:hover {
-    transform: translateY(-5px);
-}
+		    .freelancer-card h5 {
+
+		        margin: 0 0 8px 0;
+
+		        font-size: 19px;
+
+		        font-weight: 700;
+
+		        color: #222;
+
+		        width: 100%;
+
+		        white-space: nowrap;
+
+		        overflow: hidden;
+
+		        text-overflow: ellipsis;
+		    }
+
+
+		    /* ==============================
+		       FREELANCER TITLE
+		       ============================== */
+
+		    .freelancer-role {
+
+		        font-size: 14px;
+
+		        color: #6c757d;
+
+		        margin-bottom: 18px;
+
+		        min-height: 20px;
+
+		        width: 100%;
+
+		        white-space: nowrap;
+
+		        overflow: hidden;
+
+		        text-overflow: ellipsis;
+		    }
+
+
+		    /* ==============================
+		       SKILLS CONTAINER
+		       ============================== */
+
+		    .freelancer-skills {
+
+		        display: flex;
+
+		        justify-content: center;
+
+		        align-items: center;
+
+		        flex-wrap: wrap;
+
+		        gap: 7px;
+
+		        margin-top: auto;
+
+		        width: 100%;
+		    }
+
+
+		    /* ==============================
+		       SKILL TAG
+		       ============================== */
+
+		    .freelancer-skills span {
+
+		        display: inline-block;
+
+		        padding: 6px 11px;
+
+		        background: #eef8f0;
+
+		        color: #28a745;
+
+		        border-radius: 20px;
+
+		        font-size: 12px;
+
+		        font-weight: 600;
+
+		        border: 1px solid #d8efdc;
+
+		        max-width: 100px;
+
+		        white-space: nowrap;
+
+		        overflow: hidden;
+
+		        text-overflow: ellipsis;
+		    }
+
+
+		    /* ==============================
+		       EMPTY SKILLS
+		       ============================== */
+
+		    .freelancer-skills:empty {
+
+		        min-height: 28px;
+		    }
+
+
+		    /* ==============================
+		       BOOTSTRAP ROW SPACING
+		       ============================== */
+
+		    .row.g-4 {
+
+		        margin-top: 5px;
+		    }
+
+
+		    /* ==============================
+		       TABLET
+		       ============================== */
+
+		    @media (max-width: 991px) {
+
+		        .freelancer-card {
+
+		            padding: 22px 15px;
+
+		            min-height: 270px;
+		        }
+
+		        .freelancer-image {
+
+		            width: 90px;
+
+		            height: 90px;
+		        }
+
+		        .freelancer-card h5 {
+
+		            font-size: 17px;
+		        }
+		    }
+
+
+		    /* ==============================
+		       MOBILE
+		       ============================== */
+
+		    @media (max-width: 576px) {
+
+		        .freelancer-card {
+
+		            padding: 20px 12px;
+
+		            min-height: 250px;
+
+		            border-radius: 10px;
+		        }
+
+		        .freelancer-image {
+
+		            width: 80px;
+
+		            height: 80px;
+
+		            margin-bottom: 14px;
+		        }
+
+		        .freelancer-card h5 {
+
+		            font-size: 16px;
+		        }
+
+		        .freelancer-role {
+
+		            font-size: 13px;
+
+		            margin-bottom: 14px;
+		        }
+
+		        .freelancer-skills span {
+
+		            font-size: 11px;
+
+		            padding: 5px 8px;
+		        }
+		    }
+
+
+		    /* ==============================
+		       VERY SMALL SCREEN
+		       ============================== */
+
+		    @media (max-width: 400px) {
+
+		        .freelancer-card {
+
+		            min-height: 230px;
+
+		            padding: 15px 8px;
+		        }
+
+		        .freelancer-image {
+
+		            width: 70px;
+
+		            height: 70px;
+		        }
+
+		        .freelancer-card h5 {
+
+		            font-size: 15px;
+		        }
+
+		    }
+
+		</style>
+
+      
     </style>
 </head>
 
@@ -1433,186 +1535,42 @@
 
             </div>
 
-            <a href="" class="view-all">
-                View all
-                <i class="fa-solid fa-arrow-right"></i>
-            </a>
+			<a th:href="@{/categories}" class="view-all">
+			    View all
+			    <i class="fa-solid fa-arrow-right"></i>
+			</a>
 
         </div>
 
 
-        <div class="row g-4">
+		<div class="row g-4">
 
-            <div class="col-6 col-md-4 col-lg-3">
+		    <div class="col-6 col-md-4 col-lg-3"
+		         th:each="category : ${categories}">
 
-                <a href="#" class="category-card d-block">
+		        <a th:href="@{/category-jobs(categoryId=${category.id})}"
+		           class="category-card">
 
-                    <div class="category-icon">
-                        <i class="fa-solid fa-code"></i>
-                    </div>
+		            <div class="category-icon">
+		                <i class="fa-solid fa-code"></i>
+		            </div>
 
-                    <h5>
-                        Software Development
-                    </h5>
+		            <h3 th:text="${category.name}">
+		                Category Name
+		            </h3>
 
-                    <p>
-                        1,240 jobs available
-                    </p>
+		            <p>
+		                <span th:text="${category.jobs.size()}">
+		                    0
+		                </span>
+		                jobs available
+		            </p>
 
-                </a>
+		        </a>
 
-            </div>
+		    </div>
 
-
-            <div class="col-6 col-md-4 col-lg-3">
-
-                <a href="#" class="category-card d-block">
-
-                    <div class="category-icon">
-                        <i class="fa-solid fa-palette"></i>
-                    </div>
-
-                    <h5>
-                        Design & Creative
-                    </h5>
-
-                    <p>
-                        680 jobs available
-                    </p>
-
-                </a>
-
-            </div>
-
-
-            <div class="col-6 col-md-4 col-lg-3">
-
-                <a href="#" class="category-card d-block">
-
-                    <div class="category-icon">
-                        <i class="fa-solid fa-chart-line"></i>
-                    </div>
-
-                    <h5>
-                        Data & Analytics
-                    </h5>
-
-                    <p>
-                        520 jobs available
-                    </p>
-
-                </a>
-
-            </div>
-
-
-            <div class="col-6 col-md-4 col-lg-3">
-
-                <a href="#" class="category-card d-block">
-
-                    <div class="category-icon">
-                        <i class="fa-solid fa-bullhorn"></i>
-                    </div>
-
-                    <h5>
-                        Marketing
-                    </h5>
-
-                    <p>
-                        430 jobs available
-                    </p>
-
-                </a>
-
-            </div>
-
-
-            <div class="col-6 col-md-4 col-lg-3">
-
-                <a href="#" class="category-card d-block">
-
-                    <div class="category-icon">
-                        <i class="fa-solid fa-mobile-screen"></i>
-                    </div>
-
-                    <h5>
-                        Mobile Development
-                    </h5>
-
-                    <p>
-                        310 jobs available
-                    </p>
-
-                </a>
-
-            </div>
-
-
-            <div class="col-6 col-md-4 col-lg-3">
-
-                <a href="#" class="category-card d-block">
-
-                    <div class="category-icon">
-                        <i class="fa-solid fa-briefcase"></i>
-                    </div>
-
-                    <h5>
-                        Business & Finance
-                    </h5>
-
-                    <p>
-                        290 jobs available
-                    </p>
-
-                </a>
-
-            </div>
-
-
-            <div class="col-6 col-md-4 col-lg-3">
-
-                <a href="#" class="category-card d-block">
-
-                    <div class="category-icon">
-                        <i class="fa-solid fa-headset"></i>
-                    </div>
-
-                    <h5>
-                        Customer Support
-                    </h5>
-
-                    <p>
-                        210 jobs available
-                    </p>
-
-                </a>
-
-            </div>
-
-
-            <div class="col-6 col-md-4 col-lg-3">
-
-                <a href="#" class="category-card d-block">
-
-                    <div class="category-icon">
-                        <i class="fa-solid fa-pen-nib"></i>
-                    </div>
-
-                    <h5>
-                        Content Writing
-                    </h5>
-
-                    <p>
-                        180 jobs available
-                    </p>
-
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
+		</div>
 
 </section>
 
@@ -1639,96 +1597,118 @@
 
             </div>
 
-            <a href="" class="view-all">
-                Browse all jobs
-                <i class="fa-solid fa-arrow-right"></i>
-            </a>
+			<a th:href="@{/all-jobs}" class="view-all">
+
+			    Browse all jobs
+
+			    <i class="fa-solid fa-arrow-right"></i>
+
+			</a>
 
         </div>
 
 
-        <div class="row g-4">
+		<div class="row g-4">
 
-            <!-- JOB 1 -->
+		    <div class="col-md-6 col-lg-4"
+		         th:each="job : ${latest6Jobs}">
 
-            <div class="col-md-6 col-lg-4"
-                 th:each="job : ${latestJobs}">
+		        <a th:href="@{/job-details/{id}(id=${job.id})}"
+		           class="job-card-link">
 
-                <a th:href="@{/job-details/{id}(id=${job.id})}"
-                   class="job-card-link">
+		            <div class="job-card">
 
-                    <div class="job-card">
+		                <div class="job-header">
 
-                        <div class="job-header">
+		                    <div class="job-company-logo">
 
-                            <div class="job-company-logo">
-                                <span th:text="${job.employer.companyName.substring(0, 2).toUpperCase()}">
-                                    TS
-                                </span>
-                            </div>
+								<img th:if="${job.employer.user.profilePhoto != null}"
+								                     th:src="@{'/uploads/' + ${job.employer.user.profilePhoto}}"
+								                     alt="Company Photo"
+								                     class="company-photo">
 
-                        </div>
+		                    </div>
 
-                        <h4 th:text="${job.title}">
-                            Software Engineer
-                        </h4>
+		                </div>
 
-                        <div class="company-name"
-                             th:text="${job.employer.companyName}">
-                            Tech Solutions
-                        </div>
 
-                        <div class="job-details">
+		                <h4 th:text="${job.title}">
+		                    Software Engineer
+		                </h4>
 
-                            <span>
-                                <i class="fa-solid fa-location-dot"></i>
-                                <span>
-                                    Yangon
-                                </span>
-                            </span>
 
-                            <span>
-                                <i class="fa-solid fa-clock"></i>
-                                <span th:text="${job.employmentType}">
-                                    Full Time
-                                </span>
-                            </span>
+		                <div class="company-name"
+		                     th:text="${job.employer.companyName}">
+		                    Tech Solutions
+		                </div>
 
-                            <span>
-                                <i class="fa-solid fa-calendar"></i>
-                                <span>
-                                    2 days ago
-                                </span>
-                            </span>
 
-                        </div>
+		                <div class="job-details">
 
-                        <div class="job-bottom">
+		                    <span>
+		                        <i class="fa-solid fa-location-dot"></i>
 
-                            <div class="job-salary">
+		                        <span th:text="${job.employer.companyLocation}">
+		                            Yangon
+		                        </span>
+		                    </span>
 
-                                <span th:text="${job.salaryMin}">
-                                    $900
-                                </span>
 
-                                -
+		                    <span>
+		                        <i class="fa-solid fa-clock"></i>
 
-                                <span th:text="${job.salaryMax}">
-                                    $1,400
-                                </span>
+		                        <span th:text="${job.employmentType}">
+		                            HOURLY
+		                        </span>
+		                    </span>
 
-                                <span>/month</span>
 
-                            </div>
+		                    <span>
+		                        <i class="fa-solid fa-calendar"></i>
 
-                            <span class="job-type"
-                                  th:text="${job.employmentType}">
-                                Full Time
-                            </span>
+		                        <span th:text="${job.timeAgo}">
+		                            2 days ago
+		                        </span>
+		                    </span>
 
-                        </div>
+		                </div>
 
-                    </div>
+
+		                <div class="job-bottom">
+
+		                    <div class="job-salary">
+
+		                        <span th:text="${job.salaryMin}">
+		                            $900
+		                        </span>
+
+		                        -
+
+		                        <span th:text="${job.salaryMax}">
+		                            $1,400
+		                        </span>
+
+		                        <span>
+		                            /month
+		                        </span>
+
+		                    </div>
+
+
+		                    <span class="job-type"
+		                          th:text="${job.employmentType}">
+		                        Full Time
+		                    </span>
+
+		                </div>
+
+		            </div>
+
+		        </a>
+
+		    </div>
+
+		</div>
 
                 </a>
 
@@ -1832,49 +1812,56 @@
 
             </div>
 
-            <a href="" class="view-all">
-                Find freelancers
-                <i class="fa-solid fa-arrow-right"></i>
-            </a>
+			<a th:href="@{/freelancers}" class="view-all">
+			    View all
+			    <i class="fa-solid fa-arrow-right"></i>
+			</a>
 
         </div>
 
 
-        <div class="row g-4">
+		<div class="row g-4">
 
-            <div class="col-6 col-md-4 col-lg-3"
-                 th:each="freelancer : ${freelancers}">
+		    <div class="col-6 col-md-4 col-lg-3"
+		         th:each="freelancer : ${freelancers}">
 
-                <a th:href="@{/freelancer-details/{id}(id=${freelancer.id})}"
-                   class="freelancer-card-link">
+		        <a th:href="@{/freelancer-details/{id}(id=${freelancer.id})}"
+		           class="freelancer-card-link">
 
-                    <div class="freelancer-card">
+		            <div class="freelancer-card">
 
-                        <img th:src="@{/images/default_profile.jpg}"
-                             class="freelancer-image"
-                             alt="Freelancer">
+		               
+		                <img th:if="${freelancer.user.profilePhoto != null}"
+		                     th:src="@{'/uploads/' + ${freelancer.user.profilePhoto}}"
+		                     class="freelancer-image"
+		                     alt="Freelancer">
 
-                        <h5 text="">
-                            Hsu
-                        </h5>
+		                <h5 th:text="${freelancer.user.name}">
+		                    Freelancer Name
+		                </h5>
 
-                        <div class="freelancer-role"
-                            th:text="${freelancer.title}">
-                        </div>
+		                <div class="freelancer-role"
+		                     th:text="${freelancer.title}">
+		                    Java Developer
+		                </div>
 
-                        <div class="freelancer-skills">
+		                <div class="freelancer-skills">
 
-                            
+		                    <span th:each="fs, stat : ${freelancer.freelancerSkills}"
+		                          th:if="${stat.index < 3}"
+		                          th:text="${fs.skill.name}">
+		                        Java
+		                    </span>
 
-                        </div>
+		                </div>
 
-                    </div>
+		            </div>
 
-                </a>
+		        </a>
 
-            </div>
+		    </div>
 
-        </div>
+		</div>
 
     </div>
 
