@@ -3,6 +3,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.jobhunter.JobHunter.model.Employer;
 import com.jobhunter.JobHunter.model.Job;
 import com.jobhunter.JobHunter.repository.JobRepository;
 
@@ -30,6 +31,11 @@ public class JobService {
 	    
 	    public List<Job> getLatest6Jobs() {
 	        return jobRepository.findTop6ByOrderByCreatedAtDesc();
+	    }
+	    public List<Job> getJobsByEmployer(Employer employer) {
+
+	        return jobRepository.findByEmployer(employer);
+
 	    }
 
 }

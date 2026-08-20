@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.jobhunter.JobHunter.model.Employer;
+import com.jobhunter.JobHunter.model.Job;
 import com.jobhunter.JobHunter.service.EmployerService;
+import com.jobhunter.JobHunter.service.JobService;
 
 @Controller
 public class CompanyController {
@@ -17,6 +19,8 @@ public class CompanyController {
 
     @Autowired
     private EmployerService employerService;
+    @Autowired
+    private JobService jobService;
 	   @GetMapping("/companies")
 	    public String companies(Model model) {
 
@@ -33,10 +37,13 @@ public class CompanyController {
 	           @PathVariable Long id,
 	           Model model) {
 
-	       Employer employer =
-	               employerService.getEmployerById(id);
+	       Employer employer = employerService.getEmployerById(id);
 
 	       model.addAttribute("employer", employer);
+
+	       List<Job> jobs = jobService.getJobsByEmployer(employer);
+
+	       model.addAttribute("jobs", jobs);
 
 	       return "company/company-detail";
 	   }

@@ -6,119 +6,373 @@
 
     <meta charset="UTF-8">
 
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Company Details</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/bootstrap.min.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/all.min.css}">
 
     <style>
 
         body {
-            margin: 0;
+            background: #f5f7fb;
             font-family: Arial, sans-serif;
-            background: #f5f6fa;
         }
 
         .container {
-            max-width: 900px;
+            width: 100%;
+            max-width: 1100px;
             margin: 50px auto;
         }
 
+
+        /* =========================
+           COMPANY CARD
+        ========================= */
+
         .company-detail-card {
             background: white;
-            padding: 35px;
             border-radius: 15px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
+
+
+        /* =========================
+           COMPANY HEADER
+        ========================= */
 
         .company-header {
             text-align: center;
-            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
         }
 
         .company-photo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
+            width: 110px;
+            height: 110px;
             object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #eee;
             margin-bottom: 15px;
         }
 
+        .company-placeholder {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: #eef2f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 40px;
+            color: #777;
+        }
+
         .company-header h1 {
-            margin: 5px 0;
+            margin: 10px 0;
+            font-size: 30px;
+            font-weight: 700;
         }
 
         .company-location {
             color: #777;
+            margin: 0;
         }
+
+
+        /* =========================
+           COMPANY INFORMATION
+        ========================= */
 
         .company-info {
             margin-top: 30px;
         }
 
         .info-row {
+            display: flex;
             padding: 15px 0;
             border-bottom: 1px solid #eee;
         }
 
         .info-label {
-            font-weight: bold;
-            display: inline-block;
             width: 180px;
+            font-weight: 600;
+            color: #555;
         }
+
+        .info-row > span:last-child {
+            color: #333;
+        }
+
+
+        /* =========================
+           JOB SECTION
+        ========================= */
+
+        .jobs-section {
+            margin-top: 45px;
+        }
+
+        .jobs-section-header {
+            margin-bottom: 20px;
+        }
+
+        .jobs-section-header h2 {
+            font-size: 25px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .jobs-section-header p {
+            color: #777;
+            margin: 0;
+        }
+
+
+        /* =========================
+           JOB CARD
+        ========================= */
+
+        .job-card {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 22px;
+            margin-bottom: 18px;
+            transition: 0.2s ease;
+        }
+
+        .job-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+            border-color: #d5d9df;
+        }
+
+
+        .job-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .job-title {
+            font-size: 21px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .job-description {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+
+        /* =========================
+           JOB DETAILS
+        ========================= */
+
+        .job-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .job-detail {
+            background: #f5f7fa;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .job-detail i {
+            margin-right: 5px;
+        }
+
+
+        /* =========================
+           SALARY
+        ========================= */
+
+        .job-salary {
+            font-weight: 700;
+            color: #222;
+            margin-top: 18px;
+        }
+
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .job-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .job-status.open {
+            background: #e8f7ee;
+            color: #198754;
+        }
+
+        .job-status.closed {
+            background: #fbe9e9;
+            color: #dc3545;
+        }
+
+
+        /* =========================
+           NO JOBS
+        ========================= */
+
+        .no-jobs {
+            text-align: center;
+            padding: 40px 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            color: #777;
+        }
+
+        .no-jobs i {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+
+        /* =========================
+           BACK BUTTON
+        ========================= */
 
         .back-btn {
             display: inline-block;
-            margin-top: 25px;
-            padding: 10px 18px;
-            background: #6c757d;
+            margin-top: 30px;
+            padding: 11px 20px;
+            background: #222;
             color: white;
             text-decoration: none;
-            border-radius: 6px;
+            border-radius: 8px;
+        }
+
+        .back-btn:hover {
+            color: white;
+            background: #444;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 768px) {
+
+            .container {
+                margin: 20px auto;
+                padding: 0 15px;
+            }
+
+            .company-detail-card {
+                padding: 20px;
+            }
+
+            .info-row {
+                display: block;
+            }
+
+            .info-label {
+                width: auto;
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            .job-top {
+                display: block;
+            }
+
+            .job-status {
+                display: inline-block;
+                margin-top: 10px;
+            }
+
         }
 
     </style>
 
 </head>
 
+
 <body>
 
 <div class="container">
 
+
+
+
     <div class="company-detail-card">
 
 
-        <!-- Company Header -->
+        <!-- COMPANY HEADER -->
 
         <div class="company-header">
 
 
-            <!-- Profile Photo -->
+            <!-- Company Photo -->
 
-            <img th:if="${employer.user.profilePhoto != null}"
+            <img th:if="${employer.user != null &&
+                         employer.user.profilePhoto != null}"
+
                  th:src="@{'/uploads/' + ${employer.user.profilePhoto}}"
+
                  class="company-photo"
+
                  alt="Company Photo">
 
 
-      
+            <!-- Default Icon -->
+
+            <div th:if="${employer.user == null ||
+                         employer.user.profilePhoto == null}"
+
+                 class="company-placeholder">
+
+                <i class="fa-solid fa-building"></i>
+
+            </div>
 
 
-            <!-- Company Name -->
+
 
             <h1 th:text="${employer.companyName}">
+
                 Company Name
+
             </h1>
 
 
-            <!-- Location -->
 
             <p class="company-location"
                th:text="${employer.companyLocation}">
+
                 Yangon
+
             </p>
 
         </div>
 
 
-        <!-- Company Information -->
 
         <div class="company-info">
 
@@ -187,20 +441,223 @@
 
             </div>
 
+        </div>
+
+
+
+        <div class="jobs-section">
+
+
+            <!-- Section Header -->
+
+            <div class="jobs-section-header">
+
+                <h2>
+                    Jobs from this Company
+                </h2>
+
+                <p>
+                    Explore jobs posted by
+                    <strong th:text="${employer.companyName}">
+                        this company
+                    </strong>.
+                </p>
+
+            </div>
+
+
+            <div th:if="${jobs == null || jobs.isEmpty()}"
+                 class="no-jobs">
+
+                <i class="fa-solid fa-briefcase"></i>
+
+                <h4>
+                    No jobs available
+                </h4>
+
+                <p>
+                    This company has not posted any jobs yet.
+                </p>
+
+            </div>
+
+
+
+
+            <div th:if="${jobs != null && !jobs.isEmpty()}">
+
+
+                <!-- EACH JOB -->
+
+                <a th:each="job : ${jobs}"
+
+                   th:href="@{/job-details/{id}(id=${job.id})}"
+
+                   class="job-card">
+
+
+                    <div class="job-top">
+
+
+                        <!-- JOB TITLE + DESCRIPTION -->
+
+                        <div>
+
+                            <h3 class="job-title"
+                                th:text="${job.title}">
+
+                                Software Engineer
+
+                            </h3>
+
+
+                            <p class="job-description"
+                               th:text="${job.description}">
+
+                                Job description
+
+                            </p>
+
+                        </div>
+
+
+
+                        <!-- STATUS -->
+
+                        <span class="job-status"
+
+                              th:classappend="${job.status.name() == 'OPEN'}
+                                  ? ' open'
+                                  : ' closed'"
+
+                              th:text="${job.status}">
+
+                            OPEN
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- JOB DETAILS -->
+
+                    <div class="job-details">
+
+
+                        <!-- Category -->
+
+                        <span class="job-detail">
+
+                            <i class="fa-solid fa-layer-group"></i>
+
+                            <span th:if="${job.category != null}"
+                                  th:text="${job.category.name}">
+
+                                Category
+
+                            </span>
+
+                        </span>
+
+
+
+                        <!-- Employment Type -->
+
+                        <span class="job-detail">
+
+                            <i class="fa-solid fa-briefcase"></i>
+
+                            <span th:text="${job.employmentType}">
+
+                                HOURLY
+
+                            </span>
+
+                        </span>
+
+
+
+                        <!-- Experience -->
+
+                        <span class="job-detail">
+
+                            <i class="fa-solid fa-user-tie"></i>
+
+                            <span th:text="${job.experienceLevel}">
+
+                                ENTRY
+
+                            </span>
+
+                        </span>
+
+
+
+                        <!-- Duration -->
+
+                        <span class="job-detail">
+
+                            <i class="fa-regular fa-clock"></i>
+
+                            <span th:text="${job.duration}">
+
+                                LESS_THAN_ONE_MONTH
+
+                            </span>
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- SALARY -->
+
+                    <div class="job-salary">
+
+                        <i class="fa-solid fa-money-bill-wave"></i>
+
+                        <span th:text="${job.salaryMin}">
+                            100
+                        </span>
+
+                        -
+
+                        <span th:text="${job.salaryMax}">
+                            200
+                        </span>
+
+                        / month
+
+                    </div>
+
+
+                </a>
+
+
+            </div>
 
         </div>
 
 
+
+  
+
         <a th:href="@{/companies}"
            class="back-btn">
 
-             Back to Companies
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Back to Companies
 
         </a>
+
 
     </div>
 
 </div>
+
 
 </body>
 
