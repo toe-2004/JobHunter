@@ -12,6 +12,16 @@
     <link rel="stylesheet" th:href="@{/css/employer_register&profile_edit_form.css}">
     <title>Profile Edit</title>
 
+	<style>
+		.profile-photo {
+		    width: 120px;
+		    height: 120px;
+		    object-fit: cover;
+		    border-radius: 50%;
+		    border: 2px solid #ddd;
+		    margin-bottom: 15px;
+		}
+	</style>
 </head>
 
 <body>
@@ -23,10 +33,22 @@
             <p>Update your company information.</p>
         </div>
 
-        <form th:action="@{/employer/profile/edit}"
+        <form th:action="@{/employer/profile-update}"
           th:object="${profile}"
           method="post"
+		  enctype="multipart/form-data"
           novalidate>
+		  
+		  <label for="profilePhoto">
+		          Profile Photo
+		      </label>
+
+		      <input type="file"
+		             id="profilePhoto"
+		             name="profilePhoto"
+		             accept="image/*">
+					 
+					
 
             <div class="form-group">
                 <label for="companyName">Company Name</label>

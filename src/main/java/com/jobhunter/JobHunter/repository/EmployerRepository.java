@@ -21,5 +21,7 @@ public interface EmployerRepository extends JpaRepository<Employer, Long> {
     List<Employer> findTop4ByOrderByIdDesc();
 
     List<Employer> findAllByOrderByIdDesc();
+    
+    
 
 }
