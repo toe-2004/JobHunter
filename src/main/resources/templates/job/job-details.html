@@ -20,6 +20,26 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 		    .apply-btn:hover {
 		        background-color: #0056b3;
 		    }
+			.company-section {
+			    display: flex;
+			    align-items: center;
+			    gap: 15px;
+			    margin-bottom: 20px;
+			}
+
+			.company-photo {
+			    width: 70px;
+			    height: 70px;
+			    object-fit: cover;
+			    border-radius: 50%;
+			    border: 2px solid #ddd;
+			    display: block;
+			    transition: transform 0.2s ease;
+			}
+
+			.company-photo:hover {
+			    transform: scale(1.08);
+			}
 		</style>
 		
 </head>
@@ -31,6 +51,25 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div>
 
     <h2 th:text="${job.title}"></h2>
+	
+	<div class="company-section">
+
+	    <a th:href="@{/company/{id}(id=${job.employer.id})}">
+
+	        <img th:if="${job.employer.user.profilePhoto != null}"
+	             th:src="@{'/uploads/' + ${job.employer.user.profilePhoto}}"
+	             alt="Company Photo"
+	             class="company-photo">
+
+	    </a>
+
+	    <div>
+	        <h3 th:text="${job.employer.user.name}">
+	            Company Name
+	        </h3>
+	    </div>
+
+	</div>
 
     <p>
         <strong>Description:</strong>
