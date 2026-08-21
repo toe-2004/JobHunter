@@ -16,35 +16,56 @@ import com.jobhunter.JobHunter.service.JobService;
 @Controller
 public class CompanyController {
 
-
     @Autowired
     private EmployerService employerService;
+
     @Autowired
     private JobService jobService;
-	   @GetMapping("/companies")
-	    public String companies(Model model) {
 
-	        List<Employer> employers =
-	                employerService.getAllEmployers();
 
-	        model.addAttribute("employers", employers);
-			model.addAttribute("currentPage","companies");
-	        return "company/company-list";
-	    }
-	   
-	   @GetMapping("/company/{id}")
-	   public String companyDetail(
-	           @PathVariable Long id,
-	           Model model) {
+    @GetMapping("/companies")
+    public String companies(Model model) {
 
-	       Employer employer = employerService.getEmployerById(id);
+        List<Employer> employers =
+                employerService.getAllEmployers();
 
-	       model.addAttribute("employer", employer);
+        model.addAttribute("employers", employers);
+        model.addAttribute("currentPage", "companies");
 
-	       List<Job> jobs = jobService.getJobsByEmployer(employer);
+        return "company/company-list";
+    }
 
-	       model.addAttribute("jobs", jobs);
 
-	       return "company/company-detail";
-	   }
+    @GetMapping("/company/{id}")
+    public String companyDetail(
+            @PathVariable Long id,
+            Model model) {
+
+        Employer employer =
+                employerService.getEmployerById(id);
+
+        model.addAttribute("employer", employer);
+
+
+        List<Job> jobs =
+                jobService.getJobsByEmployer(employer);
+
+        model.addAttribute("jobs", jobs);
+
+
+        /*
+         * Count only OPEN jobs
+         */
+        long openJobCount = jobs.stream()
+                .filter(job ->
+                        job.getStatus() != null
+                        && job.getStatus().name().equals("OPEN"))
+                .count();
+
+        model.addAttribute("openJobCount", openJobCount);
+		model.addAttribute("currentPage", "companies");
+
+
+        return "company/company-detail";
+    }
 }

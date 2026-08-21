@@ -424,33 +424,51 @@
            BOTTOM ACTIONS
         ========================================= */
 
-        .bottom-actions {
-            display: flex;
-            justify-content: flex-start;
-            margin-top: 5px;
-			margin-bottom: 20px;
-        }
+                /* =====================================================
+           BACK BUTTON
+        ===================================================== */
+        .back-wrapper {
 
-        .back-btn {
+            margin-bottom: 20px;
+
+        }
+        .back-button {
+
             display: inline-flex;
+
             align-items: center;
-            justify-content: center;
+
             gap: 8px;
-            padding: 10px 18px;
-            border-radius: 8px;
+
+            padding: 9px 16px;
+
             background: #ffffff;
+
             border: 1px solid #dce4ed;
-            color: #5d6a7b;
+
+            border-radius: 8px;
+
+            color: #687588;
+
             text-decoration: none;
-            font-size: 13px;
+
+            font-size: 12px;
+
             font-weight: 500;
+
             transition: .2s;
+
         }
 
-        .back-btn:hover {
+
+        .back-button:hover {
+
             color: #1976d2;
+
             border-color: #b9dafa;
+
             background: #f8fbff;
+
         }
 
 
@@ -547,15 +565,23 @@
         Back to Freelancers
 
     </a> -->
-	    <div class="bottom-actions">
+	    <!-- <div class="bottom-actions">
 
         <a th:href="@{/freelancers}"
            class="back-btn">
 
             <i class="fa-solid fa-arrow-left"></i>
 
-            Back to Freelancers
+            Back
 
+        </a>
+
+    </div> -->
+        <div class="back-wrapper">
+
+        <a href="#" class="back-button" onclick="history.back(); return false;">
+            <i class="fa-solid fa-arrow-left"></i>
+            Back
         </a>
 
     </div>

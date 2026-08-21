@@ -259,6 +259,8 @@
 
         .job-card {
 
+            position: relative;   /* IMPORTANT */
+
             min-height: 220px;
 
             padding: 25px 22px;
@@ -429,6 +431,54 @@
 
             font-size: 9px;
         }
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .job-status {
+
+            position: absolute;
+
+            top: 18px;
+
+            right: 18px;
+        }
+
+
+        .status {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            padding: 5px 9px;
+
+            border-radius: 20px;
+
+            font-size: 9px;
+
+            font-weight: 700;
+        }
+
+
+        .status-open {
+
+            background: #e8f7ee;
+
+            color: #198754;
+        }
+
+
+        .status-closed {
+
+            background: #fce8e8;
+
+            color: #dc3545;
+        }
+
 
 
         /* =========================
@@ -897,6 +947,39 @@
 
                 </div>
 
+                <!-- =========================
+                     STATUS
+                ========================= -->
+
+                <div class="job-status">
+
+
+                    <span class="status status-open"
+
+                          th:if="${job.status != null
+                                  && job.status.name() == 'OPEN'}">
+
+                        <i class="fa-solid fa-circle"
+                           style="font-size: 6px;"></i>
+
+                        OPEN
+
+                    </span>
+
+
+                    <span class="status status-closed"
+
+                          th:if="${job.status != null
+                                  && job.status.name() == 'CLOSED'}">
+
+                        <i class="fa-solid fa-circle"
+                           style="font-size: 6px;"></i>
+
+                        CLOSED
+
+                    </span>
+
+                </div>
 
                 <!-- =========================
                      JOB DETAILS
@@ -929,6 +1012,28 @@
                         <span th:text="${job.employmentType}">
 
                             HOURLY
+
+                        </span>
+
+                    </div>
+                    <div class="job-detail">
+
+                        <i class="fa-solid fa-user-tie"></i>
+
+                        <span th:text="${job.experienceLevel}">
+
+                            ENTRY
+
+                        </span>
+
+                    </div>
+                    <div class="job-detail">
+
+                        <i class="fa-solid fa-calendar-days"></i>
+
+                        <span th:text="${job.duration}">
+
+                            ONE_TO_THREE_MONTHS
 
                         </span>
 

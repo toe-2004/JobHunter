@@ -46,7 +46,7 @@ public class CategoryController {
                             new RuntimeException("Category not found"));
 
             jobs = jobRepository.findByCategory(category);
-
+            model.addAttribute("selectedCategory", category);
         } else {
 
             jobs = jobRepository.findAll();

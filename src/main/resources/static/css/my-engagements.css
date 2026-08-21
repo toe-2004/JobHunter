@@ -78,6 +78,7 @@ body {
     align-items: center;
     gap: 12px;
     min-width: 0;
+    text-decoration: none;
 }
 
 .company-photo,
@@ -104,6 +105,7 @@ body {
 
 .company-info {
     min-width: 0;
+    text-decoration: none;
 }
 
 .company-info h2 {
@@ -111,17 +113,20 @@ body {
     font-size: 17px;
     font-weight: 700;
     color: #1e293b;
+    text-decoration: none;
 }
 
 .company-info p {
     margin: 0;
     color: #64748b;
     font-size: 12px;
+    text-decoration: none;
 }
 
 .company-info .email {
     color: #94a3b8;
     margin-top: 2px;
+    text-decoration: none;
 }
 
 .top-right {

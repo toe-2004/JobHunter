@@ -963,13 +963,17 @@
 
     <div class="back-wrapper">
 
-        <a th:href="@{/all-jobs}"
+        <!-- <a th:href="@{/all-jobs}"
            class="back-btn">
 
             <i class="fa-solid fa-arrow-left"></i>
 
-            Back to Jobs
+            Back
 
+        </a> -->
+        <a href="#" class="back-btn" onclick="history.back(); return false;">
+            <i class="fa-solid fa-arrow-left"></i>
+            Back
         </a>
 
     </div>
@@ -1286,7 +1290,7 @@
                         </span>
 
                         <span class="info-value"
-                              th:text="${job.budget}">
+                              th:text="${job.budget+' Kyats'}">
 
                             $1,000
 
@@ -1306,7 +1310,7 @@
                         </span>
 
                         <span class="info-value"
-                              th:text="${job.salaryMin}">
+                              th:text="${job.salaryMin+' Kyats'}">
 
                             $500
 
@@ -1326,7 +1330,7 @@
                         </span>
 
                         <span class="info-value"
-                              th:text="${job.salaryMax}">
+                              th:text="${job.salaryMax+' Kyats'}">
 
                             $1,000
 
