@@ -33,7 +33,8 @@ public class SecurityConfig {
                                 "/company/**",
                                 "/categories",
                                 "/all-jobs",
-                                "/category-jobs")
+                                "/category-jobs",
+                                "/search")
                         .permitAll()
                         .anyRequest().authenticated())
 

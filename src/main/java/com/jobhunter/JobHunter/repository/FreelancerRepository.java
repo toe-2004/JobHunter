@@ -21,6 +21,12 @@ public interface FreelancerRepository extends JpaRepository<Freelancer, Long>{
 	
 	List<Freelancer> findTop4ByOrderByIdDesc();
 	
+
+    
+    List<Freelancer> findByTitleContainingIgnoreCase(String keyword);
+
+    List<Freelancer> findByUser_NameContainingIgnoreCase(String keyword);
+	
 	
 	
 
