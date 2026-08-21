@@ -1,53 +1,91 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    const openSkillBtn = document.getElementById("openSkillBtn");
-    const closeSkillBtn = document.getElementById("closeSkillBtn");
-    const cancelSkillBtn = document.getElementById("cancelSkillBtn");
-    const skillModal = document.getElementById("skillModal");
-    const skillNameInput = document.getElementById("skillName");
+    const openSkillBtn =
+        document.getElementById("openSkillBtn");
 
-    openSkillBtn.addEventListener("click", function () {
+    const closeSkillBtn =
+        document.getElementById("closeSkillBtn");
+
+    const cancelSkillBtn =
+        document.getElementById("cancelSkillBtn");
+
+    const skillModal =
+        document.getElementById("skillModal");
+
+    const skillNameInput =
+        document.getElementById("skillName");
+
+    function openModal() {
 
         skillModal.classList.add("active");
-        skillNameInput.focus();
 
-    });
+        setTimeout(function () {
+            skillNameInput.focus();
+        }, 150);
+    }
 
-    closeSkillBtn.addEventListener("click", function () {
-
-        skillModal.classList.remove("active");
-
-    });
-
-    cancelSkillBtn.addEventListener("click", function () {
+    function closeModal() {
 
         skillModal.classList.remove("active");
 
-    });
+        skillNameInput.value = "";
+    }
 
-    skillModal.addEventListener("click", function (event) {
+    openSkillBtn.addEventListener(
+        "click",
+        openModal
+    );
 
-        if (event.target === skillModal) {
-            skillModal.classList.remove("active");
+
+    closeSkillBtn.addEventListener(
+        "click",
+        closeModal
+    );
+
+
+    cancelSkillBtn.addEventListener(
+        "click",
+        closeModal
+    );
+
+
+    skillModal.addEventListener(
+        "click",
+        function (event) {
+
+            if (event.target === skillModal) {
+                closeModal();
+            }
 
         }
+    );
 
-    });
 
-    document.addEventListener("keydown", function (event) {
+    document.addEventListener(
+        "keydown",
+        function (event) {
 
-        if (event.key === "Escape") {
-            skillModal.classList.remove("active");
+            if (event.key === "Escape") {
+                closeModal();
+            }
 
         }
+    );
 
-    });
+    const skillDropdown =
+        document.getElementById("skillDropdown");
 
-    const skillDropdown = document.querySelector(".skill-dropdown");
-    const skillDropdownBtn = document.getElementById("skillDropdownBtn");
-    const selectedSkillsText = document.getElementById("selectedSkillsText");
-    const selectedSkillInputs = document.getElementById("selectedSkillInputs");
-    const skillDropdownMenu = document.getElementById("skillDropdownMenu");
+    const skillDropdownBtn =
+        document.getElementById("skillDropdownBtn");
+
+    const skillDropdownMenu =
+        document.getElementById("skillDropdownMenu");
+
+    const selectedSkillsText =
+        document.getElementById("selectedSkillsText");
+
+    const selectedSkillInputs =
+        document.getElementById("selectedSkillInputs");
 
     let selectedSkills = new Set();
 
@@ -56,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
         .forEach(function (option) {
 
             selectedSkills.add(
-                option.dataset.id
+                String(option.dataset.id)
             );
 
         });
@@ -70,54 +108,88 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     );
 
-    document
-        .querySelectorAll(".skill-option")
-        .forEach(function (option) {
+    document.addEventListener(
+        "click",
+        function (event) {
 
-            option.addEventListener(
-                "click",
-                function () {
+            if (
+                !skillDropdown.contains(
+                    event.target
+                )
+            ) {
 
-                    const skillId =
-                        this.dataset.id;
+                skillDropdown.classList.remove(
+                    "open"
+                );
 
+            }
 
-                    if (selectedSkills.has(skillId)) {
+        }
+    );
 
-                        selectedSkills.delete(skillId);
-                        this.classList.remove(
-                            "selected"
-                        );
+    function attachSkillOption(option) {
 
-                    } else {
+        option.addEventListener(
+            "click",
+            function () {
 
-                        selectedSkills.add(skillId);
+                const skillId =
+                    String(this.dataset.id);
 
-                        this.classList.add(
-                            "selected"
-                        );
+                if (
+                    selectedSkills.has(
+                        skillId
+                    )
+                ) {
 
-                    }
-                    updateSelectedSkills();
+                    selectedSkills.delete(
+                        skillId
+                    );
+
+                    this.classList.remove(
+                        "selected"
+                    );
+
+                } else {
+
+                    selectedSkills.add(
+                        skillId
+                    );
+
+                    this.classList.add(
+                        "selected"
+                    );
 
                 }
-            );
 
-        });
+                updateSelectedSkills();
+
+            }
+        );
+
+    }
+
+    document
+        .querySelectorAll(".skill-option")
+        .forEach(attachSkillOption);
 
     function updateSelectedSkills() {
 
         const selectedNames = [];
+
         document
-            .querySelectorAll(".skill-option.selected")
+            .querySelectorAll(
+                ".skill-option.selected"
+            )
             .forEach(function (option) {
 
                 const name =
                     option
-                        .querySelector("span:last-child")
+                        .querySelector(
+                            "span:last-child"
+                        )
                         .textContent
                         .trim();
-
 
                 selectedNames.push(name);
 
@@ -137,37 +209,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
         selectedSkillInputs.innerHTML = "";
 
-        selectedSkills.forEach(function (skillId) {
+        selectedSkills.forEach(
+            function (skillId) {
 
-            const input =
-                document.createElement("input");
+                const input =
+                    document.createElement(
+                        "input"
+                    );
 
-            input.type = "hidden";
+                input.type = "hidden";
 
-            input.name = "skillIds";
+                input.name = "skillIds";
 
-            input.value = skillId;
+                input.value = skillId;
 
-            selectedSkillInputs.appendChild(input);
-
-        });
-
-    }
-
-    document.addEventListener(
-        "click",
-        function (event) {
-
-            if (!skillDropdown.contains(event.target)) {
-
-                skillDropdown.classList.remove(
-                    "open"
+                selectedSkillInputs.appendChild(
+                    input
                 );
 
             }
+        );
 
-        }
-    );
+    }
 
     updateSelectedSkills();
 
@@ -182,28 +245,49 @@ document.addEventListener("DOMContentLoaded", function () {
                 const skillName =
                     skillNameInput.value.trim();
 
-                if (skillName === "") {
+                if (!skillName) {
+
+                    skillNameInput.focus();
 
                     return;
 
                 }
 
+                const csrfMeta =
+                    document.querySelector(
+                        'meta[name="_csrf"]'
+                    );
+
+                const csrfHeaderMeta =
+                    document.querySelector(
+                        'meta[name="_csrf_header"]'
+                    );
+
+                if (
+                    !csrfMeta ||
+                    !csrfHeaderMeta
+                ) {
+
+                    alert(
+                        "Security token is missing."
+                    );
+
+                    return;
+
+                }
+
+                const csrfToken =
+                    csrfMeta.getAttribute(
+                        "content"
+                    );
+
+                const csrfHeader =
+                    csrfHeaderMeta.getAttribute(
+                        "content"
+                    );
+
+
                 try {
-
-                    const csrfToken =
-                        document
-                            .querySelector(
-                                'meta[name="_csrf"]'
-                            )
-                            .getAttribute("content");
-
-
-                    const csrfHeader =
-                        document
-                            .querySelector(
-                                'meta[name="_csrf_header"]'
-                            )
-                            .getAttribute("content");
 
                     const response =
                         await fetch(
@@ -212,11 +296,13 @@ document.addEventListener("DOMContentLoaded", function () {
                                 method: "POST",
 
                                 headers: {
+
                                     "Content-Type":
                                         "application/x-www-form-urlencoded",
 
                                     [csrfHeader]:
                                         csrfToken
+
                                 },
 
                                 body:
@@ -224,8 +310,10 @@ document.addEventListener("DOMContentLoaded", function () {
                                     encodeURIComponent(
                                         skillName
                                     )
+
                             }
                         );
+
 
                     if (!response.ok) {
 
@@ -233,27 +321,27 @@ document.addEventListener("DOMContentLoaded", function () {
                             await response.text();
 
                         console.error(
-                            "Status:",
-                            response.status
-                        );
-
-                        console.error(
-                            "Response:",
+                            "Create skill failed:",
+                            response.status,
                             errorText
                         );
 
                         alert(
-                            "Unable to create skill.\n\n" +
-                            "Status: " +
-                            response.status
+                            "Unable to create this skill."
                         );
 
                         return;
 
                     }
 
+
                     const skill =
                         await response.json();
+
+
+                    const skillId =
+                        String(skill.id);
+
 
                     let existingOption = null;
 
@@ -262,114 +350,90 @@ document.addEventListener("DOMContentLoaded", function () {
                         .querySelectorAll(
                             ".skill-option"
                         )
-                        .forEach(function (option) {
+                        .forEach(
+                            function (option) {
 
-                            if (
-                                option.dataset.id ===
-                                String(skill.id)
-                            ) {
+                                if (
+                                    String(
+                                        option.dataset.id
+                                    ) === skillId
+                                ) {
 
-                                existingOption =
-                                    option;
+                                    existingOption =
+                                        option;
+
+                                }
 
                             }
+                        );
 
-                        });
 
                     if (!existingOption) {
 
-                        const option =
+                        existingOption =
                             document.createElement(
                                 "div"
                             );
 
 
-                        option.className =
+                        existingOption.className =
                             "skill-option";
 
 
-                        option.dataset.id =
-                            String(skill.id);
+                        existingOption.dataset.id =
+                            skillId;
 
 
-                        option.innerHTML = `
+                        existingOption.innerHTML = `
+
                             <span class="skill-check">
-                                ✓
+
+                                <i class="fa-solid fa-check"></i>
+
                             </span>
 
                             <span>
-                                ${skill.name}
+                                ${escapeHtml(skill.name)}
                             </span>
+
                         `;
 
 
                         skillDropdownMenu.appendChild(
-                            option
+                            existingOption
                         );
 
-                        option.addEventListener(
-                            "click",
-                            function () {
 
-                                const skillId =
-                                    this.dataset.id;
-
-
-                                if (
-                                    selectedSkills.has(
-                                        skillId
-                                    )
-                                ) {
-
-                                    selectedSkills.delete(
-                                        skillId
-                                    );
-
-                                    this.classList.remove(
-                                        "selected"
-                                    );
-
-                                } else {
-
-                                    selectedSkills.add(
-                                        skillId
-                                    );
-
-                                    this.classList.add(
-                                        "selected"
-                                    );
-
-                                }
-
-                                updateSelectedSkills();
-
-                            }
+                        attachSkillOption(
+                            existingOption
                         );
-
-                        existingOption =
-                            option;
 
                     }
 
                     selectedSkills.add(
-                        String(skill.id)
+                        skillId
                     );
+
 
                     existingOption.classList.add(
                         "selected"
                     );
 
+
                     updateSelectedSkills();
 
-                    skillModal.classList.remove(
-                        "active"
-                    );
+                    closeModal();
 
-                    skillNameInput.value = "";
+                    skillDropdown.classList.add(
+                        "open"
+                    );
 
                 } catch (error) {
 
-                    console.error(error);
+                    console.error(
+                        "Create skill error:",
+                        error
+                    );
 
                     alert(
                         "Something went wrong while creating the skill."
@@ -379,5 +443,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
             }
         );
+
+    function escapeHtml(value) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent = value;
+
+        return div.innerHTML;
+
+    }
 
 });

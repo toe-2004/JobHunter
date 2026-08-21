@@ -3,96 +3,209 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Employer Registration | JobHunter</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/all.min.css}">
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap"
           rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/employer_register&profile_edit_form.css}">
-    <title>Employer Registration</title>
-
+    <link rel="stylesheet"
+          th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/employer_register.css}">
 </head>
 
 <body>
+<div class="page-layout">
 
-    <div class="form-container">
+    <aside class="sidebar-container">
+        <div th:replace="~{fragments/sidebar_for_guest :: sidebar}"></div>
+    </aside>
 
-        <div class="form-header">
-            <h1>Create Employer Profile</h1>
-            <p>Enter your company information to create an employer account.</p>
+    <main class="main-content">
+        <div class="form-wrapper">
+
+            <div class="page-top">
+                <div class="page-label">
+                    <i class="fa-solid fa-building"></i>
+                    Employer Registration
+                </div>
+
+                <h1>
+                    Create Employer Profile
+                </h1>
+
+                <p>
+                    Tell us about your company and start finding
+                    the right talent on JobHunter.
+                </p>
+            </div>
+
+            <div class="form-card">
+
+                <div class="card-heading">
+                    <div class="card-heading-icon">
+                        <i class="fa-solid fa-building-user"></i>
+                    </div>
+
+                    <div>
+                        <h2>
+                            Company Information
+                        </h2>
+                        <p>
+                            Enter your company details below.
+                        </p>
+                    </div>
+                </div>
+
+                <div th:if="${error != null and !#strings.isEmpty(error)}"
+                     class="general-error">
+                    <p th:text="${error}"></p>
+                </div>
+
+                <form th:action="@{/employer/register}"
+                      th:object="${employerForm}"
+                      method="post">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="companyName">
+                                Company Name
+                            </label>
+
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-building"></i>
+                                <input type="text"
+                                       id="companyName"
+                                       th:field="*{companyName}"
+                                       class="form-control-custom"
+                                       placeholder="Enter company name"
+                                       th:errorclass="is-invalid">
+                            </div>
+
+                            <div class="error"
+                                 th:errors="*{companyName}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="companyEmail">
+                                Company Email
+                            </label>
+
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-envelope"></i>
+                                <input type="email"
+                                       id="companyEmail"
+                                       th:field="*{companyEmail}"
+                                       class="form-control-custom"
+                                       placeholder="company@example.com"
+                                       th:errorclass="is-invalid">
+                            </div>
+
+                            <div class="error"
+                                 th:errors="*{companyEmail}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="companyPhone">
+                                Company Phone
+                            </label>
+
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-phone"></i>
+                                <input type="text"
+                                       id="companyPhone"
+                                       th:field="*{companyPhone}"
+                                       class="form-control-custom"
+                                       placeholder="Enter company phone"
+                                       th:errorclass="is-invalid">
+                            </div>
+
+                            <div class="error"
+                                 th:errors="*{companyPhone}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="companyLocation">
+                                Company Location
+                            </label>
+
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <input type="text"
+                                       id="companyLocation"
+                                       th:field="*{companyLocation}"
+                                       class="form-control-custom"
+                                       placeholder="e.g. Yangon, Myanmar"
+                                       th:errorclass="is-invalid">
+                            </div>
+
+                            <div class="error"
+                                 th:errors="*{companyLocation}">
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="companyDescription">
+                                Company Description
+                            </label>
+
+                            <div class="textarea-wrapper">
+                                <i class="fa-solid fa-align-left"></i>
+                                <textarea id="companyDescription"
+                                          th:field="*{companyDescription}"
+                                          class="form-textarea"
+                                          placeholder="Tell job seekers about your company, what you do, your culture, and what makes your company a great place to work..."
+                                          th:errorclass="is-invalid"></textarea>
+                            </div>
+
+                            <div class="error"
+                                 th:errors="*{companyDescription}">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-footer">
+                        <span class="required-note">
+                            Please make sure your company information is accurate.
+                        </span>
+
+                        <div class="button-group">
+                            <a th:href="@{/choose-role}"
+                               class="back-btn">
+                                <i class="fa-solid fa-arrow-left"></i>
+                                Go Back
+                            </a>
+
+                            <button type="submit"
+                                    class="submit-btn">
+                                Create Employer Account
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
         </div>
+    </main>
 
-        <div th:if="${error != null and !#strings.isEmpty(error)}" class="general-error">
-            <p th:text="${error}"></p>
-        </div>
-
-        <form th:action="@{/employer/register}"
-              th:object="${employerForm}"
-              method="post">
-
-            <div class="form-group">
-                <label for="companyName">Company Name</label>
-                <input type="text"
-                       id="companyName"
-                       th:field="*{companyName}"
-                       placeholder="Enter company name">
-
-                <div class="error" th:errors="*{companyName}"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="companyEmail">Company Email</label>
-                <input type="email"
-                       id="companyEmail"
-                       th:field="*{companyEmail}"
-                       placeholder="Enter company email">
-
-                <div class="error" th:errors="*{companyEmail}"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="companyPhone">Company Phone</label>
-                <input type="text"
-                       id="companyPhone"
-                       th:field="*{companyPhone}"
-                       placeholder="Enter company phone">
-
-                <div class="error" th:errors="*{companyPhone}"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="companyLocation">Company Location</label>
-                <input type="text"
-                       id="companyLocation"
-                       th:field="*{companyLocation}"
-                       placeholder="Enter company location">
-
-                <div class="error" th:errors="*{companyLocation}"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="companyDescription">Company Description</label>
-                <textarea id="companyDescription"
-                          th:field="*{companyDescription}"
-                          placeholder="Tell us about your company..."></textarea>
-
-                <div class="error" th:errors="*{companyDescription}"></div>
-            </div>
-
-            <div class="button-group">
-                <a th:href="@{/choose-role}" class="back-btn">
-                    Go Back to Choose Role
-                </a>
-
-                <button type="submit" class="submit-btn">
-                    Create Employer Account
-                </button>
-            </div>
-
-        </form>
-
-    </div>
-
+</div>
 </body>
-
 </html>

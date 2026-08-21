@@ -5,9 +5,14 @@
         <div class="mobile-header d-lg-none">
 
             <a href="/myprofile" class="mobile-profile">
-                <img th:if="${user.profilePhoto != null}" th:src="@{'/uploads/' + ${user.profilePhoto}}" 
-                        alt="Profile Photo"
-                        class="profile-photo">
+                <img th:if="${user.profilePhoto != null}" 
+                    th:src="@{'/uploads/' + ${user.profilePhoto}}" 
+                    alt="Profile Photo"
+                    class="profile-photo">
+                <img th:unless="${user.profilePhoto != null}"
+                    th:src="@{/images/default_profile.jpg}"
+                    alt="Default Profile Photo"
+                    class="profile-photo">
 
                 <div class="profile-info">
                     <span class="username" th:text="${user.name}">
@@ -38,10 +43,12 @@
                     </li>
 
                     <li>
-                        <a href="/login" class="dropdown-item">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                            Logout
-                        </a>
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="dropdown-item mobile-logout">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                Logout
+                            </button>
+                        </form>
                     </li>
 
                 </ul>
@@ -67,10 +74,12 @@
             Home
         </a>
 
-        <a href="/login">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            Logout
-        </a>
+        <form th:action="@{/logout}" method="post" class="logout-form">
+            <button type="submit" class="logout-button">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </button>
+        </form>
 
     </nav>
 
@@ -79,6 +88,10 @@
         <img th:if="${user.profilePhoto != null}" th:src="@{'/uploads/' + ${user.profilePhoto}}"
                 alt="Profile Photo"
                 class="profile-photo">
+        <img th:unless="${user.profilePhoto != null}"
+            th:src="@{/images/default_profile.jpg}"
+            alt="Default Profile Photo"
+            class="profile-photo">
 
         <div class="profile-info">
 

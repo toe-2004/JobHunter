@@ -2,13 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
     <meta charset="UTF-8">
-
     <title>Available Jobs</title>
 
     <style>
-
         body {
             font-family: Arial, sans-serif;
             background: #f5f5f5;
@@ -89,23 +86,17 @@
             color: green;
             font-weight: bold;
         }
-
     </style>
-
 </head>
 
 <body>
-
 <div class="container">
 
     <h1>Available Jobs</h1>
 
     <div th:if="${#lists.isEmpty(jobs)}">
-
         <h3>No jobs available.</h3>
-
     </div>
-
 
     <div th:each="job : ${jobs}"
          class="job-card">
@@ -114,178 +105,113 @@
              th:text="${job.title}">
         </div>
 
-
         <div class="description"
              th:text="${job.description}">
         </div>
 
-
         <div class="info">
-
             <div class="info-box">
-
                 <span class="label">
                     Category
                 </span>
-
                 <span th:text="${job.category.name}">
                 </span>
-
             </div>
 
-
             <div class="info-box">
-
                 <span class="label">
                     Employment Type
                 </span>
-
                 <span th:text="${job.employmentType}">
                 </span>
-
             </div>
 
-
             <div class="info-box">
-
                 <span class="label">
                     Experience
                 </span>
-
                 <span th:text="${job.experienceLevel}">
                 </span>
-
             </div>
 
-
             <div class="info-box">
-
                 <span class="label">
                     Duration
                 </span>
-
                 <span th:text="${job.duration}">
                 </span>
-
             </div>
 
-
             <div class="info-box">
-
                 <span class="label">
                     Salary
                 </span>
-
                 <span th:text="${job.salaryMin + ' - ' + job.salaryMax}">
                 </span>
-
             </div>
 
-
             <div class="info-box">
-
                 <span class="label">
                     Budget
                 </span>
-
                 <span th:text="${job.budget}">
                 </span>
-
             </div>
 
-
             <div class="info-box">
-
                 <span class="label">
                     Deadline
                 </span>
-
                 <span th:text="${job.deadline}">
                 </span>
-
             </div>
 
-
             <div class="info-box">
-
                 <span class="label">
                     Status
                 </span>
-
                 <span th:if="${job.status.name() == 'OPEN'}"
                       class="open">
                     OPEN
                 </span>
-
                 <span th:if="${job.status.name() == 'CLOSED'}"
                       class="closed">
                     CLOSED
                 </span>
-
             </div>
-
         </div>
 
-
-        <!-- Skills -->
-
         <div style="margin-top: 20px;">
-
             <strong>Skills:</strong>
-
             <span th:if="${#lists.isEmpty(job.jobSkills)}">
                 No skills
             </span>
-
             <span th:each="jobSkill : ${job.jobSkills}"
                   class="skill"
                   th:text="${jobSkill.skill.name}">
             </span>
-
         </div>
 
-
-        <!-- Apply 
-
-        <a th:if="${job.status.name() == 'OPEN'}"
+        <a th:if="${job.status.name() == 'OPEN' 
+                   and !appliedJobIds.contains(job.id)}"
            th:href="@{/apply-job/{id}(id=${job.id})}"
            class="apply-btn">
-
             Apply Now
+        </a>
 
-        </a>-->
-		
-		<!-- Apply button -->
-		<a th:if="${job.status.name() == 'OPEN' 
-		           and !appliedJobIds.contains(job.id)}"
-		   th:href="@{/apply-job/{id}(id=${job.id})}"
-		   class="apply-btn">
-
-		    Apply Now
-
-		</a>
-
-		<!-- Already applied -->
-		<span th:if="${job.status.name() == 'OPEN' 
-		             and appliedJobIds.contains(job.id)}"
-		      class="applied-btn">
-
-		    Already Applied
-
-		</span>
-
+        <span th:if="${job.status.name() == 'OPEN' 
+                     and appliedJobIds.contains(job.id)}"
+              class="applied-btn">
+            Already Applied
+        </span>
 
         <span th:if="${job.status.name() == 'CLOSED'}"
               class="closed">
-
             Applications Closed
-
         </span>
 
     </div>
 
 </div>
-
 </body>
-
 </html>

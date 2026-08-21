@@ -2,212 +2,183 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>My Applications</title>
+    <title>My Applications | JobHunter</title>
 
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/all.min.css}">
     <link rel="stylesheet" th:href="@{/css/sidebar.css}">
     <link rel="stylesheet" th:href="@{/css/my-applications.css}">
-    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{/js/my-applications.js}"></script>
+
+    <script th:src="@{/js/bootstrap.bundle.min.js}" defer></script>
+    <script th:src="@{/js/my-applications.js}" defer></script>
 </head>
 
 <body>
-
 <div class="dashboard-layout">
 
-    <!-- SIDEBAR -->
-
     <div class="sidebar-container">
-
         <div th:replace="~{fragments/sidebar_for_freelancer :: sidebar}"></div>
-
     </div>
 
+    <main class="main-content">
+        <div class="applications-wrapper">
 
-    <!-- MAIN CONTENT -->
-
-    <div class="main-content">
-
-        <div class="container-fluid">
-
-            <div class="page-header">
-
-                <h1>My Applications</h1>
-
-                <p>
-                    Track and manage the jobs you have applied for.
-                </p>
-
+            <div class="page-heading">
+                <div>
+                    <h1>
+                        My Applications
+                    </h1>
+                    <p>
+                        Keep track of your applications and follow
+                        your progress.
+                    </p>
+                </div>
             </div>
 
             <div th:if="${#lists.isEmpty(applications)}"
                  class="empty-state">
-
                 <div class="empty-icon">
-                    <i class="fa-regular fa-file-lines"></i>
+                    <i class="fa-regular fa-folder-open"></i>
                 </div>
-
-                <h3>No applications yet</h3>
-
+                <h2>
+                    No applications yet
+                </h2>
                 <p>
                     You haven't applied for any jobs yet.
-                    Start exploring opportunities and apply for your next job.
+                    Start exploring available opportunities
+                    and find your next project.
                 </p>
-
+                <a th:href="@{/jobs}"
+                   class="browse-btn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    Browse Jobs
+                </a>
             </div>
 
-            <div th:each="app : ${applications}"
-                 class="application-card">
+            <div th:unless="${#lists.isEmpty(applications)}"
+                 class="applications-list">
 
-                <div class="application-top">
+                <div th:each="app : ${applications}"
+                     class="application-card">
 
-                    <div class="job-section">
+                    <div class="card-top">
+                        <div class="job-info">
+                            <div class="job-icon">
+                                <i class="fa-solid fa-briefcase"></i>
+                            </div>
 
-                        <a th:href="@{/job-details/{id}(id=${app.job.id})}"
-                           class="job-title"
-                           th:text="${app.job.title}">
+                            <div class="job-content">
+                                <a th:href="@{/job-details/{id}(id=${app.job.id})}"
+                                   class="job-title"
+                                   th:text="${app.job.title}">
+                                    Job Title
+                                </a>
 
-                            Job Title
-
-                        </a>
-
-                        <div class="application-date">
-
-                            <i class="fa-regular fa-calendar"></i>
-
-                            <span>Applied on</span>
-
-                            <span th:text="${#temporals.format(app.createdAt, 'MMM dd, yyyy')}">
-                                Aug 19, 2026
-                            </span>
-
+                                <div class="date-info">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    <span>
+                                        Applied on
+                                    </span>
+                                    <span
+                                        th:text="${#temporals.format(app.createdAt, 'MMM dd, yyyy')}">
+                                        Aug 19, 2026
+                                    </span>
+                                </div>
+                            </div>
                         </div>
 
+                        <div class="status"
+                             th:classappend="${app.status.name().toLowerCase()}">
+                            <i th:if="${app.status.name() == 'PENDING'}"
+                               class="fa-regular fa-clock"></i>
+                            <i th:if="${app.status.name() == 'SHORTLISTED'}"
+                               class="fa-solid fa-star"></i>
+                            <i th:if="${app.status.name() == 'ACCEPTED'}"
+                               class="fa-solid fa-circle-check"></i>
+                            <i th:if="${app.status.name() == 'REJECTED'}"
+                               class="fa-solid fa-circle-xmark"></i>
+                            <i th:if="${app.status.name() == 'WITHDRAWN'}"
+                               class="fa-solid fa-ban"></i>
+                            <span th:text="${app.status}">
+                                PENDING
+                            </span>
+                        </div>
                     </div>
 
-                    <span class="status"
-                          th:classappend="${app.status.name().toLowerCase()}">
+                    <div class="content-section">
+                        <div class="section-title">
+                            <span class="section-icon">
+                                <i class="fa-regular fa-envelope"></i>
+                            </span>
+                            Cover Letter
+                        </div>
 
-                        <i th:if="${app.status.name() == 'PENDING'}"
-                           class="fa-regular fa-clock"></i>
-
-                        <i th:if="${app.status.name() == 'SHORTLISTED'}"
-                           class="fa-solid fa-star"></i>
-
-                        <i th:if="${app.status.name() == 'ACCEPTED'}"
-                           class="fa-solid fa-circle-check"></i>
-
-                        <i th:if="${app.status.name() == 'REJECTED'}"
-                           class="fa-solid fa-circle-xmark"></i>
-
-                        <i th:if="${app.status.name() == 'WITHDRAWN'}"
-                           class="fa-solid fa-ban"></i>
-
-                        <span th:text="${app.status}">
-                            PENDING
-                        </span>
-
-                    </span>
-
-                </div>
-
-                <div class="card-divider"></div>
-
-                <div class="cover-letter-section">
-
-                    <div class="cover-letter-title">
-
-                        <i class="fa-regular fa-envelope"></i>
-
-                        <span>Cover Letter</span>
-
+                        <p class="cover-letter">
+                            <span class="cover-letter-text"
+                                  th:attr="data-full-text=${app.coverLetter}">
+                            </span>
+                            <a href="javascript:void(0)"
+                               class="see-more"
+                               style="display:none;">
+                                See more
+                            </a>
+                        </p>
                     </div>
 
-                    <p class="cover-letter">
+                    <div class="cv-section">
+                        <div class="cv-info">
+                            <div class="cv-icon">
+                                <i class="fa-regular fa-file-pdf"></i>
+                            </div>
 
-                        <span class="cover-letter-text"
-                              th:attr="data-full-text=${app.coverLetter}">
-                        </span>
+                            <div class="cv-text">
+                                <strong>
+                                    Applicant CV
+                                </strong>
+                                <span>
+                                    Submitted with this application
+                                </span>
+                            </div>
+                        </div>
 
-                        <a href="javascript:void(0)"
-                           class="see-more"
-                           style="display:none;">
+                        <a th:href="@{/application/{id}/cv(id=${app.id})}"
+                           class="cv-btn">
+                            <i class="fa-solid fa-download"></i>
+                            Download CV
+                        </a>
+                    </div>
 
-                            See more
-
+                    <div class="card-footer">
+                        <a th:href="@{/job-details/{id}(id=${app.job.id})}"
+                           class="job-link">
+                            View Job Post
+                            <i class="fa-solid fa-arrow-right"></i>
                         </a>
 
-                    </p>
-
-                </div>
-				
-				
-				
-				<div class="cv-section">
-
-				                            <div class="cv-info">
-				                                <i class="fa-regular fa-file-pdf"></i>
-				                                <span>
-				                                    Applicant CV
-				                                </span>
-				                            </div>
-											
-				                            <a
-				                                th:href="@{/application/{id}/cv(id=${app.id})}"
-				                                class="cv-btn"
-				                                target="_blank">
-				                                <i class="fa-solid fa-eye"></i>
-				                                View CV
-				                            </a>
-
-				                        </div>
-										
-										
-
-                <div class="application-footer">
-
-                    <a th:href="@{/job-details/{id}(id=${app.job.id})}"
-                       class="view-job">
-
-                        View Job Post
-
-                        <i class="fa-solid fa-arrow-right"></i>
-
-                    </a>
-
-                    <form th:if="${app.status.name() == 'PENDING'
-                                  or app.status.name() == 'SHORTLISTED'}"
-                          th:action="@{/application/{id}/withdraw(id=${app.id})}"
-                          method="post"
-                          style="margin:0;">
-
-                        <button type="submit"
-                                class="withdraw-btn"
-                                onclick="return confirm('Withdraw this application?')">
-
-                            <i class="fa-solid fa-xmark"></i>
-
-                            Withdraw Application
-
-                        </button>
-
-                    </form>
+                        <form th:if="${app.status.name() == 'PENDING'
+                                      or app.status.name() == 'SHORTLISTED'}"
+                              th:action="@{/application/{id}/withdraw(id=${app.id})}"
+                              method="post"
+                              class="withdraw-form">
+                            <button type="submit"
+                                    class="withdraw-btn"
+                                    onclick="return confirm('Withdraw this application?')">
+                                <i class="fa-solid fa-xmark"></i>
+                                Withdraw Application
+                            </button>
+                        </form>
+                    </div>
 
                 </div>
 
             </div>
 
         </div>
-
-    </div>
+    </main>
 
 </div>
-
 </body>
 
 </html>

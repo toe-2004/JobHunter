@@ -125,7 +125,7 @@ public class EngagementController {
         model.addAttribute("user", user);
         model.addAttribute("freelancer", freelancer);
         model.addAttribute("engagements", engagements);
-
+        model.addAttribute("currentPage", "my-engagements");
         return "engagement/my-engagements";
 }
 
@@ -151,6 +151,7 @@ public class EngagementController {
                 engagements
         );
         model.addAttribute("employer", employer);
+        model.addAttribute("currentPage", "employer-engagements");
 
         return "engagement/employer-engagements";
     }

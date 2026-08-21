@@ -315,34 +315,84 @@
         </div>
 
 
-		<div class="row g-4">
+        <div class="row g-4">
 
-		    <div class="col-6 col-md-4 col-lg-3"
-		         th:each="category : ${categories}">
+            <div class="col-6 col-md-4 col-lg-3"
+                th:each="category : ${categories}">
 
-		        <a th:href="@{/category-jobs(categoryId=${category.id})}"
-		           class="category-card">
+                <a th:href="@{/category-jobs(categoryId=${category.id})}"
+                class="category-card">
 
-		            <div class="category-icon">
-		                <i class="fa-solid fa-code"></i>
-		            </div>
+                    <div class="category-icon"
+                        th:switch="${category.name}">
 
-		            <h3 th:text="${category.name}">
-		                Category Name
-		            </h3>
+                        <i th:case="'3D Modeling'"
+                        class="fa-solid fa-cube"></i>
 
-		            <p>
-		                <span th:text="${category.jobs.size()}">
-		                    0
-		                </span>
-		                jobs available
-		            </p>
+                        <i th:case="'Blockchain'"
+                        class="fa-solid fa-link"></i>
 
-		        </a>
+                        <i th:case="'Content Writing'"
+                        class="fa-solid fa-pen-fancy"></i>
 
-		    </div>
+                        <i th:case="'Cybersecurity'"
+                        class="fa-solid fa-shield-halved"></i>
 
-		</div>
+                        <i th:case="'Data Science'"
+                        class="fa-solid fa-chart-simple"></i>
+
+                        <i th:case="'Database Administration'"
+                        class="fa-solid fa-database"></i>
+
+                        <i th:case="'DevOps and Cloud'"
+                        class="fa-solid fa-cloud"></i>
+
+                        <i th:case="'Game Development'"
+                        class="fa-solid fa-gamepad"></i>
+
+                        <i th:case="'Graphic Design'"
+                        class="fa-solid fa-palette"></i>
+
+                        <i th:case="'Machine Learning'"
+                        class="fa-solid fa-brain"></i>
+
+                        <i th:case="'Mobile Development'"
+                        class="fa-solid fa-mobile-screen-button"></i>
+
+                        <i th:case="'SEO and Marketing'"
+                        class="fa-solid fa-magnifying-glass-dollar"></i>
+
+                        <i th:case="'UI UX Design'"
+                        class="fa-solid fa-pen-ruler"></i>
+
+                        <i th:case="'Video Editing'"
+                        class="fa-solid fa-film"></i>
+
+                        <i th:case="'Web Development'"
+                        class="fa-solid fa-code"></i>
+
+                        <!-- Default icon -->
+                        <i th:case="*"
+                        class="fa-solid fa-folder"></i>
+
+                    </div>
+
+                    <h3 th:text="${category.name}">
+                        Category Name
+                    </h3>
+
+                    <p>
+                        <span th:text="${category.jobs.size()}">
+                            0
+                        </span>
+                        jobs available
+                    </p>
+
+                </a>
+
+            </div>
+
+        </div>
 
 </section>
 

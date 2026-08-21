@@ -1,17 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Company Profile | JobHunter</title>
 
-    <title>Company Profile</title>
-
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/all.min.css}">
-    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
-    <link rel="stylesheet" th:href="@{/css/profile_employer.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/bootstrap.bundle.min.js}"
+            defer></script>
+    <link rel="stylesheet"
+          th:href="@{/css/all.min.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/profile_employer.css}">
 </head>
 
 <body>
@@ -20,111 +26,126 @@
     <div class="sidebar-container">
         <div th:replace="~{fragments/sidebar_for_employer :: sidebar}"></div>
     </div>
-    
+
     <main class="main-content">
         <div class="profile-container">
 
-            <div class="profile-header">
+            <section class="company-header">
 
-				<div class="company-photo-wrapper">
+                <div class="company-logo">
+                    <img th:if="${employer.user != null
+                                 && employer.user.profilePhoto != null
+                                 && !employer.user.profilePhoto.isEmpty()}"
+                         th:src="@{'/uploads/' + ${employer.user.profilePhoto}}"
+                         alt="Company Photo">
 
-                    <img th:if="${employer.user.profilePhoto != null}"
-                        th:src="@{'/uploads/' + ${employer.user.profilePhoto}}"
-                        alt="Company Photo"
-                        class="company-photo">
-
-                    <a th:href="@{/employer/profile/edit}"
-                    class="photo-edit-btn"
-                    title="Edit Profile">
-                        <i class="fas fa-edit"></i>
-                    </a>
-
+                    <i th:if="${employer.user == null
+                               || employer.user.profilePhoto == null
+                               || employer.user.profilePhoto.isEmpty()}"
+                       class="fa-solid fa-building">
+                    </i>
                 </div>
 
-                <div class="company-info">
+                <div class="company-main-info">
                     <h1 th:text="${employer.companyName}">
                         Company Name
                     </h1>
-                    <p>Company Profile</p>
-                </div>
 
-            </div>
-
-            <div class="profile-card">
-
-                <h2>Company Details</h2>
-                <div class="info-row">
-                    <div class="info-label">Company Name</div>
-                    <div class="info-value"
-                        th:text="${employer.companyName}">
-                        Company Name
-                    </div>
-                </div>
-
-                <div class="info-row">
-                    <div class="info-label">Company Email</div>
-                    <div class="info-value"
-                        th:text="${employer.companyEmail}">
-                        email@example.com
-                    </div>
-                </div>
-
-                <div class="info-row">
-                    <div class="info-label">Phone</div>
-                    <div class="info-value"
-                        th:text="${employer.companyPhone}">
-                        Phone
-                    </div>
-                </div>
-
-                <div class="info-row">
-                    <div class="info-label">Location</div>
-                    <div class="info-value"
-                        th:text="${employer.companyLocation}">
-                        Location
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="profile-card">
-                <h2>Company Description</h2>
-                <p class="description"
-                  th:text="${employer.companyDescription}">
-                    Company description goes here.
-                </p>
-            </div>
-
-            <div class="profile-card">
-                <h2>Account Owner</h2>
-                <div class="info-row">
-                    <div class="info-label">Name</div>
-                    <div class="info-value"
-                        th:text="${employer.user.name}">
-                        Owner Name
-                    </div>
-                </div>
-
-                <div class="info-row">
-                    <div class="info-label">Role</div>
-
-                    <div class="info-value">
-                        <span class="role-badge">
-                            Employer
+                    <p class="company-location">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span th:text="${employer.companyLocation}">
+                            Yangon
                         </span>
+                    </p>
+
+                    <div class="company-meta">
+                        <span class="company-meta-item"
+                              th:if="${employer.companyEmail != null
+                                      && !employer.companyEmail.isEmpty()}">
+                            <i class="fa-solid fa-envelope"></i>
+                            <span th:text="${employer.companyEmail}">
+                                company@gmail.com
+                            </span>
+                        </span>
+
+                        <span class="company-meta-item"
+                              th:if="${employer.companyPhone != null
+                                      && !employer.companyPhone.isEmpty()}">
+                            <i class="fa-solid fa-phone"></i>
+                            <span th:text="${employer.companyPhone}">
+                                09-123456789
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="company-description"
+                         th:if="${employer.companyDescription != null
+                                 && !employer.companyDescription.isEmpty()}">
+                        <div class="description-label">
+                            <i class="fa-solid fa-building"></i>
+                            About the Company
+                        </div>
+
+                        <p class="description-content"
+                           th:text="${employer.companyDescription}">
+                            Company description goes here.
+                        </p>
                     </div>
                 </div>
 
                 <a th:href="@{/employer/profile/edit}"
-                  class="edit-btn">
-                    <i class="fas fa-edit"></i>
+                   class="header-edit-btn">
+                    <i class="fa-solid fa-pen"></i>
                     Edit Profile
                 </a>
 
-            </div>
+            </section>
+
+            <section class="profile-card">
+                <div class="card-header">
+                    <div>
+                        <h2>Account Owner</h2>
+                        <p>
+                            Information about the account owner
+                        </p>
+                    </div>
+                    <i class="fa-solid fa-user-tie card-header-icon"></i>
+                </div>
+
+                <div class="owner-section">
+                    <div class="owner-avatar">
+                        <img th:if="${employer.user != null
+                                    && employer.user.profilePhoto != null
+                                    && !employer.user.profilePhoto.isEmpty()}"
+                             th:src="@{'/uploads/' + ${employer.user.profilePhoto}}"
+                             alt="Account Owner">
+
+                        <i th:if="${employer.user == null
+                                   || employer.user.profilePhoto == null
+                                   || employer.user.profilePhoto.isEmpty()}"
+                           class="fa-solid fa-user">
+                        </i>
+                    </div>
+
+                    <div class="owner-info">
+                        <div class="owner-name"
+                             th:text="${employer.user.name}">
+                            Owner Name
+                        </div>
+
+                        <div>
+                            <span class="role-badge">
+                                <i class="fa-solid fa-briefcase"></i>
+                                Employer
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
         </div>
     </main>
+
 </div>
 </body>
 </html>

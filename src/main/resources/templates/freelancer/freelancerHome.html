@@ -3,780 +3,136 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
-
     <title>Freelancers | JobHunter</title>
 
     <link rel="stylesheet"
           th:href="@{/css/bootstrap.min.css}">
-
     <script th:src="@{/js/bootstrap.bundle.min.js}"
             defer></script>
-
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
     <link rel="preconnect"
           href="https://fonts.googleapis.com">
-
     <link rel="preconnect"
           href="https://fonts.gstatic.com"
           crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
           rel="stylesheet">
-
     <link rel="stylesheet"
           th:href="@{/css/navbar.css}">
-
     <link rel="stylesheet"
           th:href="@{/css/footer.css}">
-
+    <link rel="stylesheet"
+          th:href="@{/css/freelancerHome.css}">
 
     <style>
 
-        * {
-            box-sizing: border-box;
-        }
-
-
-        body {
-
-            margin: 0;
-
-            font-family: 'Poppins', sans-serif;
-
-            background: #f7faff;
-
-            color: #172033;
-        }
-
-
-        /* =========================
-           MAIN PAGE
-        ========================= */
-
-        .freelancers-page {
-
-            max-width: 1320px;
-
-            margin: 0 auto;
-
-            padding: 65px 32px 90px;
-        }
-
-
-        /* =========================
-           PAGE HEADER
-        ========================= */
-
-        .freelancers-header {
-
-            text-align: center;
-
-            max-width: 720px;
-
-            margin: 0 auto 55px;
-        }
-
-
-        /* HEADER ICON */
-
-        .freelancers-header .header-icon {
-
-            width: 64px;
-
-            height: 64px;
-
-            margin: 0 auto 20px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border-radius: 18px;
-
-            background: #e3f2fd;
-
-            color: #1976d2;
-
-            font-size: 27px;
-        }
-
-
-        /* HEADER TITLE */
-
-        .freelancers-header h1 {
-
-            margin: 0 0 14px;
-
-            font-size: 38px;
-
-            font-weight: 800;
-
-            letter-spacing: -1px;
-
-            color: #172033;
-        }
-
-
-        .freelancers-header h1 span {
-
-            color: #1976d2;
-        }
-
-
-        /* HEADER DESCRIPTION */
-
-        .freelancers-header p {
-
-            margin: 0;
-
-            font-size: 15px;
-
-            line-height: 1.8;
-
-            color: #64748b;
-        }
-
-
-        /* =========================
-           FREELANCER SUMMARY
-        ========================= */
-
-        .freelancer-summary {
-
-            display: flex;
-
-            justify-content: center;
-
-            margin-top: 22px;
-        }
-
-
-        .freelancer-summary span {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            padding: 8px 17px;
-
-            border-radius: 30px;
-
-            background: #ffffff;
-
-            border: 1px solid #e2e8f0;
-
-            color: #475569;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-            box-shadow:
-                0 4px 15px rgba(15, 23, 42, 0.04);
-        }
-
-
-        .freelancer-summary i {
-
-            color: #1976d2;
-
-            font-size: 12px;
-        }
-
-
-        /* =========================
-           FREELANCER GRID
-        ========================= */
-
-        .freelancers-grid {
-
-            display: grid;
-
-            grid-template-columns: repeat(4, 1fr);
-
-            gap: 30px;
-        }
-
-
-        /* =========================
-           FREELANCER CARD
-        ========================= */
-
-        .freelancer-card {
-
-            min-height: 198px;
-
-            padding: 32px 25px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            background: #ffffff;
-
-            border: 1px solid #dfe5eb;
-
-            border-radius: 16px;
-
-            transition:
-                transform 0.25s ease,
-                border-color 0.25s ease,
-                box-shadow 0.25s ease;
-        }
-
-
-        .freelancer-card:hover {
-
-            transform: translateY(-3px);
-
-            border-color: #70b8ff;
-
-            box-shadow:
-                0 14px 32px rgba(33, 150, 243, 0.10);
-        }
-
-
-        /* =========================
-           FREELANCER LINK
-        ========================= */
-
-        .freelancer-link {
-
-            width: 100%;
-
-            text-decoration: none;
-
-            color: #172033;
-
-            display: flex;
-
-            flex-direction: column;
-
-            align-items: center;
-        }
-
-
-        .freelancer-link:hover {
-
-            color: #172033;
-        }
-
-
-        /* =========================
-           PROFILE PHOTO
-        ========================= */
-
-        .freelancer-photo {
-
-            width: 78px;
-
-            height: 78px;
-
-            border-radius: 50%;
-
-            object-fit: cover;
-
-            border: 3px solid #e3f2fd;
-
-            padding: 2px;
-
-            background: #ffffff;
-
-            transition:
-                transform 0.25s ease;
-        }
-
-
-        .freelancer-card:hover .freelancer-photo {
-
-            transform: scale(1.05);
-        }
-
-
-        /* =========================
-           PROFILE PLACEHOLDER
-        ========================= */
-
-        .freelancer-placeholder {
-
-            width: 78px;
-
-            height: 78px;
-
-            border-radius: 50%;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            background: #e3f2fd;
-
-            color: #2196f3;
-
-            font-size: 28px;
-
-            border: 3px solid #bbdefb;
-
-            transition:
-                transform 0.25s ease;
-        }
-
-
-        .freelancer-card:hover .freelancer-placeholder {
-
-            transform: scale(1.05);
-        }
-
-
-        /* =========================
-           FREELANCER NAME
-        ========================= */
-
-        .freelancer-card h3 {
-
-            margin: 16px 0 7px;
-
-            font-size: 17px;
-
-            font-weight: 700;
-
-            line-height: 1.4;
-
-            color: #075edb;
-
-            text-align: center;
-        }
-
-
-        /* =========================
-           FREELANCER TITLE
-        ========================= */
-
-        .freelancer-title {
-
-            max-width: 220px;
-
-            margin: 0 0 13px;
-
-            overflow: hidden;
-
-            text-overflow: ellipsis;
-
-            white-space: nowrap;
-
-            color: #8b9bb1;
-
-            font-size: 13px;
-
-            line-height: 1.4;
-
-            text-align: center;
-        }
-
-
-        /* =========================
-           SKILLS
-        ========================= */
-
-        .freelancer-skills {
-
-            display: flex;
-
-            justify-content: center;
-
-            flex-wrap: wrap;
-
-            gap: 5px;
-
-            max-width: 220px;
-        }
-
-
-        .freelancer-skills span {
-
-            padding: 5px 9px;
-
-            border-radius: 20px;
-
-            background: #e3f2fd;
-
-            color: #1976d2;
-
-            font-size: 10px;
-
-            font-weight: 600;
-
-            line-height: 1.3;
-        }
-
-
-        /* =========================
-           EMPTY STATE
-        ========================= */
-
-        .empty-state {
-
-            padding: 70px 20px;
-
-            text-align: center;
-
-            background: #ffffff;
-
-            border: 1px solid #e5eaf0;
-
-            border-radius: 16px;
-        }
-
-
-        .empty-icon {
-
-            margin-bottom: 20px;
-
-            font-size: 45px;
-
-            color: #90caf9;
-        }
-
-
-        .empty-state h3 {
-
-            margin: 0 0 8px;
-
-            font-size: 20px;
-
-            font-weight: 700;
-
-            color: #172033;
-        }
-
-
-        .empty-state p {
-
-            margin: 0;
-
-            color: #64748b;
-
-            font-size: 14px;
-        }
-
-
-        /* =========================
-           RESPONSIVE
-        ========================= */
-
-        @media (max-width: 1100px) {
-
-            .freelancers-grid {
-
-                grid-template-columns: repeat(3, 1fr);
-
-                gap: 24px;
-            }
-        }
-
-
-        @media (max-width: 800px) {
-
-            .freelancers-page {
-
-                padding: 55px 22px 70px;
-            }
-
-
-            .freelancers-grid {
-
-                grid-template-columns: repeat(2, 1fr);
-
-                gap: 20px;
-            }
-
-
-            .freelancers-header h1 {
-
-                font-size: 32px;
-            }
-        }
-
-
-        @media (max-width: 520px) {
-
-            .freelancers-page {
-
-                padding: 40px 16px 60px;
-            }
-
-
-            .freelancers-header {
-
-                margin-bottom: 35px;
-            }
-
-
-            .freelancers-header .header-icon {
-
-                width: 58px;
-
-                height: 58px;
-
-                font-size: 24px;
-            }
-
-
-            .freelancers-header h1 {
-
-                font-size: 27px;
-
-                letter-spacing: -0.5px;
-            }
-
-
-            .freelancers-header p {
-
-                font-size: 13px;
-            }
-
-
-            .freelancers-grid {
-
-                grid-template-columns: 1fr;
-
-                gap: 16px;
-            }
-
-
-            .freelancer-card {
-
-                min-height: 180px;
-
-                padding: 27px 22px;
-            }
-        }
-
     </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =========================
-     NAVBAR
-========================= -->
-
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-
-
-<!-- =========================
-     MAIN CONTENT
-========================= -->
 
 <main class="freelancers-page">
 
-
-    <!-- =========================
-         PAGE HEADER
-    ========================= -->
-
     <div class="freelancers-header">
-
-
         <div class="header-icon">
-
             <i class="fa-solid fa-users"></i>
-
         </div>
 
-
         <h1>
-
             Explore <span>Freelancers</span>
-
         </h1>
 
-
         <p>
-
             Discover talented freelancers and find the right person
             for your project and career goals.
-
         </p>
 
-
         <div class="freelancer-summary">
-
             <span>
-
                 <i class="fa-solid fa-user-group"></i>
-
                 <strong
                     th:text="${freelancers != null ? freelancers.size() : 0}">
                     0
                 </strong>
-
                 Freelancers Available
-
             </span>
-
         </div>
-
     </div>
-
-
-    <!-- =========================
-         EMPTY STATE
-    ========================= -->
 
     <div th:if="${freelancers == null || freelancers.isEmpty()}"
          class="empty-state">
-
-
         <div class="empty-icon">
-
             <i class="fa-regular fa-user"></i>
-
         </div>
 
-
         <h3>
-
             No Freelancers Found
-
         </h3>
 
-
         <p>
-
             There are currently no freelancers available.
-
         </p>
-
     </div>
-
-
-    <!-- =========================
-         FREELANCERS
-    ========================= -->
 
     <div th:if="${freelancers != null && !freelancers.isEmpty()}"
          class="freelancers-grid">
 
-
         <div th:each="freelancer : ${freelancers}"
              class="freelancer-card">
-
 
             <a th:href="@{/freelancer-details/{id}(id=${freelancer.id})}"
                class="freelancer-link">
 
-
-                <!-- =========================
-                     PROFILE PHOTO
-                ========================= -->
-
                 <img th:if="${freelancer.user != null
                             && freelancer.user.profilePhoto != null
                             && !freelancer.user.profilePhoto.isEmpty()}"
-
                      th:src="@{'/uploads/' + ${freelancer.user.profilePhoto}}"
-
                      class="freelancer-photo"
-
                      alt="Freelancer Photo">
-
-
-                <!-- =========================
-                     PLACEHOLDER
-                ========================= -->
 
                 <div th:if="${freelancer.user == null
                             || freelancer.user.profilePhoto == null
                             || freelancer.user.profilePhoto.isEmpty()}"
-
                      class="freelancer-placeholder">
-
                     <i class="fa-solid fa-user"></i>
-
                 </div>
-
-
-                <!-- =========================
-                     NAME
-                ========================= -->
 
                 <h3 th:if="${freelancer.user != null}"
                     th:text="${freelancer.user.name}">
-
                     Freelancer Name
-
                 </h3>
-
-
-                <!-- =========================
-                     TITLE
-                ========================= -->
 
                 <p class="freelancer-title"
                    th:text="${freelancer.title != null
                             && !freelancer.title.isEmpty()
                             ? freelancer.title
                             : 'Freelancer'}">
-
                     Software Developer
-
                 </p>
 
-
-                <!-- =========================
-                     SKILLS
-                ========================= -->
-
                 <div class="freelancer-skills">
-
                     <span th:each="fs, stat : ${freelancer.freelancerSkills}"
                           th:if="${stat.index < 3}"
                           th:text="${fs.skill.name}">
-
                         Java
-
                     </span>
-
                 </div>
-
 
             </a>
 
         </div>
 
-
     </div>
-
 
 </main>
 
-
-<!-- =========================
-     FOOTER
-========================= -->
-
 <div th:replace="~{fragments/footer :: footer}"></div>
 
-
 </body>
-
 </html>

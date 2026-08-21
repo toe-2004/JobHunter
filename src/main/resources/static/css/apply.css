@@ -1,0 +1,379 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #F7FAFF;
+    color: #172033;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+.application-page {
+    min-height: calc(100vh - 100px);
+    padding: 55px 20px 70px;
+}
+
+.application-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.page-icon {
+    width: 62px;
+    height: 62px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #E3F2FD;
+    color: #2196F3;
+    border-radius: 18px;
+    font-size: 25px;
+    box-shadow:
+        0 8px 25px rgba(33, 150, 243, 0.10);
+}
+
+.page-header h1 {
+    margin: 0 0 10px;
+    font-size: 30px;
+    font-weight: 700;
+    color: #172033;
+}
+
+.page-header p {
+    margin: 0;
+    font-size: 14px;
+    color: #718096;
+}
+
+.application-card {
+    background: #FFFFFF;
+    border: 1px solid #E5EDF7;
+    border-radius: 18px;
+    box-shadow:
+        0 10px 35px rgba(31, 61, 91, 0.07);
+    overflow: hidden;
+}
+
+.job-information {
+    padding: 28px 32px;
+    background: linear-gradient(
+        135deg,
+        #E3F2FD 0%,
+        #F7FAFF 100%
+    );
+    border-bottom: 1px solid #DCEAF7;
+}
+
+.job-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    color: #1976D2;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.job-label i {
+    font-size: 13px;
+}
+
+.job-information h2 {
+    margin: 0 0 15px;
+    color: #172033;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.job-category {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 13px;
+    background: #FFFFFF;
+    border: 1px solid #D7E8F8;
+    border-radius: 20px;
+    color: #52657A;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.job-category i {
+    color: #2196F3;
+}
+
+.application-form {
+    padding: 32px;
+}
+
+.form-section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    color: #172033;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.form-section-title i {
+    color: #2196F3;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 10px;
+    color: #26354A;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.form-label i {
+    color: #2196F3;
+    font-size: 14px;
+}
+
+.file-upload-wrapper {
+    position: relative;
+}
+
+.file-upload {
+    width: 100%;
+    min-height: 125px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    background: #F8FBFF;
+    border: 2px dashed #B8D9F4;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.file-upload:hover {
+    background: #F0F8FF;
+    border-color: #2196F3;
+}
+
+.file-upload input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.upload-content {
+    pointer-events: none;
+}
+
+.upload-icon {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #E3F2FD;
+    color: #2196F3;
+    border-radius: 12px;
+    font-size: 18px;
+}
+
+.upload-title {
+    margin-bottom: 4px;
+    color: #26354A;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.upload-subtitle {
+    color: #8997A8;
+    font-size: 11px;
+}
+
+.cover-letter {
+    width: 100%;
+    min-height: 220px;
+    padding: 15px 16px;
+    background: #FFFFFF;
+    border: 1px solid #DCE5EF;
+    border-radius: 11px;
+    color: #26354A;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    line-height: 1.7;
+    resize: vertical;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.cover-letter::placeholder {
+    color: #A6B2C0;
+}
+
+.cover-letter:focus {
+    border-color: #2196F3;
+    box-shadow:
+        0 0 0 3px rgba(33, 150, 243, 0.10);
+}
+
+.help-text {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    color: #8A97A7;
+    font-size: 11px;
+}
+
+.help-text i {
+    color: #90CAF9;
+}
+
+.form-divider {
+    height: 1px;
+    margin: 8px 0 25px;
+    background: #EDF1F5;
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.btn-cancel,
+.btn-submit {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 20px;
+    border-radius: 9px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.btn-cancel {
+    background: #FFFFFF;
+    border: 1px solid #D9E2EC;
+    color: #66758A;
+}
+
+.btn-cancel:hover {
+    background: #F5F8FC;
+    border-color: #C8D5E3;
+    color: #334155;
+}
+
+.btn-submit {
+    border: none;
+    background: #2196F3;
+    color: #FFFFFF;
+    box-shadow:
+        0 6px 15px rgba(33, 150, 243, 0.20);
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: #1976D2;
+    transform: translateY(-1px);
+    box-shadow:
+        0 8px 18px rgba(33, 150, 243, 0.25);
+}
+
+.required {
+    color: #2196F3;
+}
+
+@media (max-width: 768px) {
+    .application-page {
+        padding: 35px 15px 50px;
+    }
+
+    .page-header h1 {
+        font-size: 25px;
+    }
+
+    .application-form {
+        padding: 24px 20px;
+    }
+
+    .job-information {
+        padding: 24px 20px;
+    }
+
+    .job-information h2 {
+        font-size: 20px;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .btn-cancel,
+    .btn-submit {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .application-page {
+        padding: 25px 10px 40px;
+    }
+
+    .page-header {
+        margin-bottom: 25px;
+    }
+
+    .page-icon {
+        width: 54px;
+        height: 54px;
+    }
+
+    .page-header h1 {
+        font-size: 22px;
+    }
+
+    .application-form {
+        padding: 20px 16px;
+    }
+
+    .job-information {
+        padding: 20px 16px;
+    }
+
+    .file-upload {
+        min-height: 115px;
+    }
+}

@@ -369,7 +369,7 @@ a {
 
 .category-card:hover {
     transform: translateY(-5px);
-    border-color: #2563eb;
+    border-color: #70b8ff;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.10);
     color: #1f2937;
 }
@@ -383,13 +383,13 @@ a {
     margin-bottom: 18px;
     border-radius: 10px;
     background: #eff6ff;
-    color: #2563eb;
+    color: #70b8ff;
     font-size: 22px;
     transition: 0.2s ease;
 }
 
 .category-card:hover .category-icon {
-    background: #2563eb;
+    background: #70b8ff;
     color: #ffffff;
 }
 

@@ -202,6 +202,7 @@ public class JobController {
                         jobRepository.findByEmployer(employer);
                 model.addAttribute("employer", employer);
                 model.addAttribute("jobs", jobs);
+                model.addAttribute("currentPage", "my-jobs");
 
                 return "job/my-jobs";
         }

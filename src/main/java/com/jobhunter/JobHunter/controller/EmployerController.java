@@ -54,10 +54,16 @@ public class EmployerController {
     private EmployerRepository employerRepository;
 
     @GetMapping("/register")
-    public String page(Model model) {
-        model.addAttribute("employerForm", new EmployerRegistrationDto());
-        return "employer/register";
+    public String page(
+            Model model,
+            @AuthenticationPrincipal UserDetails userDetails) {
 
+        model.addAttribute("employerForm", new EmployerRegistrationDto());
+
+        User user = userService.findByEmail(userDetails.getUsername());
+        model.addAttribute("user", user);
+
+        return "employer/register";
     }
 
     @PostMapping("/register")
@@ -90,6 +96,7 @@ public class EmployerController {
         model.addAttribute("jobCount", employerService.getJobCount());
         model.addAttribute("recentJobs", recentJobs);
         model.addAttribute("recentApplications", recentApplications);
+        model.addAttribute("currentPage", "dashboard_e");
         return "employer/dashboard";
     }
 
@@ -97,6 +104,7 @@ public class EmployerController {
     public String profile(Model model) {
         Employer employer = employerService.getProfile();
         model.addAttribute("employer", employer);
+        model.addAttribute("currentPage", "profile_e");
         return "employer/profile";
     }
 
@@ -105,6 +113,8 @@ public class EmployerController {
         Employer employer = employerService.getProfile();
         EmployerProfileDto dto = EmployerProfileDto.from(employer.getUser(), employer);
         model.addAttribute("profile", dto);
+        model.addAttribute("employer",employer);
+        model.addAttribute("currentPage", "profile_e");
         return "employer/profile-edit";
     }
 
@@ -160,6 +170,7 @@ public class EmployerController {
                         .orElseThrow(() -> new RuntimeException("Employer not found"));
 
         model.addAttribute("employer", employer);
+        model.addAttribute("currentPage", "profile_e");
 
         return "employer/edit-profile";
     }

@@ -3,297 +3,280 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Search Results</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Search Results | JobHunter</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/bootstrap.bundle.min.js}"
+            defer></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet"
+          th:href="@{/css/navbar.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/footer.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/search-results.css}">
 
     <style>
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            margin: 0;
-            padding: 30px;
-        }
-
-        .container {
-            width: 1100px;
-            margin: auto;
-        }
-
-        .search-header {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-        }
-
-        .search-header h1 {
-            margin-top: 0;
-        }
-
-        .section-title {
-            margin-top: 30px;
-            margin-bottom: 15px;
-        }
-
-        .result-card {
-            background: white;
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        .result-card h2 {
-            margin-top: 0;
-            color: #333;
-        }
-
-        .result-card p {
-            color: #555;
-            line-height: 1.5;
-        }
-
-        .info {
-            margin: 8px 0;
-        }
-
-        .label {
-            font-weight: bold;
-        }
-
-        .view-btn {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 9px 18px;
-            background: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-        }
-
-        .view-btn:hover {
-            background: #0056b3;
-        }
 
     </style>
 </head>
 
-
 <body>
 
-<div class="container">
-	<a href="/viewHomeJob" class="home-btn">
-	    Back to Home
-	</a>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="search-page">
 
     <div class="search-header">
+        <div class="search-header-content">
+            <div class="search-icon">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
 
-        <h1>Search Results</h1>
+            <h1>
+                Search Results
+            </h1>
+
+            <p>
+                Showing results for
+                <span class="keyword"
+                      th:text="${keyword}">
+                    keyword
+                </span>
+            </p>
+        </div>
+    </div>
+
+    <div th:if="${jobs != null && !jobs.isEmpty()}">
+
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fa-solid fa-briefcase"></i>
+                Jobs
+            </h2>
+
+            <span class="result-count"
+                  th:text="${#lists.size(jobs)} + ' results'">
+                0 results
+            </span>
+        </div>
+
+        <div class="results-grid">
+
+            <a class="result-card"
+               th:each="job : ${jobs}"
+               th:href="@{/job-details/{id}(id=${job.id})}">
+
+                <div class="card-top">
+
+                    <div class="card-title-area">
+
+                        <div class="card-icon">
+                            <img th:if="${job.employer != null
+                                        && job.employer.user != null
+                                        && job.employer.user.profilePhoto != null
+                                        && !job.employer.user.profilePhoto.isEmpty()}"
+                                 th:src="@{'/uploads/' + ${job.employer.user.profilePhoto}}"
+                                 alt="Company Photo"
+                                 class="job-company-photo">
+
+                            <div th:if="${job.employer == null
+                                        || job.employer.user == null
+                                        || job.employer.user.profilePhoto == null
+                                        || job.employer.user.profilePhoto.isEmpty()}"
+                                 class="job-company-placeholder">
+                                <i class="fa-solid fa-building"></i>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h2 th:text="${job.title}">
+                                Job Title
+                            </h2>
+
+                            <p class="card-subtitle">
+                                <span th:if="${job.employer != null}"
+                                      th:text="${job.employer.companyName}">
+                                    Company
+                                </span>
+                                <span th:if="${job.employer == null}">
+                                    Company
+                                </span>
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-item"
+                         th:if="${job.category != null}">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span th:text="${job.category.name}">
+                            Category
+                        </span>
+                    </div>
+
+                    <div class="info-item"
+                         th:if="${job.employmentType != null}">
+                        <i class="fa-solid fa-clock"></i>
+                        <span th:text="${job.employmentType}">
+                            Employment Type
+                        </span>
+                    </div>
+
+                    <div class="info-item"
+                         th:if="${job.experienceLevel != null}">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span th:text="${job.experienceLevel}">
+                            Experience
+                        </span>
+                    </div>
+                </div>
+
+                <p class="description"
+                   th:text="${job.description}">
+                    Job description
+                </p>
+
+                <div class="card-footer-custom">
+                    <div class="posted-info">
+                        <i class="fa-regular fa-building"></i>
+                        <span>
+                            Company opportunity
+                        </span>
+                    </div>
+                </div>
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div th:if="${freelancers != null && !freelancers.isEmpty()}"
+         class="freelancer-results">
+
+        <div class="section-header">
+            <h2 class="section-title">
+                <i class="fa-solid fa-user-tie"></i>
+                Freelancers
+            </h2>
+
+            <span class="result-count"
+                  th:text="${#lists.size(freelancers)} + ' results'">
+                0 results
+            </span>
+        </div>
+
+        <div class="results-grid">
+
+            <a class="result-card freelancer-card"
+               th:each="freelancer : ${freelancers}"
+               th:href="@{/freelancer-details/{id}(id=${freelancer.id})}">
+
+                <div class="card-top">
+
+                    <div class="card-title-area">
+
+                        <div class="card-icon">
+                            <img th:if="${freelancer.user != null
+                                        && freelancer.user.profilePhoto != null
+                                        && !freelancer.user.profilePhoto.isEmpty()}"
+                                 th:src="@{'/uploads/' + ${freelancer.user.profilePhoto}}"
+                                 class="freelancer-photo"
+                                 alt="Freelancer Photo">
+
+                            <div th:if="${freelancer.user == null
+                                        || freelancer.user.profilePhoto == null
+                                        || freelancer.user.profilePhoto.isEmpty()}"
+                                 class="freelancer-placeholder">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h2 th:text="${freelancer.user.name}">
+                                Freelancer Name
+                            </h2>
+
+                            <p class="card-subtitle"
+                               th:text="${freelancer.title}">
+                                Freelancer Title
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-item"
+                         th:if="${freelancer.location != null}">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span th:text="${freelancer.location}">
+                            Location
+                        </span>
+                    </div>
+                </div>
+
+                <p class="summary"
+                   th:text="${freelancer.summary}">
+                    Freelancer summary
+                </p>
+
+                <div class="card-footer-custom">
+                    <div class="posted-info">
+                        <i class="fa-solid fa-user-check"></i>
+                        <span>
+                            Freelancer profile
+                        </span>
+                    </div>
+                </div>
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div th:if="${(jobs == null || jobs.isEmpty())
+                 && (freelancers == null || freelancers.isEmpty())}"
+         class="empty-state">
+
+        <div class="empty-icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        <h3>
+            No results found
+        </h3>
 
         <p>
-            Search keyword:
-
+            We couldn't find any jobs or freelancers matching
             <strong th:text="${keyword}">
-                keyword
-            </strong>
+                your search
+            </strong>.
+            Try searching with a different keyword.
         </p>
 
     </div>
 
+</main>
 
-
-    <div th:if="${jobs != null && !jobs.isEmpty()}">
-
-        <h2 class="section-title">
-            Jobs
-        </h2>
-
-
-        <div
-            class="result-card"
-            th:each="job : ${jobs}">
-
-            <h2 th:text="${job.title}">
-                Job Title
-            </h2>
-
-
-            <p>
-
-                <span class="label">
-                    Description:
-                </span>
-
-                <span th:text="${job.description}">
-                    Description
-                </span>
-
-            </p>
-
-
-            <p class="info">
-
-                <span class="label">
-                    Company:
-                </span>
-
-                <span th:text="${job.employer.companyName}">
-                    Company
-                </span>
-
-            </p>
-
-
-            <p class="info">
-
-                <span class="label">
-                    Category:
-                </span>
-
-                <span th:text="${job.category.name}">
-                    Category
-                </span>
-
-            </p>
-
-
-            <p class="info">
-
-                <span class="label">
-                    Employment Type:
-                </span>
-
-                <span th:text="${job.employmentType}">
-                    Employment Type
-                </span>
-
-            </p>
-
-
-            <p class="info">
-
-                <span class="label">
-                    Experience:
-                </span>
-
-                <span th:text="${job.experienceLevel}">
-                    Experience
-                </span>
-
-            </p>
-
-
-   
-
-            <a
-                class="view-btn"
-                th:href="@{/job-details/{id}(id=${job.id})}">
-
-                View Job Details
-
-            </a>
-
-        </div>
-
-    </div>
-
-
-
-    <div th:if="${freelancers != null && !freelancers.isEmpty()}">
-
-        <h2 class="section-title">
-            Freelancers
-        </h2>
-
-
-        <div
-            class="result-card"
-            th:each="freelancer : ${freelancers}">
-
-
-         
-
-            <h2 th:text="${freelancer.user.name}">
-                Freelancer Name
-            </h2>
-
-
-
-            <p class="info">
-
-                <span class="label">
-                    Title:
-                </span>
-
-                <span th:text="${freelancer.title}">
-                    Freelancer Title
-                </span>
-
-            </p>
-
-
-          
-
-            <p class="info">
-
-                <span class="label">
-                    Location:
-                </span>
-
-                <span th:text="${freelancer.location}">
-                    Location
-                </span>
-
-            </p>
-
-
-          
-
-            <p class="info">
-
-                <span class="label">
-                    Experience:
-                </span>
-
-                <span th:text="${freelancer.experience}">
-                    Experience
-                </span>
-
-            </p>
-
-
-           
-
-            <p class="info">
-
-                <span class="label">
-                    Summary:
-                </span>
-
-                <span th:text="${freelancer.summary}">
-                    Summary
-                </span>
-
-            </p>
-
-
-          
-			
-            <a
-                class="view-btn"
-                th:href="@{/freelancer-details/{id}(id=${freelancer.id})}">
-
-                View Freelancer Details
-
-            </a>
-
-        </div>
-
-    </div>
-
-
-</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 
 </body>
-
 </html>

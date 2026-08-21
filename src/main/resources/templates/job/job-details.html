@@ -3,1251 +3,264 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
-
     <title th:text="${job.title} + ' | JobHunter'">
         Job Details | JobHunter
     </title>
 
-
-    <!-- Bootstrap -->
-
     <link rel="stylesheet"
           th:href="@{/css/bootstrap.min.css}">
-
     <script th:src="@{/js/bootstrap.bundle.min.js}"
             defer></script>
-
-
-    <!-- Font Awesome -->
-
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-
-    <!-- Google Font -->
-
     <link rel="preconnect"
           href="https://fonts.googleapis.com">
-
     <link rel="preconnect"
           href="https://fonts.gstatic.com"
           crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
           rel="stylesheet">
-
-
-    <!-- Navbar -->
-
     <link rel="stylesheet"
           th:href="@{/css/navbar.css}">
-
-
-    <!-- Footer -->
-
     <link rel="stylesheet"
           th:href="@{/css/footer.css}">
-
+    <link rel="stylesheet"
+          th:href="@{/css/job-details.css}">
 
     <style>
 
-        * {
-            box-sizing: border-box;
-        }
-
-
-        /* =========================================
-           BODY
-        ========================================= */
-
-        body {
-
-            margin: 0;
-
-            background: #f7faff;
-
-            color: #172033;
-
-            font-family: 'Poppins', sans-serif;
-
-        }
-
-
-        /* =========================================
-           PAGE
-        ========================================= */
-
-        .page-wrapper {
-
-            max-width: 950px;
-
-            margin: 40px auto 70px;
-
-            padding: 0 20px;
-
-        }
-
-
-        /* =========================================
-           BACK BUTTON
-        ========================================= */
-
-        .back-wrapper {
-
-            margin-bottom: 20px;
-
-        }
-
-
-        .back-btn {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            padding: 9px 16px;
-
-            background: #ffffff;
-
-            border: 1px solid #dce4ed;
-
-            border-radius: 8px;
-
-            color: #687588;
-
-            text-decoration: none;
-
-            font-size: 12px;
-
-            font-weight: 500;
-
-            transition: .2s;
-
-        }
-
-
-        .back-btn:hover {
-
-            color: #1976d2;
-
-            border-color: #b9dafa;
-
-            background: #f8fbff;
-
-        }
-
-
-        /* =========================================
-           MAIN CARD
-        ========================================= */
-
-        .job-card {
-
-            background: #ffffff;
-
-            border: 1px solid #e3ebf4;
-
-            border-radius: 18px;
-
-            box-shadow:
-                0 8px 30px rgba(35, 75, 120, .07);
-
-            overflow: hidden;
-
-        }
-
-
-        /* =========================================
-           HEADER
-        ========================================= */
-
-        .job-header {
-
-            display: grid;
-
-            grid-template-columns: 280px minmax(0, 1fr);
-
-            gap: 30px;
-
-            padding: 30px 34px;
-
-            border-bottom: 1px solid #edf1f5;
-
-        }
-
-
-        /* =========================================
-           COMPANY SIDE
-        ========================================= */
-
-        .company-side {
-
-            padding-right: 28px;
-
-            border-right: 1px solid #edf1f5;
-
-            display: flex;
-
-            flex-direction: column;
-
-            justify-content: center;
-
-        }
-
-
-        /* =========================================
-           COMPANY INFORMATION
-        ========================================= */
-
-        .company-info {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 13px;
-
-            margin-bottom: 16px;
-
-        }
-
-
-        /* =========================================
-           COMPANY LOGO
-        ========================================= */
-
-        .company-logo {
-
-            width: 58px;
-
-            height: 58px;
-
-            flex-shrink: 0;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border-radius: 13px;
-
-            background: #eaf5ff;
-
-            border: 1px solid #d7ebfc;
-
-            color: #2196f3;
-
-            font-size: 22px;
-
-            overflow: hidden;
-
-        }
-
-
-        /* =========================================
-           FUTURE COMPANY PHOTO
-        ========================================= */
-
-        .company-photo {
-
-            width: 100%;
-
-            height: 100%;
-
-            object-fit: cover;
-
-            display: block;
-
-        }
-
-
-        /* =========================================
-           COMPANY TEXT
-        ========================================= */
-
-        .company-details {
-
-            min-width: 0;
-
-        }
-
-
-        .company-name {
-
-            margin: 0 0 4px;
-
-            color: #172033;
-
-            font-size: 16px;
-
-            font-weight: 600;
-
-            line-height: 1.4;
-
-            word-break: break-word;
-
-        }
-
-
-        .company-label {
-
-            display: block;
-
-            color: #8a96a5;
-
-            font-size: 11px;
-
-        }
-
-
-        /* =========================================
-           VIEW COMPANY BUTTON
-        ========================================= */
-
-        .view-company-btn {
-
-            width: 100%;
-
-            height: 37px;
-
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            gap: 7px;
-
-            border: 1px solid #cfe3f7;
-
-            border-radius: 8px;
-
-            background: #ffffff;
-
-            color: #1976d2;
-
-            text-decoration: none;
-
-            font-size: 11px;
-
-            font-weight: 600;
-
-            transition: .2s;
-
-        }
-
-
-        .view-company-btn:hover {
-
-            background: #eaf5ff;
-
-            border-color: #a9d5fa;
-
-            color: #1976d2;
-
-        }
-
-
-        /* =========================================
-           JOB HEADER CONTENT
-        ========================================= */
-
-        .job-header-content {
-
-            min-width: 0;
-
-            display: flex;
-
-            flex-direction: column;
-
-            justify-content: center;
-
-        }
-
-
-        /* =========================================
-           CATEGORY
-        ========================================= */
-
-        .job-category {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 7px;
-
-            width: fit-content;
-
-            padding: 6px 11px;
-
-            margin-bottom: 13px;
-
-            background: #eaf5ff;
-
-            color: #1976d2;
-
-            border-radius: 6px;
-
-            font-size: 10px;
-
-            font-weight: 600;
-
-        }
-
-
-        /* =========================================
-           TITLE
-        ========================================= */
-
-        .job-title {
-
-            margin: 0 0 12px;
-
-            color: #172033;
-
-            font-size: 27px;
-
-            font-weight: 700;
-
-            line-height: 1.35;
-
-        }
-
-
-        /* =========================================
-           META
-        ========================================= */
-
-        .job-meta {
-
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 17px;
-
-            color: #7c8898;
-
-            font-size: 11px;
-
-        }
-
-
-        .job-meta span {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 6px;
-
-        }
-
-
-        .job-meta i {
-
-            color: #2196f3;
-
-        }
-
-
-        /* =========================================
-           OPEN STATUS
-        ========================================= */
-
-        .status-open {
-
-            color: #3d8b55 !important;
-            border: 1px solid #3d8b55;
-            font-weight: 500;
-            padding:5px;
-            border-radius: 15px;
-            background-color: #c8ffd8;
-
-        }
-
-
-        .status-open::before {
-
-            content: "";
-
-            width: 7px;
-
-            height: 7px;
-
-            border-radius: 50%;
-
-            background: #4caf50;
-
-        }
-        .status-close{
-            color: #ff0000 !important;
-            border: 1px solid #ff0000;
-            font-weight: 500;
-            padding:5px;
-            border-radius: 15px;
-            background-color: #ffdcdc;
-        }
-        .status-close i{
-            color:#ff0000;
-        }
-
-
-        /* =========================================
-           BODY
-        ========================================= */
-
-        .job-body {
-
-            padding: 32px 34px;
-
-        }
-
-
-        /* =========================================
-           SECTION
-        ========================================= */
-
-        .section {
-
-            margin-bottom: 32px;
-
-        }
-
-
-        .section:last-child {
-
-            margin-bottom: 0;
-
-        }
-
-
-        .section-title {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 9px;
-
-            margin-bottom: 14px;
-
-            color: #172033;
-
-            font-size: 15px;
-
-            font-weight: 600;
-
-        }
-
-
-        .section-title i {
-
-            color: #2196f3;
-
-            font-size: 14px;
-
-        }
-
-
-        /* =========================================
-           DESCRIPTION
-        ========================================= */
-
-        .description {
-
-            color: #626f80;
-
-            font-size: 13px;
-
-            line-height: 1.9;
-
-            white-space: pre-line;
-
-        }
-
-
-        /* =========================================
-           JOB INFORMATION
-        ========================================= */
-
-        .info-grid {
-
-            display: grid;
-
-            grid-template-columns: repeat(2, 1fr);
-
-            border: 1px solid #e7edf4;
-
-            border-radius: 11px;
-
-            overflow: hidden;
-
-        }
-
-
-        .info-item {
-
-            padding: 15px 16px;
-
-            background: #ffffff;
-
-            border-bottom: 1px solid #edf1f5;
-
-        }
-
-
-        .info-item:nth-child(odd) {
-
-            border-right: 1px solid #edf1f5;
-
-        }
-
-
-        .info-item:nth-last-child(-n+2) {
-
-            border-bottom: none;
-
-        }
-
-
-        .info-label {
-
-            display: block;
-
-            margin-bottom: 5px;
-
-            color: #929dab;
-
-            font-size: 9px;
-
-            font-weight: 600;
-
-            text-transform: uppercase;
-
-            letter-spacing: .4px;
-
-        }
-
-
-        .info-value {
-
-            color: #344154;
-
-            font-size: 13px;
-
-            font-weight: 500;
-
-        }
-
-
-        /* =========================================
-           APPLY SECTION
-        ========================================= */
-
-        .apply-section {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            gap: 20px;
-
-            padding-top: 28px;
-
-            border-top: 1px solid #edf1f5;
-
-        }
-
-
-        .apply-text h3 {
-
-            margin: 0 0 5px;
-
-            color: #172033;
-
-            font-size: 15px;
-
-            font-weight: 600;
-
-        }
-
-
-        .apply-text p {
-
-            margin: 0;
-
-            color: #8a95a4;
-
-            font-size: 11px;
-
-        }
-
-
-        /* =========================================
-           APPLY BUTTON
-        ========================================= */
-
-        .apply-btn {
-
-            min-width: 145px;
-
-            height: 43px;
-
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            gap: 8px;
-
-            border: none;
-
-            border-radius: 8px;
-
-            background: #2196f3;
-
-            color: #ffffff;
-
-            text-decoration: none;
-
-            font-size: 12px;
-
-            font-weight: 600;
-
-            box-shadow:
-                0 4px 12px rgba(33, 150, 243, .18);
-
-            transition: .2s;
-
-        }
-
-
-		    .apply-btn:hover {
-		        background-color: #0056b3;
-		    }
-			.company-section {
-			    display: flex;
-			    align-items: center;
-			    gap: 15px;
-			    margin-bottom: 20px;
-			}
-
-			.company-photo {
-			    width: 70px;
-			    height: 70px;
-			    object-fit: cover;
-			    border-radius: 50%;
-			    border: 2px solid #ddd;
-			    display: block;
-			    transition: transform 0.2s ease;
-			}
-
-			.company-photo:hover {
-			    transform: scale(1.08);
-			}
-		</style>
-		
+    </style>
 </head>
-
 
 <body>
 
-<h1>Job Details</h1>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div>
+<main class="page-wrapper">
 
-    <h2 th:text="${job.title}"></h2>
-	
-	<div class="company-section">
-
-	    <a th:href="@{/company/{id}(id=${job.employer.id})}">
-
-	        <img th:if="${job.employer.user.profilePhoto != null}"
-	             th:src="@{'/uploads/' + ${job.employer.user.profilePhoto}}"
-	             alt="Company Photo"
-	             class="company-photo">
-
-	    </a>
-
-	    <div>
-	        <h3 th:text="${job.employer.user.name}">
-	            Company Name
-	        </h3>
-	    </div>
-
-	</div>
-
-            Back
-
-        </a> -->
-        <a href="#" class="back-btn" onclick="history.back(); return false;">
+    <div class="back-wrapper">
+        <a href="#"
+           class="back-btn"
+           onclick="history.back(); return false;">
             <i class="fa-solid fa-arrow-left"></i>
             Back
         </a>
-
     </div>
-
-
-    <!-- =========================================
-         ONE CARD
-    ========================================= -->
 
     <div class="job-card">
 
-
-        <!-- =====================================
-             HEADER
-        ====================================== -->
-
         <div class="job-header">
 
-
-            <!-- =================================
-                 COMPANY LEFT
-            ================================== -->
-
             <div class="company-side">
-
-
-                <!-- COMPANY PHOTO + NAME -->
-
                 <div class="company-info">
 
-
-                    <!--
-                        CURRENTLY SHOWING ICON
-
-                        Later, when you have company photo,
-                        replace/add the img below.
-                    -->
-
                     <div class="company-logo">
+                        <img th:if="${job.employer.user.profilePhoto != null}"
+                             th:src="@{'/uploads/' + ${job.employer.user.profilePhoto}}"
+                             alt="Company Photo"
+                             class="company-photo">
 
-                        <!-- FUTURE COMPANY PHOTO
-                        <img th:src="@{/uploads/{photo}(photo=${job.employer.user.profilePhoto})}"
-                             class="company-photo"
-                             alt="Company Photo">
-                        -->
-
-                        <i class="fa-solid fa-building"></i>
-
+                        <i th:unless="${job.employer.user.profilePhoto != null}"
+                           class="fa-solid fa-building">
+                        </i>
                     </div>
-
-
-                    <!-- COMPANY TEXT -->
 
                     <div class="company-details">
-
-                        <h2 class="company-name">
-
+                        <h2 class="company-name"
+                            th:text="${job.employer.user.name}">
                             Company Name
-
                         </h2>
-
                         <span class="company-label">
-
                             Employer
-
                         </span>
-
                     </div>
-
 
                 </div>
 
-
-                <!-- VIEW COMPANY -->
-
-                <a href="#"
+                <a th:href="@{/company/{id}(id=${job.employer.id})}"
                    class="view-company-btn">
-
                     <i class="fa-solid fa-building"></i>
-
                     View Company
-
                 </a>
-
-
             </div>
-
-
-            <!-- =================================
-                 JOB RIGHT
-            ================================== -->
 
             <div class="job-header-content">
 
-
-                <!-- CATEGORY -->
-
                 <div class="job-category">
-
                     <i class="fa-solid fa-layer-group"></i>
-
                     <span th:text="${job.category.name}">
-
                         Category
-
                     </span>
-
                 </div>
-
-
-                <!-- TITLE -->
 
                 <h1 class="job-title"
                     th:text="${job.title}">
-
                     Job Title
-
                 </h1>
 
-
-                <!-- META -->
-
                 <div class="job-meta">
-
-
-                    <!-- POSTED -->
-
                     <span>
-
                         <i class="fa-regular fa-calendar"></i>
-
                         Posted
-
                         <span th:text="${#temporals.format(job.createdAt, 'MMM dd, yyyy')}">
-
                             Date
-
                         </span>
-
                     </span>
-
-
-                    <!-- DEADLINE -->
 
                     <span>
-
                         <i class="fa-regular fa-clock"></i>
-
                         Deadline
-
                         <span th:text="${#temporals.format(job.deadline, 'MMM dd, yyyy')}">
-
                             Deadline
-
                         </span>
-
                     </span>
-
-
-                    <!-- OPEN -->
 
                     <span class="status-open"
                           th:if="${job.status.name() == 'OPEN'}">
-
                         Open
-
                     </span>
 
-
-                    <!-- CLOSED -->
-
-                    <span th:unless="${job.status.name() == 'OPEN'}" class="status-close">
-
+                    <span class="status-close"
+                          th:unless="${job.status.name() == 'OPEN'}">
                         <i class="fa-solid fa-circle-xmark"></i>
-
                         <span th:text="${job.status}">
-
                             Closed
-
                         </span>
-
                     </span>
-
-
                 </div>
-
 
             </div>
 
         </div>
 
-
-        <!-- =====================================
-             BODY
-        ====================================== -->
-
         <div class="job-body">
 
-
-            <!-- =================================
-                 DESCRIPTION
-            ================================== -->
-
             <section class="section">
-
-
                 <div class="section-title">
-
                     <i class="fa-solid fa-align-left"></i>
-
                     Job Description
-
                 </div>
-
 
                 <div class="description"
                      th:text="${job.description}">
-
                     Job description
-
                 </div>
-
-
             </section>
 
-
-            <!-- =================================
-                 JOB INFORMATION
-            ================================== -->
-
             <section class="section">
-
-
                 <div class="section-title">
-
                     <i class="fa-solid fa-circle-info"></i>
-
                     Job Information
-
                 </div>
-
 
                 <div class="info-grid">
 
-
-                    <!-- EMPLOYMENT -->
-
                     <div class="info-item">
-
                         <span class="info-label">
-
                             Employment Type
-
                         </span>
-
                         <span class="info-value"
                               th:text="${job.employmentType}">
-
                             Full Time
-
                         </span>
-
                     </div>
 
-
-                    <!-- EXPERIENCE -->
-
                     <div class="info-item">
-
                         <span class="info-label">
-
                             Experience Level
-
                         </span>
-
                         <span class="info-value"
                               th:text="${job.experienceLevel}">
-
                             Intermediate
-
                         </span>
-
                     </div>
 
-
-                    <!-- DURATION -->
-
                     <div class="info-item">
-
                         <span class="info-label">
-
                             Duration
-
                         </span>
-
                         <span class="info-value"
                               th:text="${job.duration}">
-
                             3 Months
-
                         </span>
-
                     </div>
 
-
-                    <!-- BUDGET -->
-
                     <div class="info-item">
-
                         <span class="info-label">
-
                             Budget
-
                         </span>
-
                         <span class="info-value"
-                              th:text="${job.budget+' Kyats'}">
-
-                            $1,000
-
+                              th:text="${job.budget + ' Kyats'}">
+                            100,000 Kyats
                         </span>
-
                     </div>
 
-
-                    <!-- MIN SALARY -->
-
                     <div class="info-item">
-
                         <span class="info-label">
-
                             Minimum Salary
-
                         </span>
-
                         <span class="info-value"
-                              th:text="${job.salaryMin+' Kyats'}">
-
-                            $500
-
+                              th:text="${job.salaryMin + ' Kyats'}">
+                            300,000 Kyats
                         </span>
-
                     </div>
-
-
-                    <!-- MAX SALARY -->
 
                     <div class="info-item">
-
                         <span class="info-label">
-
                             Maximum Salary
-
                         </span>
-
                         <span class="info-value"
-                              th:text="${job.salaryMax+' Kyats'}">
-
-                            $1,000
-
+                              th:text="${job.salaryMax + ' Kyats'}">
+                            500,000 Kyats
                         </span>
-
                     </div>
-
 
                 </div>
-
-
             </section>
-
-
-            <!-- =================================
-                 APPLY
-            ================================== -->
 
             <section class="apply-section"
                      sec:authorize="hasRole('FREELANCER')">
 
-
                 <div class="apply-text">
-
                     <h3>
-
                         Interested in this job?
-
                     </h3>
-
-
                     <p>
-
                         Submit your application and let the employer know you're interested.
-
                     </p>
-
                 </div>
-
-
-                <!-- APPLY NOW -->
 
                 <a th:if="${job.status.name() == 'OPEN' and !alreadyApplied}"
                    th:href="@{/apply-job/{id}(id=${job.id})}"
                    class="apply-btn">
-
                     <i class="fa-solid fa-paper-plane"></i>
-
                     Apply Now
-
                 </a>
-
-
-                <!-- ALREADY APPLIED -->
 
                 <div th:if="${job.status.name() == 'OPEN' and alreadyApplied}"
                      class="applied-btn">
-
                     <i class="fa-solid fa-circle-check"></i>
-
                     Already Applied
-
                 </div>
 
-
-                <!-- CLOSED -->
-
-                <div th:if="${job.status.name() == 'CLOSED'}"
+                <div th:if="${job.status.name() != 'OPEN'}"
                      class="closed-btn">
-
                     <i class="fa-solid fa-lock"></i>
-
                     Applications Closed
-
                 </div>
-
 
             </section>
 
-
         </div>
-
 
     </div>
 
-
-</div>
-
-
-<!-- =========================================
-     FOOTER
-========================================= -->
+</main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
-
 
 </body>
 

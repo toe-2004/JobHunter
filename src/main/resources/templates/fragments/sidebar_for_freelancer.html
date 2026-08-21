@@ -59,10 +59,12 @@
                     </li>
 
                     <li>
-                        <a href="/login" class="dropdown-item">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                            Logout
-                        </a>
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="dropdown-item mobile-logout">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                Logout
+                            </button>
+                        </form>
                     </li>
 
                 </ul>
@@ -88,41 +90,46 @@
             Home
         </a>
 
-        <a href="/freelancer/dashboard">
+        <a href="/freelancer/dashboard"
+        th:classappend="${currentPage == 'dashboard'} ? ' active' : ''">
+
             <i class="fas fa-chart-pie"></i>
             Dashboard
+
         </a>
 
-        <a href="/my-applications">
+        <a href="/my-applications"
+        th:classappend="${currentPage == 'my-applications'} ? ' active' : ''">
             <i class="fas fa-briefcase"></i>
             Applications
         </a>
 
-        <a href="/my-engagements">
+        <a href="/my-engagements"
+        th:classappend="${currentPage == 'my-engagements'} ? ' active' : ''">
             <i class="fas fa-handshake"></i>
             Job Offers
         </a>
 
-		<form th:action="@{/logout}" method="post" style="display: inline;">
-
-		    <button type="submit" class="logout-btn">
-
-		        <i class="fa-solid fa-right-from-bracket"></i>
-		        Logout
-
-		    </button>
-
-		</form>
+		<form th:action="@{/logout}" method="post" class="logout-form">
+            <button type="submit" class="logout-button">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </button>
+        </form>
     </nav>
 
 	<a th:href="@{/freelancer/profile}"
+        th:classappend="${currentPage == 'profile_f'} ? ' active' : ''"
 	   class="sidebar-profile d-none d-lg-flex">
 
 	    <img th:if="${user.profilePhoto != null}"
 	         th:src="@{'/uploads/' + ${user.profilePhoto}}"
 	         alt="Profile Photo"
 	         class="profile-photo">
-
+        <img th:unless="${user.profilePhoto != null}"
+            th:src="@{/images/default_profile.jpg}"
+            alt="Default Profile Photo"
+            class="profile-photo">
 	   
 
 	    <div class="profile-info">

@@ -1,13 +1,25 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
 body {
-    background-color: #F8FAFC;
-    font-family: 'Roboto', sans-serif;
-    color: #1E293B;
     margin: 0;
+    width: 100%;
+    min-height: 100vh;
+    background: #F7FAFF;
+    font-family: Arial, sans-serif;
+    color: #172033;
     overflow-x: hidden;
 }
 
 .dashboard-layout {
     display: flex;
+    width: 100%;
     min-height: 100vh;
 }
 
@@ -20,303 +32,590 @@ body {
 .main-content {
     flex: 1;
     min-width: 0;
-    padding: 0 40px;
+    padding: 40px 45px;
     overflow-x: hidden;
 }
 
 .profile-container {
     width: 100%;
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 0 20px;
-    box-sizing: border-box;
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
-.profile-header {
-    background: #FFFFFF;
-    padding: 30px;
-    border-radius: 18px;
+.back-wrapper {
     margin-bottom: 20px;
-    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06);
-    display: flex;
+}
+
+.back-button {
+    display: inline-flex;
     align-items: center;
-    gap: 22px;
-}
-
-/* .company-photo {
-    width: 95px;
-    height: 95px;
-    border-radius: 18px;
-    object-fit: cover;
-    border: 1px solid #E5E7EB;
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
-    background-color: #E3F2FD;
-    flex-shrink: 0;
-} */
-.company-photo-wrapper {
-    position: relative;
-    width: 110px;
-    height: 110px;
-    flex-shrink: 0;
-}
-
-.company-photo {
-    width: 110px;
-    height: 110px;
-    object-fit: cover;
-    border-radius: 50%;
-    display: block;
-    border: 3px solid #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-}
-
-.photo-edit-btn {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-
-    width: 32px;
-    height: 32px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: #2169f3;
-    color: #ffffff;
-
-    border-radius: 50%;
-    border: 3px solid #ffffff;
-
+    gap: 9px;
+    padding: 10px 17px;
+    background: #FFFFFF;
+    border: 1px solid #DCE4ED;
+    border-radius: 9px;
+    color: #687588;
     text-decoration: none;
-    font-size: 13px;
-
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-
+    font-size: 14px;
+    font-weight: 500;
     transition: all 0.2s ease;
 }
 
-.photo-edit-btn:hover {
-    background: #0d47c9;
-    color: #ffffff;
-    transform: scale(1.08);
+.back-button:hover {
+    color: #1976D2;
+    border-color: #B9DAFA;
+    background: #F8FBFF;
+    text-decoration: none;
 }
 
-.company-info {
+.back-button i {
+    font-size: 13px;
+}
+
+.company-header {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+    width: 100%;
+    padding: 32px 34px;
+    margin-bottom: 28px;
+    background: #FFFFFF;
+    border: 1px solid #DFE5EB;
+    border-radius: 18px;
+    box-shadow:
+        0 5px 22px rgba(15, 23, 42, 0.05);
+}
+
+.company-logo {
+    width: 110px;
+    height: 110px;
+    min-width: 110px;
+    border-radius: 17px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #E3F2FD;
+    border: 1px solid #BBDEFB;
+    color: #1976D2;
+    font-size: 36px;
+}
+
+.company-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.company-main-info {
     flex: 1;
     min-width: 0;
+    padding-right: 130px;
 }
 
-.company-info h1 {
+.company-main-info h1 {
+    margin: 2px 0 8px;
+    font-size: 30px;
+    line-height: 1.35;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #172033;
+    overflow-wrap: anywhere;
+}
+
+.company-location {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     margin: 0;
-    font-size: 28px;
-    font-weight: 600;
-    color: #0F172A;
-    word-break: break-word;
-}
-
-.company-info p {
-    margin: 7px 0 0;
     color: #64748B;
     font-size: 15px;
 }
 
-.profile-card {
-    background: #FFFFFF;
-    padding: 30px;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06);
+.company-location i {
+    color: #1976D2;
+    font-size: 14px;
 }
 
-.profile-card h2 {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 25px;
-    color: #0F172A;
-    border-bottom: 1px solid #E5E7EB;
-    padding-bottom: 12px;
-}
-
-.info-row {
+.company-meta {
     display: flex;
-    padding: 12px 0;
-    border-bottom: 1px solid #E5E7EB;
-    gap: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 17px;
 }
 
-.info-row:last-child {
-    border-bottom: none;
-}
-
-.info-label {
-    width: 180px;
-    flex-shrink: 0;
-    font-weight: 600;
+.company-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 100%;
+    padding: 9px 13px;
+    border-radius: 9px;
+    background: #F7FAFF;
+    border: 1px solid #E5EBF2;
     color: #64748B;
-}
-
-.info-value {
-    flex: 1;
-    min-width: 0;
-    color: #1E293B;
+    font-size: 13px;
+    font-weight: 500;
     overflow-wrap: anywhere;
 }
 
-.description {
-    color: #64748B;
-    line-height: 1.7;
+.company-meta-item i {
+    color: #1976D2;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+.company-description {
+    margin-top: 20px;
+    padding-top: 17px;
+    border-top: 1px solid #EEF2F7;
+    max-width: 850px;
+}
+
+.description-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    color: #172033;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.description-label i {
+    color: #1976D2;
+    font-size: 13px;
+}
+
+.description-content {
     margin: 0;
+    color: #64748B;
+    font-size: 14px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+.header-edit-btn {
+    position: absolute;
+    top: 32px;
+    right: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 9px;
+    background: #E3F2FD;
+    border: 1px solid #BBDEFB;
+    color: #1976D2;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.header-edit-btn:hover {
+    background: #BBDEFB;
+    color: #1565C0;
+    text-decoration: none;
+}
+
+.profile-card {
+    width: 100%;
+    padding: 30px 32px;
+    margin-bottom: 24px;
+    background: #FFFFFF;
+    border: 1px solid #DFE5EB;
+    border-radius: 17px;
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.04);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding-bottom: 18px;
+    margin-bottom: 22px;
+    border-bottom: 1px solid #EEF2F7;
+    background: transparent;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #172033;
+}
+
+.card-header p {
+    margin: 6px 0 0;
+    color: #94A3B8;
+    font-size: 13px;
+}
+
+.card-header-icon {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    background: #E3F2FD;
+    color: #1976D2;
+    font-size: 17px;
+}
+
+.owner-section {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 20px;
+    margin-bottom: 22px;
+    border-radius: 13px;
+    background: #F8FBFF;
+    border: 1px solid #E5EDF5;
+}
+
+.owner-avatar {
+    width: 68px;
+    height: 68px;
+    min-width: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 50%;
+    background: #E3F2FD;
+    border: 1px solid #BBDEFB;
+    color: #1976D2;
+    font-size: 23px;
+}
+
+.owner-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.owner-info {
+    min-width: 0;
+    flex: 1;
+}
+
+.owner-name {
+    margin-bottom: 8px;
+    color: #172033;
+    font-size: 17px;
+    font-weight: 700;
     overflow-wrap: anywhere;
 }
 
 .role-badge {
-    display: inline-block;
-    background-color: #E3F2FD;
-    color: #1976D2;
-    padding: 6px 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
     border-radius: 20px;
-    font-size: 14px;
+    background: #E3F2FD;
+    color: #1976D2;
+    font-size: 12px;
     font-weight: 600;
 }
 
+.role-badge i {
+    font-size: 10px;
+}
+
+.role-badge.small {
+    padding: 6px 12px;
+    font-size: 12px;
+}
+
+.owner-details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.owner-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    padding: 16px;
+    background: #FBFDFF;
+    border: 1px solid #E7EDF3;
+    border-radius: 11px;
+}
+
+.owner-detail-label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #94A3B8;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.owner-detail-label i {
+    color: #1976D2;
+    font-size: 12px;
+}
+
+.owner-detail-value {
+    color: #172033;
+    font-size: 15px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.owner-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .edit-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 22px;
-    background-color: #2196F3;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 19px;
+    border-radius: 9px;
+    background: #2196F3;
     color: #FFFFFF;
     text-decoration: none;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: 0.2s;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s ease;
 }
 
 .edit-btn:hover {
-    background-color: #1976D2;
+    background: #1976D2;
     color: #FFFFFF;
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow:
+        0 5px 12px rgba(33, 150, 243, 0.20);
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1000px) {
+    .main-content {
+        padding: 30px 25px;
+    }
 
+    .profile-container {
+        max-width: 100%;
+    }
+
+    .company-header {
+        padding: 27px;
+    }
+}
+
+@media (max-width: 850px) {
     .dashboard-layout {
         display: block;
-        min-height: 100vh;
+        width: 100%;
     }
 
     .sidebar-container {
         width: 100%;
-        min-width: 0;
+        min-width: 100%;
     }
 
     .main-content {
         width: 100%;
-        padding: 0 25px;
-        box-sizing: border-box;
+        padding: 25px 20px;
     }
 
-    .profile-container {
-        max-width: 900px;
-        margin: 30px auto;
-        padding: 0;
+    .company-main-info {
+        padding-right: 0;
+    }
+
+    .header-edit-btn {
+        position: static;
+        flex-shrink: 0;
     }
 }
 
-@media (max-width: 600px) {
-
+@media (max-width: 650px) {
     .main-content {
-        padding: 0 15px;
+        padding: 20px 15px;
     }
 
-    .profile-container {
-        margin: 20px auto;
-        padding: 0;
-    }
-
-    .profile-header {
-        padding: 20px;
-        gap: 15px;
-        border-radius: 14px;
-    }
-
-    .company-photo {
-        width: 70px;
-        height: 70px;
-        border-radius: 14px;
-    }
-
-    .company-info h1 {
-        font-size: 21px;
-        line-height: 1.3;
-    }
-
-    .company-info p {
-        font-size: 13px;
-        margin-top: 5px;
-    }
-
-    .profile-card {
-        padding: 20px;
-        border-radius: 14px;
+    .back-wrapper {
         margin-bottom: 15px;
     }
 
-    .profile-card h2 {
-        font-size: 18px;
-        margin-bottom: 18px;
-    }
-
-    .info-row {
-        display: flex;
+    .company-header {
         flex-direction: column;
-        gap: 5px;
-        padding: 12px 0;
+        align-items: flex-start;
+        padding: 23px;
+        gap: 18px;
     }
 
-    .info-label {
+    .company-logo {
+        width: 78px;
+        height: 78px;
+        min-width: 78px;
+        border-radius: 13px;
+        font-size: 27px;
+    }
+
+    .company-main-info {
         width: 100%;
+    }
+
+    .company-main-info h1 {
+        font-size: 24px;
+    }
+
+    .company-location {
         font-size: 14px;
     }
 
-    .info-value {
+    .company-meta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .company-meta-item {
         width: 100%;
+        max-width: 100%;
+        font-size: 13px;
+    }
+
+    .description-label {
         font-size: 14px;
     }
 
-    .description {
+    .description-content {
         font-size: 14px;
-        line-height: 1.6;
+    }
+
+    .header-edit-btn {
+        width: 100%;
+        padding: 11px;
+    }
+
+    .profile-card {
+        padding: 23px;
+        border-radius: 14px;
+    }
+
+    .card-header h2 {
+        font-size: 20px;
+    }
+
+    .card-header p {
+        font-size: 12px;
+    }
+
+    .owner-section {
+        padding: 17px;
+    }
+
+    .owner-avatar {
+        width: 60px;
+        height: 60px;
+        min-width: 60px;
+    }
+
+    .owner-name {
+        font-size: 16px;
+    }
+
+    .owner-details {
+        grid-template-columns: 1fr;
+    }
+
+    .owner-detail-label {
+        font-size: 13px;
+    }
+
+    .owner-detail-value {
+        font-size: 14px;
+    }
+
+    .owner-actions {
+        justify-content: stretch;
     }
 
     .edit-btn {
         width: 100%;
-        text-align: center;
-        box-sizing: border-box;
-        padding: 11px 15px;
     }
 }
 
-@media (max-width: 400px) {
-
-    .profile-header {
-        padding: 16px;
-        gap: 12px;
+@media (max-width: 450px) {
+    .main-content {
+        padding: 15px 12px;
     }
 
-    .company-photo {
-        width: 60px;
-        height: 60px;
+    .company-header {
+        padding: 20px;
     }
 
-    .company-info h1 {
-        font-size: 18px;
+    .company-logo {
+        width: 68px;
+        height: 68px;
+        min-width: 68px;
+        border-radius: 12px;
+        font-size: 23px;
     }
 
-    .company-info p {
+    .company-main-info h1 {
+        font-size: 21px;
+    }
+
+    .company-location {
+        font-size: 13px;
+    }
+
+    .company-meta-item {
         font-size: 12px;
     }
 
+    .description-content {
+        font-size: 13px;
+    }
+
     .profile-card {
-        padding: 16px;
+        padding: 19px;
+    }
+
+    .card-header {
+        align-items: flex-start;
+    }
+
+    .card-header h2 {
+        font-size: 19px;
+    }
+
+    .card-header-icon {
+        width: 37px;
+        height: 37px;
+        min-width: 37px;
+        font-size: 14px;
+    }
+
+    .owner-avatar {
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+    }
+
+    .owner-name {
+        font-size: 15px;
+    }
+
+    .owner-section {
+        gap: 13px;
     }
 }

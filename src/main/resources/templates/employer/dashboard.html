@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Employer Dashboard</title>
 
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
@@ -12,110 +11,80 @@
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <link rel="stylesheet" th:href="@{/css/sidebar.css}">
     <link rel="stylesheet" th:href="@{/css/dashboard_employer.css}">
-
 </head>
 
 <body>
-
 <div class="dashboard-layout">
 
     <div class="sidebar-container">
-
         <div th:replace="~{fragments/sidebar_for_employer :: sidebar}"></div>
-
     </div>
 
     <main class="main-content">
-
         <div class="dashboard-container">
 
             <div class="welcome-section">
-
                 <h1>
                     Welcome,
                     <span th:text="${employer.user.name}">
                         Employer
                     </span>
                 </h1>
-
                 <p>
                     Here's what's happening with your company.
                 </p>
-
             </div>
 
             <div class="company-card">
-
                 <div class="company-card-header">
-
                     <h2>Company Information</h2>
-
                     <a th:href="@{/employer/profile}"
                        class="profile-link">
                         View Profile
                     </a>
-
                 </div>
 
                 <div class="company-details">
-
                     <div class="company-detail">
-
                         <span class="company-detail-label">
                             Company
                         </span>
-
                         <span class="company-detail-value"
                               th:text="${employer.companyName}">
                             Company Name
                         </span>
-
                     </div>
 
-
                     <div class="company-detail">
-
                         <span class="company-detail-label">
                             Email
                         </span>
-
                         <span class="company-detail-value"
                               th:text="${employer.companyEmail}">
                             email@example.com
                         </span>
-
                     </div>
 
-
                     <div class="company-detail">
-
                         <span class="company-detail-label">
                             Phone
                         </span>
-
                         <span class="company-detail-value"
                               th:text="${employer.companyPhone}">
                             Phone
                         </span>
-
                     </div>
 
-
                     <div class="company-detail">
-
                         <span class="company-detail-label">
                             Location
                         </span>
-
                         <span class="company-detail-value"
                               th:text="${employer.companyLocation}">
                             Location
                         </span>
-
                     </div>
-
                 </div>
-
             </div>
 
             <h2 class="section-title">
@@ -123,327 +92,154 @@
             </h2>
 
             <div class="statistics-card">
-
                 <div class="stat-box">
-
                     <div class="stat-icon">
                         <i class="fas fa-briefcase"></i>
                     </div>
-
                     <div class="stat-info">
-
                         <span class="stat-label">
                             Total Jobs
                         </span>
-
                         <span class="stat-number"
                               th:text="${jobCount}">
                             0
                         </span>
-
                     </div>
-
                 </div>
 
                 <div class="stat-box">
-
                     <div class="stat-icon">
-
                         <i class="fas fa-paper-plane"></i>
-
                     </div>
-
                     <div class="stat-info">
-
                         <span class="stat-label">Pending Jobs</span>
                         <span class="stat-number" th:text="${pendingCount}">0</span>
-
                     </div>
-
                 </div>
 
                 <div class="stat-box">
-
                     <div class="stat-icon">
-
                         <i class="fas fa-paper-plane"></i>
-
                     </div>
-
                     <div class="stat-info">
-
                         <span class="stat-label">Shortlisted Jobs</span>
                         <span class="stat-number" th:text="${shortlistedCount}">0</span>
-
                     </div>
-
                 </div>
-
             </div>
 
-            <!-- <div class="dashboard-grid">
+            <div class="dashboard-grid">
 
                 <div class="dashboard-card">
-
-                    <h2>Recent Jobs</h2>
+                    <div class="table-header">
+                        <h2>Recent Jobs</h2>
+                    </div>
 
                     <div th:if="${recentJobs.isEmpty()}"
                          class="empty-state">
-
                         <i class="fas fa-briefcase"></i>
-
-                        <p>
-                            No jobs created yet.
-                        </p>
-
+                        <p>No jobs created yet.</p>
                     </div>
 
-                    <div th:each="job : ${recentJobs}"
-                         class="job-item">
-
-                        <div class="job-title"
-                             th:text="${job.title}">
-                            Job Title
-                        </div>
-
-                        <p class="job-meta">
-
-                            <i class="fas fa-tag"></i>
-
-                            <span th:text="${job.category.name}">
-                                Category
-                            </span>
-
-                        </p>
-
-                        <p class="job-meta">
-
-                            <i class="far fa-calendar"></i>
-
-                            <span th:text="${#temporals.format(job.createdAt,'dd MMM yyyy')}">
-                                Date
-                            </span>
-
-                        </p>
-
+                    <div class="table-responsive"
+                         th:unless="${recentJobs.isEmpty()}">
+                        <table class="dashboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Job Title</th>
+                                    <th>Category</th>
+                                    <th>Created</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="job : ${recentJobs}">
+                                    <td>
+                                        <div class="table-job-title">
+                                            <i class="fas fa-briefcase"></i>
+                                            <span th:text="${job.title}">
+                                                Job Title
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="category-badge"
+                                              th:text="${job.category.name}">
+                                            Category
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="date-text">
+                                            <i class="far fa-calendar"></i>
+                                            <span th:text="${#temporals.format(job.createdAt,'dd MMM yyyy')}">
+                                                Date
+                                            </span>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-
                 </div>
 
                 <div class="dashboard-card">
-
-                    <h2>Recent Applications</h2>
+                    <div class="table-header">
+                        <h2>Recent Applications</h2>
+                    </div>
 
                     <div th:if="${recentApplications.isEmpty()}"
                          class="empty-state">
-
                         <i class="fas fa-file-alt"></i>
-
-                        <p>
-                            No applications yet.
-                        </p>
-
+                        <p>No applications yet.</p>
                     </div>
 
-                    <div th:each="app : ${recentApplications}"
-                         class="application-item">
-
-                        <div class="freelancer-name">
-
-                            <i class="fas fa-user"></i>
-
-                            <span th:text="${app.freelancer.user.name}">
-                                Freelancer Name
-                            </span>
-
-                        </div>
-
-                        <p class="application-info">
-
-                            <i class="fas fa-briefcase"></i>
-
-                            <span th:text="${app.job.title}">
-                                Job Title
-                            </span>
-
-                        </p>
-
-                        <p class="application-info">
-
-                            <i class="far fa-calendar"></i>
-
-                            Applied
-                            <span th:text="${#temporals.format(app.createdAt,'dd MMM yyyy')}">
-                                Date
-                            </span>
-
-                        </p>
-
+                    <div class="table-responsive"
+                         th:unless="${recentApplications.isEmpty()}">
+                        <table class="dashboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Freelancer</th>
+                                    <th>Job</th>
+                                    <th>Applied</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="app : ${recentApplications}">
+                                    <td>
+                                        <div class="freelancer-cell">
+                                            <div class="freelancer-avatar">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                            <span th:text="${app.freelancer.user.name}">
+                                                Freelancer Name
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="job-cell">
+                                            <i class="fas fa-briefcase"></i>
+                                            <span th:text="${app.job.title}">
+                                                Job Title
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="date-text">
+                                            <i class="far fa-calendar"></i>
+                                            <span th:text="${#temporals.format(app.createdAt,'dd MMM yyyy')}">
+                                                Date
+                                            </span>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-
                 </div>
 
-            </div> -->
-
-<div class="dashboard-grid">
-
-    <!-- Recent Jobs Table -->
-    <div class="dashboard-card">
-
-        <div class="table-header">
-            <h2>Recent Jobs</h2>
+            </div>
         </div>
-
-        <div th:if="${recentJobs.isEmpty()}"
-             class="empty-state">
-
-            <i class="fas fa-briefcase"></i>
-            <p>No jobs created yet.</p>
-
-        </div>
-
-        <div class="table-responsive"
-             th:unless="${recentJobs.isEmpty()}">
-
-            <table class="dashboard-table">
-
-                <thead>
-                    <tr>
-                        <th>Job Title</th>
-                        <th>Category</th>
-                        <th>Created</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    <tr th:each="job : ${recentJobs}">
-
-                        <td>
-                            <div class="table-job-title">
-                                <i class="fas fa-briefcase"></i>
-
-                                <span th:text="${job.title}">
-                                    Job Title
-                                </span>
-                            </div>
-                        </td>
-
-                        <td>
-                            <span class="category-badge"
-                                  th:text="${job.category.name}">
-                                Category
-                            </span>
-                        </td>
-
-                        <td>
-                            <span class="date-text">
-                                <i class="far fa-calendar"></i>
-
-                                <span th:text="${#temporals.format(job.createdAt,'dd MMM yyyy')}">
-                                    Date
-                                </span>
-                            </span>
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-
-    <!-- Recent Applications Table -->
-    <div class="dashboard-card">
-
-        <div class="table-header">
-            <h2>Recent Applications</h2>
-        </div>
-
-        <div th:if="${recentApplications.isEmpty()}"
-             class="empty-state">
-
-            <i class="fas fa-file-alt"></i>
-            <p>No applications yet.</p>
-
-        </div>
-
-        <div class="table-responsive"
-             th:unless="${recentApplications.isEmpty()}">
-
-            <table class="dashboard-table">
-
-                <thead>
-                    <tr>
-                        <th>Freelancer</th>
-                        <th>Job</th>
-                        <th>Applied</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    <tr th:each="app : ${recentApplications}">
-
-                        <td>
-                            <div class="freelancer-cell">
-
-                                <div class="freelancer-avatar">
-                                    <i class="fas fa-user"></i>
-                                </div>
-
-                                <span th:text="${app.freelancer.user.name}">
-                                    Freelancer Name
-                                </span>
-
-                            </div>
-                        </td>
-
-                        <td>
-                            <div class="job-cell">
-
-                                <i class="fas fa-briefcase"></i>
-
-                                <span th:text="${app.job.title}">
-                                    Job Title
-                                </span>
-
-                            </div>
-                        </td>
-
-                        <td>
-                            <span class="date-text">
-
-                                <i class="far fa-calendar"></i>
-
-                                <span th:text="${#temporals.format(app.createdAt,'dd MMM yyyy')}">
-                                    Date
-                                </span>
-
-                            </span>
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-</div>
-        </div>
-
     </main>
 
 </div>
-
 </body>
 </html>
-

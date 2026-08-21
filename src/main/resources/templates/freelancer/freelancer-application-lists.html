@@ -1,902 +1,105 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>My Applications</title>
 
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/all.min.css}">
     <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/freelancer-application-lists.css}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
 
     <style>
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f6fa;
-        }
-
-        .dashboard-layout {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .sidebar-container {
-            width: 250px;
-            flex-shrink: 0;
-        }
-
-        .main-content {
-            flex: 1;
-            padding: 35px;
-        }
-
-        .page-container {
-            max-width: 1100px;
-            margin: auto;
-        }
-
-        .page-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .page-header h1 {
-            margin: 0;
-            font-size: 28px;
-            color: #222;
-        }
-
-        .back-btn {
-            text-decoration: none;
-            padding: 10px 18px;
-            background: #6c757d;
-            color: white;
-            border-radius: 6px;
-        }
-
-        .back-btn:hover {
-            background: #555;
-            color: white;
-        }
-
-        .applications-card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .application-item {
-            padding: 18px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .application-item:last-child {
-            border-bottom: none;
-        }
-
-        .application-row {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-
-        .company-photo {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 1px solid #ddd;
-        }
-
-        .application-details {
-            flex: 1;
-        }
-
-        .company-name {
-            font-size: 18px;
-            font-weight: bold;
-            color: #222;
-            margin-bottom: 5px;
-        }
-
-        .position-name {
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 5px;
-        }
-
-        .category-name {
-            font-size: 14px;
-            color: #888;
-        }
-
-        .application-status {
-            padding: 7px 14px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: bold;
-            text-transform: capitalize;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #888;
-        }
-
-        .empty-state i {
-            font-size: 45px;
-            margin-bottom: 15px;
-        }
-
-        .empty-state p {
-            font-size: 16px;
-        }
-		
-		.application-link {
-		    text-decoration: none;
-		    color: inherit;
-		    display: block;
-		}
-
-		.application-link:hover {
-		    color: inherit;
-		}
-
-		.application-item {
-		    padding: 18px 0;
-		    border-bottom: 1px solid #eee;
-		    cursor: pointer;
-		    transition: background-color 0.2s ease;
-		}
-
-		.application-item:hover {
-		    background-color: #f8f9fa;
-		}
-
-		.application-item:last-child {
-		    border-bottom: none;
-		}
-
     </style>
-
 </head>
 
-
 <body>
-
 <div class="dashboard-layout">
 
-
-
     <div class="sidebar-container">
-
         <div th:replace="~{fragments/sidebar_for_freelancer :: sidebar}">
         </div>
-
     </div>
 
-
- 
-
     <main class="main-content">
-
         <div class="page-container">
 
-
-
             <div class="page-header">
-
                 <h1>
                     My Applications
                 </h1>
-
-                <a th:href="@{/freelancer/dashboard}"
-                   class="back-btn">
-
-                    <i class="fas fa-arrow-left"></i>
-                    Dashboard
-
-                </a> 
-
+                <p>
+                    Track the jobs you have applied for and check your application status.
+                </p>
             </div>
-
-
-    
 
             <div class="applications-card">
 
-
-      
-
                 <div th:if="${applications == null || applications.isEmpty()}"
                      class="empty-state">
-
                     <i class="fas fa-file-alt"></i>
-
                     <p>
                         You have not applied for any jobs yet.
                     </p>
-
                 </div>
 
-
-
-				<div th:each="app : ${applications}"
-				     class="application-item">
-
-				    <a th:href="@{/job-details/{id}(id=${app.job.id})}"
-				       class="application-link">
-
-				        <div class="application-row">
-
-
-				            <img th:if="${app.job.employer.user.profilePhoto != null}"
-				                 th:src="@{'/uploads/' + ${app.job.employer.user.profilePhoto}}"
-				                 alt="Company Photo"
-				                 class="company-photo">
-
-
-				         
-
-				            <div class="application-details">
-
-				              
-				                <div class="company-name"
-				                     th:text="${app.job.employer.companyName}">
-
-				                    Company Name
-
-				                </div>
-
-
-				              
-
-				                <div class="position-name"
-				                     th:text="${app.job.title}">
-
-				                    Job Title
-
-				                </div>
-
-
-				             
-
-				                <div class="category-name"
-				                     th:text="${app.job.category.name}">
-
-				                    Category
-
-				                </div>
-
-
-				             
-
-				                
-				            </div>
-
-
-				         
-
-				            <span class="application-status"
-				                  th:text="${app.status}">
-
-				                PENDING
-
-				            </span>
-
-				        </div>
-
-				    </a>
-
-				</div>
-
-
-        </div>
-
-    </main>
-
-</div>
-
-
-</body>
-
-</html> -->
-<!DOCTYPE html>
-
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>My Applications</title>
-
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-<link rel="stylesheet" th:href="@{/css/all.min.css}">
-<link rel="stylesheet" th:href="@{/css/sidebar.css}">
-
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap"
-      rel="stylesheet">
-
-<style>
-
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        margin: 0;
-        font-family: 'Roboto', sans-serif;
-        background: #f4f8fc;
-        color: #263238;
-    }
-
-
-    /* ========================================
-       LAYOUT
-    ======================================== */
-
-    .dashboard-layout {
-        display: flex;
-        min-height: 100vh;
-    }
-
-    .sidebar-container {
-        width: 250px;
-        flex-shrink: 0;
-    }
-
-    .main-content {
-        flex: 1;
-        min-width: 0;
-        margin-left: 250px;
-        padding: 35px;
-    }
-
-    .page-container {
-        width: 100%;
-        max-width: 1150px;
-        margin: 0 auto;
-    }
-
-
-    /* ========================================
-       PAGE HEADER
-    ======================================== */
-
-    .page-header {
-        margin-bottom: 28px;
-    }
-
-    .page-header h1 {
-        margin: 0 0 8px;
-
-        font-size: 28px;
-        font-weight: 600;
-
-        color: #263238;
-    }
-
-    .page-header p {
-        margin: 0;
-
-        font-size: 14px;
-        color: #78909c;
-    }
-
-
-    /* ========================================
-       APPLICATIONS CARD
-    ======================================== */
-
-    .applications-card {
-        background: #ffffff;
-
-        border: 1px solid #e3edf5;
-        border-radius: 16px;
-
-        padding: 10px 25px;
-
-        box-shadow: 0 4px 15px rgba(33, 150, 243, 0.06);
-    }
-
-
-    /* ========================================
-       APPLICATION ITEM
-    ======================================== */
-
-    .application-item {
-        padding: 18px 5px;
-
-        border-bottom: 1px solid #edf2f6;
-
-        transition: all 0.2s ease;
-    }
-
-    .application-item:last-child {
-        border-bottom: none;
-    }
-
-    .application-link {
-        display: block;
-
-        color: inherit;
-        text-decoration: none;
-    }
-
-    .application-link:hover {
-        color: inherit;
-        text-decoration: none;
-    }
-
-    .application-row {
-        display: grid;
-
-        grid-template-columns: 58px minmax(0, 1fr) auto;
-
-        align-items: center;
-
-        gap: 18px;
-
-        padding: 12px 14px;
-
-        border-radius: 12px;
-
-        transition: all 0.2s ease;
-    }
-
-    .application-item:hover .application-row {
-        background: #f7fbff;
-    }
-
-
-    /* ========================================
-       COMPANY PHOTO
-    ======================================== */
-
-    .company-photo {
-        width: 58px;
-        height: 58px;
-
-        object-fit: cover;
-
-        border-radius: 12px;
-
-        background: #f1f5f9;
-
-        border: 1px solid #e3edf5;
-    }
-
-
-    /* ========================================
-       APPLICATION DETAILS
-    ======================================== */
-
-    .application-details {
-        min-width: 0;
-    }
-
-    .company-name {
-        margin-bottom: 5px;
-
-        font-size: 16px;
-        font-weight: 600;
-
-        color: #263238;
-
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-
-        transition: color 0.2s ease;
-    }
-
-    .position-name {
-        margin-bottom: 5px;
-
-        font-size: 14px;
-        font-weight: 500;
-
-        color: #546e7a;
-
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .category-name {
-        font-size: 12px;
-
-        color: #90a4ae;
-
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    .application-item:hover .company-name {
-        color: #1976d2;
-    }
-
-
-    /* ========================================
-       STATUS
-    ======================================== */
-
-    .application-status {
-        display: inline-flex;
-
-        align-items: center;
-        justify-content: center;
-
-        min-width: 95px;
-
-        padding: 7px 13px;
-
-        border-radius: 20px;
-
-        font-size: 11px;
-        font-weight: 700;
-
-        text-transform: uppercase;
-
-        letter-spacing: 0.3px;
-
-        white-space: nowrap;
-    }
-
-
-    /* ACCEPTED */
-
-    .status-accepted {
-        background: #e8f5e9;
-        color: #2e7d32;
-    }
-
-
-    /* REJECTED */
-
-    .status-rejected {
-        background: #ffebee;
-        color: #c62828;
-    }
-
-
-    /* SHORTLISTED */
-
-    .status-shortlisted {
-        background: #fff8e1;
-        color: #f9a825;
-    }
-
-
-    /* PENDING */
-
-    .status-pending {
-        background: #e3f2fd;
-        color: #1976d2;
-    }
-
-
-    /* ========================================
-       EMPTY STATE
-    ======================================== */
-
-    .empty-state {
-        min-height: 400px;
-
-        display: flex;
-
-        flex-direction: column;
-
-        align-items: center;
-        justify-content: center;
-
-        text-align: center;
-
-        color: #90a4ae;
-    }
-
-    .empty-state i {
-        width: 70px;
-        height: 70px;
-
-        display: flex;
-
-        align-items: center;
-        justify-content: center;
-
-        margin-bottom: 18px;
-
-        border-radius: 50%;
-
-        background: #e3f2fd;
-
-        color: #64b5f6;
-
-        font-size: 28px;
-    }
-
-    .empty-state p {
-        margin: 0;
-
-        font-size: 14px;
-
-        color: #78909c;
-    }
-
-
-    /* ========================================
-       TABLET
-    ======================================== */
-
-    @media (max-width: 991px) {
-
-        .main-content {
-            padding: 25px;
-        }
-
-        .applications-card {
-            padding: 10px 20px;
-        }
-
-    }
-
-
-    /* ========================================
-       MOBILE
-    ======================================== */
-
-    @media (max-width: 767px) {
-
-        .main-content {
-            margin-left: 0;
-            padding: 20px;
-        }
-
-        .page-header h1 {
-            font-size: 23px;
-        }
-
-        .page-header p {
-            font-size: 13px;
-        }
-
-        .applications-card {
-            padding: 8px 15px;
-        }
-
-        .application-row {
-            grid-template-columns: 50px minmax(0, 1fr);
-
-            gap: 13px;
-
-            padding: 12px 8px;
-        }
-
-        .company-photo {
-            width: 50px;
-            height: 50px;
-        }
-
-        .company-name {
-            font-size: 14px;
-        }
-
-        .position-name {
-            font-size: 13px;
-        }
-
-        .category-name {
-            font-size: 11px;
-        }
-
-        .application-status {
-            grid-column: 2;
-
-            justify-self: start;
-
-            min-width: auto;
-
-            margin-top: -3px;
-
-            padding: 6px 11px;
-
-            font-size: 10px;
-        }
-
-    }
-
-
-    /* ========================================
-       SMALL MOBILE
-    ======================================== */
-
-    @media (max-width: 480px) {
-
-        .main-content {
-            padding: 15px;
-        }
-
-        .page-header {
-            margin-bottom: 20px;
-        }
-
-        .page-header h1 {
-            font-size: 20px;
-        }
-
-        .applications-card {
-            border-radius: 13px;
-
-            padding: 5px 10px;
-        }
-
-        .application-item {
-            padding: 13px 0;
-        }
-
-        .application-row {
-            grid-template-columns: 44px minmax(0, 1fr);
-
-            gap: 10px;
-
-            padding: 10px 6px;
-        }
-
-        .company-photo {
-            width: 44px;
-            height: 44px;
-
-            border-radius: 10px;
-        }
-
-    }
-
-</style>
-```
-
-</head>
-
-<body>
-
-<div class="dashboard-layout">
-
-```
-<!-- SIDEBAR -->
-
-<div class="sidebar-container">
-
-    <div th:replace="~{fragments/sidebar_for_freelancer :: sidebar}">
-    </div>
-
-</div>
-
-
-<!-- MAIN CONTENT -->
-
-<main class="main-content">
-
-    <div class="page-container">
-
-
-        <!-- PAGE HEADER -->
-
-        <div class="page-header">
-
-            <h1>
-                My Applications
-            </h1>
-
-            <p>
-                Track the jobs you have applied for and check your application status.
-            </p>
-
-        </div>
-
-
-        <!-- APPLICATIONS -->
-
-        <div class="applications-card">
-
-
-            <!-- EMPTY STATE -->
-
-            <div th:if="${applications == null || applications.isEmpty()}"
-                 class="empty-state">
-
-                <i class="fas fa-file-alt"></i>
-
-                <p>
-                    You have not applied for any jobs yet.
-                </p>
-
-            </div>
-
-
-            <!-- APPLICATION LIST -->
-
-            <div th:each="app : ${applications}"
-                 class="application-item">
-
-                <a th:href="@{/job-details/{id}(id=${app.job.id})}"
-                   class="application-link">
-
-                    <div class="application-row">
-
-
-                        <!-- COMPANY PHOTO -->
-
-                        <img th:if="${app.job.employer.user.profilePhoto != null}"
-                             th:src="@{'/uploads/' + ${app.job.employer.user.profilePhoto}}"
-                             alt="Company Photo"
-                             class="company-photo">
-
-
-                        <!-- APPLICATION DETAILS -->
-
-                        <div class="application-details">
-
-                            <div class="company-name"
-                                 th:text="${app.job.employer.companyName}">
-                                Company Name
+                <div th:each="app : ${applications}"
+                     class="application-item">
+
+                    <a th:href="@{/job-details/{id}(id=${app.job.id})}"
+                       class="application-link">
+
+                        <div class="application-row">
+
+                            <img th:if="${app.job.employer.user.profilePhoto != null}"
+                                 th:src="@{'/uploads/' + ${app.job.employer.user.profilePhoto}}"
+                                 alt="Company Photo"
+                                 class="company-photo">
+
+                            <div class="application-details">
+                                <div class="company-name"
+                                     th:text="${app.job.employer.companyName}">
+                                    Company Name
+                                </div>
+
+                                <div class="position-name"
+                                     th:text="${app.job.title}">
+                                    Job Title
+                                </div>
+
+                                <div class="category-name"
+                                     th:text="${app.job.category.name}">
+                                    Category
+                                </div>
                             </div>
 
-                            <div class="position-name"
-                                 th:text="${app.job.title}">
-                                Job Title
-                            </div>
-
-                            <div class="category-name"
-                                 th:text="${app.job.category.name}">
-                                Category
-                            </div>
+                            <span class="application-status"
+                                  th:classappend="${app.status.name() == 'ACCEPTED'} ? ' status-accepted' :
+                                                 (${app.status.name() == 'REJECTED'} ? ' status-rejected' :
+                                                 (${app.status.name() == 'SHORTLISTED'} ? ' status-shortlisted' :
+                                                 ' status-pending'))"
+                                  th:text="${app.status}">
+                                PENDING
+                            </span>
 
                         </div>
 
+                    </a>
 
-                        <!-- STATUS -->
-
-                        <span class="application-status"
-
-                              th:classappend="${app.status.name() == 'ACCEPTED'} ? ' status-accepted' :
-                                             (${app.status.name() == 'REJECTED'} ? ' status-rejected' :
-                                             (${app.status.name() == 'SHORTLISTED'} ? ' status-shortlisted' :
-                                             ' status-pending'))"
-
-                              th:text="${app.status}">
-
-                            PENDING
-
-                        </span>
-
-
-                    </div>
-
-                </a>
+                </div>
 
             </div>
 
-
         </div>
-
-    </div>
-
-</main>
+    </main>
 
 </div>
-
 </body>
 
 </html>

@@ -3,25 +3,19 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
-
     <title>Hire Requests</title>
 
     <link rel="stylesheet"
           th:href="@{/css/bootstrap.min.css}">
-
     <link rel="stylesheet"
           th:href="@{/css/all.min.css}">
-
     <link rel="stylesheet"
           th:href="@{/css/sidebar.css}">
 
     <style>
-
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -47,8 +41,6 @@
             max-width: 1100px;
             margin: auto;
         }
-
-        /* Header */
 
         .page-header {
             display: flex;
@@ -76,16 +68,12 @@
             color: white;
         }
 
-        /* Card */
-
         .hire-requests-card {
             background: white;
             border-radius: 12px;
             padding: 25px;
             box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
         }
-
-        /* Request */
 
         .hire-request-item {
             padding: 18px 0;
@@ -95,8 +83,6 @@
         .hire-request-item:last-child {
             border-bottom: none;
         }
-
-        /* Make entire request clickable */
 
         .hire-request-link {
             display: block;
@@ -122,8 +108,6 @@
             background: #f8f9fa;
         }
 
-        /* Photo */
-
         .company-photo {
             width: 65px;
             height: 65px;
@@ -132,8 +116,6 @@
             border: 1px solid #ddd;
             flex-shrink: 0;
         }
-
-        /* Details */
 
         .hire-request-details {
             flex: 1;
@@ -163,8 +145,6 @@
             color: #999;
         }
 
-        /* Status */
-
         .hire-status {
             padding: 7px 14px;
             border-radius: 20px;
@@ -174,8 +154,6 @@
             background: #eee;
             color: #555;
         }
-
-        /* Empty */
 
         .empty-state {
             text-align: center;
@@ -191,140 +169,76 @@
         .empty-state p {
             font-size: 16px;
         }
-
     </style>
-
 </head>
 
-
 <body>
-
 <div class="dashboard-layout">
 
-
     <div class="sidebar-container">
-
         <div th:replace="~{fragments/sidebar_for_freelancer :: sidebar}">
         </div>
-
     </div>
 
-
-
-
     <main class="main-content">
-
         <div class="page-container">
 
-
-        
             <div class="page-header">
-
                 <h1>
                     Hire Requests
                 </h1>
 
                 <a th:href="@{/freelancer/dashboard}"
                    class="back-btn">
-
                     <i class="fas fa-arrow-left"></i>
-
                     Dashboard
-
                 </a>
-
             </div>
-
-
 
             <div class="hire-requests-card">
 
-
-
-
                 <div th:if="${hireRequests == null || hireRequests.isEmpty()}"
                      class="empty-state">
-
                     <i class="fas fa-handshake"></i>
-
                     <p>
                         You have no hire requests yet.
                     </p>
-
                 </div>
-
-
 
                 <div th:each="engagement : ${hireRequests}"
                      class="hire-request-item">
 
-
-
                     <a th:href="@{/company/{id}(id=${engagement.employer.id})}"
                        class="hire-request-link">
 
-
                         <div class="hire-request-row">
-
-
-      
 
                             <img th:if="${engagement.employer.user.profilePhoto != null}"
                                  th:src="@{'/uploads/' + ${engagement.employer.user.profilePhoto}}"
                                  alt="Company Photo"
                                  class="company-photo">
 
-
-                          
-
-                   
-
                             <div class="hire-request-details">
-
-
-                                
-
                                 <div class="hire-company-name"
                                      th:text="${engagement.employer.companyName}">
-
                                     Company Name
-
                                 </div>
-
-
 
                                 <div class="hire-position"
                                      th:text="${engagement.title}">
-
                                     Engagement Title
-
                                 </div>
-
-
-                       
 
                                 <div class="hire-category"
                                      th:text="${engagement.category.name}">
-
                                     Category
-
                                 </div>
-
-
-                                
-
                             </div>
-
-
-                
 
                             <span class="hire-status"
                                   th:text="${engagement.status}">
-
                                 PENDING
-
                             </span>
-
 
                         </div>
 
@@ -332,15 +246,11 @@
 
                 </div>
 
-
             </div>
 
         </div>
-
     </main>
 
 </div>
-
 </body>
-
 </html>

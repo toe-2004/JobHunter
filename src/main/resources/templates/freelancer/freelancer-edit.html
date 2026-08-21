@@ -4,21 +4,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Freelancer Profile | JobHunter</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Edit Freelancer Profile | JobHunter</title>
 
     <link rel="stylesheet"
           th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet"
           th:href="@{/css/all.min.css}">
-    <link rel="stylesheet"
-          th:href="@{/css/sidebar.css}">
-    <link rel="stylesheet"
-          th:href="@{/css/freelancer-create.css}">
-    <script th:src="@{/js/bootstrap.bundle.min.js}"
-            defer></script>
-    <script th:src="@{/js/freelancer-create.js}"
-            defer></script>
     <link rel="preconnect"
           href="https://fonts.googleapis.com">
     <link rel="preconnect"
@@ -26,13 +19,21 @@
           crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
           rel="stylesheet">
+    <link rel="stylesheet"
+          th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/freelancer-edit.css}">
+    <script th:src="@{/js/bootstrap.bundle.min.js}"
+            defer></script>
+    <script th:src="@{/js/freelancer-edit.js}"
+            defer></script>
 </head>
 
 <body>
 <div class="dashboard-layout">
 
     <div class="sidebar-container">
-        <div th:replace="~{fragments/sidebar_for_guest :: sidebar}">
+        <div th:replace="~{fragments/sidebar_for_freelancer :: sidebar}">
         </div>
     </div>
 
@@ -40,14 +41,14 @@
 
         <div class="page-header">
             <div class="header-icon">
-                <i class="fa-solid fa-user-plus"></i>
+                <i class="fa-solid fa-user-pen"></i>
             </div>
 
             <div>
-                <h1>Create Your Freelancer Profile</h1>
+                <h1>Edit Your Freelancer Profile</h1>
                 <p>
-                    Build your professional profile and let employers
-                    discover what you can do.
+                    Keep your professional information
+                    up to date so employers can find you.
                 </p>
             </div>
         </div>
@@ -55,8 +56,8 @@
         <div class="profile-card">
 
             <form th:action="@{/freelancer/profile}"
-                  method="post"
                   th:object="${freelancer}"
+                  method="post"
                   enctype="multipart/form-data">
 
                 <section class="form-section">
@@ -68,8 +69,7 @@
                         <div>
                             <h2>Profile Photo</h2>
                             <p>
-                                Add a professional photo so employers
-                                can recognize you.
+                                Update your profile picture.
                             </p>
                         </div>
                     </div>
@@ -89,16 +89,16 @@
                         </div>
 
                         <div class="photo-content">
-                            <h3>Upload your photo</h3>
+                            <h3>Change your profile photo</h3>
                             <p>
-                                Choose a clear profile picture.
-                                JPG, JPEG or PNG recommended.
+                                Use a clear and professional
+                                photo. JPG, JPEG or PNG recommended.
                             </p>
 
                             <label for="profilePhoto"
                                    class="upload-btn">
                                 <i class="fa-solid fa-upload"></i>
-                                Choose Photo
+                                Choose New Photo
                             </label>
 
                             <input type="file"
@@ -109,7 +109,7 @@
 
                             <span id="fileName"
                                   class="file-name">
-                                No file selected
+                                No new photo selected
                             </span>
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                         <div>
                             <h2>Basic Information</h2>
                             <p>
-                                Tell employers who you are professionally.
+                                Update your professional information.
                             </p>
                         </div>
                     </div>
@@ -185,8 +185,8 @@
                         <div>
                             <h2>Skills</h2>
                             <p>
-                                Select the skills that best describe
-                                your abilities.
+                                Update the skills that represent
+                                your professional abilities.
                             </p>
                         </div>
 
@@ -198,7 +198,9 @@
                         </button>
                     </div>
 
-                    <div class="skill-dropdown">
+                    <div class="skill-dropdown"
+                         id="skillDropdown">
+
                         <button type="button"
                                 class="skill-dropdown-btn"
                                 id="skillDropdownBtn">
@@ -225,7 +227,7 @@
                             <div th:if="${#lists.isEmpty(skills)}"
                                  class="empty-skills">
                                 <i class="fa-solid fa-circle-info"></i>
-                                No skills available yet.
+                                No skills available.
                             </div>
                         </div>
                     </div>
@@ -242,8 +244,7 @@
                         <div>
                             <h2>About Me</h2>
                             <p>
-                                Give employers a quick introduction
-                                about yourself.
+                                Tell employers about yourself.
                             </p>
                         </div>
                     </div>
@@ -255,7 +256,7 @@
 
                         <textarea id="summary"
                                   th:field="*{summary}"
-                                  placeholder="Introduce yourself, your strengths and what kind of work you are looking for..."
+                                  placeholder="Introduce yourself, your strengths and the type of work you are looking for..."
                                   rows="6">
                         </textarea>
                     </div>
@@ -270,7 +271,7 @@
                         <div>
                             <h2>Education</h2>
                             <p>
-                                Add your educational background.
+                                Update your educational background.
                             </p>
                         </div>
                     </div>
@@ -297,7 +298,7 @@
                         <div>
                             <h2>Experience</h2>
                             <p>
-                                Tell employers about your previous work,
+                                Update your work experience,
                                 projects or internships.
                             </p>
                         </div>
@@ -317,7 +318,7 @@
                 </section>
 
                 <div class="form-actions">
-                    <a href="javascript:history.back()"
+                    <a th:href="@{/freelancer/profile}"
                        class="cancel-profile-btn">
                         <i class="fa-solid fa-arrow-left"></i>
                         Cancel
@@ -326,7 +327,7 @@
                     <button type="submit"
                             class="save-btn">
                         <i class="fa-solid fa-check"></i>
-                        Create Profile
+                        Save Changes
                     </button>
                 </div>
 
@@ -338,12 +339,12 @@
 
 </div>
 
-<div class="modal-overlay"
-     id="skillModal">
+<div id="skillModal"
+     class="skill-modal-overlay">
 
     <div class="skill-modal">
 
-        <div class="modal-header">
+        <div class="skill-modal-header">
             <div class="modal-title">
                 <div class="modal-icon">
                     <i class="fa-solid fa-code"></i>
@@ -352,7 +353,7 @@
                 <div>
                     <h2>Create New Skill</h2>
                     <p>
-                        Add a skill to your profile.
+                        Add a new skill to your profile.
                     </p>
                 </div>
             </div>
@@ -368,7 +369,7 @@
               th:object="${skill}"
               method="post">
 
-            <div class="modal-body">
+            <div class="skill-modal-body">
                 <label for="skillName">
                     Skill Name
                 </label>
@@ -383,7 +384,7 @@
                 </div>
             </div>
 
-            <div class="modal-footer">
+            <div class="skill-modal-footer">
                 <button type="button"
                         class="cancel-btn"
                         id="cancelSkillBtn">

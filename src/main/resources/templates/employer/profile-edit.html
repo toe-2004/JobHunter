@@ -4,126 +4,288 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Edit Employer Profile | JobHunter</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/all.min.css}">
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap"
           rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/employer_register&profile_edit_form.css}">
-    <title>Profile Edit</title>
-
-	<style>
-		.profile-photo {
-		    width: 120px;
-		    height: 120px;
-		    object-fit: cover;
-		    border-radius: 50%;
-		    border: 2px solid #ddd;
-		    margin-bottom: 15px;
-		}
-	</style>
+    <link rel="stylesheet"
+          th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/employer_profile_edit.css}">
+    <script th:src="@{/js/profile-edit.js}" defer></script>
 </head>
 
 <body>
+<div class="dashboard-layout">
 
-    <div class="form-container">
-
-        <div class="form-header">
-            <h1>Edit Employer Profile</h1>
-            <p>Update your company information.</p>
+    <aside class="sidebar-container">
+        <div th:replace="~{fragments/sidebar_for_employer :: sidebar}">
         </div>
+    </aside>
 
-        <form th:action="@{/employer/profile-update}"
-          th:object="${profile}"
-          method="post"
-		  enctype="multipart/form-data"
-          novalidate>
-		  
-		  <label for="profilePhoto">
-		          Profile Photo
-		      </label>
+    <main class="main-content">
+        <div class="profile-edit-container">
 
-		      <input type="file"
-		             id="profilePhoto"
-		             name="profilePhoto"
-		             accept="image/*">
-					 
-					
-
-            <div class="form-group">
-                <label for="companyName">Company Name</label>
-                <input type="text"
-                   id="companyName"
-                   th:field="*{companyName}"
-                   th:errorclass="is-invalid">
-
-                <div class="error" th:errors="*{companyName}"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="companyEmail">Company Email</label>
-                <input type="email"
-                   id="companyEmail"
-                   th:field="*{companyEmail}"
-                   th:errorclass="is-invalid">
-
-                <div class="error" th:errors="*{companyEmail}"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="companyPhone">Company Phone</label>
-                <input type="text"
-                   id="companyPhone"
-                   th:field="*{companyPhone}"
-                   th:errorclass="is-invalid">
-
-                <div class="error" th:errors="*{companyPhone}"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="companyLocation">Company Location</label>
-                <input type="text"
-                   id="companyLocation"
-                   th:field="*{companyLocation}"
-                   th:errorclass="is-invalid">
-
-                <div class="error" th:errors="*{companyLocation}"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="companyDescription">Company Description</label>
-                <textarea id="companyDescription"
-                      th:field="*{companyDescription}"
-                      rows="4"
-                      th:errorclass="is-invalid"></textarea>
-
-                <div class="error" th:errors="*{companyDescription}"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="name">Your name</label>
-                <input type="text"
-                    id="name"
-                    th:field="*{name}"
-                    th:errorclass="is-invalid">
-
-                <div th:errors="*{name}"></div>
-            </div>
-
-            <div class="button-group">
-                <a th:href="@{/employer/profile}" class="back-btn">
-                    Cancel
+            <div class="back-wrapper">
+                <a href="#"
+                   class="back-button"
+                   onclick="history.back(); return false;">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Back
                 </a>
-
-                <button type="submit" class="submit-btn">
-                    Save changes
-                </button>
             </div>
-        
-        </form>
 
-    </div>
+            <div class="page-header">
+                <div class="header-icon">
+                    <i class="fa-solid fa-building"></i>
+                </div>
+
+                <div>
+                    <h1>
+                        Edit Employer Profile
+                    </h1>
+                    <p>
+                        Update your company information and profile details.
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-card">
+                <form th:action="@{/employer/profile-update}"
+                      th:object="${profile}"
+                      method="post"
+                      enctype="multipart/form-data"
+                      novalidate>
+
+                    <section class="form-section photo-section">
+                        <div class="section-heading">
+                            <div class="section-icon">
+                                <i class="fa-solid fa-camera"></i>
+                            </div>
+                            <div>
+                                <h2>
+                                    Company Photo
+                                </h2>
+                                <p>
+                                    Choose a professional photo for your company.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="photo-upload-area">
+                            <div class="current-photo">
+                                <img th:if="${profile.profilePhoto != null
+                                             && !profile.profilePhoto.isEmpty()}"
+                                     th:src="@{'/uploads/' + ${profile.profilePhoto}}"
+                                     alt="Company Photo"
+                                     id="photoPreview"
+                                     class="profile-foto">
+
+                                <div th:if="${profile.profilePhoto == null
+                                             || profile.profilePhoto.isEmpty()}"
+                                     class="photo-placeholder"
+                                     id="photoPlaceholder">
+                                    <i class="fa-solid fa-building"></i>
+                                </div>
+                            </div>
+
+                            <div class="photo-info">
+                                <h3>
+                                    Company profile photo
+                                </h3>
+                                <p>
+                                    Upload JPG, PNG or WEBP.
+                                    A square image works best.
+                                </p>
+
+                                <label for="profilePhoto"
+                                       class="upload-button">
+                                    <i class="fa-solid fa-upload"></i>
+                                    Choose Photo
+                                </label>
+
+                                <input type="file"
+                                       id="profilePhoto"
+                                       name="profilePhoto"
+                                       accept="image/*"
+                                       hidden>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="form-section">
+                        <div class="section-heading">
+                            <div class="section-icon">
+                                <i class="fa-solid fa-building"></i>
+                            </div>
+                            <div>
+                                <h2>
+                                    Company Information
+                                </h2>
+                                <p>
+                                    Keep your company information accurate and up to date.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="companyName">
+                                    Company Name
+                                    <span>*</span>
+                                </label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-building"></i>
+                                    <input type="text"
+                                           id="companyName"
+                                           th:field="*{companyName}"
+                                           th:errorclass="is-invalid"
+                                           placeholder="Enter company name">
+                                </div>
+                                <div class="error"
+                                     th:errors="*{companyName}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="companyEmail">
+                                    Company Email
+                                    <span>*</span>
+                                </label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    <input type="email"
+                                           id="companyEmail"
+                                           th:field="*{companyEmail}"
+                                           th:errorclass="is-invalid"
+                                           placeholder="company@example.com">
+                                </div>
+                                <div class="error"
+                                     th:errors="*{companyEmail}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="companyPhone">
+                                    Company Phone
+                                    <span>*</span>
+                                </label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-phone"></i>
+                                    <input type="text"
+                                           id="companyPhone"
+                                           th:field="*{companyPhone}"
+                                           th:errorclass="is-invalid"
+                                           placeholder="09-123456789">
+                                </div>
+                                <div class="error"
+                                     th:errors="*{companyPhone}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="companyLocation">
+                                    Company Location
+                                    <span>*</span>
+                                </label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <input type="text"
+                                           id="companyLocation"
+                                           th:field="*{companyLocation}"
+                                           th:errorclass="is-invalid"
+                                           placeholder="Yangon, Myanmar">
+                                </div>
+                                <div class="error"
+                                     th:errors="*{companyLocation}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="companyDescription">
+                                Company Description
+                            </label>
+                            <div class="textarea-wrapper">
+                                <i class="fa-solid fa-align-left"></i>
+                                <textarea id="companyDescription"
+                                          th:field="*{companyDescription}"
+                                          rows="6"
+                                          th:errorclass="is-invalid"
+                                          placeholder="Tell job seekers about your company, your work culture, services, and what makes your company unique..."></textarea>
+                            </div>
+                            <div class="error"
+                                 th:errors="*{companyDescription}">
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="form-section">
+                        <div class="section-heading">
+                            <div class="section-icon">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <div>
+                                <h2>
+                                    Account Information
+                                </h2>
+                                <p>
+                                    Update the name associated with your employer account.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">
+                                Your Name
+                                <span>*</span>
+                            </label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-user"></i>
+                                <input type="text"
+                                       id="name"
+                                       th:field="*{name}"
+                                       th:errorclass="is-invalid"
+                                       placeholder="Enter your name">
+                            </div>
+                            <div class="error"
+                                 th:errors="*{name}">
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="form-actions">
+                        <a th:href="@{/employer/profile}"
+                           class="cancel-btn">
+                            <i class="fa-solid fa-xmark"></i>
+                            Cancel
+                        </a>
+
+                        <button type="submit"
+                                class="save-btn">
+                            <i class="fa-solid fa-check"></i>
+                            Save Changes
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+</div>
 
 </body>
-
 </html>

@@ -196,7 +196,7 @@ public class ApplicationController {
         model.addAttribute("user", user);
         model.addAttribute("freelancer", freelancer);
         model.addAttribute("applications", applications);
-
+        model.addAttribute("currentPage", "my-applications");
         return "application/my-applications";
     }
 

@@ -5,9 +5,15 @@
         <div class="mobile-header d-lg-none">
 
             <a href="/myprofile" class="mobile-profile">
-                <img th:src="@{/images/default_profile.jpg}" 
-                        alt="Profile Photo"
-                        class="profile-photo">
+                <img th:if="${employer.user.profilePhoto != null}"
+                    th:src="@{'/uploads/' + ${employer.user.profilePhoto}}"
+                    alt="Profile Photo"
+                    class="profile-photo">
+
+                <img th:unless="${employer.user.profilePhoto != null}"
+                    th:src="@{/images/default_profile.jpg}"
+                    alt="Default Profile Photo"
+                    class="profile-photo">
 
                 <div class="profile-info">
                     <span class="username" th:text="${employer.user.name}">
@@ -20,7 +26,7 @@
             </a>
 
             <div class="mobile-menu dropdown">
-                <button href="#"
+                <button type="button"
                     class="btn menu-button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false">
@@ -59,10 +65,12 @@
                     </li>
 
                     <li>
-                        <a href="/login" class="dropdown-item">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                            Logout
-                        </a>
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="dropdown-item mobile-logout">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                Logout
+                            </button>
+                        </form>
                     </li>
 
                 </ul>
@@ -88,36 +96,42 @@
             Home
         </a>
 
-        <a href="/employer/dashboard">
+        <a href="/employer/dashboard"
+        th:classappend="${currentPage == 'dashboard_e'} ? ' active' : ''">
             <i class="fas fa-chart-pie"></i>
             Dashboard
         </a>
 
-        <a href="/my-jobs">
+        <a href="/my-jobs"
+        th:classappend="${currentPage == 'my-jobs'} ? ' active' : ''">
             <i class="fas fa-briefcase"></i>
             My Jobs Posts
         </a>
-
-		<form th:action="@{/logout}" method="post" style="display: inline;">
-
-		    <button type="submit" class="logout-btn">
-
-		        <i class="fa-solid fa-right-from-bracket"></i>
-		        Logout
-
-		    </button>
-
-		</form>
+        <a href="/employer-engagements"
+        th:classappend="${currentPage == 'employer-engagements'} ? ' active' : ''">
+            <i class="fas fa-handshake"></i>
+            My Hire Requests
+        </a>
+        <form th:action="@{/logout}" method="post" class="logout-form">
+            <button type="submit" class="logout-button">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+            </button>
+        </form>
     </nav>
 
 	<a th:href="@{/employer/profile}"
+        th:classappend="${currentPage == 'profile_e'} ? ' active' : ''"
 	   class="sidebar-profile d-none d-lg-flex">
 
 	    <img th:if="${employer.user.profilePhoto != null}"
 	         th:src="@{'/uploads/' + ${employer.user.profilePhoto}}"
 	         alt="Profile Photo"
 	         class="profile-photo">
-
+        <img th:unless="${employer.user.profilePhoto != null}"
+            th:src="@{/images/default_profile.jpg}"
+            alt="Default Profile Photo"
+            class="profile-photo">
 	  
 	    <div class="profile-info">
 

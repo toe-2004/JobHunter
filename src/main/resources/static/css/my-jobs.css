@@ -153,11 +153,43 @@ body {
     border: 1px solid #94A3B8;
 }
 
-.description {
+.description-wrapper {
     margin: 20px 0;
+}
+
+.description {
     color: #64748B;
     font-size: 14px;
     line-height: 1.7;
+
+    /* Show only 2 lines initially */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.description.expanded {
+    display: block;
+    -webkit-line-clamp: unset;
+    overflow: visible;
+}
+
+.description-toggle {
+    display: none;
+    margin-top: 7px;
+    padding: 0;
+    background: none;
+    border: none;
+    color: #2196F3;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.description-toggle:hover {
+    color: #1976D2;
+    text-decoration: underline;
 }
 
 .info {

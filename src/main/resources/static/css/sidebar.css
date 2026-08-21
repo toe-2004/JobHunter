@@ -73,20 +73,28 @@ body {
 
 .sidebar-nav a {
     position: relative;
+
     display: flex;
     align-items: center;
+
     width: 100%;
+
     padding: 12px 14px;
+
     margin: 4px 0;
+
     border-radius: 10px;
+
     color: var(--sidebar-text);
+
     text-decoration: none;
+
     font-size: 15px;
     font-weight: 500;
+
     transition:
         background 0.2s ease,
         color 0.2s ease,
-        transform 0.2s ease,
         box-shadow 0.2s ease;
 }
 
@@ -104,24 +112,31 @@ body {
 .sidebar-nav a:hover {
     background: var(--sidebar-hover);
     color: var(--primary);
-    transform: translateX(3px);
+
+    /* No movement */
+    transform: none;
 }
 
 .sidebar-nav a:hover i {
     color: var(--primary);
-    transform: scale(1.08);
+
+    /* No movement */
+    transform: none;
 }
 
 .sidebar-nav a.active {
-    background: var(--primary);
-    color: #FFFFFF;
-    box-shadow:
-        0 5px 14px rgba(33, 150, 243, 0.20);
-    transform: translateX(2px);
+    background: var(--primary-light);
+
+    color: var(--primary);
+
+    box-shadow:none;
+
+    /* No movement */
+    transform: none;
 }
 
 .sidebar-nav a.active i {
-    color: #FFFFFF;
+    color: var(--primary);
 }
 
 .sidebar-profile {
@@ -140,6 +155,30 @@ body {
 }
 
 .sidebar-profile:hover {
+    background: var(--sidebar-hover);
+    color: var(--primary);
+}
+
+.sidebar-profile.active {
+    background: var(--primary-light);
+    color: var(--primary);
+    box-shadow: 0 5px 14px rgba(33, 150, 243, 0.20);
+}
+
+.sidebar-profile.active .username {
+    color:var(--primary);
+}
+
+.sidebar-profile.active .user-role {
+    color: var(--primary);
+}
+
+.sidebar-profile.active .profile-photo {
+    border-color: #90CAF9;
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.15);
+}
+
+.sidebar-profile.active:hover {
     background: var(--primary-light);
     color: var(--primary);
 }
@@ -272,6 +311,60 @@ body {
     margin-right: 7px;
     color: var(--primary);
     font-size: 14px;
+}
+
+.logout-form {
+    width: 100%;
+    margin: 4px 0;
+}
+
+.logout-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px 14px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--sidebar-text);
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.logout-button i {
+    width: 22px;
+    margin-right: 11px;
+    color: var(--primary);
+    font-size: 15px;
+    text-align: center;
+    transition: color 0.2s ease;
+}
+
+.logout-button:hover {
+    background: var(--sidebar-hover);
+    color: var(--primary);
+    transform: translateX(3px);
+}
+
+.logout-button:hover i {
+    color: var(--primary);
+}
+
+.mobile-logout {
+    width: 100%;
+    border: none;
+    background: transparent;
+    text-align: left;
+    font-family: inherit;
+    cursor: pointer;
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
