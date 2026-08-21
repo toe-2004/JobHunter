@@ -18,6 +18,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
+                        			"/",
                                 "/login",
                                 "/register",
                                 "/css/**",
@@ -45,8 +46,10 @@ public class SecurityConfig {
                         .permitAll())
 
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login")
-                        .permitAll());
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .permitAll()
+                    );
 
         return http.build();
     }

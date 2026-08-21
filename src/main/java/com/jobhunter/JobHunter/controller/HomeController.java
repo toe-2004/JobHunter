@@ -35,10 +35,16 @@ public class HomeController {
 	@Autowired
     private JobService jobService;
 
-    @GetMapping("/index")
+//    @GetMapping("/index")
+//    public String home() {
+//        return "login";
+//    }
+    
+    @GetMapping("/")
     public String home() {
-        return "login";
+        return "redirect:/viewHomeJob";
     }
+    
     @GetMapping("/test")
     public String test() {
         return "employer/test";
@@ -48,12 +54,6 @@ public class HomeController {
         return "employer/test1";
     }
     
-  
-    
-    // @GetMapping("/login")
-    // public String login() {
-    //     return "login";
-    // }
     
     @GetMapping("/register")
     public String registerPage(Model model) {

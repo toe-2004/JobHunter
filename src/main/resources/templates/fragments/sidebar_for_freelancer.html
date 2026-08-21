@@ -103,11 +103,16 @@
             Job Offers
         </a>
 
-        <a href="/login">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            Logout
-        </a>
+		<form th:action="@{/logout}" method="post" style="display: inline;">
 
+		    <button type="submit" class="logout-btn">
+
+		        <i class="fa-solid fa-right-from-bracket"></i>
+		        Logout
+
+		    </button>
+
+		</form>
     </nav>
 
 	<a th:href="@{/freelancer/profile}"

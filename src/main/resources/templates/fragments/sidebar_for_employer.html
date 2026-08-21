@@ -98,16 +98,16 @@
             My Jobs Posts
         </a>
 
-        <a href="/employer-engagements">
-            <i class="fas fa-handshake"></i>
-            My Hire Requests
-        </a>
+		<form th:action="@{/logout}" method="post" style="display: inline;">
 
-        <a href="/login">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            Logout
-        </a>
+		    <button type="submit" class="logout-btn">
 
+		        <i class="fa-solid fa-right-from-bracket"></i>
+		        Logout
+
+		    </button>
+
+		</form>
     </nav>
 
 	<a th:href="@{/employer/profile}"

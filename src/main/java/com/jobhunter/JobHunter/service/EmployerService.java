@@ -15,8 +15,15 @@ import com.jobhunter.JobHunter.enumeration.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class EmployerService {
@@ -104,23 +111,67 @@ public class EmployerService {
         return employerRepository.save(employer);
     }
 
-    @Transactional
-    public void updateProfile(EmployerProfileDto dto) {
+//    @Transactional
+//    public void updateProfile(EmployerProfileDto dto) {
+//
+//        Employer employer = getProfile();
+//        User user = employer.getUser();
+//        if (!employer.getCompanyEmail().equals(dto.getCompanyEmail()) && employerRepository.existsByCompanyEmail(
+//                dto.getCompanyEmail())) {
+//            throw new IllegalStateException(
+//                    "Company email already exists");
+//        }
+//
+//        employer.setCompanyName(dto.getCompanyName());
+//        employer.setCompanyEmail(dto.getCompanyEmail());
+//        employer.setCompanyPhone(dto.getCompanyPhone());
+//        employer.setCompanyDescription(dto.getCompanyDescription());
+//        employer.setCompanyLocation(dto.getCompanyLocation());
+//        user.setName(dto.getName());
+//        employerRepository.save(employer);
+//        userRepository.save(user);
+//    }
+    
+    public void updateProfile(EmployerProfileDto profileDto,MultipartFile profilePhoto) {
 
         Employer employer = getProfile();
+
         User user = employer.getUser();
-        if (!employer.getCompanyEmail().equals(dto.getCompanyEmail()) && employerRepository.existsByCompanyEmail(
-                dto.getCompanyEmail())) {
-            throw new IllegalStateException(
-                    "Company email already exists");
+
+        employer.setCompanyName(profileDto.getCompanyName());
+        employer.setCompanyEmail(profileDto.getCompanyEmail());
+        employer.setCompanyPhone(profileDto.getCompanyPhone());
+        employer.setCompanyLocation(profileDto.getCompanyLocation());
+        employer.setCompanyDescription(profileDto.getCompanyDescription());
+
+        if (profilePhoto != null && !profilePhoto.isEmpty()) {
+
+            String fileName = UUID.randomUUID()
+                    + "_" + profilePhoto.getOriginalFilename();
+
+            Path uploadPath = Paths.get("uploads/profile");
+
+            try {
+
+                Files.createDirectories(uploadPath);
+
+                Path filePath = uploadPath.resolve(fileName);
+
+                Files.copy(
+                        profilePhoto.getInputStream(),
+                        filePath,
+                        StandardCopyOption.REPLACE_EXISTING
+                );
+
+                user.setProfilePhoto(fileName);
+
+            } catch (IOException e) {
+
+                throw new IllegalStateException(
+                        "Could not upload profile photo",e);
+            }
         }
 
-        employer.setCompanyName(dto.getCompanyName());
-        employer.setCompanyEmail(dto.getCompanyEmail());
-        employer.setCompanyPhone(dto.getCompanyPhone());
-        employer.setCompanyDescription(dto.getCompanyDescription());
-        employer.setCompanyLocation(dto.getCompanyLocation());
-        user.setName(dto.getName());
         employerRepository.save(employer);
         userRepository.save(user);
     }

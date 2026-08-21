@@ -31,17 +31,29 @@ public class EmployerProfileDto {
     // User
     @NotBlank(message = "Your name is required")
     private String name;
+    
+    private String profilePhoto;
+    
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
 
     public static EmployerProfileDto from(User user, Employer employer) {
 
         EmployerProfileDto dto = new EmployerProfileDto();
 
+        dto.setProfilePhoto(user.getProfilePhoto());
         dto.setCompanyName(employer.getCompanyName());
         dto.setCompanyEmail(employer.getCompanyEmail());
         dto.setCompanyPhone(employer.getCompanyPhone());
         dto.setCompanyDescription(employer.getCompanyDescription());
         dto.setCompanyLocation(employer.getCompanyLocation());
         dto.setName(user.getName());
+        
 
         return dto;
     }
