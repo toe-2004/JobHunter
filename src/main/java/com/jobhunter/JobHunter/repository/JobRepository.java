@@ -4,6 +4,7 @@ import com.jobhunter.JobHunter.model.Category;
 import com.jobhunter.JobHunter.model.Employer;
 import com.jobhunter.JobHunter.model.Job;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,6 +23,12 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     List<Job> findByCategoryId(Long categoryId);
     
     List<Job> findByCategory(Category category);
+    
+    List<Job> findByTitleContainingIgnoreCase(String keyword);
+
+    List<Job> findByEmployerCompanyNameContainingIgnoreCase(String keyword);
+
+    List<Job> findByCategoryNameContainingIgnoreCase(String keyword);
 
    
 }
