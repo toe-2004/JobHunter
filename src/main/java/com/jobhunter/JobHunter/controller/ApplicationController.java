@@ -228,6 +228,7 @@ public class ApplicationController {
         model.addAttribute("employer", employer);
         model.addAttribute("job",job);
         model.addAttribute("applications",applications);
+        model.addAttribute("currentPage","my-jobs");
         return "application/employer-applications";
     }
 
