@@ -171,37 +171,41 @@
                         </div>
                     </div>
 
-                    <div class="info-box">
-                        <div class="info-icon">
-                            <i class="fas fa-money-bill-wave"></i>
-                        </div>
+					<div class="info-box"
+					     th:if="${job.salaryMin != null and job.salaryMax != null}">
+					    <div class="info-icon">
+					        <i class="fas fa-money-bill-wave"></i>
+					    </div>
 
-                        <div class="info-content">
-                            <span class="label">
-                                Salary
-                            </span>
-                            <span class="info-value"
-                                  th:text="${job.salaryMin + ' - ' + job.salaryMax + ' Kyats'}">
-                                500 - 1000 Kyats
-                            </span>
-                        </div>
-                    </div>
+					    <div class="info-content">
+					        <span class="label">
+					            Salary
+					        </span>
 
-                    <div class="info-box">
-                        <div class="info-icon">
-                            <i class="fas fa-wallet"></i>
-                        </div>
+					        <span class="info-value"
+					              th:text="${job.salaryMin + ' - ' + job.salaryMax + ' Kyats'}">
+					            500 - 1000 Kyats
+					        </span>
+					    </div>
+					</div>
 
-                        <div class="info-content">
-                            <span class="label">
-                                Budget
-                            </span>
-                            <span class="info-value"
-                                  th:text="${job.budget + ' Kyats'}">
-                                1000 Kyats
-                            </span>
-                        </div>
-                    </div>
+					<div class="info-box"
+					     th:if="${job.budget != null}">
+					    <div class="info-icon">
+					        <i class="fas fa-wallet"></i>
+					    </div>
+
+					    <div class="info-content">
+					        <span class="label">
+					            Budget
+					        </span>
+
+					        <span class="info-value"
+					              th:text="${job.budget + ' Kyats'}">
+					            1000 Kyats
+					        </span>
+					    </div>
+					</div>
                 </div>
 
                 <div class="skills-section">
