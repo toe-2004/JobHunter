@@ -3,14 +3,15 @@ package com.jobhunter.JobHunter.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
+import com.jobhunter.JobHunter.enumeration.ApplicationStatus;
+import com.jobhunter.JobHunter.enumeration.JobStatus;
 import com.jobhunter.JobHunter.model.*;
-import com.jobhunter.JobHunter.repository.CategoryRepository;
-import com.jobhunter.JobHunter.repository.JobRepository;
-import com.jobhunter.JobHunter.repository.SkillRepository;
+import com.jobhunter.JobHunter.repository.*;
 import com.jobhunter.JobHunter.service.EmployerService;
 import com.jobhunter.JobHunter.service.FreelancerService;
 import com.jobhunter.JobHunter.service.JobService;
@@ -22,8 +23,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HomeController {
-
+	
 	 
+	@Autowired
+    private EmployerRepository employerRepository;
+	@Autowired
+    private FreelancerRepository freelancerRepository;
+	@Autowired
+    private ApplicationRepository applicationRepository;
     @Autowired
     private FreelancerService freelancerService;
     @Autowired
@@ -68,7 +75,7 @@ public class HomeController {
 
         List<Job> latestJobs = jobService.getLatest3Jobs();
 
-        model.addAttribute("latestJobs", latestJobs);
+        
         List<Freelancer> freelancers =
                 freelancerService.getLatest4Freelancers();
         List<Employer> latestEmployers =
@@ -86,18 +93,28 @@ public class HomeController {
         } else {
             jobs = jobRepository.findAll();
         }
+        long activeJobs =
+                jobRepository.countByStatus(JobStatus.OPEN);
 
+        long companies =
+                employerRepository.count();
+
+        long jobSeekers =
+                freelancerRepository.count();
+
+        long successfulHires =
+                applicationRepository.countByStatus(
+                        ApplicationStatus.ACCEPTED);
+
+        model.addAttribute("activeJobs", activeJobs);
+        model.addAttribute("companies", companies);
+        model.addAttribute("jobSeekers", jobSeekers);
+        model.addAttribute("successfulHires", successfulHires);
+        model.addAttribute("latestJobs", latestJobs);
         model.addAttribute("jobs", jobs);
-
-        
-
         model.addAttribute("latest6Jobs", latest6Jobs);
-
         model.addAttribute("categories", latest8Categories);
-
         model.addAttribute("latestEmployers", latestEmployers);
-
-
         model.addAttribute("freelancers", freelancers);
         model.addAttribute("currentPage", "home");
 

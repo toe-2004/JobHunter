@@ -219,70 +219,72 @@
 
         <div class="row">
 
-            <div class="col-6 col-md-3">
+			<div class="col-6 col-md-3">
 
-                <div class="stat-item">
+			    <div class="stat-item">
 
-                    <div class="stat-number">
-                        10K+
-                    </div>
+			        <div class="stat-number"
+			             th:text="${activeJobs}">
+			            0
+			        </div>
 
-                    <div class="stat-label">
-                        Active Jobs
-                    </div>
+			        <div class="stat-label">
+			            Active Jobs
+			        </div>
 
-                </div>
+			    </div>
 
-            </div>
+			</div>
+			<div class="col-6 col-md-3">
 
-            <div class="col-6 col-md-3">
+			    <div class="stat-item">
 
-                <div class="stat-item">
+			        <div class="stat-number"
+			             th:text="${companies}">
+			            0
+			        </div>
 
-                    <div class="stat-number">
-                        500+
-                    </div>
+			        <div class="stat-label">
+			            Companies
+			        </div>
 
-                    <div class="stat-label">
-                        Companies
-                    </div>
+			    </div>
 
-                </div>
+			</div>
 
-            </div>
+			<div class="col-6 col-md-3">
 
-            <div class="col-6 col-md-3">
+			    <div class="stat-item">
 
-                <div class="stat-item">
+			        <div class="stat-number"
+			             th:text="${jobSeekers}">
+			            0
+			        </div>
 
-                    <div class="stat-number">
-                        25K+
-                    </div>
+			        <div class="stat-label">
+			            Job Seekers
+			        </div>
 
-                    <div class="stat-label">
-                        Job Seekers
-                    </div>
+			    </div>
 
-                </div>
+			</div>
 
-            </div>
+			<div class="col-6 col-md-3">
 
-            <div class="col-6 col-md-3">
+			    <div class="stat-item">
 
-                <div class="stat-item">
+			        <div class="stat-number"
+			             th:text="${successfulHires}">
+			            0
+			        </div>
 
-                    <div class="stat-number">
-                        8K+
-                    </div>
+			        <div class="stat-label">
+			            Successful Hires
+			        </div>
 
-                    <div class="stat-label">
-                        Successful Hires
-                    </div>
+			    </div>
 
-                </div>
-
-            </div>
-
+			</div>
         </div>
 
     </div>
