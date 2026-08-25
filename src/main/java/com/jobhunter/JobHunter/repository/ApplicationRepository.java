@@ -20,7 +20,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
     boolean existsByFreelancerAndJob(Freelancer freelancer, Job job);
     
     long countByFreelancerId(Long freelancerId);
-
+    long countByStatus(ApplicationStatus status);
     List<Application> findTop4ByFreelancerIdOrderByCreatedAtDesc(Long freelancerId);
     
     List<Application> findByFreelancerIdOrderByCreatedAtDesc(Long freelancerId);
