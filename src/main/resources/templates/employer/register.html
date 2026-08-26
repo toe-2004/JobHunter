@@ -90,7 +90,7 @@
                                        th:field="*{companyName}"
                                        class="form-control-custom"
                                        placeholder="Enter company name"
-                                       th:errorclass="is-invalid">
+                                       th:errorclass="is-invalid" required>
                             </div>
 
                             <div class="error"
@@ -110,7 +110,7 @@
                                        th:field="*{companyEmail}"
                                        class="form-control-custom"
                                        placeholder="company@example.com"
-                                       th:errorclass="is-invalid">
+                                       th:errorclass="is-invalid" required>
                             </div>
 
                             <div class="error"
@@ -130,7 +130,7 @@
                                        th:field="*{companyPhone}"
                                        class="form-control-custom"
                                        placeholder="Enter company phone"
-                                       th:errorclass="is-invalid">
+                                       th:errorclass="is-invalid" required>
                             </div>
 
                             <div class="error"
@@ -150,7 +150,7 @@
                                        th:field="*{companyLocation}"
                                        class="form-control-custom"
                                        placeholder="e.g. Yangon, Myanmar"
-                                       th:errorclass="is-invalid">
+                                       th:errorclass="is-invalid" required>
                             </div>
 
                             <div class="error"
@@ -169,7 +169,7 @@
                                           th:field="*{companyDescription}"
                                           class="form-textarea"
                                           placeholder="Tell job seekers about your company, what you do, your culture, and what makes your company a great place to work..."
-                                          th:errorclass="is-invalid"></textarea>
+                                          th:errorclass="is-invalid" required></textarea>
                             </div>
 
                             <div class="error"
