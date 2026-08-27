@@ -11,7 +11,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -65,12 +68,6 @@ public class FreelancerController {
     @Autowired
     private FreelancerSkillRepository freelancerSkillRepository;
 
-
-    // =========================================================
-    // HELPER METHOD
-    // Get currently logged-in user
-    // =========================================================
-
     private User getCurrentUser() {
 
         Authentication auth =
@@ -85,9 +82,6 @@ public class FreelancerController {
     }
 
 
-    // =========================================================
-    // FREELANCER DASHBOARD
-    // =========================================================
 
         @GetMapping("/freelancer/dashboard")
         public String profile(Model model) {
@@ -139,9 +133,6 @@ public class FreelancerController {
         }
 
 
-    // =========================================================
-    // CREATE FREELANCER PROFILE
-    // =========================================================
 
     @GetMapping("/freelancer/create")
     public String createFreelancer(Model model) {
@@ -151,8 +142,6 @@ public class FreelancerController {
         model.addAttribute("user", user);
 
 
-        // If profile already exists,
-        // don't allow creating another one.
         Optional<Freelancer> existingFreelancer =
                 freelancerRepository.findByUser(user);
 
@@ -191,10 +180,6 @@ public class FreelancerController {
     }
 
 
-    // =========================================================
-    // VIEW OWN FREELANCER PROFILE
-    // =========================================================
-
     @GetMapping("/freelancer/profile")
     public String viewProfile(Model model) {
 
@@ -211,8 +196,7 @@ public class FreelancerController {
                         .findByUser(user);
 
 
-        // If freelancer profile doesn't exist,
-        // send user to create page.
+   
         if (optionalFreelancer.isEmpty()) {
 
             return "redirect:/freelancer/create";
@@ -233,9 +217,6 @@ public class FreelancerController {
     }
 
 
-    // =========================================================
-    // CREATE / UPDATE FREELANCER PROFILE
-    // =========================================================
 
     @Transactional
     @PostMapping("/freelancer/profile")
@@ -288,6 +269,19 @@ public class FreelancerController {
             user.setRole(Role.FREELANCER);
 
             userRepository.save(user);
+            Authentication currentAuth =
+                    SecurityContextHolder.getContext().getAuthentication();
+
+            Authentication newAuth =
+                    new UsernamePasswordAuthenticationToken(
+                            currentAuth.getPrincipal(),
+                            currentAuth.getCredentials(),
+                            List.of(
+                                    new SimpleGrantedAuthority("ROLE_FREELANCER")
+                            )
+                    );
+
+            SecurityContextHolder.getContext().setAuthentication(newAuth);
         }
 
 
