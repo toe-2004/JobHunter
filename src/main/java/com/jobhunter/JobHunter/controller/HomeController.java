@@ -1,13 +1,8 @@
 package com.jobhunter.JobHunter.controller;
-
-
 import java.util.List;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import com.jobhunter.JobHunter.enumeration.ApplicationStatus;
 import com.jobhunter.JobHunter.enumeration.JobStatus;
 import com.jobhunter.JobHunter.model.*;
@@ -42,10 +37,7 @@ public class HomeController {
 	@Autowired
     private JobService jobService;
 
-//    @GetMapping("/index")
-//    public String home() {
-//        return "login";
-//    }
+
     
     @GetMapping("/")
     public String home() {

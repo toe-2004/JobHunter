@@ -1,15 +1,11 @@
 package com.jobhunter.JobHunter.controller;
 
 import com.jobhunter.JobHunter.dto.EmployerProfileDto;
+
 import com.jobhunter.JobHunter.dto.EmployerRegistrationDto;
 import com.jobhunter.JobHunter.enumeration.ApplicationStatus;
-import com.jobhunter.JobHunter.model.Application;
-import com.jobhunter.JobHunter.model.Employer;
-import com.jobhunter.JobHunter.model.Job;
-import com.jobhunter.JobHunter.model.User;
-import com.jobhunter.JobHunter.repository.ApplicationRepository;
-import com.jobhunter.JobHunter.repository.EmployerRepository;
-import com.jobhunter.JobHunter.repository.UserRepository;
+import com.jobhunter.JobHunter.model.*;
+import com.jobhunter.JobHunter.repository.*;
 import com.jobhunter.JobHunter.service.EmployerService;
 import com.jobhunter.JobHunter.service.UserService;
 
@@ -22,11 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -141,40 +133,6 @@ public class EmployerController {
         return "employer/profile-edit";
     }
 
-    
-    @PostMapping("/profile/edit")
-    public String submitProfileEdit(
-            @Valid @ModelAttribute("profile") EmployerProfileDto profileDto,
-            BindingResult bindingResult,
-            @RequestParam(value = "profilePhoto", required = false) MultipartFile profilePhoto,
-            RedirectAttributes redirectAttributes) {
-
-        if (bindingResult.hasErrors()) {
-            return "employer/profile-edit";
-        }
-
-        try {
-
-            employerService.updateProfile(profileDto, profilePhoto);
-
-            redirectAttributes.addFlashAttribute(
-                    "success",
-                    "Profile updated successfully."
-            );
-
-            return "redirect:/employer/profile";
-
-        } catch (IllegalStateException ex) {
-
-            bindingResult.reject(
-                    "profile.error",
-                    ex.getMessage()
-            );
-
-            return "employer/profile-edit";
-        }
-    }
-    
     public long getPendingCount(Employer employer) {
 
         return applicationRepository.countByJobEmployerAndStatus(employer,ApplicationStatus.PENDING);
@@ -184,26 +142,16 @@ public class EmployerController {
 
         return applicationRepository.countByJobEmployerAndStatus(employer,ApplicationStatus.SHORTLISTED);
     }
-    @GetMapping("/profile-edit")
-    public String editProfile(
-            Model model,
-            Authentication auth) {
+ 
 
-        Employer employer = employerRepository.findByUserEmail(auth.getName())
-                        .orElseThrow(() -> new RuntimeException("Employer not found"));
-
-        model.addAttribute("employer", employer);
-        model.addAttribute("currentPage", "profile_e");
-
-        return "employer/edit-profile";
-    }
-    
     @PostMapping("/profile-update")
     public String updateProfile(
-            @RequestParam("name") String name,
-            @RequestParam(value = "profilePhoto", required = false)
-                    MultipartFile profilePhoto,
-            Authentication auth) throws IOException {
+    		@Valid @ModelAttribute("profile") EmployerProfileDto profileDto,
+    	    BindingResult bindingResult,
+    	    @RequestParam(value = "profilePhoto", required = false)
+    	    MultipartFile profilePhoto,
+    	    Authentication auth,
+    	    RedirectAttributes redirectAttributes) throws IOException {
 
         Employer employer = employerRepository.findByUserEmail(auth.getName())
                         .orElseThrow(() ->
@@ -211,7 +159,12 @@ public class EmployerController {
 
         User user = employer.getUser();
 
- 
+        user.setName(profileDto.getName());
+        employer.setCompanyName(profileDto.getCompanyName());
+        employer.setCompanyEmail(profileDto.getCompanyEmail());
+        employer.setCompanyPhone(profileDto.getCompanyPhone());
+        employer.setCompanyLocation(profileDto.getCompanyLocation());
+        employer.setCompanyDescription(profileDto.getCompanyDescription());
         if (profilePhoto != null && !profilePhoto.isEmpty()) {
 
             String uploadDir = "uploads/";

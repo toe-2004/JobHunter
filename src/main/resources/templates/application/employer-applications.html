@@ -14,6 +14,26 @@
 
     <script th:src="@{/js/bootstrap.bundle.min.js}" defer></script>
     <script th:src="@{/js/employer-applications.js}" defer></script>
+	<style>
+		.applicant-icon {
+		    width: 55px;
+		    height: 55px;
+		    min-width: 55px;
+		    border-radius: 50%;
+		    overflow: hidden;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		}
+
+		.applicant-photo {
+		    width: 100%;
+		    height: 100%;
+		    object-fit: cover;
+		    display: block;
+		    border-radius: 50%;
+		}
+	</style>
 </head>
 
 <body>
@@ -84,14 +104,23 @@
                     <div class="applicant-title">
 
                         <div class="applicant-icon">
-                            <i class="fa-solid fa-user"></i>
+							<img th:if="${app.freelancer.user != null 
+							                 and app.freelancer.user.profilePhoto != null}"
+							         th:src="@{'/uploads/' + ${app.freelancer.user.profilePhoto}}"
+							         alt="Freelancer Photo"
+							         class="applicant-photo">
+							
                         </div>
+						
 
                         <div class="applicant-info">
 
-                            <h2 th:text="${app.freelancer.user.name}">
-                                Applicant Name
-                            </h2>
+							<h2>
+							     <a th:href="@{/freelancer-details/{id}(id=${app.freelancer.id})}"
+							        th:text="${app.freelancer.user.name}">
+							         Applicant Name
+							     </a>
+							 </h2>
 
                             <div class="application-date">
 

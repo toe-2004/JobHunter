@@ -53,9 +53,6 @@ public class CompanyController {
         model.addAttribute("jobs", jobs);
 
 
-        /*
-         * Count only OPEN jobs
-         */
         long openJobCount = jobs.stream()
                 .filter(job ->
                         job.getStatus() != null
