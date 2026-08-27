@@ -209,7 +209,7 @@ public class JobController {
                                 new RuntimeException("Employer not found"));
 
                 List<Job> jobs =
-                        jobRepository.findByEmployer(employer);
+                        jobRepository.findByEmployerOrderByCreatedAtDesc(employer);
                 model.addAttribute("employer", employer);
                 model.addAttribute("jobs", jobs);
                 model.addAttribute("currentPage", "my-jobs");
@@ -405,7 +405,7 @@ public class JobController {
     @GetMapping("/all-jobs")
     public String allJobs(Model model) {
 
-        List<Job> jobs = jobRepository.findAll();
+    		List<Job> jobs = jobRepository.findAllByOrderByCreatedAtDesc();
 
         model.addAttribute("jobs", jobs);
         model.addAttribute("currentPage", "jobs");
