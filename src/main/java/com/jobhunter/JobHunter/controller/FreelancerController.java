@@ -244,7 +244,21 @@ public class FreelancerController {
             user.setRole(Role.FREELANCER);
 
             userRepository.save(user);
+             Authentication currentAuth =
+                    SecurityContextHolder.getContext().getAuthentication();
+
+            Authentication newAuth =
+                    new UsernamePasswordAuthenticationToken(
+                            currentAuth.getPrincipal(),
+                            currentAuth.getCredentials(),
+                            List.of(
+                                    new SimpleGrantedAuthority("ROLE_FREELANCER")
+                            )
+                    );
+
+            SecurityContextHolder.getContext().setAuthentication(newAuth);
         }
+        
 
 
         else {
