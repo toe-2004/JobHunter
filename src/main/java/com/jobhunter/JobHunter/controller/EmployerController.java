@@ -161,26 +161,18 @@ public class EmployerController {
 
         return applicationRepository.countByJobEmployerAndStatus(employer,ApplicationStatus.SHORTLISTED);
     }
-    @GetMapping("/profile-edit")
-    public String editProfile(
-            Model model,
-            Authentication auth) {
-
-        Employer employer = employerRepository.findByUserEmail(auth.getName())
-                        .orElseThrow(() -> new RuntimeException("Employer not found"));
-
-        model.addAttribute("employer", employer);
-        model.addAttribute("currentPage", "profile_e");
-
-        return "employer/edit-profile";
-    }
+ 
     
+    
+
     @PostMapping("/profile-update")
     public String updateProfile(
-            @RequestParam("name") String name,
-            @RequestParam(value = "profilePhoto", required = false)
-                    MultipartFile profilePhoto,
-            Authentication auth) throws IOException {
+    		@Valid @ModelAttribute("profile") EmployerProfileDto profileDto,
+    	    BindingResult bindingResult,
+    	    @RequestParam(value = "profilePhoto", required = false)
+    	    MultipartFile profilePhoto,
+    	    Authentication auth,
+    	    RedirectAttributes redirectAttributes) throws IOException {
 
         Employer employer = employerRepository.findByUserEmail(auth.getName())
                         .orElseThrow(() ->
@@ -188,7 +180,12 @@ public class EmployerController {
 
         User user = employer.getUser();
 
- 
+        user.setName(profileDto.getName());
+        employer.setCompanyName(profileDto.getCompanyName());
+        employer.setCompanyEmail(profileDto.getCompanyEmail());
+        employer.setCompanyPhone(profileDto.getCompanyPhone());
+        employer.setCompanyLocation(profileDto.getCompanyLocation());
+        employer.setCompanyDescription(profileDto.getCompanyDescription());
         if (profilePhoto != null && !profilePhoto.isEmpty()) {
 
             String uploadDir = "uploads/";
