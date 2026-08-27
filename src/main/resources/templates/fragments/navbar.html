@@ -60,7 +60,7 @@
 
 			<div class="nav-buttons">
 
-			    <!-- NOT LOGGED IN -->
+			    <!-- No login -->
 			    <div sec:authorize="!isAuthenticated()">
 
 			        <a th:href="@{/login}" class="login-btn">
@@ -74,36 +74,44 @@
 			    </div>
 
 
-
+			
 			    <div sec:authorize="hasRole('FREELANCER')">
-
 			        <a th:href="@{/freelancer/dashboard}" class="login-btn">
 			            Dashboard
 			        </a>
-
-			        <a th:href="@{/login}" class="signup-btn">
-			            Logout
-			        </a>
-
+			        <form th:action="@{/logout}" method="post" style="display: inline;">
+			            <button type="submit" class="signup-btn">
+			                <i class="fa-solid fa-right-from-bracket"></i>
+			                Logout
+			            </button>
+			        </form>
 			    </div>
 
 
 			    <div sec:authorize="hasRole('EMPLOYER')">
-
 			        <a th:href="@{/employer/dashboard}" class="login-btn">
 			            Dashboard
 			        </a>
-
-			        <a th:href="@{/login}" class="signup-btn">
-			            Logout
-			        </a>
-
+			        <form th:action="@{/logout}" method="post" style="display: inline;">
+			            <button type="submit" class="signup-btn">
+			                <i class="fa-solid fa-right-from-bracket"></i>
+			                Logout
+			            </button>
+			        </form>
 			    </div>
 
+			    <div sec:authorize="isAuthenticated() and !hasRole('FREELANCER') and !hasRole('EMPLOYER')">
+			        <a th:href="@{/choose-role}" class="login-btn">
+			            Guest
+			        </a>
+			        <form th:action="@{/logout}" method="post" style="display: inline;">
+			            <button type="submit" class="signup-btn">
+			                <i class="fa-solid fa-right-from-bracket"></i>
+			                Logout
+			            </button>
+			        </form>
+			    </div>
 			</div>
-
-        </div>
-
     </div>
 
 </nav>
