@@ -73,8 +73,6 @@
 
 			    </div>
 
-
-			
 			    <div sec:authorize="hasRole('FREELANCER')">
 			        <a th:href="@{/freelancer/dashboard}" class="login-btn">
 			            Dashboard
@@ -86,7 +84,6 @@
 			            </button>
 			        </form>
 			    </div>
-
 
 			    <div sec:authorize="hasRole('EMPLOYER')">
 			        <a th:href="@{/employer/dashboard}" class="login-btn">
