@@ -1,4 +1,3 @@
-// 
 package com.jobhunter.JobHunter.controller;
 
 import java.io.IOException;
@@ -18,26 +17,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jobhunter.JobHunter.enumeration.Role;
-import com.jobhunter.JobHunter.model.Application;
-import com.jobhunter.JobHunter.model.Engagement;
-import com.jobhunter.JobHunter.model.Freelancer;
-import com.jobhunter.JobHunter.model.FreelancerSkill;
-import com.jobhunter.JobHunter.model.Skill;
-import com.jobhunter.JobHunter.model.User;
-import com.jobhunter.JobHunter.repository.ApplicationRepository;
-import com.jobhunter.JobHunter.repository.EngagementRepository;
-import com.jobhunter.JobHunter.repository.FreelancerRepository;
-import com.jobhunter.JobHunter.repository.FreelancerSkillRepository;
-import com.jobhunter.JobHunter.repository.SkillRepository;
-import com.jobhunter.JobHunter.repository.UserRepository;
+import com.jobhunter.JobHunter.model.*;
+import com.jobhunter.JobHunter.repository.*;
 import com.jobhunter.JobHunter.service.FreelancerService;
 
 
@@ -65,12 +50,6 @@ public class FreelancerController {
     @Autowired
     private FreelancerSkillRepository freelancerSkillRepository;
 
-
-    // =========================================================
-    // HELPER METHOD
-    // Get currently logged-in user
-    // =========================================================
-
     private User getCurrentUser() {
 
         Authentication auth =
@@ -84,10 +63,6 @@ public class FreelancerController {
                         new RuntimeException("User not found"));
     }
 
-
-    // =========================================================
-    // FREELANCER DASHBOARD
-    // =========================================================
 
         @GetMapping("/freelancer/dashboard")
         public String profile(Model model) {
@@ -650,12 +625,6 @@ public class FreelancerController {
         return "freelancer/recent-hire-requests";
     }
 
-
-    // =========================================================
-    // PUBLIC FREELANCER PROFILE
-    // =========================================================
-    // If this is intended for viewing another person's profile,
-    // you can keep this separate from /freelancer/profile.
 
     @GetMapping("/freelancer-profile")
     public String freelancerProfile(

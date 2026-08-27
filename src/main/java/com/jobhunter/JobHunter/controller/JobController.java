@@ -2,6 +2,7 @@ package com.jobhunter.JobHunter.controller;
 
 import com.jobhunter.JobHunter.enumeration.DurationType;
 
+
 import com.jobhunter.JobHunter.enumeration.EmploymentType;
 import com.jobhunter.JobHunter.enumeration.ExperienceLevel;
 import com.jobhunter.JobHunter.enumeration.JobStatus;
