@@ -191,7 +191,7 @@ public class ApplicationController {
                 .orElseThrow(() -> new RuntimeException("Freelancer not found"));
 
         List<Application> applications =
-                applicationRepository.findByFreelancer(freelancer);
+                applicationRepository.findByFreelancerOrderByCreatedAtDesc(freelancer);
 
         model.addAttribute("user", user);
         model.addAttribute("freelancer", freelancer);

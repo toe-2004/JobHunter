@@ -117,10 +117,8 @@ public class EngagementController {
                                         "Freelancer not found"
                                 ));
 
-        List<Engagement> engagements =
-                engagementRepository
-                        .findByFreelancer(freelancer);
-
+        List<Engagement> engagements = engagementRepository.findByFreelancerOrderByCreatedAtDesc(freelancer);
+        
         model.addAttribute("user", user);
         model.addAttribute("freelancer", freelancer);
         model.addAttribute("engagements", engagements);
@@ -141,14 +139,8 @@ public class EngagementController {
                                         "Employer not found"
                                 ));
 
-        List<Engagement> engagements =
-                engagementRepository
-                        .findByEmployer(employer);
-
-        model.addAttribute(
-                "engagements",
-                engagements
-        );
+        List<Engagement> engagements = engagementRepository.findByEmployerOrderByCreatedAtDesc(employer);
+        model.addAttribute("engagements",engagements);
         model.addAttribute("employer", employer);
         model.addAttribute("currentPage", "employer-engagements");
 
