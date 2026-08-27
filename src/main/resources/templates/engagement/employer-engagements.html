@@ -16,6 +16,8 @@
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
     <script th:stc="@{/js/employer-engagements.js}"></script>
 
+	<style>
+	</style>
 </head>
 
 
@@ -133,18 +135,22 @@
 
                                 <div class="freelancer-avatar">
 
-                                    <i class="fa-solid fa-user"></i>
+									<img th:if="${engagement.freelancer.user != null 
+									                     and engagement.freelancer.user.profilePhoto != null}"
+									             th:src="@{'/uploads/' + ${engagement.freelancer.user.profilePhoto}}"
+									             alt="Freelancer Photo"
+									             class="freelancer-photo">
 
                                 </div>
 
                                 <div class="freelancer-details">
-
-                                    <p class="freelancer-name"
-                                       th:text="${engagement.freelancer.user.name}">
+									
+									<a class="freelancer-name" th:href="@{/freelancer-details/{id}(id=${engagement.freelancer.id})}"
+                                        th:text="${engagement.freelancer.user.name}">
 
                                         Freelancer Name
 
-                                    </p>
+                                    </a>
 
                                     <p class="freelancer-meta">
 

@@ -82,6 +82,15 @@
         </div>
     </div>
 
+    <div>
+        <a href="#"
+            onclick="history.back(); return false;"
+            class="cancel-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+           Back to Categories
+        </a>
+    </div>
+
     <div th:if="${jobs == null || jobs.isEmpty()}"
          class="empty-state">
         <div class="empty-icon">

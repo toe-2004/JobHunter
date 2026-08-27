@@ -460,6 +460,10 @@ body {
     color: #334155;
 }
 
+.applicant_name {
+    text-decoration: none;
+}
+
 @media (max-width: 900px) {
 
     .main-content {

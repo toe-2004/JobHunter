@@ -57,10 +57,6 @@ public class UserController {
         return "redirect:/login";
     }
 
-    // @GetMapping("/choose-role")
-    // public String chooseRole() {
-    //     return "choose-role";
-    // }
     @GetMapping("/choose-role")
     public String chooseRole(Model model) {
 

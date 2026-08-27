@@ -31,5 +31,7 @@ public interface JobRepository extends JpaRepository<Job, Long> {
 
     List<Job> findByCategoryNameContainingIgnoreCase(String keyword);
     long countByStatus(JobStatus status);
+    List<Job> findAllByOrderByCreatedAtDesc();
+    List<Job> findByEmployerOrderByCreatedAtDesc(Employer employer);
    
 }

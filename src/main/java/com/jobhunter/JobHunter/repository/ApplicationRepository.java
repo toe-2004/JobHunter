@@ -24,6 +24,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
     List<Application> findTop4ByFreelancerIdOrderByCreatedAtDesc(Long freelancerId);
     
     List<Application> findByFreelancerIdOrderByCreatedAtDesc(Long freelancerId);
+    List<Application> findByFreelancerOrderByCreatedAtDesc(Freelancer freelancer);
     long countByJobEmployerAndStatus(Employer employer,ApplicationStatus status);
     
 }

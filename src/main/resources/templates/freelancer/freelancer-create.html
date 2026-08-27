@@ -156,7 +156,7 @@
                                 <input type="text"
                                        id="phone"
                                        th:field="*{phone}"
-                                       placeholder="Enter your phone number">
+                                       placeholder="Enter your phone number" required>
                             </div>
                         </div>
 
@@ -170,7 +170,7 @@
                                 <input type="text"
                                        id="location"
                                        th:field="*{location}"
-                                       placeholder="e.g. Yangon">
+                                       placeholder="e.g. Yangon" required>
                             </div>
                         </div>
                     </div>
@@ -256,7 +256,7 @@
                         <textarea id="summary"
                                   th:field="*{summary}"
                                   placeholder="Introduce yourself, your strengths and what kind of work you are looking for..."
-                                  rows="6">
+                                  rows="6" required>
                         </textarea>
                     </div>
                 </section>
@@ -283,7 +283,7 @@
                         <textarea id="education"
                                   th:field="*{education}"
                                   placeholder="Example: B.Sc. in Software Engineering - University of Computer Studies, Yangon"
-                                  rows="5">
+                                  rows="5" required>
                         </textarea>
                     </div>
                 </section>
@@ -311,7 +311,7 @@
                         <textarea id="experience"
                                   th:field="*{experience}"
                                   placeholder="Describe your previous work experience, projects or internships..."
-                                  rows="6">
+                                  rows="6" required>
                         </textarea>
                     </div>
                 </section>

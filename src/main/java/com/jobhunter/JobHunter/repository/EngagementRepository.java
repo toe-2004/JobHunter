@@ -21,8 +21,8 @@ public interface EngagementRepository extends JpaRepository<Engagement, Long> {
     
     List<Engagement> findByFreelancerIdOrderByStartDateDesc(Long freelancerId);
 
-
+    List<Engagement> findByFreelancerOrderByCreatedAtDesc(Freelancer freelancer);
     
-    
+    List<Engagement> findByEmployerOrderByCreatedAtDesc(Employer employer);
 	
 }

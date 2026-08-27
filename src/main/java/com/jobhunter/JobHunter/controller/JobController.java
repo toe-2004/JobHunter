@@ -2,6 +2,7 @@ package com.jobhunter.JobHunter.controller;
 
 import com.jobhunter.JobHunter.enumeration.DurationType;
 
+
 import com.jobhunter.JobHunter.enumeration.EmploymentType;
 import com.jobhunter.JobHunter.enumeration.ExperienceLevel;
 import com.jobhunter.JobHunter.enumeration.JobStatus;
@@ -208,7 +209,7 @@ public class JobController {
                                 new RuntimeException("Employer not found"));
 
                 List<Job> jobs =
-                        jobRepository.findByEmployer(employer);
+                        jobRepository.findByEmployerOrderByCreatedAtDesc(employer);
                 model.addAttribute("employer", employer);
                 model.addAttribute("jobs", jobs);
                 model.addAttribute("currentPage", "my-jobs");
@@ -404,7 +405,7 @@ public class JobController {
     @GetMapping("/all-jobs")
     public String allJobs(Model model) {
 
-        List<Job> jobs = jobRepository.findAll();
+    		List<Job> jobs = jobRepository.findAllByOrderByCreatedAtDesc();
 
         model.addAttribute("jobs", jobs);
         model.addAttribute("currentPage", "jobs");
