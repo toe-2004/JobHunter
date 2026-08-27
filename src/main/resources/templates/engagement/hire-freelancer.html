@@ -36,13 +36,13 @@
 
 <div class="hire-page">
 
-    <div class="bottom-actions">
+    <!-- <div class="bottom-actions">
         <a th:href="@{/freelancer-details/{id}(id=${freelancer.id})}"
            class="back-btn">
             <i class="fa-solid fa-arrow-left"></i>
             Back to Freelancers
         </a>
-    </div>
+    </div> -->
 
     <div class="hire-card">
 
@@ -204,8 +204,9 @@
                 </div>
 
                 <div class="form-actions">
-                    <a th:href="@{/freelancer-details/{id}(id=${freelancer.id})}"
-                       class="cancel-btn">
+                    <a href="#"
+                        onclick="history.back(); return false;"
+                        class="cancel-btn">
                         <i class="fa-solid fa-arrow-left"></i>
                         Cancel
                     </a>

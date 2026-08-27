@@ -299,6 +299,31 @@ body {
     font-size: 14px;
 }
 
+.cancel-btn{
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 20px;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .2s;
+    background: #ffffff;
+    border: 1px solid #dce4ed;
+    color: #687588;
+    margin-bottom:20px;
+}
+
+.cancel-btn:hover {
+    background: #f8fbff;
+    border-color: #bfd0e2;
+    color: #344154;
+}
 @media (max-width: 1100px) {
     .job-grid {
         grid-template-columns: repeat(3, 1fr);
