@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.jobhunter.JobHunter.model.Employer;
 import com.jobhunter.JobHunter.model.Job;
+import com.jobhunter.JobHunter.enumeration.JobStatus;
 import com.jobhunter.JobHunter.repository.JobRepository;
 
 @Service
@@ -28,6 +29,10 @@ public class JobService {
 	    public List<Job> getLatest3Jobs() {
 	        return jobRepository.findTop3ByOrderByCreatedAtDesc();
 	    }
+
+        public List<Job> getLatestOpenJobs() {
+            return jobRepository.findTop3ByStatusOrderByCreatedAtDesc(JobStatus.OPEN);
+        }
 	    
 	    public List<Job> getLatest6Jobs() {
 	        return jobRepository.findTop6ByOrderByCreatedAtDesc();

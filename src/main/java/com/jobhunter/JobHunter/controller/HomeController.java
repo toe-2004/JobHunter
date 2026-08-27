@@ -65,7 +65,7 @@ public class HomeController {
     @GetMapping("/viewHomeJob")
     public String home(@RequestParam(required = false) Long categoryId,Model model) {
 
-        List<Job> latestJobs = jobService.getLatest3Jobs();
+        List<Job> latestJobs = jobService.getLatestOpenJobs();
 
         
         List<Freelancer> freelancers =
@@ -102,13 +102,18 @@ public class HomeController {
         model.addAttribute("companies", companies);
         model.addAttribute("jobSeekers", jobSeekers);
         model.addAttribute("successfulHires", successfulHires);
-        model.addAttribute("latestJobs", latestJobs);
         model.addAttribute("jobs", jobs);
         model.addAttribute("latest6Jobs", latest6Jobs);
         model.addAttribute("categories", latest8Categories);
+        model.addAttribute("latestJobs", latestJobs);
         model.addAttribute("latestEmployers", latestEmployers);
         model.addAttribute("freelancers", freelancers);
         model.addAttribute("currentPage", "home");
+
+        Job featuredJob = latestJobs.isEmpty() ? null : latestJobs.getFirst();
+        model.addAttribute("featuredJob", featuredJob);
+        model.addAttribute("jobSeekerCount",
+                featuredJob == null ? 0 : applicationRepository.countByJobId(featuredJob.getId()));
 
         return "viewHomeJob";
     }

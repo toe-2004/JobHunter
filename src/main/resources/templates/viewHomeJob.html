@@ -93,15 +93,15 @@
 
                         Popular searches:
 
-                        <a href="">
-                            Software Developer
+                        <a th:href="@{/search(keyword='Java Developer')}">
+                            Java Developer
                         </a>
 
-                        <a href="">
+                        <a th:href="@{/search(keyword='UI/UX Designer')}">
                             UI/UX Designer
                         </a>
 
-                        <a href="">
+                        <a th:href="@{/search(keyword='Data Analyst')}">
                             Data Analyst
                         </a>
 
@@ -123,14 +123,14 @@
                         <i class="fa-solid fa-user-check"></i>
 
                         <div>
-                            <strong>10K+</strong><br>
+                            <strong th:text="${jobSeekerCount}">0</strong><br>
                             <small>Active candidates</small>
                         </div>
 
                     </div>
 
 
-                    <div class="hero-main-card">
+                    <div class="hero-main-card" th:if="${featuredJob != null}">
 
                         <div class="job-card-top">
 
@@ -140,55 +140,46 @@
 
                             <div>
 
-                                <h5>Tech Solutions</h5>
-
-                                <small>Technology Company</small>
+                                <h5 th:text="${featuredJob.employer.companyName}">Company</h5>
+                                <small th:text="${featuredJob.category.name}">Category</small>
 
                             </div>
 
                         </div>
 
-                        <h4>
-                            Senior Software Engineer
-                        </h4>
+                        <h4 th:text="${featuredJob.title}">Featured job</h4>
 
                         <div class="job-info">
 
-                            <span>
-                                <i class="fa-solid fa-location-dot"></i>
-                                Yangon
-                            </span>
+                            <span th:text="${featuredJob.employer.companyLocation}">Location</span>
 
-                            <span>
-                                <i class="fa-solid fa-clock"></i>
-                                Full Time
-                            </span>
+                            <span th:text="${featuredJob.employmentType}">Type</span>
 
                         </div>
 
                         <div class="job-tags">
 
-                            <span class="job-tag">Java</span>
-
-                            <span class="job-tag">Spring Boot</span>
-
-                            <span class="job-tag">MySQL</span>
+                            <span class="job-tag" th:each="jobSkill, stat : ${featuredJob.jobSkills}" th:if="${stat.index < 3}" th:text="${jobSkill.skill.name}">Skill</span>
 
                         </div>
 
                         <div class="apply-mini">
 
                             <div class="salary">
-                                $1,200
-                                <span>/month</span>
+                                <span th:if="${featuredJob.employmentType.name() == 'HOURLY'}" th:text="${featuredJob.salaryMin + ' - ' + featuredJob.salaryMax}  + ' Kyats/hour'">Salary</span>
+                                <span th:if="${featuredJob.employmentType.name() == 'FIXED_PRICE'}" th:text="${featuredJob.budget} + ' Kyats/month'">Budget</span>
                             </div>
 
-                            <a href="#" class="mini-btn">
+                            <a th:href="@{/job-details/{id}(id=${featuredJob.id})}" class="mini-btn">
                                 Apply Now
                             </a>
 
                         </div>
 
+                    </div>
+                    <div class="hero-main-card" th:unless="${featuredJob != null}">
+                        <h4>No featured jobs yet</h4>
+                        <p>Check back soon for new opportunities.</p>
                     </div>
 
 
@@ -197,7 +188,8 @@
                         <i class="fa-solid fa-building"></i>
 
                         <div>
-                            <strong>500+</strong><br>
+
+                            <strong th:text="${companies}">0</strong><br>
                             <small>Companies hiring</small>
                         </div>
 
@@ -444,7 +436,9 @@
 								<img th:if="${job.employer.user.profilePhoto != null}"
 								                     th:src="@{'/uploads/' + ${job.employer.user.profilePhoto}}"
 								                     alt="Company Photo"
-								                     class="company-photo">
+									                     class="company-photo">
+                                <i th:unless="${job.employer.user.profilePhoto != null}"
+                                   class="fa-solid fa-building"></i>
 
 		                    </div>
 
@@ -515,7 +509,7 @@
                             <div class="job-salary">
 
                                 <!-- Salary range -->
-                                <span th:if="${job.salaryMin != null and job.salaryMax != null}">
+                                <span th:if="${job.employmentType.name() == 'HOURLY' and job.salaryMin != null and job.salaryMax != null}">
                                     <span th:text="${job.salaryMin}">$900</span>
                                     -
                                     <span th:text="${job.salaryMax}">$1,400</span>
@@ -523,7 +517,7 @@
                                 </span>
 
                                 <!-- Budget -->
-                                <span th:if="${job.salaryMin == null or job.salaryMax == null}"
+                                <span th:if="${job.employmentType.name() == 'FIXED_PRICE'}"
                                     th:text="${job.budget+' Kyats/month'}">
                                     $1,500
                                 </span>

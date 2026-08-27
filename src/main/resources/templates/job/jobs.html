@@ -1,217 +1,185 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Available Jobs</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            margin: 0;
-            padding: 30px;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+        margin: 0;
+        padding: 30px;
+      }
 
-        .container {
-            width: 1100px;
-            margin: auto;
-        }
+      .container {
+        width: 1100px;
+        margin: auto;
+      }
 
-        .job-card {
-            background: white;
-            padding: 25px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
+      .job-card {
+        background: white;
+        padding: 25px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
 
-        .job-title {
-            font-size: 24px;
-            font-weight: bold;
-        }
+      .job-title {
+        font-size: 24px;
+        font-weight: bold;
+      }
 
-        .description {
-            margin: 15px 0;
-            color: #555;
-        }
+      .description {
+        margin: 15px 0;
+        color: #555;
+      }
 
-        .info {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
+      .info {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+      }
 
-        .info-box {
-            background: #f5f5f5;
-            padding: 12px;
-            border-radius: 5px;
-        }
+      .info-box {
+        background: #f5f5f5;
+        padding: 12px;
+        border-radius: 5px;
+      }
 
-        .label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
+      .label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+      }
 
-        .skill {
-            display: inline-block;
-            background: #e8f5e9;
-            color: #2e7d32;
-            padding: 6px 12px;
-            margin: 4px;
-            border-radius: 15px;
-        }
+      .skill {
+        display: inline-block;
+        background: #e8f5e9;
+        color: #2e7d32;
+        padding: 6px 12px;
+        margin: 4px;
+        border-radius: 15px;
+      }
 
-        .apply-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background: #2e7d32;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
+      .apply-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #2e7d32;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-top: 20px;
+      }
 
-        .apply-btn:hover {
-            background: #1b5e20;
-        }
+      .apply-btn:hover {
+        background: #1b5e20;
+      }
 
-        .closed {
-            color: red;
-            font-weight: bold;
-        }
+      .closed {
+        color: red;
+        font-weight: bold;
+      }
 
-        .open {
-            color: green;
-            font-weight: bold;
-        }
+      .open {
+        color: green;
+        font-weight: bold;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-<div class="container">
+  <body>
+    <div class="container">
+      <h1>Available Jobs</h1>
 
-    <h1>Available Jobs</h1>
-
-    <div th:if="${#lists.isEmpty(jobs)}">
+      <div th:if="${#lists.isEmpty(jobs)}">
         <h3>No jobs available.</h3>
-    </div>
+      </div>
 
-    <div th:each="job : ${jobs}"
-         class="job-card">
+      <div th:each="job : ${jobs}" class="job-card">
+        <div class="job-title" th:text="${job.title}"></div>
 
-        <div class="job-title"
-             th:text="${job.title}">
-        </div>
-
-        <div class="description"
-             th:text="${job.description}">
-        </div>
+        <div class="description" th:text="${job.description}"></div>
 
         <div class="info">
-            <div class="info-box">
-                <span class="label">
-                    Category
-                </span>
-                <span th:text="${job.category.name}">
-                </span>
-            </div>
+          <div class="info-box">
+            <span class="label"> Category </span>
+            <span th:text="${job.category.name}"> </span>
+          </div>
 
-            <div class="info-box">
-                <span class="label">
-                    Employment Type
-                </span>
-                <span th:text="${job.employmentType}">
-                </span>
-            </div>
+          <div class="info-box">
+            <span class="label"> Employment Type </span>
+            <span th:text="${job.employmentType}"> </span>
+          </div>
 
-            <div class="info-box">
-                <span class="label">
-                    Experience
-                </span>
-                <span th:text="${job.experienceLevel}">
-                </span>
-            </div>
+          <div class="info-box">
+            <span class="label"> Experience </span>
+            <span th:text="${job.experienceLevel}"> </span>
+          </div>
 
-            <div class="info-box">
-                <span class="label">
-                    Duration
-                </span>
-                <span th:text="${job.duration}">
-                </span>
-            </div>
+          <div class="info-box">
+            <span class="label"> Duration </span>
+            <span th:text="${job.duration}"> </span>
+          </div>
 
-            <div class="info-box">
-                <span class="label">
-                    Salary
-                </span>
-                <span th:text="${job.salaryMin + ' - ' + job.salaryMax}">
-                </span>
-            </div>
+          <div class="info-box">
+            <span class="label"> Salary </span>
+            <span th:text="${job.salaryMin + ' - ' + job.salaryMax}"> </span>
+          </div>
 
-            <div class="info-box">
-                <span class="label">
-                    Budget
-                </span>
-                <span th:text="${job.budget}">
-                </span>
-            </div>
+          <div class="info-box">
+            <span class="label"> Budget </span>
+            <span th:text="${job.budget}"> </span>
+          </div>
 
-            <div class="info-box">
-                <span class="label">
-                    Deadline
-                </span>
-                <span th:text="${job.deadline}">
-                </span>
-            </div>
+          <div class="info-box">
+            <span class="label"> Deadline </span>
+            <span th:text="${job.deadline}"> </span>
+          </div>
 
-            <div class="info-box">
-                <span class="label">
-                    Status
-                </span>
-                <span th:if="${job.status.name() == 'OPEN'}"
-                      class="open">
-                    OPEN
-                </span>
-                <span th:if="${job.status.name() == 'CLOSED'}"
-                      class="closed">
-                    CLOSED
-                </span>
-            </div>
+          <div class="info-box">
+            <span class="label"> Status </span>
+            <span th:if="${job.status.name() == 'OPEN'}" class="open">
+              OPEN
+            </span>
+            <span th:if="${job.status.name() == 'CLOSED'}" class="closed">
+              CLOSED
+            </span>
+          </div>
         </div>
 
-        <div style="margin-top: 20px;">
-            <strong>Skills:</strong>
-            <span th:if="${#lists.isEmpty(job.jobSkills)}">
-                No skills
-            </span>
-            <span th:each="jobSkill : ${job.jobSkills}"
-                  class="skill"
-                  th:text="${jobSkill.skill.name}">
-            </span>
+        <div style="margin-top: 20px">
+          <strong>Skills:</strong>
+          <span th:if="${#lists.isEmpty(job.jobSkills)}"> No skills </span>
+          <span
+            th:each="jobSkill : ${job.jobSkills}"
+            class="skill"
+            th:text="${jobSkill.skill.name}"
+          >
+          </span>
         </div>
 
-        <a th:if="${job.status.name() == 'OPEN' 
+        <a
+          th:if="${job.status.name() == 'OPEN' 
                    and !appliedJobIds.contains(job.id)}"
-           th:href="@{/apply-job/{id}(id=${job.id})}"
-           class="apply-btn">
-            Apply Now
+          th:href="@{/apply-job/{id}(id=${job.id})}"
+          class="apply-btn"
+        >
+          Apply Now
         </a>
 
-        <span th:if="${job.status.name() == 'OPEN' 
+        <span
+          th:if="${job.status.name() == 'OPEN' 
                      and appliedJobIds.contains(job.id)}"
-              class="applied-btn">
-            Already Applied
+          class="applied-btn"
+        >
+          Already Applied
         </span>
 
-        <span th:if="${job.status.name() == 'CLOSED'}"
-              class="closed">
-            Applications Closed
+        <span th:if="${job.status.name() == 'CLOSED'}" class="closed">
+          Applications Closed
         </span>
-
+      </div>
     </div>
-
-</div>
-</body>
+  </body>
 </html>

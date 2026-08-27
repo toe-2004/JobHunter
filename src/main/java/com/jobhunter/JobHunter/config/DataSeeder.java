@@ -65,13 +65,13 @@ public class DataSeeder implements CommandLineRunner {
         seedCategories();
         seedSkills();
 
-        // seedFreelancers();
-        // seedEmployers();
-        // seedGuests();
+        seedFreelancers();
+        seedEmployers();
+        seedGuests();
 
-        // seedJobs();
-        // seedApplications();
-        // seedEngagements();
+        seedJobs();
+        seedApplications();
+        seedEngagements();
 
         System.out.println("=================================");
         System.out.println("Sample data seeding completed.");
@@ -199,898 +199,904 @@ public class DataSeeder implements CommandLineRunner {
         }
 
         System.out.println("Skills seeded.");
-    }}
+    }
 
 
     // =========================================================
     // FREELANCERS
     // =========================================================
 
-//     private void seedFreelancers() {
-
-//         List<Freelancer> existingFreelancers =
-//                 freelancerRepo.findAll();
-
-//         Map<String, Freelancer> existingByEmail =
-//                 new HashMap<>();
-
-//         for (Freelancer freelancer : existingFreelancers) {
-
-//             if (freelancer.getUser() != null) {
-
-//                 existingByEmail.put(
-//                         freelancer.getUser().getEmail(),
-//                         freelancer
-//                 );
-//             }
-//         }
-
-//         List<Skill> skills = skillRepo.findAll();
-
-//         String[] firstNames = {
-//                 "John",
-//                 "Emma",
-//                 "Michael",
-//                 "Sophia",
-//                 "Daniel",
-//                 "Olivia",
-//                 "James",
-//                 "Emily",
-//                 "William",
-//                 "Ava",
-//                 "David",
-//                 "Mia",
-//                 "Robert",
-//                 "Isabella",
-//                 "Thomas",
-//                 "Amelia",
-//                 "Alex",
-//                 "Charlotte",
-//                 "Henry",
-//                 "Grace"
-//         };
-
-//         String[] lastNames = {
-//                 "Smith",
-//                 "Johnson",
-//                 "Brown",
-//                 "Taylor",
-//                 "Anderson",
-//                 "Wilson",
-//                 "Moore",
-//                 "Martin",
-//                 "Jackson",
-//                 "White",
-//                 "Harris",
-//                 "Clark",
-//                 "Lewis",
-//                 "Walker",
-//                 "Hall"
-//         };
-
-//         String[] titles = {
-//                 "Java Developer",
-//                 "Frontend Developer",
-//                 "Backend Developer",
-//                 "Full Stack Developer",
-//                 "UI/UX Designer",
-//                 "Data Analyst",
-//                 "Data Scientist",
-//                 "Mobile App Developer",
-//                 "DevOps Engineer",
-//                 "Graphic Designer"
-//         };
-
-//         String[] locations = {
-//                 "Yangon",
-//                 "Mandalay",
-//                 "Naypyidaw",
-//                 "Bago",
-//                 "Mawlamyine",
-//                 "Taunggyi",
-//                 "Pathein"
-//         };
-
-//         int created = 0;
-
-//         for (int i = 1; i <= 100; i++) {
-
-//             String email =
-//                     "freelancer" + i + "@example.com";
-
-//             if (existingByEmail.containsKey(email)) {
-//                 continue;
-//             }
-
-//             String firstName =
-//                     firstNames[random.nextInt(firstNames.length)];
-
-//             String lastName =
-//                     lastNames[random.nextInt(lastNames.length)];
+    private void seedFreelancers() {
+
+        List<Freelancer> existingFreelancers =
+                freelancerRepo.findAll();
+
+        Map<String, Freelancer> existingByEmail =
+                new HashMap<>();
+
+        for (Freelancer freelancer : existingFreelancers) {
+
+            if (freelancer.getUser() != null) {
+
+                existingByEmail.put(
+                        freelancer.getUser().getEmail(),
+                        freelancer
+                );
+            }
+        }
+
+        List<Skill> skills = skillRepo.findAll();
+
+        String[] firstNames = {
+                "John",
+                "Emma",
+                "Michael",
+                "Sophia",
+                "Daniel",
+                "Olivia",
+                "James",
+                "Emily",
+                "William",
+                "Ava",
+                "David",
+                "Mia",
+                "Robert",
+                "Isabella",
+                "Thomas",
+                "Amelia",
+                "Alex",
+                "Charlotte",
+                "Henry",
+                "Grace"
+        };
+
+        String[] lastNames = {
+                "Smith",
+                "Johnson",
+                "Brown",
+                "Taylor",
+                "Anderson",
+                "Wilson",
+                "Moore",
+                "Martin",
+                "Jackson",
+                "White",
+                "Harris",
+                "Clark",
+                "Lewis",
+                "Walker",
+                "Hall"
+        };
+
+        String[] titles = {
+                "Java Developer",
+                "Frontend Developer",
+                "Backend Developer",
+                "Full Stack Developer",
+                "UI/UX Designer",
+                "Data Analyst",
+                "Data Scientist",
+                "Mobile App Developer",
+                "DevOps Engineer",
+                "Graphic Designer"
+        };
+
+        String[] locations = {
+                "Yangon",
+                "Mandalay",
+                "Naypyidaw",
+                "Bago",
+                "Mawlamyine",
+                "Taunggyi",
+                "Pathein"
+        };
+
+        int created = 0;
+
+        for (int i = 1; i <= 100; i++) {
+
+            String email =
+                    "freelancer" + i + "@example.com";
+
+            if (existingByEmail.containsKey(email)) {
+                continue;
+            }
+
+            String firstName =
+                    firstNames[random.nextInt(firstNames.length)];
+
+            String lastName =
+                    lastNames[random.nextInt(lastNames.length)];
 
-//             String fullName =
-//                     firstName + " " + lastName + " " + i;
+            String fullName =
+                    firstName + " " + lastName + " " + i;
 
-//             User user = new User();
+            User user = new User();
 
-//             user.setName(fullName);
-//             user.setEmail(email);
+            user.setName(fullName);
+            user.setEmail(email);
 
-//             user.setPassword(
-//                     passwordEncoder.encode("password123")
-//             );
+            user.setPassword(
+                    passwordEncoder.encode("password123")
+            );
 
-//             user.setRole(Role.FREELANCER);
+            user.setRole(Role.FREELANCER);
 
-//             user.setProfilePhoto(
-//                     "default_profile.jpg"
-//             );
+            user.setProfilePhoto(
+                    "default_profile.jpg"
+            );
 
-//             userRepo.save(user);
+            userRepo.save(user);
 
-//             Freelancer freelancer = new Freelancer();
+            Freelancer freelancer = new Freelancer();
 
-//             freelancer.setUser(user);
+            freelancer.setUser(user);
 
-//             freelancer.setTitle(
-//                     titles[random.nextInt(titles.length)]
-//             );
+            freelancer.setTitle(
+                    titles[random.nextInt(titles.length)]
+            );
 
-//             freelancer.setPhone(
-//                     "09" +
-//                     (100000000 + random.nextInt(900000000))
-//             );
+            freelancer.setPhone(
+                    "09" +
+                    (100000000 + random.nextInt(900000000))
+            );
 
-//             freelancer.setLocation(
-//                     locations[random.nextInt(locations.length)]
-//             );
+            freelancer.setLocation(
+                    locations[random.nextInt(locations.length)]
+            );
 
-//             freelancer.setSummary(
-//                     "Experienced freelancer with strong skills " +
-//                     "in software development, design and " +
-//                     "data-related projects."
-//             );
+            freelancer.setSummary(
+                    "Experienced freelancer with strong skills " +
+                    "in software development, design and " +
+                    "data-related projects."
+            );
 
-//             freelancer.setExperience(
-//                     (1 + random.nextInt(6)) +
-//                     " years of professional experience."
-//             );
+            freelancer.setExperience(
+                    (1 + random.nextInt(6)) +
+                    " years of professional experience."
+            );
 
-//             freelancer.setEducation(
-//                     "Bachelor's Degree in Computer Science"
-//             );
+            freelancer.setEducation(
+                    "Bachelor's Degree in Computer Science"
+            );
 
-//             freelancerRepo.save(freelancer);
+            freelancerRepo.save(freelancer);
 
-//             assignFreelancerSkills(
-//                     freelancer,
-//                     skills
-//             );
+            assignFreelancerSkills(
+                    freelancer,
+                    skills
+            );
 
-//             created++;
-//         }
+            created++;
+        }
 
-//         System.out.println(
-//                 "Freelancers created: " + created
-//         );
-//     }
+        System.out.println(
+                "Freelancers created: " + created
+        );
+    }
 
 
-//     private void assignFreelancerSkills(
-//             Freelancer freelancer,
-//             List<Skill> skills) {
+    private void assignFreelancerSkills(
+            Freelancer freelancer,
+            List<Skill> skills) {
 
-//         if (skills.isEmpty()) {
-//             return;
-//         }
+        if (skills.isEmpty()) {
+            return;
+        }
 
-//         List<Skill> shuffled =
-//                 new ArrayList<>(skills);
+        List<Skill> shuffled =
+                new ArrayList<>(skills);
 
-//         Collections.shuffle(shuffled);
+        Collections.shuffle(shuffled);
 
-//         int skillCount =
-//                 Math.min(
-//                         2 + random.nextInt(4),
-//                         shuffled.size()
-//                 );
+        int skillCount =
+                Math.min(
+                        2 + random.nextInt(4),
+                        shuffled.size()
+                );
 
-//         for (int i = 0; i < skillCount; i++) {
+        for (int i = 0; i < skillCount; i++) {
 
-//             FreelancerSkill freelancerSkill =
-//                     new FreelancerSkill();
+            FreelancerSkill freelancerSkill =
+                    new FreelancerSkill();
 
-//             freelancerSkill.setFreelancer(freelancer);
-//             freelancerSkill.setSkill(shuffled.get(i));
+            freelancerSkill.setFreelancer(freelancer);
+            freelancerSkill.setSkill(shuffled.get(i));
 
-//             freelancerSkillRepo.save(
-//                     freelancerSkill
-//             );
-//         }
-//     }
+            freelancerSkillRepo.save(
+                    freelancerSkill
+            );
+        }
+    }
 
 
-//     // =========================================================
-//     // EMPLOYERS
-//     // =========================================================
+    // =========================================================
+    // EMPLOYERS
+    // =========================================================
 
-//     private void seedEmployers() {
+    private void seedEmployers() {
 
-//         List<Employer> existingEmployers =
-//                 employerRepo.findAll();
+        List<Employer> existingEmployers =
+                employerRepo.findAll();
 
-//         Set<String> existingEmails =
-//                 new HashSet<>();
+        Set<String> existingEmails =
+                new HashSet<>();
 
-//         for (Employer employer : existingEmployers) {
+        for (Employer employer : existingEmployers) {
 
-//             if (employer.getUser() != null) {
+            if (employer.getUser() != null) {
 
-//                 existingEmails.add(
-//                         employer.getUser().getEmail()
-//                 );
-//             }
-//         }
+                existingEmails.add(
+                        employer.getUser().getEmail()
+                );
+            }
+        }
 
-//         String[] companies = {
-//                 "Tech Solutions",
-//                 "Digital Innovations",
-//                 "Future Systems",
-//                 "Smart Technologies",
-//                 "Global Soft",
-//                 "Creative Studio",
-//                 "NextGen IT",
-//                 "Cloud Works",
-//                 "Code Factory",
-//                 "Vision Labs"
-//         };
+        String[] companies = {
+                "Tech Solutions",
+                "Digital Innovations",
+                "Future Systems",
+                "Smart Technologies",
+                "Global Soft",
+                "Creative Studio",
+                "NextGen IT",
+                "Cloud Works",
+                "Code Factory",
+                "Vision Labs"
+        };
 
-//         String[] locations = {
-//                 "Yangon",
-//                 "Mandalay",
-//                 "Naypyidaw",
-//                 "Bago",
-//                 "Mawlamyine",
-//                 "Taunggyi"
-//         };
+        String[] locations = {
+                "Yangon",
+                "Mandalay",
+                "Naypyidaw",
+                "Bago",
+                "Mawlamyine",
+                "Taunggyi"
+        };
 
-//         int created = 0;
+        int created = 0;
 
-//         for (int i = 1; i <= 200; i++) {
+        for (int i = 1; i <= 200; i++) {
 
-//             String email =
-//                     "employer" + i + "@example.com";
+            String email =
+                    "employer" + i + "@example.com";
 
-//             if (existingEmails.contains(email)) {
-//                 continue;
-//             }
+            if (existingEmails.contains(email)) {
+                continue;
+            }
 
-//             String companyName =
-//                     companies[random.nextInt(companies.length)]
-//                     + " " + i;
+            String companyName =
+                    companies[random.nextInt(companies.length)]
+                    + " " + i;
 
-//             User user = new User();
+            User user = new User();
 
-//             user.setName("Employer " + i);
-//             user.setEmail(email);
+            user.setName("Employer " + i);
+            user.setEmail(email);
 
-//             user.setPassword(
-//                     passwordEncoder.encode("password123")
-//             );
+            user.setPassword(
+                    passwordEncoder.encode("password123")
+            );
 
-//             user.setRole(Role.EMPLOYER);
+            user.setRole(Role.EMPLOYER);
 
-//             user.setProfilePhoto(
-//                     "default_profile.jpg"
-//             );
+            user.setProfilePhoto(
+                    "default_employer_profile.jpg"
+            );
 
-//             userRepo.save(user);
+            userRepo.save(user);
 
-//             Employer employer = new Employer();
+            Employer employer = new Employer();
 
-//             employer.setUser(user);
+            employer.setUser(user);
 
-//             employer.setCompanyName(
-//                     companyName
-//             );
+            employer.setCompanyName(
+                    companyName
+            );
 
-//             employer.setCompanyEmail(
-//                     "company" + i + "@example.com"
-//             );
+            employer.setCompanyEmail(
+                    "company" + i + "@example.com"
+            );
 
-//             employer.setCompanyPhone(
-//                     "09" +
-//                     (100000000 + random.nextInt(900000000))
-//             );
+            employer.setCompanyPhone(
+                    "09" +
+                    (100000000 + random.nextInt(900000000))
+            );
 
-//             employer.setCompanyDescription(
-//                     "A growing company looking for talented " +
-//                     "professionals to join our team and work " +
-//                     "on exciting projects."
-//             );
+            employer.setCompanyDescription(
+                    "A growing company looking for talented " +
+                    "professionals to join our team and work " +
+                    "on exciting projects."
+            );
 
-//             employer.setCompanyLocation(
-//                     locations[random.nextInt(locations.length)]
-//             );
+            employer.setCompanyLocation(
+                    locations[random.nextInt(locations.length)]
+            );
 
-//             employerRepo.save(employer);
+            employerRepo.save(employer);
 
-//             created++;
-//         }
+            created++;
+        }
 
-//         System.out.println(
-//                 "Employers created: " + created
-//         );
-//     }
+        System.out.println(
+                "Employers created: " + created
+        );
+    }
 
 
-//     // =========================================================
-//     // GUESTS
-//     // =========================================================
+    // =========================================================
+    // GUESTS
+    // =========================================================
 
-//     private void seedGuests() {
+    private void seedGuests() {
 
-//         long existingGuests =
-//                 userRepo.countByRole(Role.GUEST);
+        long existingGuests =
+                userRepo.countByRole(Role.GUEST);
 
-//         int created = 0;
+        int created = 0;
 
-//         for (int i = 1; i <= 50; i++) {
+        for (int i = 1; i <= 50; i++) {
 
-//             String email =
-//                     "guest" + i + "@example.com";
+            String email =
+                    "guest" + i + "@example.com";
 
-//             if (userRepo.existsByEmail(email)) {
-//                 continue;
-//             }
+            if (userRepo.existsByEmail(email)) {
+                continue;
+            }
 
-//             User user = new User();
+            User user = new User();
 
-//             user.setName("Guest " + i);
-//             user.setEmail(email);
+            user.setName("Guest " + i);
+            user.setEmail(email);
 
-//             user.setPassword(
-//                     passwordEncoder.encode("password123")
-//             );
+            user.setPassword(
+                    passwordEncoder.encode("password123")
+            );
 
-//             user.setRole(Role.GUEST);
+            user.setRole(Role.GUEST);
 
-//             user.setProfilePhoto(
-//                     "default_profile.jpg"
-//             );
+            user.setProfilePhoto(
+                    "default_profile.jpg"
+            );
 
-//             userRepo.save(user);
+            userRepo.save(user);
 
-//             created++;
-//         }
+            created++;
+        }
 
-//         System.out.println(
-//                 "Guests created: " + created
-//         );
-//     }
+        System.out.println(
+                "Guests created: " + created
+        );
+    }
 
 
-//     // =========================================================
-//     // JOBS
-//     // =========================================================
+    // =========================================================
+    // JOBS
+    // =========================================================
 
-//     private void seedJobs() {
+    private void seedJobs() {
 
-//         if (jobRepo.count() >= 100) {
+        if (jobRepo.count() >= 100) {
 
-//             System.out.println(
-//                     "100 or more jobs already exist. Skipping jobs."
-//             );
+            System.out.println(
+                    "100 or more jobs already exist. Skipping jobs."
+            );
 
-//             return;
-//         }
+            return;
+        }
 
-//         List<Employer> employers =
-//                 employerRepo.findAll();
+        List<Employer> employers =
+                employerRepo.findAll();
 
-//         List<Category> categories =
-//                 categoryRepo.findAll();
+        List<Category> categories =
+                categoryRepo.findAll();
 
-//         List<Skill> skills =
-//                 skillRepo.findAll();
+        List<Skill> skills =
+                skillRepo.findAll();
 
-//         if (employers.isEmpty()
-//                 || categories.isEmpty()
-//                 || skills.isEmpty()) {
+        if (employers.isEmpty()
+                || categories.isEmpty()
+                || skills.isEmpty()) {
 
-//             System.out.println(
-//                     "Cannot create jobs. Missing employers, " +
-//                     "categories or skills."
-//             );
+            System.out.println(
+                    "Cannot create jobs. Missing employers, " +
+                    "categories or skills."
+            );
 
-//             return;
-//         }
+            return;
+        }
 
-//         String[] jobTitles = {
-//                 "Senior Java Developer",
-//                 "Junior Java Developer",
-//                 "Frontend Developer",
-//                 "Backend Developer",
-//                 "Full Stack Developer",
-//                 "React Developer",
-//                 "Spring Boot Developer",
-//                 "Python Developer",
-//                 "Data Analyst",
-//                 "Data Scientist",
-//                 "Machine Learning Engineer",
-//                 "UI/UX Designer",
-//                 "Graphic Designer",
-//                 "Mobile App Developer",
-//                 "Flutter Developer",
-//                 "DevOps Engineer",
-//                 "Cloud Engineer",
-//                 "Database Administrator",
-//                 "Cybersecurity Analyst",
-//                 "WordPress Developer"
-//         };
+        String[] jobTitles = {
+                "Senior Java Developer",
+                "Junior Java Developer",
+                "Frontend Developer",
+                "Backend Developer",
+                "Full Stack Developer",
+                "React Developer",
+                "Spring Boot Developer",
+                "Python Developer",
+                "Data Analyst",
+                "Data Scientist",
+                "Machine Learning Engineer",
+                "UI/UX Designer",
+                "Graphic Designer",
+                "Mobile App Developer",
+                "Flutter Developer",
+                "DevOps Engineer",
+                "Cloud Engineer",
+                "Database Administrator",
+                "Cybersecurity Analyst",
+                "WordPress Developer"
+        };
 
-//         String[] descriptions = {
-//                 "We are looking for a talented professional to join our growing team. " +
-//                 "You will work on exciting projects and collaborate with experienced team members.",
+        String[] descriptions = {
+                "We are looking for a talented professional to join our growing team. " +
+                "You will work on exciting projects and collaborate with experienced team members.",
 
-//                 "Join our development team and help us build modern, scalable and user-friendly applications. " +
-//                 "Strong communication and problem-solving skills are required.",
+                "Join our development team and help us build modern, scalable and user-friendly applications. " +
+                "Strong communication and problem-solving skills are required.",
 
-//                 "We are seeking a motivated professional who can contribute to real-world projects " +
-//                 "and deliver high-quality work within deadlines.",
+                "We are seeking a motivated professional who can contribute to real-world projects " +
+                "and deliver high-quality work within deadlines.",
 
-//                 "Work with our team to design, develop and maintain innovative software solutions. " +
-//                 "Experience with modern development tools is preferred."
-//         };
+                "Work with our team to design, develop and maintain innovative software solutions. " +
+                "Experience with modern development tools is preferred."
+        };
 
-//         for (int i = 1; i <= 100; i++) {
+        for (int i = 1; i <= 100; i++) {
 
-//             Job job = new Job();
+            Job job = new Job();
 
-//             job.setTitle(
-//                     jobTitles[random.nextInt(jobTitles.length)]
-//             );
+            job.setTitle(
+                    jobTitles[random.nextInt(jobTitles.length)]
+            );
 
-//             job.setDescription(
-//                     descriptions[
-//                             random.nextInt(descriptions.length)
-//                     ]
-//             );
+            job.setDescription(
+                    descriptions[
+                            random.nextInt(descriptions.length)
+                    ]
+            );
 
-//             Employer employer =
-//                     employers.get(
-//                             random.nextInt(employers.size())
-//                     );
+            Employer employer =
+                    employers.get(
+                            random.nextInt(employers.size())
+                    );
 
-//             Category category =
-//                     categories.get(
-//                             random.nextInt(categories.size())
-//                     );
+            Category category =
+                    categories.get(
+                            random.nextInt(categories.size())
+                    );
 
-//             job.setEmployer(employer);
-//             job.setCategory(category);
+            job.setEmployer(employer);
+            job.setCategory(category);
 
-//             EmploymentType employmentType =
-//                     randomEmploymentType();
+            EmploymentType employmentType =
+                    randomEmploymentType();
 
-//             job.setEmploymentType(
-//                     employmentType
-//             );
+            job.setEmploymentType(
+                    employmentType
+            );
 
-//             job.setDuration(
-//                     randomDuration()
-//             );
+            job.setDuration(
+                    randomDuration()
+            );
 
-//             job.setExperienceLevel(
-//                     randomExperienceLevel()
-//             );
+            job.setExperienceLevel(
+                    randomExperienceLevel()
+            );
 
-//             job.setStatus(
-//                     randomJobStatus()
-//             );
+            job.setStatus(
+                    randomJobStatus()
+            );
 
-//             /*
-//              * Salary for regular jobs.
-//              */
-//             if (employmentType == EmploymentType.FIXED_PRICE
-//                     || employmentType == EmploymentType.HOURLY) {
+            /*
+             * Salary for regular jobs.
+             */
+            if (employmentType == EmploymentType.FIXED_PRICE
+                    || employmentType == EmploymentType.HOURLY) {
 
-//                 BigDecimal min =
-//                         BigDecimal.valueOf(
-//                                 500000 +
-//                                 random.nextInt(1000000)
-//                         );
+                BigDecimal min =
+                        BigDecimal.valueOf(
+                                500000 +
+                                random.nextInt(1000000)
+                        );
 
-//                 BigDecimal max =
-//                         min.add(
-//                                 BigDecimal.valueOf(
-//                                         100000 +
-//                                         random.nextInt(500000)
-//                                 )
-//                         );
+                BigDecimal max =
+                        min.add(
+                                BigDecimal.valueOf(
+                                        100000 +
+                                        random.nextInt(500000)
+                                )
+                        );
 
-//                 job.setSalaryMin(min);
-//                 job.setSalaryMax(max);
-//                 job.setBudget(null);
+                BigDecimal budget =
+                        BigDecimal.valueOf(
+                                500000 +
+                                random.nextInt(1000000)
+                        );
 
-//             } else {
+                job.setSalaryMin(min);
+                job.setSalaryMax(max);
+                job.setBudget(budget);
 
-//                 /*
-//                  * Budget for hourly / freelance jobs.
-//                  */
-//                 BigDecimal budget =
-//                         BigDecimal.valueOf(
-//                                 100000 +
-//                                 random.nextInt(900000)
-//                         );
+            } else {
 
-//                 job.setBudget(budget);
+                /*
+                 * Budget for hourly / freelance jobs.
+                 */
+                BigDecimal budget =
+                        BigDecimal.valueOf(
+                                100000 +
+                                random.nextInt(900000)
+                        );
 
-//                 job.setSalaryMin(null);
-//                 job.setSalaryMax(null);
-//             }
+                job.setBudget(budget);
 
-//             job.setDeadline(
-//                     LocalDateTime.now()
-//                             .plusDays(
-//                                     7 + random.nextInt(45)
-//                             )
-//             );
+                job.setSalaryMin(null);
+                job.setSalaryMax(null);
+            }
 
-//             job.setCreatedAt(
-//                     LocalDateTime.now()
-//                             .minusDays(
-//                                     random.nextInt(30)
-//                             )
-//             );
+            job.setDeadline(
+                    LocalDateTime.now()
+                            .plusDays(
+                                    7 + random.nextInt(45)
+                            )
+            );
 
-//             Job savedJob =
-//                     jobRepo.save(job);
+            job.setCreatedAt(
+                    LocalDateTime.now()
+                            .minusDays(
+                                    random.nextInt(30)
+                            )
+            );
 
-//             assignJobSkills(
-//                     savedJob,
-//                     skills
-//             );
-//         }
+            Job savedJob =
+                    jobRepo.save(job);
 
-//         System.out.println("100 jobs seeded.");
-//     }
+            assignJobSkills(
+                    savedJob,
+                    skills
+            );
+        }
 
+        System.out.println("100 jobs seeded.");
+    }
 
-//     private void assignJobSkills(
-//             Job job,
-//             List<Skill> skills) {
 
-//         if (skills.isEmpty()) {
-//             return;
-//         }
+    private void assignJobSkills(
+            Job job,
+            List<Skill> skills) {
 
-//         List<Skill> shuffled =
-//                 new ArrayList<>(skills);
+        if (skills.isEmpty()) {
+            return;
+        }
 
-//         Collections.shuffle(shuffled);
+        List<Skill> shuffled =
+                new ArrayList<>(skills);
 
-//         int skillCount =
-//                 Math.min(
-//                         2 + random.nextInt(4),
-//                         shuffled.size()
-//                 );
+        Collections.shuffle(shuffled);
 
-//         for (int i = 0; i < skillCount; i++) {
+        int skillCount =
+                Math.min(
+                        2 + random.nextInt(4),
+                        shuffled.size()
+                );
 
-//             JobSkill jobSkill =
-//                     new JobSkill();
+        for (int i = 0; i < skillCount; i++) {
 
-//             jobSkill.setJob(job);
-//             jobSkill.setSkill(
-//                     shuffled.get(i)
-//             );
+            JobSkill jobSkill =
+                    new JobSkill();
 
-//             jobSkillRepo.save(jobSkill);
-//         }
-//     }
+            jobSkill.setJob(job);
+            jobSkill.setSkill(
+                    shuffled.get(i)
+            );
 
+            jobSkillRepo.save(jobSkill);
+        }
+    }
 
-//     // =========================================================
-//     // APPLICATIONS
-//     // =========================================================
 
-//     private void seedApplications() {
+    // =========================================================
+    // APPLICATIONS
+    // =========================================================
 
-//         if (jobRepo.count() == 0
-//                 || freelancerRepo.count() == 0) {
+    private void seedApplications() {
 
-//             System.out.println(
-//                     "Cannot create applications."
-//             );
+        if (jobRepo.count() == 0
+                || freelancerRepo.count() == 0) {
 
-//             return;
-//         }
+            System.out.println(
+                    "Cannot create applications."
+            );
 
-//         List<Job> jobs =
-//                 jobRepo.findAll();
+            return;
+        }
 
-//         List<Freelancer> freelancers =
-//                 freelancerRepo.findAll();
+        List<Job> jobs =
+                jobRepo.findAll();
 
-//         int created = 0;
+        List<Freelancer> freelancers =
+                freelancerRepo.findAll();
 
-//         /*
-//          * Each freelancer applies to several random jobs.
-//          */
-//         for (Freelancer freelancer : freelancers) {
+        int created = 0;
 
-//             int applicationCount =
-//                     1 + random.nextInt(5);
+        /*
+         * Each freelancer applies to several random jobs.
+         */
+        for (Freelancer freelancer : freelancers) {
 
-//             List<Job> shuffledJobs =
-//                     new ArrayList<>(jobs);
+            int applicationCount =
+                    1 + random.nextInt(5);
 
-//             Collections.shuffle(shuffledJobs);
+            List<Job> shuffledJobs =
+                    new ArrayList<>(jobs);
 
-//             int max =
-//                     Math.min(
-//                             applicationCount,
-//                             shuffledJobs.size()
-//                     );
+            Collections.shuffle(shuffledJobs);
 
-//             for (int i = 0; i < max; i++) {
+            int max =
+                    Math.min(
+                            applicationCount,
+                            shuffledJobs.size()
+                    );
 
-//                 Job job = shuffledJobs.get(i);
+            for (int i = 0; i < max; i++) {
 
-//                 if (applicationRepo
-//                         .existsByFreelancerAndJob(
-//                                 freelancer,
-//                                 job)) {
+                Job job = shuffledJobs.get(i);
 
-//                     continue;
-//                 }
+                if (applicationRepo
+                        .existsByFreelancerAndJob(
+                                freelancer,
+                                job)) {
 
-//                 Application application =
-//                         new Application();
+                    continue;
+                }
 
-//                 application.setJob(job);
-//                 application.setFreelancer(freelancer);
+                Application application =
+                        new Application();
 
-//                 application.setCurriculumVitae(
-//                         "Hsu_CV.pdf"
-//                 );
+                application.setJob(job);
+                application.setFreelancer(freelancer);
 
-//                 application.setCoverLetter(
-//                         "Dear Hiring Manager,\n\n" +
-//                         "I am interested in this position and " +
-//                         "believe that my skills and experience " +
-//                         "would make me a strong candidate for " +
-//                         "this opportunity.\n\n" +
-//                         "Thank you for considering my application."
-//                 );
+                application.setCurriculumVitae(
+                        "Example_CV.pdf"
+                );
 
-//                 application.setStatus(
-//                         randomApplicationStatus()
-//                 );
+                application.setCoverLetter(
+                        "Dear Hiring Manager,\n\n" +
+                        "I am interested in this position and " +
+                        "believe that my skills and experience " +
+                        "would make me a strong candidate for " +
+                        "this opportunity.\n\n" +
+                        "Thank you for considering my application."
+                );
 
-//                 application.setCreatedAt(
-//                         LocalDateTime.now()
-//                                 .minusDays(
-//                                         random.nextInt(20)
-//                                 )
-//                 );
+                application.setStatus(
+                        randomApplicationStatus()
+                );
 
-//                 applicationRepo.save(
-//                         application
-//                 );
+                application.setCreatedAt(
+                        LocalDateTime.now()
+                                .minusDays(
+                                        random.nextInt(20)
+                                )
+                );
 
-//                 created++;
-//             }
-//         }
+                applicationRepo.save(
+                        application
+                );
 
-//         System.out.println(
-//                 "Applications created: " + created
-//         );
-//     }
+                created++;
+            }
+        }
 
+        System.out.println(
+                "Applications created: " + created
+        );
+    }
 
-//     // =========================================================
-//     // ENGAGEMENTS
-//     // =========================================================
 
-//     private void seedEngagements() {
+    // =========================================================
+    // ENGAGEMENTS
+    // =========================================================
 
-//         List<Employer> employers =
-//                 employerRepo.findAll();
+    private void seedEngagements() {
 
-//         List<Freelancer> freelancers =
-//                 freelancerRepo.findAll();
+        List<Employer> employers =
+                employerRepo.findAll();
 
-//         List<Category> categories =
-//                 categoryRepo.findAll();
+        List<Freelancer> freelancers =
+                freelancerRepo.findAll();
 
-//         if (employers.isEmpty()
-//                 || freelancers.isEmpty()
-//                 || categories.isEmpty()) {
+        List<Category> categories =
+                categoryRepo.findAll();
 
-//             System.out.println(
-//                     "Cannot create engagements."
-//             );
+        if (employers.isEmpty()
+                || freelancers.isEmpty()
+                || categories.isEmpty()) {
 
-//             return;
-//         }
+            System.out.println(
+                    "Cannot create engagements."
+            );
 
-//         /*
-//          * Create around 50 engagements.
-//          */
-//         int engagementCount = 50;
+            return;
+        }
 
-//         int created = 0;
+        /*
+         * Create around 50 engagements.
+         */
+        int engagementCount = 50;
 
-//         for (int i = 1; i <= engagementCount; i++) {
+        int created = 0;
 
-//             Employer employer =
-//                     employers.get(
-//                             random.nextInt(
-//                                     employers.size()
-//                             )
-//                     );
+        for (int i = 1; i <= engagementCount; i++) {
 
-//             Freelancer freelancer =
-//                     freelancers.get(
-//                             random.nextInt(
-//                                     freelancers.size()
-//                             )
-//                     );
+            Employer employer =
+                    employers.get(
+                            random.nextInt(
+                                    employers.size()
+                            )
+                    );
 
-//             Category category =
-//                     categories.get(
-//                             random.nextInt(
-//                                     categories.size()
-//                             )
-//                     );
+            Freelancer freelancer =
+                    freelancers.get(
+                            random.nextInt(
+                                    freelancers.size()
+                            )
+                    );
 
-//             Engagement engagement =
-//                     new Engagement();
+            Category category =
+                    categories.get(
+                            random.nextInt(
+                                    categories.size()
+                            )
+                    );
 
-//             engagement.setTitle(
-//                     engagementTitle()
-//             );
+            Engagement engagement =
+                    new Engagement();
 
-//             engagement.setDescription(
-//                     "This engagement involves working with " +
-//                     "the client on an exciting project. " +
-//                     "The freelancer will be responsible for " +
-//                     "delivering high-quality work and meeting " +
-//                     "project requirements."
-//             );
+            engagement.setTitle(
+                    engagementTitle()
+            );
 
-//             engagement.setMonthlyRate(
-//                     BigDecimal.valueOf(
-//                             500000 +
-//                             random.nextInt(1500000)
-//                     )
-//             );
+            engagement.setDescription(
+                    "This engagement involves working with " +
+                    "the client on an exciting project. " +
+                    "The freelancer will be responsible for " +
+                    "delivering high-quality work and meeting " +
+                    "project requirements."
+            );
 
-//             engagement.setStartDate(
-//                     LocalDateTime.now()
-//                             .minusDays(
-//                                     random.nextInt(30)
-//                             )
-//             );
+            engagement.setMonthlyRate(
+                    BigDecimal.valueOf(
+                            500000 +
+                            random.nextInt(1500000)
+                    )
+            );
 
-//             engagement.setEndDate(
-//                     LocalDateTime.now()
-//                             .plusDays(
-//                                     30 +
-//                                     random.nextInt(120)
-//                             )
-//             );
+            engagement.setStartDate(
+                    LocalDateTime.now()
+                            .minusDays(
+                                    random.nextInt(30)
+                            )
+            );
 
-//             engagement.setEmployer(employer);
-//             engagement.setFreelancer(freelancer);
-//             engagement.setCategory(category);
+            engagement.setEndDate(
+                    LocalDateTime.now()
+                            .plusDays(
+                                    30 +
+                                    random.nextInt(120)
+                            )
+            );
 
-//             engagement.setStatus(
-//                     randomEngagementStatus()
-//             );
+            engagement.setEmployer(employer);
+            engagement.setFreelancer(freelancer);
+            engagement.setCategory(category);
 
-//             engagementRepo.save(
-//                     engagement
-//             );
+            engagement.setStatus(
+                    randomEngagementStatus()
+            );
 
-//             created++;
-//         }
+            engagementRepo.save(
+                    engagement
+            );
 
-//         System.out.println(
-//                 "Engagements created: " + created
-//         );
-//     }
+            created++;
+        }
 
+        System.out.println(
+                "Engagements created: " + created
+        );
+    }
 
-//     // =========================================================
-//     // RANDOM ENUM HELPERS
-//     // =========================================================
 
-//     private EmploymentType randomEmploymentType() {
+    // =========================================================
+    // RANDOM ENUM HELPERS
+    // =========================================================
 
-//         EmploymentType[] values =
-//                 EmploymentType.values();
+    private EmploymentType randomEmploymentType() {
 
-//         return values[
-//                 random.nextInt(values.length)
-//         ];
-//     }
+        EmploymentType[] values =
+                EmploymentType.values();
 
+        return values[
+                random.nextInt(values.length)
+        ];
+    }
 
-//     private DurationType randomDuration() {
 
-//         DurationType[] values =
-//                 DurationType.values();
+    private DurationType randomDuration() {
 
-//         return values[
-//                 random.nextInt(values.length)
-//         ];
-//     }
+        DurationType[] values =
+                DurationType.values();
 
+        return values[
+                random.nextInt(values.length)
+        ];
+    }
 
-//     private ExperienceLevel randomExperienceLevel() {
 
-//         ExperienceLevel[] values =
-//                 ExperienceLevel.values();
+    private ExperienceLevel randomExperienceLevel() {
 
-//         return values[
-//                 random.nextInt(values.length)
-//         ];
-//     }
+        ExperienceLevel[] values =
+                ExperienceLevel.values();
 
+        return values[
+                random.nextInt(values.length)
+        ];
+    }
 
-//     private JobStatus randomJobStatus() {
 
-//         JobStatus[] values =
-//                 JobStatus.values();
+    private JobStatus randomJobStatus() {
 
-//         return values[
-//                 random.nextInt(values.length)
-//         ];
-//     }
+        JobStatus[] values =
+                JobStatus.values();
 
+        return values[
+                random.nextInt(values.length)
+        ];
+    }
 
-//     private ApplicationStatus randomApplicationStatus() {
 
-//         ApplicationStatus[] values =
-//                 ApplicationStatus.values();
+    private ApplicationStatus randomApplicationStatus() {
 
-//         return values[
-//                 random.nextInt(values.length)
-//         ];
-//     }
+        ApplicationStatus[] values =
+                ApplicationStatus.values();
 
+        return values[
+                random.nextInt(values.length)
+        ];
+    }
 
-//     private EngagementStatus randomEngagementStatus() {
 
-//         EngagementStatus[] values =
-//                 EngagementStatus.values();
+    private EngagementStatus randomEngagementStatus() {
 
-//         return values[
-//                 random.nextInt(values.length)
-//         ];
-//     }
+        EngagementStatus[] values =
+                EngagementStatus.values();
 
+        return values[
+                random.nextInt(values.length)
+        ];
+    }
 
-//     private String engagementTitle() {
 
-//         String[] titles = {
-//                 "Website Development Project",
-//                 "Mobile Application Project",
-//                 "UI/UX Design Project",
-//                 "Data Analysis Project",
-//                 "E-commerce Development",
-//                 "Business Website Development",
-//                 "Software Development Project",
-//                 "Digital Marketing Project",
-//                 "Database Development Project",
-//                 "Cloud Migration Project"
-//         };
+    private String engagementTitle() {
 
-//         return titles[
-//                 random.nextInt(titles.length)
-//         ];
-//     }
-// }
+        String[] titles = {
+                "Website Development Project",
+                "Mobile Application Project",
+                "UI/UX Design Project",
+                "Data Analysis Project",
+                "E-commerce Development",
+                "Business Website Development",
+                "Software Development Project",
+                "Digital Marketing Project",
+                "Database Development Project",
+                "Cloud Migration Project"
+        };
+
+        return titles[
+                random.nextInt(titles.length)
+        ];
+    }
+}

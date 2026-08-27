@@ -11,6 +11,7 @@ import com.jobhunter.JobHunter.repository.JobRepository;
 import com.jobhunter.JobHunter.repository.EmployerRepository;
 import com.jobhunter.JobHunter.repository.FreelancerRepository;
 import com.jobhunter.JobHunter.repository.EngagementRepository;
+import com.jobhunter.JobHunter.repository.ApplicationRepository;
 import com.jobhunter.JobHunter.service.EmployerService;
 import com.jobhunter.JobHunter.service.FreelancerService;
 import com.jobhunter.JobHunter.service.JobService;
@@ -32,6 +33,7 @@ class SecurityRouteAccessTest {
     @MockitoBean private EmployerRepository employerRepository;
     @MockitoBean private FreelancerRepository freelancerRepository;
     @MockitoBean private EngagementRepository engagementRepository;
+    @MockitoBean private ApplicationRepository applicationRepository;
     @MockitoBean private EmployerService employerService;
     @MockitoBean private JobService jobService;
 

@@ -20,6 +20,7 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     List<Job> findByEmployer(Employer employer);
     
     List<Job> findTop3ByOrderByCreatedAtDesc();
+    List<Job> findTop3ByStatusOrderByCreatedAtDesc(JobStatus status);
     List<Job> findTop6ByOrderByCreatedAtDesc();
     List<Job> findByCategoryId(Long categoryId);
     

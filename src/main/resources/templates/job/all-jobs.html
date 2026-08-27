@@ -1,183 +1,151 @@
-<!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>All Jobs | JobHunter</title>
 
-    <link rel="stylesheet"
-          th:href="@{/css/bootstrap.min.css}">
-    <script th:src="@{/js/bootstrap.bundle.min.js}"
-            defer></script>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet">
-    <link rel="stylesheet"
-          th:href="@{/css/navbar.css}">
-    <link rel="stylesheet"
-          th:href="@{/css/footer.css}">
-    <link rel="stylesheet"
-          th:href="@{/css/all-jobs.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <script th:src="@{/js/bootstrap.bundle.min.js}" defer></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" th:href="@{/css/navbar.css}" />
+    <link rel="stylesheet" th:href="@{/css/footer.css}" />
+    <link rel="stylesheet" th:href="@{/css/all-jobs.css}" />
 
-    <style>
+    <style></style>
+  </head>
 
-    </style>
-</head>
+  <body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<body>
-
-<div th:replace="~{fragments/navbar :: navbar}"></div>
-
-<main class="jobs-page">
-
-    <div class="jobs-header">
+    <main class="jobs-page">
+      <div class="jobs-header">
         <div class="header-icon">
-            <i class="fa-solid fa-briefcase"></i>
+          <i class="fa-solid fa-briefcase"></i>
         </div>
 
-        <h1>
-            Explore <span>Jobs</span>
-        </h1>
+        <h1>Explore <span>Jobs</span></h1>
 
         <p>
-            Explore available jobs, discover new opportunities,
-            and find the right position for your skills and career goals.
+          Explore available jobs, discover new opportunities, and find the right
+          position for your skills and career goals.
         </p>
 
         <div class="job-summary">
-            <span>
-                <i class="fa-solid fa-briefcase"></i>
-                <strong
-                    th:text="${jobs != null ? jobs.size() : 0}">
-                    0
-                </strong>
-                Jobs Available
-            </span>
+          <span>
+            <i class="fa-solid fa-briefcase"></i>
+            <strong th:text="${jobs != null ? jobs.size() : 0}"> 0 </strong>
+            Jobs Available
+          </span>
         </div>
-    </div>
+      </div>
 
-    <div th:if="${jobs == null || jobs.isEmpty()}"
-         class="empty-state">
+      <div th:if="${jobs == null || jobs.isEmpty()}" class="empty-state">
         <div class="empty-icon">
-            <i class="fa-regular fa-folder-open"></i>
+          <i class="fa-regular fa-folder-open"></i>
         </div>
 
-        <h3>
-            No Jobs Found
-        </h3>
+        <h3>No Jobs Found</h3>
 
-        <p>
-            There are currently no jobs available.
-        </p>
-    </div>
+        <p>There are currently no jobs available.</p>
+      </div>
 
-    <div th:if="${jobs != null && !jobs.isEmpty()}"
-         class="job-grid">
-
-        <a th:each="job : ${jobs}"
-           th:href="@{/job-details/{id}(id=${job.id})}"
-           class="job-card-link">
-
-            <div class="job-card">
-
-                <div class="job-top">
-
-                    <div class="job-company-logo">
-                        <img th:if="${job.employer != null
+      <div th:if="${jobs != null && !jobs.isEmpty()}" class="job-grid">
+        <a
+          th:each="job : ${jobs}"
+          th:href="@{/job-details/{id}(id=${job.id})}"
+          class="job-card-link"
+        >
+          <div class="job-card">
+            <div class="job-top">
+              <div class="job-company-logo">
+                <img
+                  th:if="${job.employer != null
                                     && job.employer.user != null
                                     && job.employer.user.profilePhoto != null
                                     && !job.employer.user.profilePhoto.isEmpty()}"
-                             th:src="@{'/uploads/' + ${job.employer.user.profilePhoto}}"
-                             alt="Company Photo"
-                             class="company-photo">
+                  th:src="@{'/uploads/' + ${job.employer.user.profilePhoto}}"
+                  alt="Company Photo"
+                  class="company-photo"
+                />
 
-                        <i th:if="${job.employer == null
+                <i
+                  th:if="${job.employer == null
                                    || job.employer.user == null
                                    || job.employer.user.profilePhoto == null
                                    || job.employer.user.profilePhoto.isEmpty()}"
-                           class="fa-solid fa-building">
-                        </i>
-                    </div>
+                  class="fa-solid fa-building"
+                >
+                </i>
+              </div>
 
-                    <div class="job-heading">
-                        <h3 th:text="${job.title}">
-                            Software Engineer
-                        </h3>
+              <div class="job-heading">
+                <h3 th:text="${job.title}">Software Engineer</h3>
 
-                        <p class="company-name"
-                           th:text="${job.employer.companyName}">
-                            Company Name
-                        </p>
+                <p class="company-name" th:text="${job.employer.companyName}">
+                  Company Name
+                </p>
 
-                        <p class="job-date">
-                            <i class="fa-regular fa-calendar"></i>
-                            <span th:text="${job.timeAgo}">
-                                2 days ago
-                            </span>
-                        </p>
-                    </div>
+                <p class="job-date">
+                  <i class="fa-regular fa-calendar"></i>
+                  <span th:text="${job.timeAgo}"> 2 days ago </span>
+                </p>
+              </div>
+            </div>
 
-                </div>
+            <div class="job-status">
+              <span
+                class="status status-open"
+                th:if="${job.status != null
+                                  && job.status.name() == 'OPEN'}"
+              >
+                <i class="fa-solid fa-circle" style="font-size: 6px"></i>
+                OPEN
+              </span>
 
-                <div class="job-status">
-                    <span class="status status-open"
-                          th:if="${job.status != null
-                                  && job.status.name() == 'OPEN'}">
-                        <i class="fa-solid fa-circle"
-                           style="font-size: 6px;"></i>
-                        OPEN
-                    </span>
+              <span
+                class="status status-closed"
+                th:if="${job.status != null
+                                  && job.status.name() == 'CLOSED'}"
+              >
+                <i class="fa-solid fa-circle" style="font-size: 6px"></i>
+                CLOSED
+              </span>
+            </div>
 
-                    <span class="status status-closed"
-                          th:if="${job.status != null
-                                  && job.status.name() == 'CLOSED'}">
-                        <i class="fa-solid fa-circle"
-                           style="font-size: 6px;"></i>
-                        CLOSED
-                    </span>
-                </div>
+            <div class="job-details">
+              <div class="job-detail">
+                <i class="fa-solid fa-location-dot"></i>
+                <span th:text="${job.employer.companyLocation}"> Yangon </span>
+              </div>
 
-                <div class="job-details">
-                    <div class="job-detail">
-                        <i class="fa-solid fa-location-dot"></i>
-                        <span th:text="${job.employer.companyLocation}">
-                            Yangon
-                        </span>
-                    </div>
+              <div class="job-detail">
+                <i class="fa-solid fa-clock"></i>
+                <span th:text="${job.employmentType}"> HOURLY </span>
+              </div>
 
-                    <div class="job-detail">
-                        <i class="fa-solid fa-clock"></i>
-                        <span th:text="${job.employmentType}">
-                            HOURLY
-                        </span>
-                    </div>
+              <div class="job-detail">
+                <i class="fa-solid fa-user-tie"></i>
+                <span th:text="${job.experienceLevel}"> ENTRY </span>
+              </div>
 
-                    <div class="job-detail">
-                        <i class="fa-solid fa-user-tie"></i>
-                        <span th:text="${job.experienceLevel}">
-                            ENTRY
-                        </span>
-                    </div>
+              <div class="job-detail">
+                <i class="fa-solid fa-calendar-days"></i>
+                <span th:text="${job.duration}"> ONE_TO_THREE_MONTHS </span>
+              </div>
+            </div>
 
-                    <div class="job-detail">
-                        <i class="fa-solid fa-calendar-days"></i>
-                        <span th:text="${job.duration}">
-                            ONE_TO_THREE_MONTHS
-                        </span>
-                    </div>
-                </div>
-
-                <div class="job-bottom">
-                    <!-- <div class="job-salary">
+            <div class="job-bottom">
+              <!-- <div class="job-salary">
                         <span th:text="${job.salaryMin}">
                             100
                         </span>
@@ -189,37 +157,34 @@
                             Kyats/month
                         </span>
                     </div> -->
-                    <div class="job-salary">
+              <div class="job-salary">
+                <!-- Salary range -->
+                <span
+                  th:if="${job.employmentType.name() == 'HOURLY' and job.salaryMin != null and job.salaryMax != null}"
+                >
+                  <span th:text="${job.salaryMin}">$900</span>
+                  -
+                  <span th:text="${job.salaryMax}">$1,400</span>
+                  <span> Kyats/hour</span>
+                </span>
 
-                        <!-- Salary range -->
-                        <span th:if="${job.salaryMin != null and job.salaryMax != null}">
-                            <span th:text="${job.salaryMin}">$900</span>
-                            -
-                            <span th:text="${job.salaryMax}">$1,400</span>
-                            <span> Kyats/hour</span>
-                        </span>
-
-                        <!-- Budget -->
-                        <span th:if="${job.salaryMin == null or job.salaryMax == null}"
-                            th:text="${job.budget+' Kyats/month'}">
-                            $1,500
-                        </span>
-                    </div>
-                    <span class="job-type"
-                          th:text="${job.employmentType}">
-                        HOURLY
-                    </span>
-                </div>
-
+                <!-- Budget -->
+                <span
+                  th:if="${job.employmentType.name() == 'FIXED_PRICE'}"
+                  th:text="${job.budget+' Kyats/month'}"
+                >
+                  $1,500
+                </span>
+              </div>
+              <span class="job-type" th:text="${job.employmentType}">
+                HOURLY
+              </span>
             </div>
-
+          </div>
         </a>
+      </div>
+    </main>
 
-    </div>
-
-</main>
-
-<div th:replace="~{fragments/footer :: footer}"></div>
-
-</body>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+  </body>
 </html>
