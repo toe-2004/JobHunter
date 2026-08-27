@@ -188,35 +188,49 @@
                         </span>
                     </div>
 
-                    <div class="info-item">
-                        <span class="info-label">
-                            Budget
-                        </span>
-                        <span class="info-value"
-                              th:text="${job.budget + ' Kyats'}">
-                            100,000 Kyats
-                        </span>
-                    </div>
+					
+					<div class="info-item"
+					     th:if="${job.employmentType.name() == 'FIXED_PRICE' and job.budget != null}">
 
-                    <div class="info-item">
-                        <span class="info-label">
-                            Minimum Salary
-                        </span>
-                        <span class="info-value"
-                              th:text="${job.salaryMin + ' Kyats'}">
-                            300,000 Kyats
-                        </span>
-                    </div>
+					    <span class="info-label">
+					        Budget
+					    </span>
 
-                    <div class="info-item">
-                        <span class="info-label">
-                            Maximum Salary
-                        </span>
-                        <span class="info-value"
-                              th:text="${job.salaryMax + ' Kyats'}">
-                            500,000 Kyats
-                        </span>
-                    </div>
+					    <span class="info-value"
+					          th:text="${job.budget + ' Kyats'}">
+					        100,000 Kyats
+					    </span>
+
+					</div>
+
+					<div class="info-item"
+					     th:if="${job.employmentType.name() == 'HOURLY' and job.salaryMin != null}">
+
+					    <span class="info-label">
+					        Minimum Salary
+					    </span>
+
+					    <span class="info-value"
+					          th:text="${job.salaryMin + ' Kyats'}">
+					        300,000 Kyats
+					    </span>
+
+					</div>
+
+
+					<div class="info-item"
+					     th:if="${job.employmentType.name() == 'HOURLY' and job.salaryMax != null}">
+
+					    <span class="info-label">
+					        Maximum Salary
+					    </span>
+
+					    <span class="info-value"
+					          th:text="${job.salaryMax + ' Kyats'}">
+					        500,000 Kyats
+					    </span>
+
+					</div>
 
                 </div>
             </section>

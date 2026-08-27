@@ -130,6 +130,15 @@ public class JobController {
 
         job.setEmployer(employer);
         job.setStatus(JobStatus.OPEN);
+        if (job.getEmploymentType() == EmploymentType.HOURLY) {
+
+            job.setBudget(null);
+
+        } else if (job.getEmploymentType() == EmploymentType.FIXED_PRICE) {
+
+            job.setSalaryMin(null);
+            job.setSalaryMax(null);
+        }
         Job savedJob = jobRepository.save(job);
         if (skillIds != null) {
 

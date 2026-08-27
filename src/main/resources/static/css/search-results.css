@@ -399,6 +399,32 @@ body {
     line-height: 1.7;
 }
 
+.job-status {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.status-open {
+    background: #e8f7ee;
+    color: #198754;
+}
+
+.status-closed {
+    background: #fce8e8;
+    color: #dc3545;
+}
+
 @media (min-width: 1200px) {
     .search-page {
         max-width: 1250px;

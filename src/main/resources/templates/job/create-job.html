@@ -187,93 +187,7 @@
 
                     </section>
 
-                    <section class="form-section">
-
-                        <div class="section-heading">
-
-                            <div class="section-icon">
-                                <i class="fa-solid fa-wallet"></i>
-                            </div>
-
-                            <div>
-
-                                <h3>Budget & Salary</h3>
-
-                                <p>
-                                    Set the expected compensation
-                                </p>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="salary-grid">
-
-                            <div class="field-group">
-
-                                <label class="form-label">
-                                    Salary Min
-                                </label>
-
-                                <div class="money-input">
-
-                                    <span>$</span>
-
-                                    <input
-                                        type="number"
-                                        step="0.01"
-                                        th:field="*{salaryMin}"
-                                        placeholder="0.00">
-
-                                </div>
-
-                            </div>
-
-                            <div class="field-group">
-
-                                <label class="form-label">
-                                    Salary Max
-                                </label>
-
-                                <div class="money-input">
-
-                                    <span>$</span>
-
-                                    <input
-                                        type="number"
-                                        step="0.01"
-                                        th:field="*{salaryMax}"
-                                        placeholder="0.00">
-
-                                </div>
-
-                            </div>
-
-                            <div class="field-group">
-
-                                <label class="form-label">
-                                    Fixed Budget
-                                </label>
-
-                                <div class="money-input">
-
-                                    <span>$</span>
-
-                                    <input
-                                        type="number"
-                                        step="0.01"
-                                        th:field="*{budget}"
-                                        placeholder="0.00">
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </section>
-
+					
                     <section class="form-section">
 
                         <div class="section-heading">
@@ -297,25 +211,32 @@
 
                         <div class="details-grid">
 
-                            <div class="field-group">
+							<div class="field-group">
 
-                                <label class="form-label">
-                                    Employment Type
-                                </label>
+							    <label class="form-label">
+							        Employment Type
+							    </label>
 
-                                <select
-                                    class="form-select"
-                                    th:field="*{employmentType}">
+							    <select
+							        class="form-select"
+							        th:field="*{employmentType}"
+							        id="employmentType">
 
-                                    <option
-                                        th:each="t : ${employmentTypes}"
-                                        th:value="${t}"
-                                        th:text="${t}">
-                                    </option>
+							        <option
+							            value=""
+							            disabled>
+							            Select Employment Type
+							        </option>
 
-                                </select>
+							        <option
+							            th:each="t : ${employmentTypes}"
+							            th:value="${t}"
+							            th:text="${t}">
+							        </option>
 
-                            </div>
+							    </select>
+
+							</div>
 
                             <div class="field-group">
 
@@ -358,6 +279,84 @@
                             </div>
 
                         </div>
+						<section class="form-section">
+
+											    <div class="section-heading">
+											        <div class="section-icon">
+											            <i class="fa-solid fa-wallet"></i>
+											        </div>
+
+											        <div>
+											            <h3>Budget & Salary</h3>
+											            <p>
+											                Set the expected compensation
+											            </p>
+											        </div>
+											    </div>
+
+
+											    <div class="salary-grid">
+
+											        <!-- SALARY MIN -->
+											        <div class="field-group hourly-field">
+											            <label class="form-label">
+											                Salary Min
+											            </label>
+
+											            <div class="money-input">
+											                <span>$</span>
+
+											                <input
+											                    type="number"
+											                    step="0.01"
+											                    th:field="*{salaryMin}"
+											                    id="salaryMin"
+											                    placeholder="0.00">
+											            </div>
+											        </div>
+
+
+											        <!-- SALARY MAX -->
+											        <div class="field-group hourly-field">
+											            <label class="form-label">
+											                Salary Max
+											            </label>
+
+											            <div class="money-input">
+											                <span>$</span>
+
+											                <input
+											                    type="number"
+											                    step="0.01"
+											                    th:field="*{salaryMax}"
+											                    id="salaryMax"
+											                    placeholder="0.00">
+											            </div>
+											        </div>
+
+
+											        <!-- FIXED BUDGET -->
+											        <div class="field-group fixed-price-field">
+											            <label class="form-label">
+											                Fixed Budget
+											            </label>
+
+											            <div class="money-input">
+											                <span>$</span>
+
+											                <input
+											                    type="number"
+											                    step="0.01"
+											                    th:field="*{budget}"
+											                    id="budget"
+											                    placeholder="0.00">
+											            </div>
+											        </div>
+
+											    </div>
+
+											</section>
+
 
                         <div class="field-group deadline-field">
 
@@ -621,7 +620,98 @@
     </main>
 
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
 
+        const employmentType =
+            document.getElementById("employmentType");
+
+        const hourlyFields =
+            document.querySelectorAll(".hourly-field");
+
+        const fixedPriceField =
+            document.querySelector(".fixed-price-field");
+
+        const salaryMin =
+            document.getElementById("salaryMin");
+
+        const salaryMax =
+            document.getElementById("salaryMax");
+
+        const budget =
+            document.getElementById("budget");
+
+
+        function updateBudgetFields() {
+
+            const selectedType = employmentType.value;
+
+
+            if (selectedType === "HOURLY") {
+
+                hourlyFields.forEach(function (field) {
+                    field.style.display = "block";
+                });
+
+                fixedPriceField.style.display = "none";
+
+                budget.value = "";
+
+          
+                salaryMin.disabled = false;
+                salaryMax.disabled = false;
+
+      
+                budget.disabled = true;
+
+            }
+
+
+            else if (selectedType === "FIXED_PRICE") {
+
+                hourlyFields.forEach(function (field) {
+                    field.style.display = "none";
+                });
+
+                fixedPriceField.style.display = "block";
+
+                salaryMin.value = "";
+                salaryMax.value = "";
+
+                salaryMin.disabled = true;
+                salaryMax.disabled = true;
+
+                budget.disabled = false;
+
+            }
+
+
+            else {
+
+                hourlyFields.forEach(function (field) {
+                    field.style.display = "none";
+                });
+
+                fixedPriceField.style.display = "none";
+
+                salaryMin.disabled = true;
+                salaryMax.disabled = true;
+                budget.disabled = true;
+            }
+        }
+
+
+    
+        updateBudgetFields();
+
+
+        employmentType.addEventListener(
+            "change",
+            updateBudgetFields
+        );
+
+    });
+</script>
 </body>
 
 </html>

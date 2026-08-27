@@ -1,5 +1,6 @@
 package com.jobhunter.JobHunter.repository;
 
+import com.jobhunter.JobHunter.enumeration.JobStatus;
 import com.jobhunter.JobHunter.model.Category;
 import com.jobhunter.JobHunter.model.Employer;
 import com.jobhunter.JobHunter.model.Job;
@@ -29,6 +30,6 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     List<Job> findByEmployerCompanyNameContainingIgnoreCase(String keyword);
 
     List<Job> findByCategoryNameContainingIgnoreCase(String keyword);
-
+    long countByStatus(JobStatus status);
    
 }

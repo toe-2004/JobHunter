@@ -83,7 +83,7 @@
 
     </nav>
 
-    <a th:href="@{/freelancer/profile}" class="sidebar-profile d-none d-lg-flex">
+    <a class="sidebar-profile d-none d-lg-flex">
 
         <img th:if="${user.profilePhoto != null}" th:src="@{'/uploads/' + ${user.profilePhoto}}"
                 alt="Profile Photo"

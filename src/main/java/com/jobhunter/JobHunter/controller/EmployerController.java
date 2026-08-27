@@ -37,7 +37,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
+import java.util.List;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import com.jobhunter.JobHunter.enumeration.Role;
 @Controller
 @RequestMapping("/employer")
 public class EmployerController {
@@ -76,6 +83,22 @@ public class EmployerController {
         User user = userService.findByEmail(userDetails.getUsername());
         employerService.createEmployer(user.getId(), form);
 
+        user.setRole(Role.EMPLOYER);
+        userRepository.save(user);
+
+        Authentication currentAuth =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        Authentication newAuth =
+                new UsernamePasswordAuthenticationToken(
+                        currentAuth.getPrincipal(),
+                        currentAuth.getCredentials(),
+                        List.of(
+                                new SimpleGrantedAuthority("ROLE_EMPLOYER")
+                        )
+                );
+
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
         return "redirect:/employer/dashboard";
     }
 

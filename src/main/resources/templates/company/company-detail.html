@@ -245,7 +245,7 @@
                     </div>
 
                     <div class="job-bottom">
-                        <div class="job-salary">
+                        <!-- <div class="job-salary">
                             <span th:text="${job.salaryMin}">
                                 100
                             </span>
@@ -256,8 +256,23 @@
                             <span class="salary-period">
                                 Kyats/month
                             </span>
-                        </div>
+                        </div> -->
+                        <div class="job-salary">
 
+                            <!-- Salary range -->
+                            <span th:if="${job.salaryMin != null and job.salaryMax != null}">
+                                <span th:text="${job.salaryMin}">$900</span>
+                                -
+                                <span th:text="${job.salaryMax}">$1,400</span>
+                                <span> Kyats/hour</span>
+                            </span>
+
+                            <!-- Budget -->
+                            <span th:if="${job.salaryMin == null or job.salaryMax == null}"
+                                th:text="${job.budget+' Kyats/month'}">
+                                $1,500
+                            </span>
+                        </div>
                         <span class="job-type"
                               th:text="${job.employmentType}">
                             HOURLY

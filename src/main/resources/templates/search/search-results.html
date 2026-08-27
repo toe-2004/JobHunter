@@ -158,6 +158,23 @@
                             Company opportunity
                         </span>
                     </div>
+                    <div class="job-status">
+                    <span class="status status-open"
+                          th:if="${job.status != null
+                                  && job.status.name() == 'OPEN'}">
+                        <i class="fa-solid fa-circle"
+                           style="font-size: 6px;"></i>
+                        OPEN
+                    </span>
+
+                    <span class="status status-closed"
+                          th:if="${job.status != null
+                                  && job.status.name() == 'CLOSED'}">
+                        <i class="fa-solid fa-circle"
+                           style="font-size: 6px;"></i>
+                        CLOSED
+                    </span>
+                </div>
                 </div>
 
             </a>
