@@ -57,32 +57,32 @@
     </p>
 
 
-    <form th:action="@{/apply-job/{id}(id=${job.id})}"
-          method="post"
-          th:object="${application}">
 
+	<form th:action="@{/apply-job/{id}(id=${job.id})}"
+	      method="post"
+	      th:object="${applicationDto}"
+	      enctype="multipart/form-data">
 
-        <label>Curriculum Vitae</label>
+	    <label>Curriculum Vitae</label>
 
-        <input type="text"
-               th:field="*{curriculumVitae}"
-               placeholder="CV file/path">
+	    <input type="file"
+	           th:field="*{curriculumVitae}"
+	           accept=".pdf,.doc,.docx"
+	           required>
 
+	    <label>Cover Letter</label>
 
-        <label>Cover Letter</label>
+	    <textarea th:field="*{coverLetter}"
+	              rows="8"
+	              placeholder="Write your cover letter..."
+	              required></textarea>
 
-        <textarea th:field="*{coverLetter}"
-                  rows="8"
-                  placeholder="Write your cover letter..."
-                  required>
-        </textarea>
+	    <button type="submit">
+	        Apply
+	    </button>
 
+	</form>
 
-        <button type="submit">
-            Apply
-        </button>
-
-    </form>
 
 </div>
 
