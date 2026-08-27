@@ -132,16 +132,12 @@ public class FreelancerController {
         model.addAttribute("recentApplications", recentApplications);
         model.addAttribute("recentHireRequests", recentHireRequests);
 
-        // ⭐ Active sidebar item
         model.addAttribute("currentPage", "dashboard");
 
         return "freelancer/dashboard";
         }
 
 
-    // =========================================================
-    // CREATE FREELANCER PROFILE
-    // =========================================================
 
     @GetMapping("/freelancer/create")
     public String createFreelancer(Model model) {
@@ -150,9 +146,6 @@ public class FreelancerController {
 
         model.addAttribute("user", user);
 
-
-        // If profile already exists,
-        // don't allow creating another one.
         Optional<Freelancer> existingFreelancer =
                 freelancerRepository.findByUser(user);
 
@@ -191,10 +184,6 @@ public class FreelancerController {
     }
 
 
-    // =========================================================
-    // VIEW OWN FREELANCER PROFILE
-    // =========================================================
-
     @GetMapping("/freelancer/profile")
     public String viewProfile(Model model) {
 
@@ -210,9 +199,6 @@ public class FreelancerController {
                 freelancerRepository
                         .findByUser(user);
 
-
-        // If freelancer profile doesn't exist,
-        // send user to create page.
         if (optionalFreelancer.isEmpty()) {
 
             return "redirect:/freelancer/create";
@@ -232,10 +218,6 @@ public class FreelancerController {
         return "freelancer/freelancer-profile";
     }
 
-
-    // =========================================================
-    // CREATE / UPDATE FREELANCER PROFILE
-    // =========================================================
 
     @Transactional
     @PostMapping("/freelancer/profile")
@@ -270,9 +252,6 @@ public class FreelancerController {
         Freelancer savedFreelancer;
 
 
-        // =====================================================
-        // CREATE NEW PROFILE
-        // =====================================================
 
         if (optionalFreelancer.isEmpty()) {
 
@@ -284,16 +263,11 @@ public class FreelancerController {
                     );
 
 
-            // Change role to freelancer
             user.setRole(Role.FREELANCER);
 
             userRepository.save(user);
         }
 
-
-        // =====================================================
-        // UPDATE EXISTING PROFILE
-        // =====================================================
 
         else {
 
@@ -332,10 +306,6 @@ public class FreelancerController {
                     );
         }
 
-
-        // =====================================================
-        // UPDATE SKILLS
-        // =====================================================
 
         freelancerSkillRepository
                 .deleteByFreelancer(
@@ -378,11 +348,6 @@ public class FreelancerController {
                 );
             }
         }
-
-
-        // =====================================================
-        // PROFILE PHOTO
-        // =====================================================
 
         if (profilePhoto != null &&
                 !profilePhoto.isEmpty()) {
@@ -435,11 +400,6 @@ public class FreelancerController {
         return "redirect:/freelancer/profile";
     }
 
-
-    // =========================================================
-    // EDIT FREELANCER PROFILE
-    // =========================================================
-
     @GetMapping("/freelancer/edit")
     public String editFreelancer(Model model) {
 
@@ -451,17 +411,11 @@ public class FreelancerController {
                         .findByUser(user)
                         .orElse(null);
 
-
-        // No profile yet
         if (freelancer == null) {
 
             return "redirect:/freelancer/create";
         }
 
-
-        // -----------------------------------------------------
-        // Get selected skill IDs
-        // -----------------------------------------------------
 
         Set<Long> selectedSkillIds =
                 new HashSet<>();
@@ -515,10 +469,6 @@ public class FreelancerController {
         return "freelancer/freelancer-edit";
     }
 
-
-    // =========================================================
-    // CREATE NEW SKILL
-    // =========================================================
 
     @GetMapping("/freelancer/skill")
     public String showSkillForm(Model model) {
@@ -576,11 +526,6 @@ public class FreelancerController {
         return "redirect:/freelancer/edit";
     }
 
-
-    // =========================================================
-    // VIEW ALL FREELANCERS
-    // =========================================================
-
     @GetMapping("/freelancers")
     public String freelancers(Model model) {
 
@@ -603,11 +548,6 @@ public class FreelancerController {
         return "freelancer/freelancerHome";
     }
 
-
-    // =========================================================
-    // FREELANCER DETAILS
-    // For viewing another freelancer
-    // =========================================================
 
     @GetMapping("/freelancer-details/{id}")
     public String freelancerDetails(
@@ -634,10 +574,6 @@ public class FreelancerController {
         return "freelancer/freelancer-details";
     }
 
-
-    // =========================================================
-    // MY APPLICATIONS
-    // =========================================================
 
     @GetMapping("/freelancer-application-lists")
     public String applicationList(Model model) {
@@ -676,10 +612,6 @@ public class FreelancerController {
         return "freelancer/freelancer-application-lists";
     }
 
-
-    // =========================================================
-    // MY HIRE REQUESTS
-    // =========================================================
 
     @GetMapping("/freelancer-recent-hire-requests")
     public String allHireRequests(Model model) {

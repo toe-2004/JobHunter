@@ -119,39 +119,39 @@ public class EmployerController {
     }
 
     
-    @PostMapping("/profile/edit")
-    public String submitProfileEdit(
-            @Valid @ModelAttribute("profile") EmployerProfileDto profileDto,
-            BindingResult bindingResult,
-            @RequestParam(value = "profilePhoto", required = false) MultipartFile profilePhoto,
-            RedirectAttributes redirectAttributes) {
-
-        if (bindingResult.hasErrors()) {
-            return "employer/profile-edit";
-        }
-
-        try {
-
-            employerService.updateProfile(profileDto, profilePhoto);
-
-            redirectAttributes.addFlashAttribute(
-                    "success",
-                    "Profile updated successfully."
-            );
-
-            return "redirect:/employer/profile";
-
-        } catch (IllegalStateException ex) {
-
-            bindingResult.reject(
-                    "profile.error",
-                    ex.getMessage()
-            );
-
-            return "employer/profile-edit";
-        }
-    }
-    
+//    @PostMapping("/profile/edit")
+//    public String submitProfileEdit(
+//            @Valid @ModelAttribute("profile") EmployerProfileDto profileDto,
+//            BindingResult bindingResult,
+//            @RequestParam(value = "profilePhoto", required = false) MultipartFile profilePhoto,
+//            RedirectAttributes redirectAttributes) {
+//
+//        if (bindingResult.hasErrors()) {
+//            return "employer/profile-edit";
+//        }
+//
+//        try {
+//
+//            employerService.updateProfile(profileDto, profilePhoto);
+//
+//            redirectAttributes.addFlashAttribute(
+//                    "success",
+//                    "Profile updated successfully."
+//            );
+//
+//            return "redirect:/employer/profile";
+//
+//        } catch (IllegalStateException ex) {
+//
+//            bindingResult.reject(
+//                    "profile.error",
+//                    ex.getMessage()
+//            );
+//
+//            return "employer/profile-edit";
+//        }
+//    }
+//    
     public long getPendingCount(Employer employer) {
 
         return applicationRepository.countByJobEmployerAndStatus(employer,ApplicationStatus.PENDING);
