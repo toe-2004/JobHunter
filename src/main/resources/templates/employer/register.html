@@ -1,211 +1,259 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Employer Registration | JobHunter</title>
 
-    <link rel="stylesheet"
-          th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet"
-          th:href="@{/css/all.min.css}">
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap"
-          rel="stylesheet">
-    <link rel="stylesheet"
-          th:href="@{/css/sidebar.css}">
-    <link rel="stylesheet"
-          th:href="@{/css/employer_register.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/employer_register.css}">
+
+    <script th:src="@{/js/employer_register.js}" defer></script>
+
 </head>
 
 <body>
-<div class="page-layout">
 
-    <aside class="sidebar-container">
-        <div th:replace="~{fragments/sidebar_for_guest :: sidebar}"></div>
-    </aside>
+    <div class="page-layout">
 
-    <main class="main-content">
-        <div class="form-wrapper">
+        <aside class="sidebar-container">
+            <div th:replace="~{fragments/sidebar_for_guest :: sidebar}"></div>
+        </aside>
 
-            <div class="page-top">
-                <div class="page-label">
-                    <i class="fa-solid fa-building"></i>
-                    Employer Registration
+        <main class="main-content">
+
+            <div class="form-wrapper">
+
+                <div class="page-top">
+
+                    <div class="page-label">
+                        <i class="fa-solid fa-building"></i>
+                        Employer Registration
+                    </div>
+
+                    <h1>Create Employer Profile</h1>
+
+                    <p>
+                        Tell us about your company and start finding
+                        the right talent on JobHunter.
+                    </p>
+
                 </div>
 
-                <h1>
-                    Create Employer Profile
-                </h1>
+                <div class="form-card">
 
-                <p>
-                    Tell us about your company and start finding
-                    the right talent on JobHunter.
-                </p>
+                    <div class="card-heading">
+
+                        <div class="card-heading-icon">
+                            <i class="fa-solid fa-building-user"></i>
+                        </div>
+
+                        <div>
+                            <h2>Company Information</h2>
+                            <p>Enter your company details below.</p>
+                        </div>
+
+                    </div>
+
+                    <div th:if="${error != null and !#strings.isEmpty(error)}" class="general-error">
+                        <p th:text="${error}"></p>
+                    </div>
+
+                    <form th:action="@{/employer/register}" th:object="${employerForm}" method="post" id="employerForm"
+                        novalidate>
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label for="companyName">
+                                    Company Name
+                                    <span class="required">*</span>
+                                </label>
+
+                                <div class="input-wrapper">
+
+                                    <i class="fa-solid fa-building"></i>
+
+                                    <input type="text" id="companyName" th:field="*{companyName}"
+                                        class="form-control-custom" placeholder="Enter company name"
+                                        autocomplete="organization" maxlength="100" required>
+
+                                </div>
+
+                                <div class="error" id="companyNameError"></div>
+
+                                <div class="server-error" th:if="${#fields.hasErrors('companyName')}"
+                                    th:errors="*{companyName}">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="companyEmail">
+                                    Company Email
+                                    <span class="required">*</span>
+                                </label>
+
+                                <div class="input-wrapper">
+
+                                    <i class="fa-solid fa-envelope"></i>
+
+                                    <input type="email" id="companyEmail" th:field="*{companyEmail}"
+                                        class="form-control-custom" placeholder="company@example.com"
+                                        autocomplete="email" maxlength="100" required>
+
+                                </div>
+
+                                <div class="error" id="companyEmailError"></div>
+
+                                <div class="server-error" th:if="${#fields.hasErrors('companyEmail')}"
+                                    th:errors="*{companyEmail}">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="companyPhone">
+                                    Company Phone
+                                    <span class="required">*</span>
+                                </label>
+
+                                <div class="input-wrapper">
+
+                                    <i class="fa-solid fa-phone"></i>
+
+                                    <input type="tel" id="companyPhone" th:field="*{companyPhone}"
+                                        class="form-control-custom" placeholder="e.g. 09 123 456 789" autocomplete="tel"
+                                        maxlength="20" required>
+
+                                </div>
+
+                                <div class="error" id="companyPhoneError"></div>
+
+                                <div class="server-error" th:if="${#fields.hasErrors('companyPhone')}"
+                                    th:errors="*{companyPhone}">
+                                </div>
+
+                                <small class="input-hint">
+                                    Enter a valid phone number.
+                                </small>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="companyLocation">
+                                    Company Location
+                                    <span class="required">*</span>
+                                </label>
+
+                                <div class="input-wrapper">
+
+                                    <i class="fa-solid fa-location-dot"></i>
+
+                                    <input type="text" id="companyLocation" th:field="*{companyLocation}"
+                                        class="form-control-custom" placeholder="e.g. Yangon, Myanmar"
+                                        autocomplete="address-level2" maxlength="150" required>
+
+                                </div>
+
+                                <div class="error" id="companyLocationError"></div>
+
+                                <div class="server-error" th:if="${#fields.hasErrors('companyLocation')}"
+                                    th:errors="*{companyLocation}">
+                                </div>
+
+                            </div>
+
+                            <div class="form-group full-width">
+
+                                <label for="companyDescription">
+                                    Company Description
+                                    <span class="required">*</span>
+                                </label>
+
+                                <div class="textarea-wrapper">
+
+                                    <i class="fa-solid fa-align-left"></i>
+
+                                    <textarea id="companyDescription" th:field="*{companyDescription}"
+                                        class="form-textarea"
+                                        placeholder="Tell job seekers about your company, what you do, your culture, and what makes your company a great place to work..."
+                                        maxlength="1000" required></textarea>
+
+                                </div>
+
+                                <div class="description-bottom">
+
+                                    <div class="error" id="companyDescriptionError"></div>
+
+                                    <span id="charCount">
+                                        0 / 1000
+                                    </span>
+
+                                </div>
+
+                                <div class="server-error" th:if="${#fields.hasErrors('companyDescription')}"
+                                    th:errors="*{companyDescription}">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-footer">
+
+                            <span class="required-note">
+                                <span class="required">*</span>
+                                Required fields. Please make sure your company
+                                information is accurate.
+                            </span>
+
+                            <div class="button-group">
+
+                                <a th:href="@{/choose-role}" class="back-btn">
+
+                                    <i class="fa-solid fa-arrow-left"></i>
+
+                                    Go Back
+
+                                </a>
+
+                                <button type="submit" class="submit-btn" id="submitBtn">
+
+                                    Create Employer Account
+
+                                    <i class="fa-solid fa-arrow-right"></i>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
             </div>
 
-            <div class="form-card">
+        </main>
 
-                <div class="card-heading">
-                    <div class="card-heading-icon">
-                        <i class="fa-solid fa-building-user"></i>
-                    </div>
+    </div>
 
-                    <div>
-                        <h2>
-                            Company Information
-                        </h2>
-                        <p>
-                            Enter your company details below.
-                        </p>
-                    </div>
-                </div>
-
-                <div th:if="${error != null and !#strings.isEmpty(error)}"
-                     class="general-error">
-                    <p th:text="${error}"></p>
-                </div>
-
-                <form th:action="@{/employer/register}"
-                      th:object="${employerForm}"
-                      method="post">
-
-                    <div class="form-grid">
-
-                        <div class="form-group">
-                            <label for="companyName">
-                                Company Name
-                            </label>
-
-                            <div class="input-wrapper">
-                                <i class="fa-solid fa-building"></i>
-                                <input type="text"
-                                       id="companyName"
-                                       th:field="*{companyName}"
-                                       class="form-control-custom"
-                                       placeholder="Enter company name"
-                                       th:errorclass="is-invalid" required>
-                            </div>
-
-                            <div class="error"
-                                 th:errors="*{companyName}">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="companyEmail">
-                                Company Email
-                            </label>
-
-                            <div class="input-wrapper">
-                                <i class="fa-solid fa-envelope"></i>
-                                <input type="email"
-                                       id="companyEmail"
-                                       th:field="*{companyEmail}"
-                                       class="form-control-custom"
-                                       placeholder="company@example.com"
-                                       th:errorclass="is-invalid" required>
-                            </div>
-
-                            <div class="error"
-                                 th:errors="*{companyEmail}">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="companyPhone">
-                                Company Phone
-                            </label>
-
-                            <div class="input-wrapper">
-                                <i class="fa-solid fa-phone"></i>
-                                <input type="text"
-                                       id="companyPhone"
-                                       th:field="*{companyPhone}"
-                                       class="form-control-custom"
-                                       placeholder="Enter company phone"
-                                       th:errorclass="is-invalid" required>
-                            </div>
-
-                            <div class="error"
-                                 th:errors="*{companyPhone}">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="companyLocation">
-                                Company Location
-                            </label>
-
-                            <div class="input-wrapper">
-                                <i class="fa-solid fa-location-dot"></i>
-                                <input type="text"
-                                       id="companyLocation"
-                                       th:field="*{companyLocation}"
-                                       class="form-control-custom"
-                                       placeholder="e.g. Yangon, Myanmar"
-                                       th:errorclass="is-invalid" required>
-                            </div>
-
-                            <div class="error"
-                                 th:errors="*{companyLocation}">
-                            </div>
-                        </div>
-
-                        <div class="form-group full-width">
-                            <label for="companyDescription">
-                                Company Description
-                            </label>
-
-                            <div class="textarea-wrapper">
-                                <i class="fa-solid fa-align-left"></i>
-                                <textarea id="companyDescription"
-                                          th:field="*{companyDescription}"
-                                          class="form-textarea"
-                                          placeholder="Tell job seekers about your company, what you do, your culture, and what makes your company a great place to work..."
-                                          th:errorclass="is-invalid" required></textarea>
-                            </div>
-
-                            <div class="error"
-                                 th:errors="*{companyDescription}">
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="form-footer">
-                        <span class="required-note">
-                            Please make sure your company information is accurate.
-                        </span>
-
-                        <div class="button-group">
-                            <a th:href="@{/choose-role}"
-                               class="back-btn">
-                                <i class="fa-solid fa-arrow-left"></i>
-                                Go Back
-                            </a>
-
-                            <button type="submit"
-                                    class="submit-btn">
-                                Create Employer Account
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                </form>
-
-            </div>
-
-        </div>
-    </main>
-
-</div>
 </body>
+
 </html>

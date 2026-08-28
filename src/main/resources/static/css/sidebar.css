@@ -502,3 +502,136 @@ body {
         min-width: 190px;
     }
 }
+body.modal-open {
+    padding-right: 0 !important;
+}
+
+.modal {
+    padding-right: 0 !important;
+}
+
+.modal-open .sidebar {
+    padding-right: 0 !important;
+}css
+.sidebar-wrapper {
+    position: relative;
+}
+
+.sidebar {
+    z-index: 1050;
+}
+
+.sidebar-wrapper .modal {
+    z-index: 2000;
+}
+
+.sidebar-wrapper .modal-backdrop {
+    z-index: 1990;
+}
+
+.sidebar-logout-modal {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
+}
+
+.sidebar-logout-modal .modal-header {
+    border-bottom: none;
+    padding: 25px 25px 5px;
+    position: relative;
+}
+
+.sidebar-logout-icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: 50%;
+    font-size: 21px;
+}
+
+.sidebar-logout-modal .btn-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    box-shadow: none !important;
+}
+
+.sidebar-logout-modal .modal-body {
+    padding: 15px 30px 10px;
+}
+
+.sidebar-logout-modal .modal-body h5 {
+    margin-bottom: 8px;
+    font-size: 21px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.sidebar-logout-modal .modal-body p {
+    margin: 0;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.sidebar-logout-modal .modal-footer {
+    border-top: none;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 30px 25px;
+}
+
+.sidebar-cancel-logout {
+    padding: 9px 20px;
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.sidebar-cancel-logout:hover {
+    background: #e2e8f0;
+}
+
+.sidebar-confirm-logout {
+    padding: 9px 20px;
+    background: var(--primary);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.sidebar-confirm-logout:hover {
+    background: var(--primary-dark);
+}
+
+.logout-button {
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
+    text-align: left;
+}
+body.modal-open {
+    padding-right: 0 !important;
+}
+
+.modal {
+    padding-right: 0 !important;
+}
+
+.modal-open .sidebar {
+    padding-right: 0 !important;
+}

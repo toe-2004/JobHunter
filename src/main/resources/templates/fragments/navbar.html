@@ -1,114 +1,215 @@
-<nav class="navbar navbar-expand-lg navbar-custom sticky-top" th:fragment="navbar">
+html
+<div th:fragment="navbar">
 
-    <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
 
-        <a class="navbar-brand" th:href="@{/viewHomeJob}">
-            <i class="fa-solid fa-briefcase"></i>
-            JobHunter
-        </a>
+        <div class="container">
 
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarMenu">
+            <a class="navbar-brand" th:href="@{/viewHomeJob}">
+                <i class="fa-solid fa-briefcase"></i>
+                JobHunter
+            </a>
 
-            <i class="fa-solid fa-bars"></i>
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarMenu"
+                    aria-controls="navbarMenu"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
 
-        </button>
+                <i class="fa-solid fa-bars"></i>
 
-        <div class="collapse navbar-collapse" id="navbarMenu">
+            </button>
 
-            <ul class="navbar-nav mx-auto">
-                
-                <li class="nav-item">
-                    <a th:href="@{/viewHomeJob}"
-                       class="nav-link"
-                       th:classappend="${currentPage == 'home'} ? ' active' : ''">
-                        Home
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/all-jobs}"
-                    class="nav-link"
-                    th:classappend="${currentPage != null and currentPage == 'jobs'} ? ' active' : ''">
-                        Jobs
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/categories}"
-                       class="nav-link"
-                       th:classappend="${currentPage == 'categories'} ? ' active' : ''">
-                        Categories
-                    </a>
-                </li>                
-                <li class="nav-item">
-                    <a th:href="@{/companies}"
-                       class="nav-link"
-                       th:classappend="${currentPage == 'companies'} ? ' active' : ''">
-                        Companies
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a th:href="@{/freelancers}"
-                    class="nav-link"
-                    th:classappend="${currentPage != null and currentPage == 'freelancers'} ? ' active' : ''">
-                        Freelancers
-                    </a>
-                </li>
-                
-            </ul>
+            <div class="collapse navbar-collapse" id="navbarMenu">
 
-			<div class="nav-buttons">
+                <ul class="navbar-nav mx-auto">
 
-			    <!-- No login -->
-			    <div sec:authorize="!isAuthenticated()">
+                    <li class="nav-item">
+                        <a th:href="@{/viewHomeJob}"
+                           class="nav-link"
+                           th:classappend="${currentPage == 'home'} ? ' active' : ''">
+                            Home
+                        </a>
+                    </li>
 
-			        <a th:href="@{/login}" class="login-btn">
-			            Login
-			        </a>
+                    <li class="nav-item">
+                        <a th:href="@{/all-jobs}"
+                           class="nav-link"
+                           th:classappend="${currentPage != null and currentPage == 'jobs'} ? ' active' : ''">
+                            Jobs
+                        </a>
+                    </li>
 
-			        <a th:href="@{/register}" class="signup-btn">
-			            Get Started
-			        </a>
+                    <li class="nav-item">
+                        <a th:href="@{/categories}"
+                           class="nav-link"
+                           th:classappend="${currentPage == 'categories'} ? ' active' : ''">
+                            Categories
+                        </a>
+                    </li>
 
-			    </div>
+                    <li class="nav-item">
+                        <a th:href="@{/companies}"
+                           class="nav-link"
+                           th:classappend="${currentPage == 'companies'} ? ' active' : ''">
+                            Companies
+                        </a>
+                    </li>
 
-			    <div sec:authorize="hasRole('FREELANCER')">
-			        <a th:href="@{/freelancer/dashboard}" class="login-btn">
-			            Dashboard
-			        </a>
-			        <form th:action="@{/logout}" method="post" style="display: inline;">
-			            <button type="submit" class="signup-btn">
-			                <i class="fa-solid fa-right-from-bracket"></i>
-			                Logout
-			            </button>
-			        </form>
-			    </div>
+                    <li class="nav-item">
+                        <a th:href="@{/freelancers}"
+                           class="nav-link"
+                           th:classappend="${currentPage != null and currentPage == 'freelancers'} ? ' active' : ''">
+                            Freelancers
+                        </a>
+                    </li>
 
-			    <div sec:authorize="hasRole('EMPLOYER')">
-			        <a th:href="@{/employer/dashboard}" class="login-btn">
-			            Dashboard
-			        </a>
-			        <form th:action="@{/logout}" method="post" style="display: inline;">
-			            <button type="submit" class="signup-btn">
-			                <i class="fa-solid fa-right-from-bracket"></i>
-			                Logout
-			            </button>
-			        </form>
-			    </div>
+                </ul>
 
-			    <div sec:authorize="isAuthenticated() and !hasRole('FREELANCER') and !hasRole('EMPLOYER')">
-			        <a th:href="@{/choose-role}" class="login-btn">
-			            Guest
-			        </a>
-			        <form th:action="@{/logout}" method="post" style="display: inline;">
-			            <button type="submit" class="signup-btn">
-			                <i class="fa-solid fa-right-from-bracket"></i>
-			                Logout
-			            </button>
-			        </form>
-			    </div>
-			</div>
+                <div class="nav-buttons">
+
+                    <div sec:authorize="!isAuthenticated()">
+
+                        <a th:href="@{/login}" class="login-btn">
+                            Login
+                        </a>
+
+                        <a th:href="@{/register}" class="signup-btn">
+                            Get Started
+                        </a>
+
+                    </div>
+
+                    <div sec:authorize="hasRole('FREELANCER')">
+
+                        <a th:href="@{/freelancer/dashboard}"
+                           class="login-btn">
+                            Dashboard
+                        </a>
+
+                        <button type="button"
+                                class="signup-btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#logoutModal">
+
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Logout
+
+                        </button>
+
+                    </div>
+
+                    <div sec:authorize="hasRole('EMPLOYER')">
+
+                        <a th:href="@{/employer/dashboard}"
+                           class="login-btn">
+                            Dashboard
+                        </a>
+
+                        <button type="button"
+                                class="signup-btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#logoutModal">
+
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Logout
+
+                        </button>
+
+                    </div>
+
+                    <div sec:authorize="isAuthenticated() and !hasRole('FREELANCER') and !hasRole('EMPLOYER')">
+
+                        <a th:href="@{/choose-role}"
+                           class="login-btn">
+                            Guest
+                        </a>
+
+                        <button type="button"
+                                class="signup-btn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#logoutModal">
+
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Logout
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <div class="modal fade"
+         id="logoutModal"
+         tabindex="-1"
+         aria-labelledby="logoutModalLabel"
+         aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content logout-modal">
+
+                <div class="modal-header">
+
+                    <div class="logout-icon">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </div>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close">
+                    </button>
+
+                </div>
+
+                <div class="modal-body text-center">
+
+                    <h5 id="logoutModalLabel">
+                        Confirm Logout
+                    </h5>
+
+                    <p>
+                        Are you sure you want to logout?
+                    </p>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="cancel-logout-btn"
+                            data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+
+                    <form th:action="@{/logout}" method="post">
+
+                        <button type="submit"
+                                class="confirm-logout-btn">
+
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Logout
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-</nav>
+</div>

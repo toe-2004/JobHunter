@@ -1,151 +1,238 @@
-<div class="sidebar" th:fragment="sidebar">
+<div class="sidebar-wrapper" th:fragment="sidebar">
 
-    <div class="sidebar-brand">
+    <div class="sidebar">
 
-        <div class="mobile-header d-lg-none">
+        <div class="sidebar-brand">
 
-            <a href="/myprofile" class="mobile-profile">
-                <img th:if="${employer.user.profilePhoto != null}"
-                    th:src="@{'/uploads/' + ${employer.user.profilePhoto}}"
-                    alt="Profile Photo"
-                    class="profile-photo">
+            <div class="mobile-header d-lg-none">
 
-                <img th:unless="${employer.user.profilePhoto != null}"
-                    th:src="@{/images/default_profile.jpg}"
-                    alt="Default Profile Photo"
-                    class="profile-photo">
+                <a th:href="@{/employer/profile}" class="mobile-profile">
 
-                <div class="profile-info">
-                    <span class="username" th:text="${employer.user.name}">
-                        Username
-                    </span>
-                    <span class="user-role">
-                        Employer
-                    </span>
-                </div>
-            </a>
+                    <img th:if="${employer.user.profilePhoto != null}"
+                         th:src="@{'/uploads/' + ${employer.user.profilePhoto}}"
+                         alt="Profile Photo"
+                         class="profile-photo">
 
-            <div class="mobile-menu dropdown">
-                <button type="button"
-                    class="btn menu-button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false">
+                    <img th:unless="${employer.user.profilePhoto != null}"
+                         th:src="@{/images/default_profile.jpg}"
+                         alt="Default Profile Photo"
+                         class="profile-photo">
 
-                    <i class="fa-solid fa-bars"></i>
-            </button>
+                    <div class="profile-info">
 
-                <ul class="dropdown-menu dropdown-menu-end">
+                        <span class="username"
+                              th:text="${employer.user.name}">
+                            Username
+                        </span>
 
-                    <li>
-                        <a href="/viewHomeJob" class="dropdown-item">
-                            <i class="fas fa-home"></i>
-                            Home
-                        </a>
-                    </li>
+                        <span class="user-role">
+                            Employer
+                        </span>
 
-                    <li>
-                        <a href="/employer/dashboard" class="dropdown-item">
-                            <i class="fas fa-chart-pie"></i>
-                            Dashboard
-                        </a>
-                    </li>
+                    </div>
 
-                    <li>
-                        <a href="/my-jobs" class="dropdown-item">
-                            <i class="fas fa-briefcase"></i>
-                            My Job Posts
-                        </a>
-                    </li>
+                </a>
 
-                    <li>
-                        <a href="/employer-engagements" class="dropdown-item">
-                            <i class="fa-solid fa-handshake"></i>
-                            My Hire Requests
-                        </a>
-                    </li>
+                <div class="mobile-menu dropdown">
 
-                    <li>
-                        <form th:action="@{/logout}" method="post">
-                            <button type="submit" class="dropdown-item mobile-logout">
+                    <button type="button"
+                            class="btn menu-button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false">
+
+                        <i class="fa-solid fa-bars"></i>
+
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+
+                        <li>
+                            <a href="/viewHomeJob" class="dropdown-item">
+                                <i class="fas fa-home"></i>
+                                Home
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/employer/dashboard" class="dropdown-item">
+                                <i class="fas fa-chart-pie"></i>
+                                Dashboard
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/my-jobs" class="dropdown-item">
+                                <i class="fas fa-briefcase"></i>
+                                My Job Posts
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="/employer-engagements" class="dropdown-item">
+                                <i class="fa-solid fa-handshake"></i>
+                                My Hire Requests
+                            </a>
+                        </li>
+
+                        <li>
+                            <button type="button"
+                                    class="dropdown-item mobile-logout"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#logoutModal">
+
                                 <i class="fa-solid fa-right-from-bracket"></i>
                                 Logout
-                            </button>
-                        </form>
-                    </li>
 
-                </ul>
+                            </button>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="desktop-brand d-none d-lg-block">
+
+                <h4 class="mb-0">
+                    <i class="fa-solid fa-briefcase"></i>
+                    Job Hunter
+                </h4>
+
             </div>
 
         </div>
 
-        <div class="desktop-brand d-none d-lg-block">
+        <nav class="sidebar-nav d-none d-lg-flex flex-column">
 
-            <h4 class="mb-0">
-                <i class="fa-solid fa-briefcase"></i>
-                Job Hunter
-            </h4>
+            <a href="/viewHomeJob">
+                <i class="fas fa-home"></i>
+                Home
+            </a>
+
+            <a href="/employer/dashboard"
+               th:classappend="${currentPage == 'dashboard_e'} ? ' active' : ''">
+                <i class="fas fa-chart-pie"></i>
+                Dashboard
+            </a>
+
+            <a href="/my-jobs"
+               th:classappend="${currentPage == 'my-jobs'} ? ' active' : ''">
+                <i class="fas fa-briefcase"></i>
+                My Jobs Posts
+            </a>
+
+            <a href="/employer-engagements"
+               th:classappend="${currentPage == 'employer-engagements'} ? ' active' : ''">
+                <i class="fas fa-handshake"></i>
+                My Hire Requests
+            </a>
+
+            <button type="button"
+                    class="logout-button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#logoutModal">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Logout
+
+            </button>
+
+        </nav>
+
+        <a th:href="@{/employer/profile}"
+           th:classappend="${currentPage == 'profile_e'} ? ' active' : ''"
+           class="sidebar-profile d-none d-lg-flex">
+
+            <img th:if="${employer.user.profilePhoto != null}"
+                 th:src="@{'/uploads/' + ${employer.user.profilePhoto}}"
+                 alt="Profile Photo"
+                 class="profile-photo">
+
+            <img th:unless="${employer.user.profilePhoto != null}"
+                 th:src="@{/images/default_profile.jpg}"
+                 alt="Default Profile Photo"
+                 class="profile-photo">
+
+            <div class="profile-info">
+
+                <span class="username"
+                      th:text="${employer.user.name}">
+                    Username
+                </span>
+
+                <span class="user-role">
+                    Employer
+                </span>
+
+            </div>
+
+        </a>
+
+    </div>
+
+    <div class="modal fade"
+         id="logoutModal"
+         tabindex="-1"
+         aria-labelledby="logoutModalLabel"
+         aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered">
+
+            <div class="modal-content sidebar-logout-modal">
+
+                <div class="modal-header">
+
+                    <div class="sidebar-logout-icon">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </div>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close">
+                    </button>
+
+                </div>
+
+                <div class="modal-body text-center">
+
+                    <h5 id="logoutModalLabel">
+                        Confirm Logout
+                    </h5>
+
+                    <p>
+                        Are you sure you want to logout?
+                    </p>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="sidebar-cancel-logout"
+                            data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+
+                    <form th:action="@{/logout}" method="post">
+
+                        <button type="submit"
+                                class="sidebar-confirm-logout">
+
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Logout
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
 
         </div>
 
     </div>
-
-    <nav class="sidebar-nav d-none d-lg-flex flex-column">
-
-        <a href="/viewHomeJob">
-            <i class="fas fa-home"></i>
-            Home
-        </a>
-
-        <a href="/employer/dashboard"
-        th:classappend="${currentPage == 'dashboard_e'} ? ' active' : ''">
-            <i class="fas fa-chart-pie"></i>
-            Dashboard
-        </a>
-
-        <a href="/my-jobs"
-        th:classappend="${currentPage == 'my-jobs'} ? ' active' : ''">
-            <i class="fas fa-briefcase"></i>
-            My Jobs Posts
-        </a>
-        <a href="/employer-engagements"
-        th:classappend="${currentPage == 'employer-engagements'} ? ' active' : ''">
-            <i class="fas fa-handshake"></i>
-            My Hire Requests
-        </a>
-        <form th:action="@{/logout}" method="post" class="logout-form">
-            <button type="submit" class="logout-button">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                Logout
-            </button>
-        </form>
-    </nav>
-
-	<a th:href="@{/employer/profile}"
-        th:classappend="${currentPage == 'profile_e'} ? ' active' : ''"
-	   class="sidebar-profile d-none d-lg-flex">
-
-	    <img th:if="${employer.user.profilePhoto != null}"
-	         th:src="@{'/uploads/' + ${employer.user.profilePhoto}}"
-	         alt="Profile Photo"
-	         class="profile-photo">
-        <img th:unless="${employer.user.profilePhoto != null}"
-            th:src="@{/images/default_profile.jpg}"
-            alt="Default Profile Photo"
-            class="profile-photo">
-	  
-	    <div class="profile-info">
-
-	        <span class="username"
-	              th:text="${employer.user.name}">
-	            Username
-	        </span>
-
-	        <span class="user-role">
-	            Employer
-	        </span>
-
-	    </div>
-
-	</a>
 
 </div>

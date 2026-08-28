@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -7,252 +8,292 @@
           content="width=device-width, initial-scale=1.0">
     <title>My Job Offers</title>
 
-    <link rel="stylesheet"
-          th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet"
-          th:href="@{/css/all.min.css}">
-    <link rel="stylesheet"
-          th:href="@{/css/sidebar.css}">
-    <link rel="stylesheet"
-          th:href="@{/css/my-engagements.css}">
-    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{/js/my-engagements.js}"
-            defer>
-    </script>
+<link rel="stylesheet"
+      th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet"
+      th:href="@{/css/all.min.css}">
+<link rel="stylesheet"
+      th:href="@{/css/sidebar.css}">
+<link rel="stylesheet"
+      th:href="@{/css/my-engagements.css}">
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/my-engagements.js}"
+        defer>
+</script>
+
 </head>
 
 <body>
-<!-- <div class="dashboard-layout"> -->
 
-    <!-- <div class="sidebar-container"> -->
-        <div th:replace="~{fragments/sidebar_for_freelancer :: sidebar}">
+<div th:replace="~{fragments/sidebar_for_freelancer :: sidebar}">
+</div>
+
+<main class="main-content">
+    <div class="page-container">
+
+    <div class="page-header">
+        <h1>
+            My Job Offers
+        </h1>
+        <p>
+            Review and respond to companies interested
+            in working with you.
+        </p>
+    </div>
+
+    <div th:if="${engagements == null || engagements.isEmpty()}"
+         class="empty">
+        <div class="empty-icon">
+            <i class="fa-solid fa-handshake"></i>
         </div>
-    <!-- </div> -->
 
-    <main class="main-content">
-        <div class="page-container">
+        <h3>
+            No hire offers yet
+        </h3>
+        <p>
+            Hire requests from companies will appear here.
+        </p>
+    </div>
 
-            <div class="page-header">
-                <h1>
-                    My Job Offers
-                </h1>
-                <p>
-                    Review and respond to companies interested
-                    in working with you.
-                </p>
-            </div>
+    <div th:if="${engagements != null && !engagements.isEmpty()}">
 
-            <div th:if="${engagements == null || engagements.isEmpty()}"
-                 class="empty">
-                <div class="empty-icon">
-                    <i class="fa-solid fa-handshake"></i>
-                </div>
+        <div th:each="engagement : ${engagements}"
+             class="offer-card">
 
-                <h3>
-                    No hire offers yet
-                </h3>
-                <p>
-                    Hire requests from companies will appear here.
-                </p>
-            </div>
+            <div class="offer-top">
 
-            <div th:if="${engagements != null && !engagements.isEmpty()}">
-
-                <div th:each="engagement : ${engagements}"
-                     class="offer-card">
-
-                    <div class="offer-top">
-
-                        <a th:href="@{/company/{id}(id=${engagement.employer.id})}"
-                           class="company-section">
-                            <div class="company-photo-wrapper">
-                                <img th:if="${engagement.employer.user != null
-                                             && engagement.employer.user.profilePhoto != null}"
-                                     th:src="@{'/uploads/' + ${engagement.employer.user.profilePhoto}}"
-                                     class="company-photo"
-                                     alt="Company Photo">
-                            </div>
-
-                            <div class="company-info">
-                                <h2 th:text="${engagement.employer.companyName}">
-                                    Company Name
-                                </h2>
-                                <p>
-                                    <i class="fa-solid fa-building"></i>
-                                    Company
-                                </p>
-                                <p class="email"
-                                   th:text="${engagement.employer.companyEmail}">
-                                    company@email.com
-                                </p>
-                            </div>
-                        </a>
-
-                        <div class="top-right">
-                            <span class="status"
-                                  th:classappend="${engagement.status.name() == 'PENDING'} ? ' pending' :
-                                                  (${engagement.status.name() == 'ACCEPTED'} ? ' accepted' : ' rejected')">
-                                <i th:if="${engagement.status.name() == 'PENDING'}"
-                                   class="fa-solid fa-clock">
-                                </i>
-                                <i th:if="${engagement.status.name() == 'ACCEPTED'}"
-                                   class="fa-solid fa-check">
-                                </i>
-                                <i th:if="${engagement.status.name() == 'REJECTED'}"
-                                   class="fa-solid fa-xmark">
-                                </i>
-                                <span th:text="${engagement.status}">
-                                    PENDING
-                                </span>
-                            </span>
-
-                            <a th:href="@{/company/{id}(id=${engagement.employer.id})}"
-                               class="profile-btn">
-                                <i class="fa-regular fa-building"></i>
-                                View Profile
-                            </a>
-                        </div>
-
+                <a th:href="@{/company/{id}(id=${engagement.employer.id})}"
+                   class="company-section">
+                    <div class="company-photo-wrapper">
+                        <img th:if="${engagement.employer.user != null
+                                     && engagement.employer.user.profilePhoto != null}"
+                             th:src="@{'/uploads/' + ${engagement.employer.user.profilePhoto}}"
+                             class="company-photo"
+                             alt="Company Photo">
                     </div>
 
-                    <div class="offer-body">
-                        <h2 class="offer-title"
-                            th:text="${engagement.title}">
-                            Engagement Title
+                    <div class="company-info">
+                        <h2 th:text="${engagement.employer.companyName}">
+                            Company Name
                         </h2>
-
-                        <div class="description"
-                             th:if="${engagement.description != null}">
-                            <strong>
-                                Description:
-                            </strong>
-                            <span th:text="${engagement.description}">
-                                Engagement description
-                            </span>
-                        </div>
+                        <p>
+                            <i class="fa-solid fa-building"></i>
+                            Company
+                        </p>
+                        <p class="email"
+                           th:text="${engagement.employer.companyEmail}">
+                            company@email.com
+                        </p>
                     </div>
+                </a>
 
-                    <div class="info-row">
-                        <div class="info-box">
-                            <span class="info-label">
-                                Category
-                            </span>
-                            <span class="info-value">
-                                <i class="fa-solid fa-layer-group"></i>
-                                <span th:if="${engagement.category != null}"
-                                      th:text="${engagement.category.name}">
-                                    Category
-                                </span>
-                                <span th:if="${engagement.category == null}">
-                                    N/A
-                                </span>
-                            </span>
-                        </div>
+                <div class="top-right">
+                    <span class="status"
+                          th:classappend="${engagement.status.name() == 'PENDING'} ? ' pending' :
+                                          (${engagement.status.name() == 'ACCEPTED'} ? ' accepted' : ' rejected')">
+                        <i th:if="${engagement.status.name() == 'PENDING'}"
+                           class="fa-solid fa-clock">
+                        </i>
+                        <i th:if="${engagement.status.name() == 'ACCEPTED'}"
+                           class="fa-solid fa-check">
+                        </i>
+                        <i th:if="${engagement.status.name() == 'REJECTED'}"
+                           class="fa-solid fa-xmark">
+                        </i>
+                        <span th:text="${engagement.status}">
+                            PENDING
+                        </span>
+                    </span>
 
-                        <div class="info-box">
-                            <span class="info-label">
-                                Start Date
-                            </span>
-                            <span class="info-value">
-                                <i class="fa-regular fa-calendar"></i>
-                                <span th:if="${engagement.startDate != null}"
-                                      th:text="${#temporals.format(
-                                          engagement.startDate,
-                                          'dd MMM yyyy, hh:mm a'
-                                      )}">
-                                    Start Date
-                                </span>
-                                <span th:if="${engagement.startDate == null}">
-                                    Not specified
-                                </span>
-                            </span>
-                        </div>
-
-                        <div class="info-box">
-                            <span class="info-label">
-                                End Date
-                            </span>
-                            <span class="info-value">
-                                <i class="fa-regular fa-calendar-check"></i>
-                                <span th:if="${engagement.endDate != null}"
-                                      th:text="${#temporals.format(
-                                          engagement.endDate,
-                                          'dd MMM yyyy, hh:mm a'
-                                      )}">
-                                    End Date
-                                </span>
-                                <span th:if="${engagement.endDate == null}">
-                                    Not specified
-                                </span>
-                            </span>
-                        </div>
-
-                        <div class="info-box">
-                            <span class="info-label">
-                                Monthly Rate
-                            </span>
-                            <span class="info-value rate-value">
-                                <i class="fa-solid fa-money-bill-wave"></i>
-                                <span th:if="${engagement.monthlyRate != null}"
-                                      th:text="${#numbers.formatDecimal(engagement.monthlyRate, 0, 'COMMA', 0, 'POINT') + ' Kyats'}">
-                                    0
-                                </span>
-                                <span th:if="${engagement.monthlyRate == null}">
-                                    0
-                                </span>
-                                / month
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="offer-footer">
-                        <div class="request-time">
-                            <i class="fa-regular fa-clock"></i>
-                            <span>
-                                Request sent
-                            </span>
-                            <strong th:if="${engagement.createdAt != null}"
-                                    th:text="${#temporals.format(
-                                        engagement.createdAt,
-                                        'dd MMM yyyy, hh:mm a'
-                                    )}">
-                                20 Aug 2026, 06:30 PM
-                            </strong>
-                            <strong th:if="${engagement.createdAt == null}">
-                                Date unavailable
-                            </strong>
-                        </div>
-
-                        <div class="actions"
-                             th:if="${engagement.status.name() == 'PENDING'}">
-                            <form th:action="@{/engagement/{id}/accept(id=${engagement.id})}"
-                                  method="post">
-                                <button type="submit"
-                                        class="action-btn accept-btn">
-                                    <i class="fa-solid fa-check"></i>
-                                    Accept
-                                </button>
-                            </form>
-
-                            <form th:action="@{/engagement/{id}/reject(id=${engagement.id})}"
-                                  method="post">
-                                <button type="submit"
-                                        class="action-btn reject-btn">
-                                    <i class="fa-solid fa-xmark"></i>
-                                    Reject
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-
+                    <a th:href="@{/company/{id}(id=${engagement.employer.id})}"
+                       class="profile-btn">
+                        <i class="fa-regular fa-building"></i>
+                        View Profile
+                    </a>
                 </div>
 
             </div>
 
-        </div>
-    </main>
+            <div class="offer-body">
+                <h2 class="offer-title"
+                    th:text="${engagement.title}">
+                    Engagement Title
+                </h2>
 
-<!-- </div> -->
+                <div class="description"
+                     th:if="${engagement.description != null}">
+                    <strong>
+                        Description:
+                    </strong>
+                    <span th:text="${engagement.description}">
+                        Engagement description
+                    </span>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-box">
+                    <span class="info-label">
+                        Category
+                    </span>
+                    <span class="info-value">
+                        <i class="fa-solid fa-layer-group"></i>
+                        <span th:if="${engagement.category != null}"
+                              th:text="${engagement.category.name}">
+                            Category
+                        </span>
+                        <span th:if="${engagement.category == null}">
+                            N/A
+                        </span>
+                    </span>
+                </div>
+
+                <div class="info-box">
+                    <span class="info-label">
+                        Start Date
+                    </span>
+                    <span class="info-value">
+                        <i class="fa-regular fa-calendar"></i>
+                        <span th:if="${engagement.startDate != null}"
+                              th:text="${#temporals.format(
+                                  engagement.startDate,
+                                  'dd MMM yyyy, hh:mm a'
+                              )}">
+                            Start Date
+                        </span>
+                        <span th:if="${engagement.startDate == null}">
+                            Not specified
+                        </span>
+                    </span>
+                </div>
+
+                <div class="info-box">
+                    <span class="info-label">
+                        End Date
+                    </span>
+                    <span class="info-value">
+                        <i class="fa-regular fa-calendar-check"></i>
+                        <span th:if="${engagement.endDate != null}"
+                              th:text="${#temporals.format(
+                                  engagement.endDate,
+                                  'dd MMM yyyy, hh:mm a'
+                              )}">
+                            End Date
+                        </span>
+                        <span th:if="${engagement.endDate == null}">
+                            Not specified
+                        </span>
+                    </span>
+                </div>
+
+                <div class="info-box">
+                    <span class="info-label">
+                        Monthly Rate
+                    </span>
+                    <span class="info-value rate-value">
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                        <span th:if="${engagement.monthlyRate != null}"
+                              th:text="${#numbers.formatDecimal(engagement.monthlyRate, 0, 'COMMA', 0, 'POINT') + ' Kyats'}">
+                            0
+                        </span>
+                        <span th:if="${engagement.monthlyRate == null}">
+                            0
+                        </span>
+                        / month
+                    </span>
+                </div>
+            </div>
+
+            <div class="offer-footer">
+                <div class="request-time">
+                    <i class="fa-regular fa-clock"></i>
+                    <span>
+                        Request sent
+                    </span>
+                    <strong th:if="${engagement.createdAt != null}"
+                            th:text="${#temporals.format(
+                                engagement.createdAt,
+                                'dd MMM yyyy, hh:mm a'
+                            )}">
+                        20 Aug 2026, 06:30 PM
+                    </strong>
+                    <strong th:if="${engagement.createdAt == null}">
+                        Date unavailable
+                    </strong>
+                </div>
+
+                <div class="actions"
+                     th:if="${engagement.status.name() == 'PENDING'}">
+
+                    <form th:action="@{/engagement/{id}/accept(id=${engagement.id})}"
+                          method="post"
+                          class="accept-form">
+                        <button type="button"
+                                class="action-btn accept-btn"
+                                onclick="openConfirmDialog(this, 'accept')">
+                            <i class="fa-solid fa-check"></i>
+                            Accept
+                        </button>
+                    </form>
+
+                    <form th:action="@{/engagement/{id}/reject(id=${engagement.id})}"
+                          method="post"
+                          class="reject-form">
+                        <button type="button"
+                                class="action-btn reject-btn"
+                                onclick="openConfirmDialog(this, 'reject')">
+                            <i class="fa-solid fa-xmark"></i>
+                            Reject
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</main>
+
+<div class="confirm-overlay"
+     id="confirmDialog">
+
+<div class="confirm-dialog">
+
+    <div class="confirm-icon"
+         id="confirmIcon">
+        <i class="fa-solid fa-circle-question"></i>
+    </div>
+
+    <h3 id="confirmTitle">
+        Confirm Action
+    </h3>
+
+    <p id="confirmMessage">
+        Are you sure you want to continue?
+    </p>
+
+    <div class="confirm-actions">
+        <button type="button"
+                class="confirm-cancel"
+                onclick="closeConfirmDialog()">
+            Cancel
+        </button>
+
+        <button type="button"
+                class="confirm-submit"
+                id="confirmSubmit">
+            Confirm
+        </button>
+    </div>
+
+</div>
+
+</div>
+
 </body>
 
 </html>

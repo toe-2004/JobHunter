@@ -82,8 +82,7 @@ body {
     background: #FFFFFF;
     border: 1px solid #DFE7F0;
     border-radius: 18px;
-    box-shadow:
-        0 8px 30px rgba(15, 23, 42, 0.05);
+    box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
 }
 
 .card-heading {
@@ -148,8 +147,7 @@ body {
 
 .form-grid {
     display: grid;
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 22px 20px;
 }
 
@@ -169,6 +167,10 @@ body {
     font-weight: 600;
 }
 
+.required {
+    color: #D32F2F;
+}
+
 .input-wrapper {
     position: relative;
 }
@@ -181,6 +183,7 @@ body {
     color: #90CAF9;
     font-size: 14px;
     pointer-events: none;
+    transition: color 0.2s ease;
 }
 
 .form-control-custom {
@@ -192,7 +195,7 @@ body {
     border-radius: 9px;
     outline: none;
     color: #172033;
-    font-family: 'Sora', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 13px;
     transition:
         border-color 0.2s ease,
@@ -207,8 +210,7 @@ body {
 .form-control-custom:focus {
     background: #FFFFFF;
     border-color: #64B5F6;
-    box-shadow:
-        0 0 0 3px rgba(33, 150, 243, 0.10);
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.10);
 }
 
 .textarea-wrapper {
@@ -234,7 +236,7 @@ body {
     border-radius: 9px;
     outline: none;
     color: #172033;
-    font-family: 'Sora', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 13px;
     line-height: 1.7;
     transition:
@@ -250,14 +252,28 @@ body {
 .form-textarea:focus {
     background: #FFFFFF;
     border-color: #64B5F6;
-    box-shadow:
-        0 0 0 3px rgba(33, 150, 243, 0.10);
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.10);
 }
 
 .error {
-    margin-top: 6px;
+    display: none;
+    margin-top: 5px;
     color: #D32F2F;
     font-size: 11px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.error.show {
+    display: block;
+}
+
+.server-error {
+    display: block;
+    margin-top: 5px;
+    color: #D32F2F;
+    font-size: 11px;
+    font-weight: 400;
     line-height: 1.5;
 }
 
@@ -266,8 +282,47 @@ body {
 }
 
 .is-invalid:focus {
-    box-shadow:
-        0 0 0 3px rgba(211, 47, 47, 0.08) !important;
+    border-color: #E57373 !important;
+    box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.08) !important;
+}
+
+.is-valid {
+    border-color: #81C784;
+}
+
+.is-valid:focus {
+    border-color: #66BB6A;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.08);
+}
+
+.input-hint {
+    display: block;
+    margin-top: 5px;
+    color: #94A3B8;
+    font-size: 10px;
+}
+
+.description-bottom {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.description-bottom .error {
+    flex: 1;
+}
+
+.description-bottom #charCount {
+    flex-shrink: 0;
+    margin-top: 5px;
+    color: #94A3B8;
+    font-size: 10px;
+}
+
+.description-bottom #charCount.warning {
+    color: #F57C00;
+    font-weight: 600;
 }
 
 .form-footer {
@@ -328,7 +383,7 @@ body {
     border-radius: 9px;
     background: #2196F3;
     color: #FFFFFF;
-    font-family: 'Sora', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
@@ -339,8 +394,7 @@ body {
 .submit-btn:hover {
     background: #1976D2;
     transform: translateY(-1px);
-    box-shadow:
-        0 6px 16px rgba(33, 150, 243, 0.20);
+    box-shadow: 0 6px 16px rgba(33, 150, 243, 0.20);
 }
 
 .submit-btn:active {
@@ -360,6 +414,7 @@ body {
     .page-top h1 {
         font-size: 28px;
     }
+
 }
 
 @media (max-width: 850px) {
@@ -381,6 +436,7 @@ body {
     .form-wrapper {
         max-width: 850px;
     }
+
 }
 
 @media (max-width: 650px) {
@@ -445,6 +501,7 @@ body {
     .submit-btn {
         flex: 1;
     }
+
 }
 
 @media (max-width: 450px) {
@@ -482,6 +539,10 @@ body {
         font-size: 12px;
     }
 
+    .description-bottom {
+        align-items: flex-start;
+    }
+
     .button-group {
         flex-direction: column;
     }
@@ -490,4 +551,9 @@ body {
     .submit-btn {
         width: 100%;
     }
+
+    .required-note {
+        font-size: 10px;
+    }
+
 }

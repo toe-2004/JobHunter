@@ -1,35 +1,105 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/login.css}">
-    <style>
-        
-    </style>
-</head>
-<body>
-    <div class="login-container">
-        <h1>Login</h1>
-        
-        <form th:action="@{/login}" method="post">
-            <label for="email">Email</label>
-            <input type="email" name="username" id="email" placeholder="Enter your email" required>
 
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" placeholder="Enter your password" required>
-            <button type="submit">Login</button>
+    <title>Login | JobHunter</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+
+    <script th:src="@{/js/login.js}" defer></script>
+
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <h1>Login</h1>
+
+        <div class="login-error" th:if="${param.error}">
+
+            <span class="error-icon">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </span>
+
+            <div>
+                <p>
+                    Incorrect email or password.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="logout-success" th:if="${param.logout}">
+
+            You have been logged out successfully.
+
+        </div>
+
+
+        <form th:action="@{/login}" method="post" id="loginForm" novalidate>
+
+            <label for="email">
+                Email
+            </label>
+
+            <input type="email" name="username" id="email" placeholder="Enter your email" autocomplete="email">
+
+            <div class="error-message" id="emailError">
+            </div>
+
+
+            <label for="password">
+                Password
+            </label>
+
+            <input type="password" name="password" id="password" placeholder="Enter your password"
+                autocomplete="current-password">
+
+            <div class="error-message" id="passwordError">
+            </div>
+
+
+            <button type="submit" id="loginButton">
+
+                Login
+
+            </button>
+
         </form>
 
+
         <div class="register-link">
-            <p>Don't have an account? <a th:href="@{/register}">Register</a></p>
+
+            <p>
+                Don't have an account?
+
+                <a th:href="@{/register}">
+                    Register
+                </a>
+            </p>
+
         </div>
 
+
         <div class="backhome">
-            <a href="/viewHomeJob">Back to Home</a>
+
+            <a th:href="@{/viewHomeJob}">
+                Back to Home
+            </a>
+
         </div>
+
     </div>
+
 </body>
+
 </html>

@@ -5,7 +5,7 @@
     display: flex;
     align-items: center;
     position: relative;
-    z-index: 1000;
+    z-index: 100;
 }
 
 .navbar-brand {
@@ -31,6 +31,11 @@
 .navbar-custom .nav-link:hover,
 .navbar-custom .nav-link.active {
     color: #2196f3 !important;
+}
+
+.nav-buttons {
+    display: flex;
+    align-items: center;
 }
 
 .login-btn {
@@ -59,19 +64,21 @@
     align-items: center;
     justify-content: center;
     background: #2196f3;
-    color: white;
+    color: #ffffff;
     padding: 10px 21px;
     border-radius: 8px;
+    border: none;
     font-size: 14px;
     font-weight: 600;
     text-decoration: none;
     white-space: nowrap;
     transition: 0.2s ease;
+    cursor: pointer;
 }
 
 .signup-btn:hover {
     background: #1976d2;
-    color: white;
+    color: #ffffff;
 }
 
 .navbar-custom .navbar-toggler {
@@ -88,6 +95,103 @@
 .navbar-custom .navbar-toggler-icon {
     width: 22px;
     height: 22px;
+}
+
+.logout-modal {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15);
+}
+
+.logout-modal .modal-header {
+    border-bottom: none;
+    padding: 25px 25px 5px;
+    position: relative;
+}
+
+.logout-icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e3f2fd;
+    color: #2196f3;
+    border-radius: 50%;
+    font-size: 21px;
+}
+
+.logout-modal .btn-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    box-shadow: none !important;
+}
+
+.logout-modal .modal-body {
+    padding: 15px 30px 10px;
+}
+
+.logout-modal .modal-body h5 {
+    margin-bottom: 8px;
+    font-size: 21px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.logout-modal .modal-body p {
+    margin: 0;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.logout-modal .modal-footer {
+    border-top: none;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 30px 25px;
+}
+
+.cancel-logout-btn {
+    padding: 9px 20px;
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.cancel-logout-btn:hover {
+    background: #e2e8f0;
+}
+
+.confirm-logout-btn {
+    padding: 9px 20px;
+    background: #2196f3;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.confirm-logout-btn:hover {
+    background: #1976d2;
+}
+
+.modal {
+    z-index: 2000 !important;
+}
+
+.modal-backdrop {
+    z-index: 1990 !important;
 }
 
 @media (max-width: 991.98px) {
@@ -129,9 +233,10 @@
         background: #f0f7ff;
     }
 
-    .navbar-custom .navbar-buttons {
+    .nav-buttons {
         display: flex;
         flex-direction: column;
+        align-items: stretch;
         gap: 10px;
         width: 100%;
         margin-top: 12px;
@@ -139,13 +244,15 @@
         border-top: 1px solid #eef2f6;
     }
 
-    .login-btn,
-    .signup-btn {
+    .nav-buttons > div {
         width: 100%;
-        margin: 0;
-        text-align: center;
     }
 
+    .nav-buttons > div > .login-btn,
+    .nav-buttons > div > .signup-btn {
+        width: 100%;
+        margin: 5px;
+    }
 }
 
 @media (max-width: 575.98px) {
@@ -167,4 +274,24 @@
         padding: 12px 15px 18px;
     }
 
+    .logout-modal .modal-body {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .logout-modal .modal-footer {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+body.modal-open {
+    padding-right: 0 !important;
+}
+
+.modal {
+    padding-right: 0 !important;
+}
+
+.modal-open .navbar-custom {
+    padding-right: 0 !important;
 }

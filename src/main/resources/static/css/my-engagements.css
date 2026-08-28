@@ -898,3 +898,191 @@ body {
     }
 
 }
+.confirm-overlay {
+position: fixed;
+inset: 0;
+z-index: 9999;
+
+display: none;
+align-items: center;
+justify-content: center;
+
+padding: 20px;
+
+background: rgba(15, 23, 42, 0.45);
+backdrop-filter: blur(3px);
+
+}
+
+.confirm-overlay.show {
+display: flex;
+}
+
+.confirm-dialog {
+width: 100%;
+max-width: 390px;
+
+padding: 28px 25px 24px;
+
+background: #ffffff;
+border: 1px solid #e2e8f0;
+border-radius: 16px;
+
+text-align: center;
+
+box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18);
+
+animation: confirmDialogIn 0.2s ease;
+
+}
+
+.confirm-icon {
+width: 58px;
+height: 58px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+margin: 0 auto 15px;
+
+border-radius: 50%;
+
+background: #e3f2fd;
+color: #2196f3;
+
+font-size: 24px;
+
+}
+
+.confirm-icon.reject {
+background: #fff0f1;
+color: #dc3545;
+}
+
+.confirm-dialog h3 {
+margin: 0 0 8px;
+
+color: #1e293b;
+
+font-size: 20px;
+font-weight: 700;
+
+}
+
+.confirm-dialog p {
+margin: 0 auto 22px;
+
+max-width: 310px;
+
+color: #64748b;
+
+font-size: 14px;
+line-height: 1.6;
+
+}
+
+.confirm-actions {
+display: flex;
+justify-content: center;
+
+gap: 10px;
+
+}
+
+.confirm-cancel,
+.confirm-submit {
+min-width: 105px;
+
+padding: 9px 16px;
+
+border-radius: 8px;
+
+font-size: 13px;
+font-weight: 600;
+
+cursor: pointer;
+
+transition: 0.2s ease;
+
+}
+
+.confirm-cancel {
+border: 1px solid #d8e0e8;
+background: #ffffff;
+color: #64748b;
+}
+
+.confirm-cancel:hover {
+background: #f8fafc;
+}
+
+.confirm-submit {
+border: 1px solid #198754;
+background: #198754;
+color: #ffffff;
+}
+
+.confirm-submit:hover {
+background: #157347;
+}
+
+.confirm-submit.reject {
+border-color: #dc3545;
+background: #dc3545;
+}
+
+.confirm-submit.reject:hover {
+background: #b02a37;
+}
+
+@keyframes confirmDialogIn {
+from {
+opacity: 0;
+transform: scale(0.94) translateY(5px);
+}
+
+to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+}
+
+@media (max-width: 480px) {
+
+.confirm-dialog {
+    max-width: 340px;
+    padding: 24px 20px 21px;
+    border-radius: 14px;
+}
+
+.confirm-icon {
+    width: 52px;
+    height: 52px;
+    margin-bottom: 13px;
+    font-size: 21px;
+}
+
+.confirm-dialog h3 {
+    font-size: 18px;
+}
+
+.confirm-dialog p {
+    font-size: 13px;
+    margin-bottom: 19px;
+}
+
+.confirm-actions {
+    gap: 8px;
+}
+
+.confirm-cancel,
+.confirm-submit {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+}

@@ -9,6 +9,12 @@ body {
     color: #1e293b;
 }
 
+button,
+input,
+textarea {
+    font: inherit;
+}
+
 .dashboard-layout {
     display: flex;
     min-height: 100vh;
@@ -29,7 +35,6 @@ body {
 .page-header {
     max-width: 1050px;
     margin: 0 auto 28px;
-
     display: flex;
     align-items: center;
     gap: 18px;
@@ -38,31 +43,25 @@ body {
 .header-icon {
     width: 58px;
     height: 58px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
+    flex-shrink: 0;
     border-radius: 16px;
-
     background: #e3f2fd;
     color: #2196f3;
-
     font-size: 23px;
 }
 
 .page-header h1 {
     margin: 0 0 5px;
-
     font-size: 28px;
     font-weight: 700;
-
     color: #0f172a;
 }
 
 .page-header p {
     margin: 0;
-
     font-size: 14px;
     color: #64748b;
 }
@@ -70,22 +69,15 @@ body {
 .profile-card {
     max-width: 1050px;
     margin: 0 auto;
-
     background: #ffffff;
-
     border: 1px solid #e2e8f0;
-
     border-radius: 18px;
-
-    box-shadow:
-        0 8px 30px rgba(15, 23, 42, 0.05);
-
+    box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
     overflow: hidden;
 }
 
 .form-section {
     padding: 30px 35px;
-
     border-bottom: 1px solid #edf2f7;
 }
 
@@ -97,40 +89,31 @@ body {
     display: flex;
     align-items: center;
     gap: 14px;
-
     margin-bottom: 24px;
 }
 
 .section-heading-icon {
     width: 42px;
     height: 42px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     flex-shrink: 0;
-
     border-radius: 12px;
-
     background: #e3f2fd;
     color: #2196f3;
-
     font-size: 17px;
 }
 
 .section-heading h2 {
     margin: 0 0 3px;
-
     font-size: 17px;
     font-weight: 700;
-
     color: #0f172a;
 }
 
 .section-heading p {
     margin: 0;
-
     font-size: 12px;
     color: #64748b;
 }
@@ -144,53 +127,52 @@ body {
 .photo-preview {
     width: 120px;
     height: 120px;
-
     flex-shrink: 0;
-
     overflow: hidden;
-
     border-radius: 50%;
-
     background: #f1f5f9;
-
     border: 4px solid #e3f2fd;
 }
 
 .photo-preview img {
     width: 100%;
     height: 100%;
-
+    display: block;
     object-fit: cover;
 }
 
 .photo-placeholder {
     width: 100%;
     height: 100%;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     color: #94a3b8;
-
     font-size: 38px;
+}
+
+.photo-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.photo-content {
+    min-width: 0;
 }
 
 .photo-content h3 {
     margin: 0 0 5px;
-
     font-size: 15px;
     font-weight: 600;
+    color: #1e293b;
 }
 
 .photo-content p {
-    margin: 0 0 13px;
-
     max-width: 450px;
-
+    margin: 0 0 13px;
     font-size: 12px;
     line-height: 1.6;
-
     color: #64748b;
 }
 
@@ -198,19 +180,13 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-
     padding: 9px 15px;
-
     border-radius: 8px;
-
     background: #2196f3;
     color: #ffffff;
-
     font-size: 12px;
     font-weight: 600;
-
     cursor: pointer;
-
     transition: 0.2s;
 }
 
@@ -220,18 +196,18 @@ body {
 
 .file-name {
     display: block;
-
+    max-width: 350px;
     margin-top: 8px;
-
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 11px;
     color: #94a3b8;
 }
 
 .form-grid {
     display: grid;
-
     grid-template-columns: 1fr 1fr;
-
     gap: 20px;
 }
 
@@ -246,10 +222,8 @@ body {
 
 .form-group label {
     margin-bottom: 8px;
-
     font-size: 13px;
     font-weight: 600;
-
     color: #334155;
 }
 
@@ -263,64 +237,58 @@ body {
 
 .input-wrapper i {
     position: absolute;
-
     left: 14px;
     top: 50%;
-
     transform: translateY(-50%);
-
     color: #94a3b8;
-
     font-size: 13px;
+    pointer-events: none;
 }
 
 .input-wrapper input {
     width: 100%;
-
     height: 45px;
-
     padding: 0 14px 0 40px;
-
     border: 1px solid #dbe3ec;
-
     border-radius: 9px;
-
     outline: none;
-
+    background: #ffffff;
+    color: #1e293b;
     font-family: "Poppins", sans-serif;
     font-size: 13px;
-
     transition: 0.2s;
 }
 
 .input-wrapper input:focus,
 .form-group textarea:focus {
     border-color: #2196f3;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
 
-    box-shadow:
-        0 0 0 3px rgba(33, 150, 243, 0.1);
+.input-wrapper input.input-error {
+    border-color: #ef4444;
+}
+
+.field-error {
+    min-height: 16px;
+    margin-top: 5px;
+    font-size: 11px;
+    color: #ef4444;
 }
 
 .form-group textarea {
     width: 100%;
-
     padding: 13px 14px;
-
     resize: vertical;
-
     min-height: 120px;
-
     border: 1px solid #dbe3ec;
-
     border-radius: 9px;
-
     outline: none;
-
+    background: #ffffff;
+    color: #1e293b;
     font-family: "Poppins", sans-serif;
     font-size: 13px;
-
     line-height: 1.7;
-
     transition: 0.2s;
 }
 
@@ -330,26 +298,18 @@ body {
 
 .create-skill-btn {
     margin-left: auto;
-
     display: inline-flex;
     align-items: center;
     gap: 7px;
-
+    flex-shrink: 0;
     padding: 8px 13px;
-
     border: 1px solid #2196f3;
-
     border-radius: 8px;
-
     background: #ffffff;
-
     color: #2196f3;
-
     font-size: 11px;
     font-weight: 600;
-
     cursor: pointer;
-
     transition: 0.2s;
 }
 
@@ -365,57 +325,58 @@ body {
 .skill-dropdown-btn {
     width: 100%;
     min-height: 46px;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    padding: 0 15px;
-
+    gap: 15px;
+    padding: 10px 15px;
     border: 1px solid #dbe3ec;
-
     border-radius: 9px;
-
+    outline: none;
     background: #ffffff;
-
     color: #64748b;
-
     font-family: "Poppins", sans-serif;
     font-size: 13px;
-
+    text-align: left;
     cursor: pointer;
+    transition: 0.2s;
+}
+
+.skill-dropdown-btn:hover,
+.skill-dropdown.open .skill-dropdown-btn {
+    border-color: #2196f3;
+}
+
+#selectedSkillsText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .skill-dropdown-btn i {
+    flex-shrink: 0;
     font-size: 11px;
+    transition: transform 0.2s;
+}
+
+.skill-dropdown.open .skill-dropdown-btn i {
+    transform: rotate(180deg);
 }
 
 .skill-dropdown-menu {
     position: absolute;
-
     top: calc(100% + 6px);
-
     left: 0;
     right: 0;
-
     z-index: 100;
-
     max-height: 230px;
-
     overflow-y: auto;
-
     display: none;
-
     padding: 6px;
-
     border: 1px solid #e2e8f0;
-
     border-radius: 10px;
-
     background: #ffffff;
-
-    box-shadow:
-        0 12px 30px rgba(15, 23, 42, 0.12);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
 }
 
 .skill-dropdown.open .skill-dropdown-menu {
@@ -426,15 +387,10 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-
     padding: 10px 12px;
-
     border-radius: 7px;
-
     font-size: 12px;
-
     cursor: pointer;
-
     transition: 0.15s;
 }
 
@@ -444,42 +400,32 @@ body {
 
 .skill-option.selected {
     background: #e3f2fd;
-
     color: #1976d2;
 }
 
 .skill-check {
     width: 18px;
     height: 18px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
+    flex-shrink: 0;
     border: 1px solid #cbd5e1;
-
     border-radius: 5px;
-
     font-size: 9px;
-
     color: transparent;
 }
 
 .skill-option.selected .skill-check {
     border-color: #2196f3;
-
     background: #2196f3;
-
     color: #ffffff;
 }
 
 .empty-skills {
     padding: 15px;
-
     text-align: center;
-
     font-size: 12px;
-
     color: #94a3b8;
 }
 
@@ -488,57 +434,42 @@ body {
     align-items: center;
     justify-content: flex-end;
     gap: 12px;
-
     padding: 22px 35px;
-
     background: #f8fafc;
-
     border-top: 1px solid #edf2f7;
 }
 
 .cancel-profile-btn,
 .save-btn {
     height: 42px;
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-
     padding: 0 18px;
-
     border-radius: 8px;
-
     font-family: "Poppins", sans-serif;
     font-size: 12px;
     font-weight: 600;
-
     text-decoration: none;
-
     cursor: pointer;
-
     transition: 0.2s;
 }
 
 .cancel-profile-btn {
     border: 1px solid #dbe3ec;
-
     background: #ffffff;
-
     color: #64748b;
 }
 
 .cancel-profile-btn:hover {
     background: #f1f5f9;
-
     color: #334155;
 }
 
 .save-btn {
     border: none;
-
     background: #2196f3;
-
     color: #ffffff;
 }
 
@@ -549,18 +480,12 @@ body {
 .skill-modal-overlay {
     position: fixed;
     inset: 0;
-
     z-index: 2000;
-
     display: none;
-
     align-items: center;
     justify-content: center;
-
     padding: 20px;
-
     background: rgba(15, 23, 42, 0.45);
-
     backdrop-filter: blur(4px);
 }
 
@@ -571,23 +496,15 @@ body {
 .skill-modal {
     width: 100%;
     max-width: 440px;
-
     overflow: hidden;
-
     background: #ffffff;
-
     border: 1px solid #e2e8f0;
-
     border-radius: 18px;
-
-    box-shadow:
-        0 25px 70px rgba(15, 23, 42, 0.20);
-
+    box-shadow: 0 25px 70px rgba(15, 23, 42, 0.2);
     animation: skillModalIn 0.22s ease;
 }
 
 @keyframes skillModalIn {
-
     from {
         opacity: 0;
         transform: translateY(15px) scale(0.97);
@@ -602,99 +519,66 @@ body {
 
 .skill-modal-header {
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     gap: 15px;
-
     padding: 20px 22px;
-
     border-bottom: 1px solid #edf2f7;
 }
 
 .modal-title {
     display: flex;
-
     align-items: center;
-
     gap: 12px;
-
     min-width: 0;
 }
 
 .modal-icon {
     width: 40px;
     height: 40px;
-
     flex-shrink: 0;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     border-radius: 11px;
-
     background: #e3f2fd;
-
     color: #2196f3;
-
     font-size: 15px;
 }
 
 .modal-title h2 {
     margin: 0;
-
     color: #0f172a;
-
     font-size: 15px;
-
     font-weight: 700;
 }
 
 .modal-title p {
     margin: 3px 0 0;
-
     color: #94a3b8;
-
     font-size: 11px;
-
     line-height: 1.4;
 }
 
 .close-btn {
     width: 34px;
     height: 34px;
-
     flex-shrink: 0;
-
     display: flex;
-
     align-items: center;
     justify-content: center;
-
     border: none;
-
     border-radius: 9px;
-
     background: #f1f5f9;
-
     color: #64748b;
-
     font-size: 14px;
-
     cursor: pointer;
-
     transition: all 0.2s ease;
 }
 
 .close-btn:hover {
     background: #fee2e2;
-
     color: #ef4444;
-
     transform: rotate(90deg);
 }
 
@@ -704,13 +588,9 @@ body {
 
 .skill-modal-body label {
     display: block;
-
     margin-bottom: 9px;
-
     color: #334155;
-
     font-size: 12px;
-
     font-weight: 600;
 }
 
@@ -720,168 +600,81 @@ body {
 
 .modal-input i {
     position: absolute;
-
     left: 14px;
     top: 50%;
-
     transform: translateY(-50%);
-
     color: #94a3b8;
-
     font-size: 12px;
-
     pointer-events: none;
 }
 
 .modal-input input {
     width: 100%;
     height: 46px;
-
     padding: 0 14px 0 40px;
-
     border: 1px solid #dbe3ec;
-
     border-radius: 9px;
-
     outline: none;
-
     background: #ffffff;
-
     color: #1e293b;
-
     font-family: "Poppins", sans-serif;
-
     font-size: 12px;
-
     transition: all 0.2s ease;
-}
-
-.modal-input input::placeholder {
-    color: #a1aab5;
 }
 
 .modal-input input:focus {
     border-color: #2196f3;
-
-    box-shadow:
-        0 0 0 3px rgba(33, 150, 243, 0.10);
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
 }
 
 .skill-modal-footer {
     display: flex;
-
     align-items: center;
-
     justify-content: flex-end;
-
     gap: 10px;
-
     padding: 16px 22px;
-
     background: #f8fafc;
-
     border-top: 1px solid #edf2f7;
 }
 
 .cancel-btn,
 .create-btn {
     height: 39px;
-
     display: inline-flex;
-
     align-items: center;
     justify-content: center;
-
     gap: 7px;
-
     padding: 0 16px;
-
     border-radius: 8px;
-
     font-family: "Poppins", sans-serif;
-
     font-size: 11px;
-
     font-weight: 600;
-
     cursor: pointer;
-
     transition: all 0.2s ease;
 }
 
 .cancel-btn {
     border: 1px solid #dbe3ec;
-
     background: #ffffff;
-
     color: #64748b;
 }
 
 .cancel-btn:hover {
     background: #f1f5f9;
-
     color: #334155;
 }
 
 .create-btn {
     border: none;
-
     background: #2196f3;
-
     color: #ffffff;
-
-    box-shadow:
-        0 4px 10px rgba(33, 150, 243, 0.18);
+    box-shadow: 0 4px 10px rgba(33, 150, 243, 0.18);
 }
 
 .create-btn:hover {
     background: #1976d2;
-
     transform: translateY(-1px);
-
-    box-shadow:
-        0 6px 14px rgba(33, 150, 243, 0.25);
-}
-
-@media (max-width: 480px) {
-
-    .skill-modal-overlay {
-        padding: 15px;
-    }
-
-    .skill-modal {
-        max-width: 100%;
-
-        border-radius: 15px;
-    }
-
-    .skill-modal-header {
-        padding: 17px 18px;
-    }
-
-    .skill-modal-body {
-        padding: 20px 18px;
-    }
-
-    .skill-modal-footer {
-        padding: 14px 18px;
-    }
-
-    .modal-title h2 {
-        font-size: 14px;
-    }
-
-    .modal-title p {
-        font-size: 10px;
-    }
-
-    .cancel-btn,
-    .create-btn {
-        height: 38px;
-
-        padding: 0 13px;
-    }
-
+    box-shadow: 0 6px 14px rgba(33, 150, 243, 0.25);
 }
 
 @media (max-width: 992px) {
@@ -895,6 +688,11 @@ body {
         padding: 30px 25px;
     }
 
+    .page-header h1 {
+        font-size: 25px;
+    }
+
+
 }
 
 @media (max-width: 768px) {
@@ -904,11 +702,27 @@ body {
     }
 
     .main-content {
+        width: 100%;
         padding: 20px 15px 40px;
+    }
+
+    .page-header {
+        margin-bottom: 20px;
     }
 
     .page-header h1 {
         font-size: 22px;
+    }
+
+    .page-header p {
+        font-size: 12px;
+    }
+
+    .header-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 14px;
+        font-size: 20px;
     }
 
     .profile-card {
@@ -935,20 +749,84 @@ body {
         padding: 18px 20px;
     }
 
+
 }
 
 @media (max-width: 480px) {
+
+    .main-content {
+        padding: 15px 10px 30px;
+    }
+
+    .page-header {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .header-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        font-size: 17px;
+    }
+
+    .page-header h1 {
+        font-size: 19px;
+    }
+
+    .page-header p {
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+    .form-section {
+        padding: 20px 16px;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .section-heading-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        font-size: 15px;
+    }
+
+    .section-heading h2 {
+        font-size: 15px;
+    }
+
+    .section-heading p {
+        font-size: 11px;
+        line-height: 1.5;
+    }
 
     .photo-wrapper {
         flex-direction: column;
     }
 
-    .skill-heading {
-        align-items: flex-start;
+    .photo-content {
+        width: 100%;
     }
 
     .create-skill-btn {
         margin-left: auto;
+        padding: 7px 10px;
+    }
+
+    .skill-heading {
+        flex-wrap: wrap;
+    }
+
+    .skill-heading>div:nth-child(2) {
+        flex: 1;
+    }
+
+    .skill-heading .create-skill-btn {
+        margin-left: 48px;
     }
 
     .form-actions {
@@ -959,6 +837,41 @@ body {
     .cancel-profile-btn,
     .save-btn {
         width: 100%;
+    }
+
+    .skill-modal-overlay {
+        padding: 15px;
+    }
+
+    .skill-modal {
+        max-width: 100%;
+        border-radius: 15px;
+    }
+
+    .skill-modal-header {
+        padding: 17px 18px;
+    }
+
+    .skill-modal-body {
+        padding: 20px 18px;
+    }
+
+    .skill-modal-footer {
+        padding: 14px 18px;
+    }
+
+    .modal-title h2 {
+        font-size: 14px;
+    }
+
+    .modal-title p {
+        font-size: 10px;
+    }
+
+    .cancel-btn,
+    .create-btn {
+        height: 38px;
+        padding: 0 13px;
     }
 
 }

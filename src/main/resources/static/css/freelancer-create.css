@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     font-family: "Roboto", sans-serif;
@@ -17,6 +21,7 @@ body {
 .sidebar-container {
     width: 250px;
     min-width: 250px;
+    flex-shrink: 0;
 }
 
 .main-content {
@@ -37,6 +42,7 @@ body {
 .header-icon {
     width: 58px;
     height: 58px;
+    min-width: 58px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -57,6 +63,7 @@ body {
     margin: 0;
     font-size: 14px;
     color: #64748b;
+    line-height: 1.6;
 }
 
 .profile-card {
@@ -65,8 +72,7 @@ body {
     background: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 18px;
-    box-shadow:
-        0 8px 30px rgba(15, 23, 42, 0.05);
+    box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
     overflow: hidden;
 }
 
@@ -89,10 +95,10 @@ body {
 .section-heading-icon {
     width: 42px;
     height: 42px;
+    min-width: 42px;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
     border-radius: 12px;
     background: #e3f2fd;
     color: #2196f3;
@@ -110,6 +116,7 @@ body {
     margin: 0;
     font-size: 12px;
     color: #64748b;
+    line-height: 1.5;
 }
 
 .photo-wrapper {
@@ -121,6 +128,7 @@ body {
 .photo-preview {
     width: 120px;
     height: 120px;
+    min-width: 120px;
     flex-shrink: 0;
     overflow: hidden;
     border-radius: 50%;
@@ -131,6 +139,7 @@ body {
 .photo-preview img {
     width: 100%;
     height: 100%;
+    display: block;
     object-fit: cover;
 }
 
@@ -144,15 +153,20 @@ body {
     font-size: 38px;
 }
 
+.photo-content {
+    min-width: 0;
+}
+
 .photo-content h3 {
     margin: 0 0 5px;
     font-size: 15px;
     font-weight: 600;
+    color: #0f172a;
 }
 
 .photo-content p {
     margin: 0 0 13px;
-    max-width: 450px;
+    max-width: 500px;
     font-size: 12px;
     line-height: 1.6;
     color: #64748b;
@@ -161,6 +175,7 @@ body {
 .upload-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     padding: 9px 15px;
     border-radius: 8px;
@@ -179,13 +194,17 @@ body {
 .file-name {
     display: block;
     margin-top: 8px;
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 11px;
     color: #94a3b8;
 }
 
 .form-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px;
 }
 
@@ -194,19 +213,22 @@ body {
 }
 
 .form-group {
+    min-width: 0;
     display: flex;
     flex-direction: column;
 }
 
-.form-group label {
+.form-group label,
+.modal-body label {
     margin-bottom: 8px;
     font-size: 13px;
     font-weight: 600;
     color: #334155;
 }
 
-.form-group label span {
-    color: #ef4444;
+.form-group label span,
+.modal-body label span {
+    color: #2196f3;
 }
 
 .input-wrapper {
@@ -220,6 +242,7 @@ body {
     transform: translateY(-50%);
     color: #94a3b8;
     font-size: 13px;
+    pointer-events: none;
 }
 
 .input-wrapper input {
@@ -229,16 +252,45 @@ body {
     border: 1px solid #dbe3ec;
     border-radius: 9px;
     outline: none;
+    background: #ffffff;
+    color: #1e293b;
     font-family: "Poppins", sans-serif;
     font-size: 13px;
     transition: 0.2s;
 }
 
+.input-wrapper input::placeholder,
+.form-group textarea::placeholder,
+.modal-input input::placeholder {
+    color: #a0aec0;
+}
+
 .input-wrapper input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.modal-input input:focus {
     border-color: #2196f3;
-    box-shadow:
-        0 0 0 3px rgba(33, 150, 243, 0.1);
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+.input-wrapper input.invalid,
+.form-group textarea.invalid,
+.modal-input input.invalid {
+    border-color: #ef4444;
+    background: #fffafa;
+}
+
+.field-hint {
+    margin-top: 5px;
+    font-size: 10px;
+    color: #94a3b8;
+}
+
+.field-error {
+    min-height: 17px;
+    margin-top: 5px;
+    color: #ef4444;
+    font-size: 11px;
+    line-height: 1.5;
 }
 
 .form-group textarea {
@@ -249,6 +301,8 @@ body {
     border: 1px solid #dbe3ec;
     border-radius: 9px;
     outline: none;
+    background: #ffffff;
+    color: #1e293b;
     font-family: "Poppins", sans-serif;
     font-size: 13px;
     line-height: 1.7;
@@ -273,6 +327,7 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: 0.2s;
+    white-space: nowrap;
 }
 
 .create-skill-btn:hover {
@@ -298,10 +353,21 @@ body {
     font-family: "Poppins", sans-serif;
     font-size: 13px;
     cursor: pointer;
+    transition: 0.2s;
+}
+
+.skill-dropdown-btn:hover,
+.skill-dropdown.open .skill-dropdown-btn {
+    border-color: #2196f3;
 }
 
 .skill-dropdown-btn i {
     font-size: 11px;
+    transition: 0.2s;
+}
+
+.skill-dropdown.open .skill-dropdown-btn i {
+    transform: rotate(180deg);
 }
 
 .skill-dropdown-menu {
@@ -317,8 +383,7 @@ body {
     border: 1px solid #e2e8f0;
     border-radius: 10px;
     background: #ffffff;
-    box-shadow:
-        0 12px 30px rgba(15, 23, 42, 0.12);
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
 }
 
 .skill-dropdown.open .skill-dropdown-menu {
@@ -332,6 +397,7 @@ body {
     padding: 10px 12px;
     border-radius: 7px;
     font-size: 12px;
+    color: #334155;
     cursor: pointer;
     transition: 0.15s;
 }
@@ -348,6 +414,7 @@ body {
 .skill-check {
     width: 18px;
     height: 18px;
+    min-width: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -440,13 +507,11 @@ body {
     overflow: hidden;
     border-radius: 16px;
     background: #ffffff;
-    box-shadow:
-        0 20px 60px rgba(15, 23, 42, 0.2);
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.2);
     animation: modalIn 0.2s ease;
 }
 
 @keyframes modalIn {
-
     from {
         opacity: 0;
         transform: translateY(10px) scale(0.98);
@@ -518,14 +583,6 @@ body {
     padding: 22px;
 }
 
-.modal-body label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #334155;
-}
-
 .modal-input {
     position: relative;
 }
@@ -537,6 +594,7 @@ body {
     transform: translateY(-50%);
     color: #94a3b8;
     font-size: 12px;
+    pointer-events: none;
 }
 
 .modal-input input {
@@ -546,14 +604,9 @@ body {
     border: 1px solid #dbe3ec;
     border-radius: 8px;
     outline: none;
+    color: #1e293b;
     font-family: "Poppins", sans-serif;
     font-size: 12px;
-}
-
-.modal-input input:focus {
-    border-color: #2196f3;
-    box-shadow:
-        0 0 0 3px rgba(33, 150, 243, 0.1);
 }
 
 .modal-footer {
@@ -582,10 +635,18 @@ body {
     color: #64748b;
 }
 
+.cancel-btn:hover {
+    background: #f1f5f9;
+}
+
 .create-btn {
     border: none;
     background: #2196f3;
     color: #ffffff;
+}
+
+.create-btn:hover {
+    background: #1976d2;
 }
 
 @media (max-width: 992px) {
@@ -613,6 +674,10 @@ body {
 
     .page-header h1 {
         font-size: 22px;
+    }
+
+    .page-header p {
+        font-size: 13px;
     }
 
     .profile-card {
@@ -643,8 +708,38 @@ body {
 
 @media (max-width: 480px) {
 
+    .page-header {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .header-icon {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+        font-size: 20px;
+    }
+
+    .page-header h1 {
+        font-size: 20px;
+    }
+
+    .page-header p {
+        font-size: 12px;
+    }
+
     .photo-wrapper {
         flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .photo-content {
+        width: 100%;
+    }
+
+    .upload-btn {
+        width: 100%;
     }
 
     .skill-heading {
@@ -662,6 +757,15 @@ body {
 
     .cancel-profile-btn,
     .save-btn {
+        width: 100%;
+    }
+
+    .modal-footer {
+        flex-direction: column-reverse;
+    }
+
+    .cancel-btn,
+    .create-btn {
         width: 100%;
     }
 
