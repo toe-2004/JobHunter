@@ -1,202 +1,195 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>My Hire Requests</title>
 
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/all.min.css}">
-    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
-    <link rel="stylesheet" th:href="@{/css/employer-engagements.css}">
+    <link rel="stylesheet"
+          th:href="@{/css/bootstrap.min.css}">
 
-    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-    <script th:stc="@{/js/employer-engagements.js}"></script>
+    <link rel="stylesheet"
+          th:href="@{/css/all.min.css}">
 
-	<style>
-	</style>
+    <link rel="stylesheet"
+          th:href="@{/css/sidebar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/employer-engagements.css}">
+
 </head>
-
 
 <body>
 
-<div class="dashboard-layout">
+<div th:replace="~{fragments/sidebar_for_employer :: sidebar}"></div>
 
-    <!-- SIDEBAR -->
+<main class="main-content">
 
-    <div class="sidebar-container">
+    <div class="requests-wrapper">
 
-        <div th:replace="~{fragments/sidebar_for_employer :: sidebar}"></div>
+        <div class="page-header">
 
-    </div>
+            <div class="page-header-left">
 
-    <!-- MAIN CONTENT -->
+                <div class="page-icon">
+                    <i class="fa-solid fa-handshake"></i>
+                </div>
 
-    <main class="main-content">
+                <div class="page-header-text">
 
-        <div class="requests-wrapper">
+                    <h1>
+                        Hire Requests
+                    </h1>
 
-            <div class="page-header">
-
-                <div class="page-header-left">
-
-                    <div class="page-icon">
-
-                        <i class="fa-solid fa-handshake"></i>
-
-                    </div>
-
-                    <div>
-
-                        <h1>
-                            Hire Requests
-                        </h1>
-
-                        <p>
-                            Manage the hire requests you have sent to freelancers.
-                        </p>
-
-                    </div>
+                    <p>
+                        Manage the hire requests you have sent to freelancers.
+                    </p>
 
                 </div>
 
             </div>
 
-            <div th:if="${#lists.isEmpty(engagements)}"
-                 class="empty-state">
+        </div>
+        
+        <div th:if="${#lists.isEmpty(engagements)}"
+                class="empty-state">
 
-                <div class="empty-icon">
-
-                    <i class="fa-regular fa-handshake"></i>
-
-                </div>
-
-                <h3>
-                    No hire requests yet
-                </h3>
-
-                <p>
-                    Hire requests you send to freelancers will appear here.
-                </p>
-
+            <div class="empty-icon">
+                <i class="fa-regular fa-handshake"></i>
             </div>
 
-            <div th:each="engagement : ${engagements}"
-                 class="request-card">
+            <h3>
+                No hire requests yet
+            </h3>
 
-                <div class="card-top"></div>
+            <p>
+                Hire requests you send to freelancers will appear here.
+            </p>
 
-                <div class="card-body">
+        </div>
 
-                    <div class="request-heading">
+        <div th:each="engagement : ${engagements}"
+                class="request-card">
 
-                        <div class="request-heading-left">
+            <div class="card-top"></div>
 
-                            <div class="request-label">
+            <div class="card-body">
 
-                                <i class="fa-solid fa-paper-plane"></i>
+                <div class="request-heading">
 
-                                Hire Request
+                    <div class="request-heading-left">
 
-                            </div>
+                        <div class="request-label">
+
+                            <i class="fa-solid fa-paper-plane"></i>
+
+                            Hire Request
 
                         </div>
 
-                        <span th:classappend="${engagement.status.name() == 'PENDING'} ? ' pending' :
-                                              (${engagement.status.name() == 'ACCEPTED'} ? ' accepted' : ' rejected')"
-                              class="status">
+                    </div>
 
-                            <i class="fa-solid fa-circle"></i>
+                    <span th:classappend="${engagement.status.name() == 'PENDING'} ? ' pending' :
+                                            (${engagement.status.name() == 'ACCEPTED'} ? ' accepted' : ' rejected')"
+                            class="status">
 
-                            <span th:text="${engagement.status}">
-                                PENDING
-                            </span>
+                        <i class="fa-solid fa-circle"></i>
 
+                        <span th:text="${engagement.status}">
+                            PENDING
                         </span>
 
-                    </div>
+                    </span>
 
-                    <div class="people-position-row">
+                </div>
 
-                        <div>
+                <div class="people-position-row">
 
-                            <div class="section-label">
+                    <div class="person-column">
 
-                                <i class="fa-solid fa-user"></i>
+                        <div class="section-label">
 
-                                Sent To
+                            <i class="fa-solid fa-user"></i>
+
+                            Sent To
+
+                        </div>
+
+                        <div class="freelancer-info">
+
+                            <div class="freelancer-avatar">
+
+                                <img th:if="${engagement.freelancer.user != null
+                                                and engagement.freelancer.user.profilePhoto != null}"
+                                        th:src="@{'/uploads/' + ${engagement.freelancer.user.profilePhoto}}"
+                                        alt="Freelancer Photo"
+                                        class="freelancer-photo">
+
+                                <i th:unless="${engagement.freelancer.user != null
+                                                and engagement.freelancer.user.profilePhoto != null}"
+                                    class="fa-solid fa-user">
+                                </i>
 
                             </div>
 
-                            <div class="freelancer-info">
+                            <div class="freelancer-details">
 
-                                <div class="freelancer-avatar">
+                                <a class="freelancer-name"
+                                    th:href="@{/freelancer-details/{id}(id=${engagement.freelancer.id})}"
+                                    th:text="${engagement.freelancer.user.name}">
 
-									<img th:if="${engagement.freelancer.user != null 
-									                     and engagement.freelancer.user.profilePhoto != null}"
-									             th:src="@{'/uploads/' + ${engagement.freelancer.user.profilePhoto}}"
-									             alt="Freelancer Photo"
-									             class="freelancer-photo">
+                                    Freelancer Name
 
-                                </div>
+                                </a>
 
-                                <div class="freelancer-details">
-									
-									<a class="freelancer-name" th:href="@{/freelancer-details/{id}(id=${engagement.freelancer.id})}"
-                                        th:text="${engagement.freelancer.user.name}">
+                                <p class="freelancer-meta">
 
-                                        Freelancer Name
+                                    <span th:text="${engagement.freelancer.title}">
+                                        Freelancer Title
+                                    </span>
 
-                                    </a>
+                                    <span> · </span>
 
-                                    <p class="freelancer-meta">
+                                    <span class="freelancer-email"
+                                            th:text="${engagement.freelancer.user.email}">
+                                        freelancer@email.com
+                                    </span>
 
-                                        <span th:text="${engagement.freelancer.title}">
-                                            Freelancer Title
-                                        </span>
-
-                                        <span> · </span>
-
-                                        <span class="freelancer-email"
-                                              th:text="${engagement.freelancer.user.email}">
-                                            freelancer@email.com
-                                        </span>
-
-                                    </p>
-
-                                </div>
+                                </p>
 
                             </div>
 
                         </div>
 
-                        <div>
+                    </div>
 
-                            <div class="section-label">
+                    <div class="position-column">
+
+                        <div class="section-label">
+
+                            <i class="fa-solid fa-briefcase"></i>
+
+                            For Position
+
+                        </div>
+
+                        <div class="position-info">
+
+                            <div class="position-icon">
 
                                 <i class="fa-solid fa-briefcase"></i>
 
-                                For Position
-
                             </div>
 
-                            <div class="position-info">
+                            <div class="position-name"
+                                    th:text="${engagement.title}">
 
-                                <div class="position-icon">
-
-                                    <i class="fa-solid fa-briefcase"></i>
-
-                                </div>
-
-                                <div class="position-name"
-                                     th:text="${engagement.title}">
-
-                                    Frontend Developer
-
-                                </div>
+                                Frontend Developer
 
                             </div>
 
@@ -204,111 +197,136 @@
 
                     </div>
 
-                    <div class="details-grid">
+                </div>
 
-                        <div class="detail-item">
+                <div class="details-grid">
 
-                            <div class="detail-label">
+                    <div class="detail-item">
 
-                                <i class="fa-solid fa-layer-group"></i>
+                        <div class="detail-label">
 
-                                Category
+                            <i class="fa-solid fa-layer-group"></i>
 
-                            </div>
-
-                            <div class="detail-value"
-                                 th:text="${engagement.category.name}">
-
-                                Web Development
-
-                            </div>
+                            Category
 
                         </div>
 
-                        <div class="detail-item">
+                        <div class="detail-value"
+                                th:text="${engagement.category != null
+                                        ? engagement.category.name
+                                        : 'N/A'}">
 
-                            <div class="detail-label">
-
-                                <i class="fa-solid fa-money-bill"></i>
-
-                                Monthly Rate
-
-                            </div>
-
-                            <div class="detail-value"
-                                 th:text="${engagement.monthlyRate + ' Kyats'}">
-
-                                500,000 Kyats
-
-                            </div>
-
-                        </div>
-
-                        <div class="detail-item">
-
-                            <div class="detail-label">
-
-                                <i class="fa-regular fa-calendar"></i>
-
-                                Start Date
-
-                            </div>
-
-                            <div class="detail-value"
-                                 th:text="${#temporals.format(engagement.startDate,'dd MMM yyyy, hh:mm a')}">
-
-                                01 Sep 2026, 09:00 AM
-
-                            </div>
-
-                        </div>
-
-                        <div class="detail-item">
-
-                            <div class="detail-label">
-
-                                <i class="fa-regular fa-calendar-check"></i>
-
-                                End Date
-
-                            </div>
-
-                            <div class="detail-value"
-                                 th:text="${#temporals.format(engagement.endDate,'dd MMM yyyy, hh:mm a')}">
-
-                                30 Nov 2026, 05:00 PM
-
-                            </div>
+                            Web Development
 
                         </div>
 
                     </div>
 
-                    <div class="description-section">
 
-                        <div class="description-header">
+                    <div class="detail-item">
 
-                            <i class="fa-regular fa-file-lines"></i>
+                        <div class="detail-label">
 
-                            Engagement Description
+                            <i class="fa-solid fa-money-bill"></i>
+
+                            Monthly Rate
 
                         </div>
 
-                        <p class="description-text"
-                           th:text="${engagement.description}">
+                        <div class="detail-value"
+                                th:text="${engagement.monthlyRate != null
+                                        ? #numbers.formatDecimal(engagement.monthlyRate, 0, 'COMMA', 0, 'POINT') + ' Kyats'
+                                        : 'N/A'}">
 
-                            Engagement description goes here.
+                            500,000 Kyats
 
-                        </p>
-
-                        <button type="button"
-                                class="see-more-btn">
-
-                            See more
-
-                        </button>
+                        </div>
 
                     </div>
+
+
+                    <div class="detail-item">
+
+                        <div class="detail-label">
+
+                            <i class="fa-regular fa-calendar"></i>
+
+                            Start Date
+
+                        </div>
+
+                        <div class="detail-value"
+                                th:if="${engagement.startDate != null}"
+                                th:text="${#temporals.format(
+                                    engagement.startDate,
+                                    'dd MMM yyyy, hh:mm a'
+                                )}">
+
+                            01 Sep 2026, 09:00 AM
+
+                        </div>
+
+                        <div class="detail-value"
+                                th:if="${engagement.startDate == null}">
+                            Not specified
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                        <div class="detail-label">
+
+                            <i class="fa-regular fa-calendar-check"></i>
+
+                            End Date
+
+                        </div>
+
+                        <div class="detail-value"
+                                th:if="${engagement.endDate != null}"
+                                th:text="${#temporals.format(
+                                    engagement.endDate,
+                                    'dd MMM yyyy, hh:mm a'
+                                )}">
+
+                            30 Nov 2026, 05:00 PM
+
+                        </div>
+
+                        <div class="detail-value"
+                                th:if="${engagement.endDate == null}">
+                            Not specified
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="description-section">
+
+                    <div class="description-header">
+
+                        <i class="fa-regular fa-file-lines"></i>
+
+                        Engagement Description
+
+                    </div>
+
+                    <p class="description-text"
+                        th:text="${engagement.description}">
+
+                        Engagement description goes here.
+
+                    </p>
+
+                    <button type="button"
+                            class="see-more-btn">
+
+                        See more
+
+                    </button>
 
                 </div>
 
@@ -316,10 +334,13 @@
 
         </div>
 
-    </main>
+    </div>
 
-</div>
+</main>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 <script th:src="@{/js/employer-engagements.js}"></script>
+
 </body>
 
 </html>

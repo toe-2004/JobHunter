@@ -16,169 +16,166 @@
 </head>
 
 <body>
-<div class="dashboard-layout">
 
-    <div class="sidebar-container">
-        <div th:replace="~{fragments/sidebar_for_freelancer :: sidebar}"></div>
-    </div>
+<div th:replace="~{fragments/sidebar_for_freelancer :: sidebar}"></div>
 
-    <main class="main-content">
-        <div class="applications-wrapper">
+<main class="main-content">
+    <div class="applications-wrapper">
 
-            <div class="page-heading">
-                <div>
-                    <h1>
-                        My Applications
-                    </h1>
-                    <p>
-                        Keep track of your applications and follow
-                        your progress.
-                    </p>
-                </div>
-            </div>
-
-            <div th:if="${#lists.isEmpty(applications)}"
-                 class="empty-state">
-                <div class="empty-icon">
-                    <i class="fa-regular fa-folder-open"></i>
-                </div>
-                <h2>
-                    No applications yet
-                </h2>
+        <div class="page-heading">
+            <div>
+                <h1>
+                    My Applications
+                </h1>
                 <p>
-                    You haven't applied for any jobs yet.
-                    Start exploring available opportunities
-                    and find your next project.
+                    Keep track of your applications and follow
+                    your progress.
                 </p>
-                <a th:href="@{/jobs}"
-                   class="browse-btn">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    Browse Jobs
-                </a>
             </div>
+        </div>
 
-            <div th:unless="${#lists.isEmpty(applications)}"
-                 class="applications-list">
+        <div th:if="${#lists.isEmpty(applications)}"
+                class="empty-state">
+            <div class="empty-icon">
+                <i class="fa-regular fa-folder-open"></i>
+            </div>
+            <h2>
+                No applications yet
+            </h2>
+            <p>
+                You haven't applied for any jobs yet.
+                Start exploring available opportunities
+                and find your next project.
+            </p>
+            <a th:href="@{/jobs}"
+                class="browse-btn">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                Browse Jobs
+            </a>
+        </div>
 
-                <div th:each="app : ${applications}"
-                     class="application-card">
+        <div th:unless="${#lists.isEmpty(applications)}"
+                class="applications-list">
 
-                    <div class="card-top">
-                        <div class="job-info">
-                            <div class="job-icon">
-                                <i class="fa-solid fa-briefcase"></i>
-                            </div>
+            <div th:each="app : ${applications}"
+                    class="application-card">
 
-                            <div class="job-content">
-                                <a th:href="@{/job-details/{id}(id=${app.job.id})}"
-                                   class="job-title"
-                                   th:text="${app.job.title}">
-                                    Job Title
-                                </a>
-
-                                <div class="date-info">
-                                    <i class="fa-regular fa-calendar"></i>
-                                    <span>
-                                        Applied on
-                                    </span>
-                                    <span
-                                        th:text="${#temporals.format(app.createdAt, 'MMM dd, yyyy')}">
-                                        Aug 19, 2026
-                                    </span>
-                                </div>
-                            </div>
+                <div class="card-top">
+                    <div class="job-info">
+                        <div class="job-icon">
+                            <i class="fa-solid fa-briefcase"></i>
                         </div>
 
-                        <div class="status"
-                             th:classappend="${app.status.name().toLowerCase()}">
-                            <i th:if="${app.status.name() == 'PENDING'}"
-                               class="fa-regular fa-clock"></i>
-                            <i th:if="${app.status.name() == 'SHORTLISTED'}"
-                               class="fa-solid fa-star"></i>
-                            <i th:if="${app.status.name() == 'ACCEPTED'}"
-                               class="fa-solid fa-circle-check"></i>
-                            <i th:if="${app.status.name() == 'REJECTED'}"
-                               class="fa-solid fa-circle-xmark"></i>
-                            <i th:if="${app.status.name() == 'WITHDRAWN'}"
-                               class="fa-solid fa-ban"></i>
-                            <span th:text="${app.status}">
-                                PENDING
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="content-section">
-                        <div class="section-title">
-                            <span class="section-icon">
-                                <i class="fa-regular fa-envelope"></i>
-                            </span>
-                            Cover Letter
-                        </div>
-
-                        <p class="cover-letter">
-                            <span class="cover-letter-text"
-                                  th:attr="data-full-text=${app.coverLetter}">
-                            </span>
-                            <a href="javascript:void(0)"
-                               class="see-more"
-                               style="display:none;">
-                                See more
+                        <div class="job-content">
+                            <a th:href="@{/job-details/{id}(id=${app.job.id})}"
+                                class="job-title"
+                                th:text="${app.job.title}">
+                                Job Title
                             </a>
-                        </p>
-                    </div>
 
-                    <div class="cv-section">
-                        <div class="cv-info">
-                            <div class="cv-icon">
-                                <i class="fa-regular fa-file-pdf"></i>
-                            </div>
-
-                            <div class="cv-text">
-                                <strong>
-                                    Applicant CV
-                                </strong>
+                            <div class="date-info">
+                                <i class="fa-regular fa-calendar"></i>
                                 <span>
-                                    Submitted with this application
+                                    Applied on
+                                </span>
+                                <span
+                                    th:text="${#temporals.format(app.createdAt, 'MMM dd, yyyy')}">
+                                    Aug 19, 2026
                                 </span>
                             </div>
                         </div>
-
-                        <a th:href="@{/application/{id}/cv(id=${app.id})}"
-                           class="cv-btn">
-                            <i class="fa-solid fa-download"></i>
-                            Download CV
-                        </a>
                     </div>
 
-                    <div class="card-footer">
-                        <a th:href="@{/job-details/{id}(id=${app.job.id})}"
-                           class="job-link">
-                            View Job Post
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
+                    <div class="status"
+                            th:classappend="${app.status.name().toLowerCase()}">
+                        <i th:if="${app.status.name() == 'PENDING'}"
+                            class="fa-regular fa-clock"></i>
+                        <i th:if="${app.status.name() == 'SHORTLISTED'}"
+                            class="fa-solid fa-star"></i>
+                        <i th:if="${app.status.name() == 'ACCEPTED'}"
+                            class="fa-solid fa-circle-check"></i>
+                        <i th:if="${app.status.name() == 'REJECTED'}"
+                            class="fa-solid fa-circle-xmark"></i>
+                        <i th:if="${app.status.name() == 'WITHDRAWN'}"
+                            class="fa-solid fa-ban"></i>
+                        <span th:text="${app.status}">
+                            PENDING
+                        </span>
+                    </div>
+                </div>
 
-                        <form th:if="${app.status.name() == 'PENDING'
-                                      or app.status.name() == 'SHORTLISTED'}"
-                              th:action="@{/application/{id}/withdraw(id=${app.id})}"
-                              method="post"
-                              class="withdraw-form">
-                            <button type="submit"
-                                    class="withdraw-btn"
-                                    onclick="return confirm('Withdraw this application?')">
-                                <i class="fa-solid fa-xmark"></i>
-                                Withdraw Application
-                            </button>
-                        </form>
+                <div class="content-section">
+                    <div class="section-title">
+                        <span class="section-icon">
+                            <i class="fa-regular fa-envelope"></i>
+                        </span>
+                        Cover Letter
                     </div>
 
+                    <p class="cover-letter">
+                        <span class="cover-letter-text"
+                                th:attr="data-full-text=${app.coverLetter}">
+                        </span>
+                        <a href="javascript:void(0)"
+                            class="see-more"
+                            style="display:none;">
+                            See more
+                        </a>
+                    </p>
+                </div>
+
+                <div class="cv-section">
+                    <div class="cv-info">
+                        <div class="cv-icon">
+                            <i class="fa-regular fa-file-pdf"></i>
+                        </div>
+
+                        <div class="cv-text">
+                            <strong>
+                                Applicant CV
+                            </strong>
+                            <span>
+                                Submitted with this application
+                            </span>
+                        </div>
+                    </div>
+
+                    <a th:href="@{/application/{id}/cv(id=${app.id})}"
+                        class="cv-btn">
+                        <i class="fa-solid fa-download"></i>
+                        Download CV
+                    </a>
+                </div>
+
+                <div class="card-footer">
+                    <a th:href="@{/job-details/{id}(id=${app.job.id})}"
+                        class="job-link">
+                        View Job Post
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                    <form th:if="${app.status.name() == 'PENDING'
+                                    or app.status.name() == 'SHORTLISTED'}"
+                            th:action="@{/application/{id}/withdraw(id=${app.id})}"
+                            method="post"
+                            class="withdraw-form">
+                        <button type="submit"
+                                class="withdraw-btn"
+                                onclick="return confirm('Withdraw this application?')">
+                            <i class="fa-solid fa-xmark"></i>
+                            Withdraw Application
+                        </button>
+                    </form>
                 </div>
 
             </div>
 
         </div>
-    </main>
 
-</div>
+    </div>
+    
+</main>
+
 </body>
 
 </html>

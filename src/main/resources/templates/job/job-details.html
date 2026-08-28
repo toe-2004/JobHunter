@@ -197,7 +197,7 @@
 					    </span>
 
 					    <span class="info-value"
-					          th:text="${job.budget + ' Kyats'}">
+					          th:text="${#numbers.formatDecimal(job.budget, 0, 'COMMA', 0, 'POINT') + ' Kyats'}">
 					        100,000 Kyats
 					    </span>
 
@@ -211,7 +211,7 @@
 					    </span>
 
 					    <span class="info-value"
-					          th:text="${job.salaryMin + ' Kyats'}">
+					          th:text="${#numbers.formatDecimal(job.salaryMin, 0, 'COMMA', 0, 'POINT') + ' Kyats'}">
 					        300,000 Kyats
 					    </span>
 
@@ -226,7 +226,7 @@
 					    </span>
 
 					    <span class="info-value"
-					          th:text="${job.salaryMax + ' Kyats'}">
+					          th:text="${#numbers.formatDecimal(job.salaryMax, 0, 'COMMA', 0, 'POINT') + ' Kyats'}">
 					        500,000 Kyats
 					    </span>
 

@@ -8,6 +8,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const button =
             description.parentElement.querySelector(".see-more-btn");
 
+        if (!button) {
+            return;
+        }
+
         const styles =
             window.getComputedStyle(description);
 
@@ -21,23 +25,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
             button.style.display = "inline-block";
 
+        } else {
+
+            button.style.display = "none";
+
         }
 
         button.addEventListener("click", function () {
 
-            if (description.classList.contains("expanded")) {
+            const expanded =
+                description.classList.toggle("expanded");
 
-                description.classList.remove("expanded");
-
-                button.textContent = "See more";
-
-            } else {
-
-                description.classList.add("expanded");
-
-                button.textContent = "See less";
-
-            }
+            button.textContent =
+                expanded ? "See less" : "See more";
 
         });
 

@@ -489,36 +489,19 @@
 
 		                <div class="job-bottom">
 
-		                    <!-- <div class="job-salary">
-
-		                        <span th:text="${job.salaryMin}">
-		                            $900
-		                        </span>
-
-		                        -
-
-		                        <span th:text="${job.salaryMax}">
-		                            $1,400
-		                        </span>
-
-		                        <span>
-		                            /month
-		                        </span>
-
-		                    </div> -->
                             <div class="job-salary">
 
                                 <!-- Salary range -->
                                 <span th:if="${job.employmentType.name() == 'HOURLY' and job.salaryMin != null and job.salaryMax != null}">
-                                    <span th:text="${job.salaryMin}">$900</span>
+                                    <span th:text="${#numbers.formatDecimal(job.salaryMin,0, 'COMMA', 0, 'POINT')}">$900</span>
                                     -
-                                    <span th:text="${job.salaryMax}">$1,400</span>
+                                    <span th:text="${#numbers.formatDecimal(job.salaryMax,0, 'COMMA', 0, 'POINT')}">$1,400</span>
                                     <span> Kyats/hour</span>
                                 </span>
 
                                 <!-- Budget -->
                                 <span th:if="${job.employmentType.name() == 'FIXED_PRICE'}"
-                                    th:text="${job.budget+' Kyats/month'}">
+                                    th:text="${#numbers.formatDecimal(job.budget,0, 'COMMA', 0, 'POINT')+' Kyats/month'}">
                                     $1,500
                                 </span>
                             </div>
@@ -537,13 +520,7 @@
 		    </div>
 
 		</div>
-
-                </a>
-
-            </div>
-
-        </div>
-
+    
     </div>
 
 </section>
@@ -775,32 +752,33 @@
 
 </section>
 
-<section class="cta">
+<section class="cta" sec:authorize="!isAuthenticated()">
 
-    <div class="container">
+<div class="container">
 
-        <div class="cta-box">
+    <div class="cta-box">
 
-            <h2>
-                Ready to take the next step?
-            </h2>
+        <h2>
+            Ready to take the next step?
+        </h2>
 
-            <p>
-                Whether you're looking for your dream job or
-                searching for your next great hire, JobHunter
-                is here to help.
-            </p>
+        <p>
+            Whether you're looking for your dream job or
+            searching for your next great hire, JobHunter
+            is here to help.
+        </p>
 
-            <a th:href="@{/register}" class="cta-btn">
-                Get Started
-                <i class="fa-solid fa-arrow-right ms-1"></i>
-            </a>
-
-        </div>
+        <a th:href="@{/register}" class="cta-btn">
+            Get Started
+            <i class="fa-solid fa-arrow-right ms-1"></i>
+        </a>
 
     </div>
 
+</div>
+
 </section>
+
 
 <!-- FOOTER -->
 

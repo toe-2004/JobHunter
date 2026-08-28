@@ -213,31 +213,20 @@
                 </div>
 
                 <div class="job-bottom">
-                    <!-- <div class="job-salary">
-                        <span th:text="${job.salaryMin}">
-                            100
-                        </span>
-                        -
-                        <span th:text="${job.salaryMax}">
-                            200
-                        </span>
-                        <span class="salary-period">
-                            Kyats/month
-                        </span>
-                    </div> -->
+
                     <div class="job-salary">
 
                         <!-- Salary range -->
                         <span th:if="${job.salaryMin != null and job.salaryMax != null}">
-                            <span th:text="${job.salaryMin}">$900</span>
+                            <span th:text="${#numbers.formatDecimal(job.salaryMin, 0, 'COMMA', 0, 'POINT')}">$900</span>
                             -
-                            <span th:text="${job.salaryMax}">$1,400</span>
+                            <span th:text="${#numbers.formatDecimal(job.salaryMax, 0, 'COMMA', 0, 'POINT')}">$1,400</span>
                             <span> Kyats/hour</span>
                         </span>
 
                         <!-- Budget -->
                         <span th:if="${job.salaryMin == null or job.salaryMax == null}"
-                            th:text="${job.budget+' Kyats/month'}">
+                            th:text="${#numbers.formatDecimal(job.budget, 0, 'COMMA', 0, 'POINT')+' Kyats/month'}">
                             $1,500
                         </span>
                     </div>
