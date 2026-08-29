@@ -1,3 +1,4 @@
+css
 * {
     box-sizing: border-box;
 }
@@ -15,21 +16,12 @@ textarea {
     font: inherit;
 }
 
-.dashboard-layout {
-    display: flex;
-    min-height: 100vh;
-}
-
-.sidebar-container {
-    width: 250px;
-    min-width: 250px;
-}
-
 .main-content {
-    flex: 1;
+    width: calc(100% - 250px);
     min-width: 0;
-    padding: 40px 45px 60px;
-    font-family: "Poppins", sans-serif;
+    margin-left: 250px;
+    padding: 38px 45px 55px;
+    overflow-x: hidden;
 }
 
 .page-header {
@@ -514,7 +506,6 @@ textarea {
         opacity: 1;
         transform: translateY(0) scale(1);
     }
-
 }
 
 .skill-modal-header {
@@ -677,37 +668,50 @@ textarea {
     box-shadow: 0 6px 14px rgba(33, 150, 243, 0.25);
 }
 
-@media (max-width: 992px) {
-
-    .sidebar-container {
-        width: 220px;
-        min-width: 220px;
-    }
+@media (min-width: 992px) {
 
     .main-content {
-        padding: 30px 25px;
+        width: calc(100% - 250px);
+        margin-left: 250px;
+        padding: 38px 45px 55px;
+    }
+
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+
+    .main-content {
+        width: 100%;
+        margin-left: 0;
+        padding: 30px 25px 45px;
+    }
+
+    .page-header,
+    .profile-card {
+        max-width: 100%;
     }
 
     .page-header h1 {
         font-size: 25px;
     }
 
-
 }
 
-@media (max-width: 768px) {
-
-    .sidebar-container {
-        display: none;
-    }
+@media (max-width: 767.98px) {
 
     .main-content {
         width: 100%;
+        margin-left: 0;
         padding: 20px 15px 40px;
     }
 
     .page-header {
+        width: 100%;
         margin-bottom: 20px;
+    }
+
+    .profile-card {
+        width: 100%;
     }
 
     .page-header h1 {
@@ -749,12 +753,13 @@ textarea {
         padding: 18px 20px;
     }
 
-
 }
 
 @media (max-width: 480px) {
 
     .main-content {
+        width: 100%;
+        margin-left: 0;
         padding: 15px 10px 30px;
     }
 
@@ -821,7 +826,7 @@ textarea {
         flex-wrap: wrap;
     }
 
-    .skill-heading>div:nth-child(2) {
+    .skill-heading > div:nth-child(2) {
         flex: 1;
     }
 
