@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const emailError = document.getElementById("emailError");
     const passwordError = document.getElementById("passwordError");
 
+    const togglePassword = document.querySelector(".toggle-password");
+
 
     function setError(input, errorElement, message) {
 
@@ -186,6 +188,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
             return;
         }
+
+    });
+
+
+    togglePassword.addEventListener("click", function () {
+
+        const type =
+            password.getAttribute("type") === "password"
+                ? "text"
+                : "password";
+
+        password.setAttribute("type", type);
+
+        this.classList.toggle("fa-eye-slash");
+        this.classList.toggle("fa-eye");
 
     });
 
