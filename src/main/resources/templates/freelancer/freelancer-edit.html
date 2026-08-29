@@ -28,95 +28,50 @@
 
 <body>
 
-    <div class="dashboard-layout">
+    <div th:replace="~{fragments/sidebar_for_freelancer :: sidebar}"></div>
 
-        <div class="sidebar-container">
-            <div th:replace="~{fragments/sidebar_for_freelancer :: sidebar}"></div>
-        </div>
+    <main class="main-content">
 
-        <main class="main-content">
-
-            <div class="page-header">
-                <div class="header-icon">
-                    <i class="fa-solid fa-user-pen"></i>
-                </div>
-
-                <div>
-                    <h1>Edit Your Freelancer Profile</h1>
-                    <p>
-                        Keep your professional information up to date so employers can find you.
-                    </p>
-                </div>
+        <div class="page-header">
+            <div class="header-icon">
+                <i class="fa-solid fa-user-pen"></i>
             </div>
 
-            <div class="profile-card">
+            <div>
+                <h1>Edit Your Freelancer Profile</h1>
+                <p>
+                    Keep your professional information up to date so employers can find you.
+                </p>
+            </div>
+        </div>
 
-                <form th:action="@{/freelancer/profile}" th:object="${freelancer}" method="post"
-                    enctype="multipart/form-data">
+        <div class="profile-card">
 
-                    <section class="form-section">
+            <form th:action="@{/freelancer/profile}" th:object="${freelancer}" method="post"
+                enctype="multipart/form-data">
 
-                        <div class="section-heading">
+                <section class="form-section">
 
-                            <div class="section-heading-icon">
-                                <i class="fa-solid fa-camera"></i>
-                            </div>
+                    <div class="section-heading">
 
-                            <div>
-                                <h2>Profile Photo</h2>
-                                <p>Update your profile picture.</p>
-                            </div>
-
+                        <div class="section-heading-icon">
+                            <i class="fa-solid fa-camera"></i>
                         </div>
 
-                        <div class="photo-wrapper">
-
-                            <div class="photo-preview">
-
-                                <img th:if="${user.profilePhoto != null}" th:src="@{'/uploads/' + ${user.profilePhoto}}"
-                                    alt="Profile Photo" id="profilePreview">
-
-                                <div th:unless="${user.profilePhoto != null}" class="photo-placeholder"
-                                    id="photoPlaceholder">
-                                    <i class="fa-solid fa-user"></i>
-                                </div>
-
-                            </div>
-
-                            <div class="photo-content">
-
-                                <h3>Change your profile photo</h3>
-
-                                <p>
-                                    Use a clear and professional photo.
-                                    JPG, JPEG or PNG recommended.
-                                </p>
-
-                                <label for="profilePhoto" class="upload-btn">
-                                    <i class="fa-solid fa-upload"></i>
-                                    Choose New Photo
-                                </label>
-
-                                <input type="file" id="profilePhoto" name="profilePhoto"
-                                    accept="image/jpeg,image/png,image/jpg" hidden>
-
-                                <span id="fileName" class="file-name">
-                                    No new photo selected
-                                </span>
-
-                            </div>
-
+                        <div>
+                            <h2>Profile Photo</h2>
+                            <p>Update your profile picture.</p>
                         </div>
 
-                    </section>
+                    </div>
 
-                    <section class="form-section">
+                    <div class="photo-wrapper">
 
-                        <div class="section-heading">
+                        <div class="photo-preview">
 
-                            <div class="section-heading-icon">
-                                <i class="fa-solid fa-id-card"></i>
-                            </div>
+                            <img th:if="${user.profilePhoto != null}" th:src="@{'/uploads/' + ${user.profilePhoto}}"
+                                alt="Profile Photo" id="profilePreview">
+
 
                             <div>
                                 <h2>Basic Information</h2>
@@ -275,113 +230,294 @@
                         <div class="section-heading">
 
                             <div class="section-heading-icon">
+
+                            <div th:unless="${user.profilePhoto != null}" class="photo-placeholder"
+                                id="photoPlaceholder">
+
                                 <i class="fa-solid fa-user"></i>
                             </div>
 
-                            <div>
-                                <h2>About Me</h2>
-                                <p>Tell employers about yourself.</p>
-                            </div>
-
                         </div>
 
-                        <div class="form-group">
+                        <div class="photo-content">
 
-                            <label for="summary">
-                                Professional Summary
+                            <h3>Change your profile photo</h3>
+
+                            <p>
+                                Use a clear and professional photo.
+                                JPG, JPEG or PNG recommended.
+                            </p>
+
+                            <label for="profilePhoto" class="upload-btn">
+                                <i class="fa-solid fa-upload"></i>
+                                Choose New Photo
                             </label>
 
-                            <textarea id="summary" th:field="*{summary}"
-                                placeholder="Introduce yourself, your strengths and the type of work you are looking for..."
-                                rows="6" maxlength="2000"></textarea>
+                            <input type="file" id="profilePhoto" name="profilePhoto"
+                                accept="image/jpeg,image/png,image/jpg" hidden>
+
+                            <span id="fileName" class="file-name">
+                                No new photo selected
+                            </span>
 
                         </div>
 
-                    </section>
+                    </div>
 
-                    <section class="form-section">
+                </section>
 
-                        <div class="section-heading">
+                <section class="form-section">
 
-                            <div class="section-heading-icon">
-                                <i class="fa-solid fa-graduation-cap"></i>
-                            </div>
+                    <div class="section-heading">
 
-                            <div>
-                                <h2>Education</h2>
-                                <p>Update your educational background.</p>
-                            </div>
-
+                        <div class="section-heading-icon">
+                            <i class="fa-solid fa-id-card"></i>
                         </div>
 
-                        <div class="form-group">
+                        <div>
+                            <h2>Basic Information</h2>
+                            <p>Update your professional information.</p>
+                        </div>
 
-                            <label for="education">
-                                Education Background
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group full-width">
+
+                            <label for="title">
+                                Professional Title
+                                <span>*</span>
                             </label>
 
-                            <textarea id="education" th:field="*{education}"
-                                placeholder="Example: B.Sc. in Software Engineering - University of Computer Studies, Yangon"
-                                rows="5" maxlength="2000"></textarea>
+                            <div class="input-wrapper">
 
-                        </div>
-
-                    </section>
-
-                    <section class="form-section">
-
-                        <div class="section-heading">
-
-                            <div class="section-heading-icon">
                                 <i class="fa-solid fa-briefcase"></i>
-                            </div>
 
-                            <div>
-                                <h2>Experience</h2>
-                                <p>
-                                    Update your work experience, projects or internships.
-                                </p>
+                                <input type="text" id="title" th:field="*{title}" placeholder="e.g. Java Developer"
+                                    maxlength="100" required>
+
                             </div>
 
                         </div>
 
                         <div class="form-group">
 
-                            <label for="experience">
-                                Work Experience
+                            <label for="phone">
+                                Phone
                             </label>
 
-                            <textarea id="experience" th:field="*{experience}"
-                                placeholder="Describe your previous work experience, projects or internships..."
-                                rows="6" maxlength="3000"></textarea>
+                            <div class="input-wrapper">
+
+                                <i class="fa-solid fa-phone"></i>
+
+                                <input type="tel" id="phone" th:field="*{phone}" placeholder="e.g. 09123456789"
+                                    inputmode="numeric" autocomplete="tel" pattern="[0-9]*" maxlength="15">
+
+                            </div>
+
+                            <small class="field-error" id="phoneError"></small>
 
                         </div>
 
-                    </section>
+                        <div class="form-group">
 
-                    <div class="form-actions">
+                            <label for="location">
+                                Location
+                            </label>
 
-                        <a th:href="@{/freelancer/profile}" class="cancel-profile-btn">
+                            <div class="input-wrapper">
 
-                            <i class="fa-solid fa-arrow-left"></i>
-                            Cancel
+                                <i class="fa-solid fa-location-dot"></i>
 
-                        </a>
+                                <input type="text" id="location" th:field="*{location}" placeholder="e.g. Yangon"
+                                    maxlength="100">
 
-                        <button type="submit" class="save-btn">
+                            </div>
 
-                            <i class="fa-solid fa-check"></i>
-                            Save Changes
+                        </div>
 
+                    </div>
+
+                </section>
+
+                <section class="form-section">
+
+                    <div class="section-heading skill-heading">
+
+                        <div class="section-heading-icon">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+
+                        <div>
+                            <h2>Skills</h2>
+                            <p>
+                                Update the skills that represent your professional abilities.
+                            </p>
+                        </div>
+
+                        <button type="button" class="create-skill-btn" id="openSkillBtn">
+                            <i class="fa-solid fa-plus"></i>
+                            Create Skill
                         </button>
 
                     </div>
 
-                </form>
+                    <div class="skill-dropdown" id="skillDropdown">
 
-            </div>
+                        <button type="button" class="skill-dropdown-btn" id="skillDropdownBtn">
 
-        </main>
+                            <span id="selectedSkillsText">
+                                Select your skills
+                            </span>
+
+                            <i class="fa-solid fa-chevron-down"></i>
+
+                        </button>
+
+                        <div class="skill-dropdown-menu" id="skillDropdownMenu">
+
+                            <div th:each="skill : ${skills}" class="skill-option"
+                                th:classappend="${selectedSkillIds.contains(skill.id)} ? 'selected' : ''"
+                                th:attr="data-id=${skill.id}">
+
+                                <span class="skill-check">
+                                    <i class="fa-solid fa-check"></i>
+                                </span>
+
+                                <span th:text="${skill.name}">
+                                    Java
+                                </span>
+
+                            </div>
+
+                            <div th:if="${#lists.isEmpty(skills)}" class="empty-skills">
+
+                                <i class="fa-solid fa-circle-info"></i>
+                                No skills available.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div id="selectedSkillInputs"></div>
+
+                </section>
+
+                <section class="form-section">
+
+                    <div class="section-heading">
+
+                        <div class="section-heading-icon">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+
+                        <div>
+                            <h2>About Me</h2>
+                            <p>Tell employers about yourself.</p>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="summary">
+                            Professional Summary
+                        </label>
+
+                        <textarea id="summary" th:field="*{summary}"
+                            placeholder="Introduce yourself, your strengths and the type of work you are looking for..."
+                            rows="6" maxlength="2000"></textarea>
+
+                    </div>
+
+                </section>
+
+                <section class="form-section">
+
+                    <div class="section-heading">
+
+                        <div class="section-heading-icon">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+
+                        <div>
+                            <h2>Education</h2>
+                            <p>Update your educational background.</p>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="education">
+                            Education Background
+                        </label>
+
+                        <textarea id="education" th:field="*{education}"
+                            placeholder="Example: B.Sc. in Software Engineering - University of Computer Studies, Yangon"
+                            rows="5" maxlength="2000"></textarea>
+
+                    </div>
+
+                </section>
+
+                <section class="form-section">
+
+                    <div class="section-heading">
+
+                        <div class="section-heading-icon">
+                            <i class="fa-solid fa-briefcase"></i>
+                        </div>
+
+                        <div>
+                            <h2>Experience</h2>
+                            <p>
+                                Update your work experience, projects or internships.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="experience">
+                            Work Experience
+                        </label>
+
+                        <textarea id="experience" th:field="*{experience}"
+                            placeholder="Describe your previous work experience, projects or internships..." rows="6"
+                            maxlength="3000"></textarea>
+
+                    </div>
+
+                </section>
+
+                <div class="form-actions">
+
+                    <a th:href="@{/freelancer/profile}" class="cancel-profile-btn">
+
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Cancel
+
+                    </a>
+
+                    <button type="submit" class="save-btn">
+
+                        <i class="fa-solid fa-check"></i>
+                        Save Changes
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
 
     </div>
 
@@ -449,8 +585,6 @@
             </form>
 
         </div>
-
-    </div>
 
 </body>
 
