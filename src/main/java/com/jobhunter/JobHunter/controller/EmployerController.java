@@ -179,7 +179,15 @@ public class EmployerController {
         if (profilePhoto != null && !profilePhoto.isEmpty()) {
 
             String uploadDir = "uploads/";
+            if (user.getProfilePhoto() != null &&
+                    !user.getProfilePhoto().isEmpty()) {
 
+                Path oldPhotoPath = Paths.get(uploadDir)
+                        .resolve(user.getProfilePhoto())
+                        .normalize();
+
+                Files.deleteIfExists(oldPhotoPath);
+            }
             File directory = new File(uploadDir);
 
             if (!directory.exists()) {

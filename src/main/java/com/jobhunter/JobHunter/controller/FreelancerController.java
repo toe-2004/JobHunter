@@ -49,11 +49,10 @@ public class FreelancerController {
     private FreelancerSkillRepository freelancerSkillRepository;
 
 
-        @GetMapping("/freelancer/dashboard")
-        public String profile(Model model) {
+    @GetMapping("/freelancer/dashboard")
+       public String profile(Model model) {
 
-        Authentication auth =
-                SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         User user = userRepository.findByEmail(auth.getName())
                 .orElseThrow(() -> new RuntimeException("User not found"));
@@ -73,25 +72,16 @@ public class FreelancerController {
 
         Long freelancerId = freelancer.getId();
 
-        long appliedJobsCount =
-                applicationRepository.countByFreelancerId(freelancerId);
+        long appliedJobsCount = applicationRepository.countByFreelancerId(freelancerId);
+        long hireRequestsCount = engagementRepository.countByFreelancerId(freelancerId);
 
-        long hireRequestsCount =
-                engagementRepository.countByFreelancerId(freelancerId);
-
-        List<Application> recentApplications =
-                applicationRepository
-                        .findTop4ByFreelancerIdOrderByCreatedAtDesc(freelancerId);
-
-        List<Engagement> recentHireRequests =
-                engagementRepository
-                        .findTop4ByFreelancerIdOrderByStartDateDesc(freelancerId);
+        List<Application> recentApplications = applicationRepository.findTop4ByFreelancerIdOrderByCreatedAtDesc(freelancerId);
+        List<Engagement> recentHireRequests = engagementRepository.findTop4ByFreelancerIdOrderByStartDateDesc(freelancerId);
 
         model.addAttribute("appliedJobsCount", appliedJobsCount);
         model.addAttribute("hireRequestsCount", hireRequestsCount);
         model.addAttribute("recentApplications", recentApplications);
         model.addAttribute("recentHireRequests", recentHireRequests);
-
         model.addAttribute("currentPage", "dashboard");
 
         return "freelancer/dashboard";
@@ -102,12 +92,21 @@ public class FreelancerController {
     @GetMapping("/freelancer/create")
     public String createFreelancer(Model model) {
 
-    	 Authentication auth =
-                 SecurityContextHolder.getContext().getAuthentication();
+    	 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
          User user = userRepository.findByEmail(auth.getName())
                  .orElseThrow(() -> new RuntimeException("User not found"));
 
+         
+         Authentication newAuth = new UsernamePasswordAuthenticationToken(
+                         auth.getPrincipal(),
+                         auth.getCredentials(),
+                         List.of(
+                                 new SimpleGrantedAuthority("ROLE_FREELANCER")
+                         )
+                 );
+
+         SecurityContextHolder.getContext().setAuthentication(newAuth);
         model.addAttribute("user", user);
 
         Optional<Freelancer> existingFreelancer =
@@ -119,31 +118,11 @@ public class FreelancerController {
         }
 
 
-        Freelancer freelancer =
-                new Freelancer();
-
-
-        model.addAttribute(
-                "freelancer",
-                freelancer
-        );
-
-        model.addAttribute(
-                "skills",
-                skillRepository.findAll()
-        );
-
-        model.addAttribute(
-                "selectedSkillIds",
-                new HashSet<Long>()
-        );
-
-        model.addAttribute(
-                "skill",
-                new Skill()
-        );
-
-
+        Freelancer freelancer = new Freelancer();
+        model.addAttribute("freelancer",freelancer);
+        model.addAttribute("skills",skillRepository.findAll());
+        model.addAttribute("selectedSkillIds",new HashSet<Long>());
+        model.addAttribute("skill",new Skill());
         return "freelancer/freelancer-create";
     }
 
@@ -151,21 +130,14 @@ public class FreelancerController {
     @GetMapping("/freelancer/profile")
     public String viewProfile(Model model) {
 
-    	 	Authentication auth =
-                 SecurityContextHolder.getContext().getAuthentication();
+    	 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
          User user = userRepository.findByEmail(auth.getName())
                  .orElseThrow(() -> new RuntimeException("User not found"));
 
-        model.addAttribute(
-                "user",
-                user
-        );
+        model.addAttribute("user",user);
 
-
-        Optional<Freelancer> optionalFreelancer =
-                freelancerRepository
-                        .findByUser(user);
+        Optional<Freelancer> optionalFreelancer = freelancerRepository.findByUser(user);
 
         if (optionalFreelancer.isEmpty()) {
 
@@ -187,214 +159,114 @@ public class FreelancerController {
     }
 
 
+    
     @Transactional
-    @PostMapping("/freelancer/profile")
-    public String saveProfile(
-    		@RequestParam("name") String name,
-            @ModelAttribute("freelancer")
-            Freelancer freelancer,
+    	@PostMapping("/freelancer/create")
+    public String createFreelancer(
 
-            @RequestParam(
-                    value = "skillIds",
-                    required = false
-            )
-            Set<Long> skillIds,
+        @ModelAttribute("freelancer")
+        Freelancer freelancer,
 
-            @RequestParam(
-                    value = "profilePhoto",
-                    required = false
-            )
-            MultipartFile profilePhoto
+        @RequestParam(
+                value = "skillIds",
+                required = false
+        )
+        Set<Long> skillIds,
 
-    ) throws IOException {
+        @RequestParam(
+                value = "profilePhoto",
+                required = false
+        )
+        MultipartFile profilePhoto,
 
+        Authentication auth
 
-    	 Authentication auth =
-                 SecurityContextHolder.getContext().getAuthentication();
+) throws IOException {
 
-         User user = userRepository.findByEmail(auth.getName())
-                 .orElseThrow(() -> new RuntimeException("User not found"));
-        user.setName(name);
+    User user = userRepository.findByEmail(auth.getName())
+            .orElseThrow(() ->
+                    new RuntimeException("User not found"));
 
-        Optional<Freelancer> optionalFreelancer =
-                freelancerRepository
-                        .findByUser(user);
+    if (freelancerRepository.findByUser(user).isPresent()) {
+        return "redirect:/freelancer/edit";
+    }
 
+    freelancer.setUser(user);
 
-        Freelancer savedFreelancer;
+    Freelancer savedFreelancer = freelancerRepository.save(freelancer);
 
+    user.setRole(Role.FREELANCER);
+    if (profilePhoto != null && !profilePhoto.isEmpty()) {
 
+        Path uploadPath = Paths.get("uploads");
 
-        if (optionalFreelancer.isEmpty()) {
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
 
-            freelancer.setUser(user);
+        String originalFileName =
+                profilePhoto.getOriginalFilename();
 
-            savedFreelancer =
-                    freelancerRepository.save(
-                            freelancer
-                    );
+        String fileName =
+                UUID.randomUUID()
+                        + "_"
+                        + originalFileName;
 
+        Path filePath =
+                uploadPath.resolve(fileName);
 
-            user.setRole(Role.FREELANCER);
+        Files.copy(
+                profilePhoto.getInputStream(),
+                filePath,
+                StandardCopyOption.REPLACE_EXISTING
+        );
 
-            userRepository.save(user);
-             Authentication currentAuth =
-                    SecurityContextHolder.getContext().getAuthentication();
+        user.setProfilePhoto(fileName);
+    }
 
-            Authentication newAuth =
-                    new UsernamePasswordAuthenticationToken(
-                            currentAuth.getPrincipal(),
-                            currentAuth.getCredentials(),
-                            List.of(
-                                    new SimpleGrantedAuthority("ROLE_FREELANCER")
+    userRepository.save(user);
+    if (skillIds != null && !skillIds.isEmpty()) {
+
+        for (Long skillId : skillIds) {
+
+            Skill skill = skillRepository
+                    .findById(skillId)
+                    .orElseThrow(() ->
+                            new RuntimeException(
+                                    "Skill not found: " + skillId
                             )
                     );
 
-            SecurityContextHolder.getContext().setAuthentication(newAuth);
+            FreelancerSkill freelancerSkill =
+                    new FreelancerSkill();
+
+            freelancerSkill.setFreelancer(
+                    savedFreelancer
+            );
+
+            freelancerSkill.setSkill(skill);
+
+            freelancerSkillRepository.save(
+                    freelancerSkill
+            );
         }
-        
-
-
-        else {
-
-            savedFreelancer =
-                    optionalFreelancer.get();
-
-
-            savedFreelancer.setTitle(
-                    freelancer.getTitle()
-            );
-
-            savedFreelancer.setPhone(
-                    freelancer.getPhone()
-            );
-
-            savedFreelancer.setLocation(
-                    freelancer.getLocation()
-            );
-
-            savedFreelancer.setSummary(
-                    freelancer.getSummary()
-            );
-
-            savedFreelancer.setExperience(
-                    freelancer.getExperience()
-            );
-
-            savedFreelancer.setEducation(
-                    freelancer.getEducation()
-            );
-
-
-            savedFreelancer =
-                    freelancerRepository.save(
-                            savedFreelancer
-                    );
-        }
-
-
-        freelancerSkillRepository
-                .deleteByFreelancer(
-                        savedFreelancer
-                );
-
-
-        if (skillIds != null &&
-                !skillIds.isEmpty()) {
-
-
-            for (Long skillId : skillIds) {
-
-                Skill skill =
-                        skillRepository
-                                .findById(skillId)
-                                .orElseThrow(() ->
-                                        new RuntimeException(
-                                                "Skill not found: "
-                                                        + skillId
-                                        )
-                                );
-
-
-                FreelancerSkill freelancerSkill =
-                        new FreelancerSkill();
-
-
-                freelancerSkill.setFreelancer(
-                        savedFreelancer
-                );
-
-                freelancerSkill.setSkill(
-                        skill
-                );
-
-
-                freelancerSkillRepository.save(
-                        freelancerSkill
-                );
-            }
-        }
-
-        if (profilePhoto != null &&
-                !profilePhoto.isEmpty()) {
-
-
-            String originalFileName =
-                    profilePhoto.getOriginalFilename();
-
-
-            String fileName =
-                    UUID.randomUUID()
-                            + "_"
-                            + originalFileName;
-
-
-            Path uploadPath =
-                    Paths.get("uploads");
-
-
-            if (!Files.exists(uploadPath)) {
-
-                Files.createDirectories(
-                        uploadPath
-                );
-            }
-
-
-            Path filePath =
-                    uploadPath.resolve(
-                            fileName
-                    );
-
-
-            Files.copy(
-                    profilePhoto.getInputStream(),
-                    filePath,
-                    StandardCopyOption.REPLACE_EXISTING
-            );
-
-
-            user.setProfilePhoto(
-                    fileName
-            );
-
-
-            userRepository.save(user);
-        }
-
-
-        return "redirect:/freelancer/profile";
     }
 
+    return "redirect:/freelancer/profile";
+    }
+    
     @GetMapping("/freelancer/edit")
     public String editFreelancer(Model model) {
 
-    	 Authentication auth =
-                 SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication();
 
-         User user = userRepository.findByEmail(auth.getName())
-                 .orElseThrow(() -> new RuntimeException("User not found"));
-
+        User user = userRepository
+                .findByEmail(auth.getName())
+                .orElseThrow(() ->
+                        new RuntimeException("User not found"));
 
         Freelancer freelancer =
                 freelancerRepository
@@ -402,21 +274,15 @@ public class FreelancerController {
                         .orElse(null);
 
         if (freelancer == null) {
-
             return "redirect:/freelancer/create";
         }
 
-
-        Set<Long> selectedSkillIds =
-                new HashSet<>();
-
+        Set<Long> selectedSkillIds = new HashSet<>();
 
         if (freelancer.getFreelancerSkills() != null) {
 
-            for (
-                    FreelancerSkill freelancerSkill :
-                    freelancer.getFreelancerSkills()
-            ) {
+            for (FreelancerSkill freelancerSkill :
+                    freelancer.getFreelancerSkills()) {
 
                 if (freelancerSkill.getSkill() != null) {
 
@@ -429,11 +295,7 @@ public class FreelancerController {
             }
         }
 
-
-        model.addAttribute(
-                "user",
-                user
-        );
+        model.addAttribute("user", user);
 
         model.addAttribute(
                 "freelancer",
@@ -454,14 +316,200 @@ public class FreelancerController {
                 "skill",
                 new Skill()
         );
-        model.addAttribute("currentPage", "profile_f");
+
+        model.addAttribute(
+                "currentPage",
+                "profile_f"
+        );
 
         return "freelancer/freelancer-edit";
     }
+    
+    @Transactional
+    @PostMapping("/freelancer/edit")
+    public String updateFreelancer(
+        @ModelAttribute("freelancer")
+        Freelancer freelancer,
+        @RequestParam(
+                value = "name",
+                required = false
+        )
+        String name,
+        @RequestParam(
+                value = "skillIds",
+                required = false
+        )
+        Set<Long> skillIds,
+        @RequestParam(
+                value = "profilePhoto",
+                required = false
+        )
+        MultipartFile profilePhoto,Authentication auth) throws IOException {
 
+
+    		User user = userRepository
+            .findByEmail(auth.getName())
+            .orElseThrow(() ->
+                    new RuntimeException("User not found"));
+
+
+    Freelancer existingFreelancer =
+            freelancerRepository
+                    .findByUser(user)
+                    .orElseThrow(() ->
+                            new RuntimeException(
+                                    "Freelancer profile not found"
+                            ));
+
+
+    if (name != null && !name.trim().isEmpty()) {
+
+        user.setName(name.trim());
+
+    }
+
+
+    existingFreelancer.setTitle(
+            freelancer.getTitle()
+    );
+
+    existingFreelancer.setPhone(
+            freelancer.getPhone()
+    );
+
+    existingFreelancer.setLocation(
+            freelancer.getLocation()
+    );
+
+    existingFreelancer.setSummary(
+            freelancer.getSummary()
+    );
+
+    existingFreelancer.setExperience(
+            freelancer.getExperience()
+    );
+
+    existingFreelancer.setEducation(
+            freelancer.getEducation()
+    );
+
+
+    freelancerRepository.save(
+            existingFreelancer
+    );
+
+
+    freelancerSkillRepository
+            .deleteByFreelancer(
+                    existingFreelancer
+            );
+
+
+    if (skillIds != null && !skillIds.isEmpty()) {
+
+        for (Long skillId : skillIds) {
+
+            Skill skill =
+                    skillRepository
+                            .findById(skillId)
+                            .orElseThrow(() ->
+                                    new RuntimeException(
+                                            "Skill not found: "
+                                                    + skillId
+                                    )
+                            );
+
+
+            FreelancerSkill freelancerSkill =
+                    new FreelancerSkill();
+
+
+            freelancerSkill.setFreelancer(
+                    existingFreelancer
+            );
+
+            freelancerSkill.setSkill(
+                    skill
+            );
+
+
+            freelancerSkillRepository.save(
+                    freelancerSkill
+            );
+        }
+    }
+
+
+    if (profilePhoto != null &&
+            !profilePhoto.isEmpty()) {
+
+
+        Path uploadPath =
+                Paths.get("uploads");
+
+        if (!Files.exists(uploadPath)) {
+
+            Files.createDirectories(
+                    uploadPath
+            );
+
+        }
+
+
+        if (user.getProfilePhoto() != null &&
+                !user.getProfilePhoto().isEmpty()) {
+
+
+            Path oldPhotoPath =
+                    uploadPath
+                            .resolve(
+                                    user.getProfilePhoto()
+                            )
+                            .normalize();
+
+
+            Files.deleteIfExists(
+                    oldPhotoPath
+            );
+        }
+
+
+        String originalFileName =
+                profilePhoto.getOriginalFilename();
+
+
+        String fileName =
+                UUID.randomUUID()
+                        + "_"
+                        + originalFileName;
+
+
+        Path filePath =
+                uploadPath.resolve(
+                        fileName
+                );
+
+        Files.copy(
+                profilePhoto.getInputStream(),
+                filePath,
+                StandardCopyOption.REPLACE_EXISTING
+        );
+
+
+
+        user.setProfilePhoto(
+                fileName
+        );
+    }
+    userRepository.save(user);
+
+    return "redirect:/freelancer/profile";
+    }
+    
 
     @GetMapping("/freelancer/skill")
     public String showSkillForm(Model model) {
+
 
         model.addAttribute(
                 "skill",

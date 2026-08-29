@@ -101,11 +101,28 @@ public class HomeController {
         model.addAttribute("freelancers", freelancers);
         model.addAttribute("currentPage", "home");
 
-        Job featuredJob = latestJobs.isEmpty() ? null : latestJobs.getFirst();
-        model.addAttribute("featuredJob", featuredJob);
-        model.addAttribute("jobSeekerCount",
-                featuredJob == null ? 0 : applicationRepository.countByJobId(featuredJob.getId()));
+//        Job featuredJob = latestJobs.isEmpty() ? null : latestJobs.getFirst();
+//        model.addAttribute("featuredJob", featuredJob);
+//        model.addAttribute("jobSeekerCount",
+//                featuredJob == null ? 0 : applicationRepository.countByJobId(featuredJob.getId()));
 
+        
+        List<Job> latestJobsCount = jobRepository.findByStatusOrderByCreatedAtDesc(JobStatus.OPEN);
+        Job featuredJob = latestJobsCount.isEmpty() ? null : latestJobsCount.get(0);
+        model.addAttribute("featuredJobCount", featuredJob);
+
+        long jobCount = 0;
+        if (featuredJob != null) {
+            jobCount = jobRepository.countByTitleAndStatus(featuredJob.getTitle(),JobStatus.OPEN);
+        }
+ 
+        long companiesCount = 0;
+        if (featuredJob != null) {
+            companiesCount = jobRepository.countDistinctEmployerIdByTitleAndStatus(featuredJob.getTitle(),JobStatus.OPEN);
+        }
+
+        model.addAttribute("companiesCount", companiesCount);
+        model.addAttribute("jobSeekerCount", jobCount);
         return "viewHomeJob";
     }
     

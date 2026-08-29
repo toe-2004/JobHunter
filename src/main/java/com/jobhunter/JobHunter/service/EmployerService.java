@@ -133,49 +133,68 @@ public class EmployerService {
 //        userRepository.save(user);
 //    }
     
-    public void updateProfile(EmployerProfileDto profileDto,MultipartFile profilePhoto) {
-
-        Employer employer = getProfile();
-
-        User user = employer.getUser();
-
-        employer.setCompanyName(profileDto.getCompanyName());
-        employer.setCompanyEmail(profileDto.getCompanyEmail());
-        employer.setCompanyPhone(profileDto.getCompanyPhone());
-        employer.setCompanyLocation(profileDto.getCompanyLocation());
-        employer.setCompanyDescription(profileDto.getCompanyDescription());
-
-        if (profilePhoto != null && !profilePhoto.isEmpty()) {
-
-            String fileName = UUID.randomUUID()
-                    + "_" + profilePhoto.getOriginalFilename();
-
-            Path uploadPath = Paths.get("uploads/profile");
-
-            try {
-
-                Files.createDirectories(uploadPath);
-
-                Path filePath = uploadPath.resolve(fileName);
-
-                Files.copy(
-                        profilePhoto.getInputStream(),
-                        filePath,
-                        StandardCopyOption.REPLACE_EXISTING
-                );
-
-                user.setProfilePhoto(fileName);
-
-            } catch (IOException e) {
-
-                throw new IllegalStateException(
-                        "Could not upload profile photo",e);
-            }
-        }
-
-        employerRepository.save(employer);
-        userRepository.save(user);
-    }
+//    public void updateProfile(EmployerProfileDto profileDto,MultipartFile profilePhoto) {
+//
+//        Employer employer = getProfile();
+//
+//        User user = employer.getUser();
+//
+//        employer.setCompanyName(profileDto.getCompanyName());
+//        employer.setCompanyEmail(profileDto.getCompanyEmail());
+//        employer.setCompanyPhone(profileDto.getCompanyPhone());
+//        employer.setCompanyLocation(profileDto.getCompanyLocation());
+//        employer.setCompanyDescription(profileDto.getCompanyDescription());
+//
+//        if (profilePhoto != null && !profilePhoto.isEmpty()) {
+//        	
+//        	 
+//
+//        	        String oldFileName = user.getProfilePhoto();
+//
+//        	        if (oldFileName != null && !oldFileName.isBlank()) {
+//
+//        	            Path oldPhotoPath = Paths.get("uploads/profile")
+//        	                    .resolve(oldFileName)
+//        	                    .normalize();
+//
+//        	        try {
+//						Files.deleteIfExists(oldPhotoPath);
+//					
+//        	        }catch (IOException e) {
+//                        throw new IllegalStateException(
+//                                "Could not delete old profile photo", e);
+//                    }
+//        	    }
+//
+//            String fileName = UUID.randomUUID()
+//                    + "_" + profilePhoto.getOriginalFilename();
+//
+//            Path uploadPath = Paths.get("uploads/profile");
+//
+//            try {
+//
+//                Files.createDirectories(uploadPath);
+//
+//                Path filePath = uploadPath.resolve(fileName);
+//
+//                Files.copy(
+//                        profilePhoto.getInputStream(),
+//                        filePath,
+//                        StandardCopyOption.REPLACE_EXISTING
+//                );
+//
+//                user.setProfilePhoto(fileName);
+//
+//            } catch (IOException e) {
+//
+//                throw new IllegalStateException(
+//                        "Could not upload profile photo",e);
+//            }
+//        }
+//
+//        employerRepository.save(employer);
+//        userRepository.save(user);
+//    }
 
     @Transactional(readOnly = true)
     public Employer getCurrentEmployer() {

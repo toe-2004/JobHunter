@@ -114,90 +114,111 @@
 
             <!-- Hero visual -->
 
-            <div class="col-lg-5">
+			
+			<div class="col-lg-5">
 
-                <div class="hero-visual">
+			    <div class="hero-visual">
 
-                    <div class="floating-card floating-one">
+			        <div class="floating-card floating-one">
 
-                        <i class="fa-solid fa-user-check"></i>
+			            
 
-                        <div>
-                            <strong th:text="${jobSeekerCount}">0</strong><br>
-                            <small>Active candidates</small>
-                        </div>
+			        </div>
 
-                    </div>
+			        <div class="hero-main-card" th:if="${featuredJobCount != null}">
 
+			            <div class="job-card-top">
 
-                    <div class="hero-main-card" th:if="${featuredJob != null}">
+			                <div class="company-logo">
+			                    <i class="fa-solid fa-building"></i>
+			                </div>
 
-                        <div class="job-card-top">
+			                <div>
+			                    <h5 th:text="${featuredJobCount.employer.companyName}">
+			                        Company
+			                    </h5>
 
-                            <div class="company-logo">
-                                <i class="fa-solid fa-building"></i>
-                            </div>
+			
+			                </div>
 
-                            <div>
-
-                                <h5 th:text="${featuredJob.employer.companyName}">Company</h5>
-                                <small th:text="${featuredJob.category.name}">Category</small>
-
-                            </div>
-
-                        </div>
-
-                        <h4 th:text="${featuredJob.title}">Featured job</h4>
-
-                        <div class="job-info">
-
-                            <span th:text="${featuredJob.employer.companyLocation}">Location</span>
-
-                            <span th:text="${featuredJob.employmentType}">Type</span>
-
-                        </div>
-
-                        <div class="job-tags">
-
-                            <span class="job-tag" th:each="jobSkill, stat : ${featuredJob.jobSkills}" th:if="${stat.index < 3}" th:text="${jobSkill.skill.name}">Skill</span>
-
-                        </div>
-
-                        <div class="apply-mini">
-
-                            <div class="salary">
-                                <span th:if="${featuredJob.employmentType.name() == 'HOURLY'}" th:text="${featuredJob.salaryMin + ' - ' + featuredJob.salaryMax}  + ' Kyats/hour'">Salary</span>
-                                <span th:if="${featuredJob.employmentType.name() == 'FIXED_PRICE'}" th:text="${featuredJob.budget} + ' Kyats/month'">Budget</span>
-                            </div>
-
-                            <a th:href="@{/job-details/{id}(id=${featuredJob.id})}" class="mini-btn">
-                                Apply Now
-                            </a>
-
-                        </div>
-
-                    </div>
-                    <div class="hero-main-card" th:unless="${featuredJob != null}">
-                        <h4>No featured jobs yet</h4>
-                        <p>Check back soon for new opportunities.</p>
-                    </div>
+			            </div>
 
 
-                    <div class="floating-card floating-two">
+			            <h4 th:text="${featuredJobCount.title}">
+			                Featured job
+			            </h4>
 
-                        <i class="fa-solid fa-building"></i>
 
-                        <div>
+			            <div class="job-info">
 
-                            <strong th:text="${companies}">0</strong><br>
-                            <small>Companies hiring</small>
-                        </div>
+			                <span th:text="${featuredJobCount.employer.companyLocation}">
+			                    Location
+			                </span>
 
-                    </div>
+			                <span th:text="${featuredJobCount.employmentType}">
+			                    Type
+			                </span>
 
-                </div>
+			            </div>
 
-            </div>
+
+			            <div class="job-tags">
+
+			                <span class="job-tag"
+			                      th:each="jobSkill, stat : ${featuredJobCount.jobSkills}"
+			                      th:if="${stat.index < 3}"
+			                      th:text="${jobSkill.skill.name}">
+			                    Skill
+			                </span>
+
+			            </div>
+
+
+			            <div class="apply-mini">
+
+			                <div class="salary">
+
+			                    <span th:if="${featuredJobCount.employmentType.name() == 'HOURLY'}"
+			                          th:text="${featuredJobCount.salaryMin + ' - ' + featuredJobCount.salaryMax + ' Kyats/hour'}">
+			                        Salary
+			                    </span>
+
+			                    <span th:if="${featuredJobCount.employmentType.name() == 'FIXED_PRICE'}"
+			                          th:text="${featuredJobCount.budget + ' Kyats/month'}">
+			                        Budget
+			                    </span>
+
+			                </div>
+
+
+			                <a th:href="@{/job-details/{id}(id=${featuredJobCount.id})}"
+			                   class="mini-btn">
+			                    Apply Now
+			                </a>
+
+			            </div>
+
+			        </div>
+
+			        <div class="hero-main-card"
+			             th:if="${featuredJobCount == null}">
+
+			            <h4>No open jobs yet</h4>
+
+			            <p>
+			                Check back soon for new opportunities.
+			            </p>
+
+			        </div>
+
+
+			        
+
+			    </div>
+
+			</div>
+		
+
 
         </div>
 
