@@ -10,6 +10,8 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
     <link rel="stylesheet" th:href="@{/css/login.css}">
 
     <script th:src="@{/js/login.js}" defer></script>
@@ -61,8 +63,12 @@
                 Password
             </label>
 
-            <input type="password" name="password" id="password" placeholder="Enter your password"
-                autocomplete="current-password">
+            <div class="password-wrapper">
+                <input type="password" name="password" id="password" placeholder="Enter your password"
+                    autocomplete="current-password">
+
+                <i class="fa-solid fa-eye-slash toggle-password"></i>
+            </div>
 
             <div class="error-message" id="passwordError">
             </div>
