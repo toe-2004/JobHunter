@@ -45,9 +45,9 @@ public class UserService {
             return "Email already exists!";
         }
 
-        if (userRepository.existsByName(user.getName())) {
-            return "Username already exists!";
-        }
+//        if (userRepository.existsByName(user.getName())) {
+//            return "Username already exists!";
+//        }
         user.setRole(Role.GUEST);
         if (photo != null && !photo.isEmpty()) {
             String fileName = photo.getOriginalFilename();
