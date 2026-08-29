@@ -75,7 +75,7 @@
                       method="post"
                       enctype="multipart/form-data"
                       id="employerProfileForm"
-                      novalidate>
+                      >
 
                     <section class="form-section photo-section">
 
@@ -128,19 +128,16 @@
                                     A square image works best.
                                 </p>
 
-                                <label for="profilePhoto" class="upload-button">
-
-                                    <i class="fa-solid fa-upload"></i>
-                                    Choose Photo
-
-                                </label>
-
-                                <input
-                                    type="file"
-                                    id="profilePhoto"
-                                    name="profilePhoto"
-                                    accept="image/jpeg,image/jpg,image/png,image/webp"
-                                    hidden>
+								<label for="profilePhotoFile" class="upload-button">
+								    <i class="fa-solid fa-upload"></i>
+								    Choose Photo
+								</label>
+								<input
+								    type="file"
+								    id="profilePhotoFile"
+								    name="profilePhotoFile"
+								    accept="image/jpeg,image/jpg,image/png,image/webp"
+								    hidden>
 
                                 <div id="photoError" class="error"></div>
 
@@ -214,24 +211,22 @@
                                 <div class="input-wrapper">
 
                                     <i class="fa-solid fa-envelope"></i>
-
-                                    <input
-                                        type="email"
-                                        id="companyEmail"
-                                        th:field="*{companyEmail}"
-                                        th:errorclass="is-invalid"
-                                        placeholder="company@example.com"
-                                        maxlength="150"
-                                        autocomplete="email">
+									<input
+																	    type="email"
+																	    id="companyEmail"
+																	    th:field="*{companyEmail}"
+																	    th:errorclass="is-invalid"
+																	    placeholder="company@example.com"
+																	    maxlength="150"
+																	    autocomplete="email">
+                                    
 
                                 </div>
+								
+								
 
-                                <div class="error" th:errors="*{companyEmail}"></div>
-
-                                <div class="client-error"
-                                     id="companyEmailError"></div>
-
-                            </div>
+								<div class="error" th:errors="*{companyEmail}"></div>
+                                
 
                             <div class="form-group">
 

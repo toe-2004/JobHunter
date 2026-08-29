@@ -145,12 +145,9 @@ public class EmployerController {
     }
 
     public long getPendingCount(Employer employer) {
-
         return applicationRepository.countByJobEmployerAndStatus(employer,ApplicationStatus.PENDING);
     }
-
     public long getShortlistedCount(Employer employer) {
-
         return applicationRepository.countByJobEmployerAndStatus(employer,ApplicationStatus.SHORTLISTED);
     }
  
@@ -159,17 +156,41 @@ public class EmployerController {
     public String updateProfile(
     		@Valid @ModelAttribute("profile") EmployerProfileDto profileDto,
     	    BindingResult bindingResult,
-    	    @RequestParam(value = "profilePhoto", required = false)
+    	    @RequestParam(value = "profilePhotoFile", required = false)
     	    MultipartFile profilePhoto,
     	    Authentication auth,
-    	    RedirectAttributes redirectAttributes) throws IOException {
+    	    RedirectAttributes redirectAttributes,
+    	    Model model) throws IOException {
 
+    		
         Employer employer = employerRepository.findByUserEmail(auth.getName())
                         .orElseThrow(() ->
                                 new RuntimeException("Employer not found"));
 
         User user = employer.getUser();
+        if (bindingResult.hasErrors()) {
 
+            model.addAttribute("employer", employer);
+            model.addAttribute("currentPage", "profile_e");
+
+            return "employer/profile-edit";
+        }
+
+        boolean emailExists = employerRepository.existsByCompanyEmailAndIdNot(profileDto.getCompanyEmail().trim(),employer.getId());
+        if (emailExists) {
+
+            bindingResult.rejectValue(
+                    "companyEmail",
+                    "duplicate",
+                    "Email is already registered."
+            );
+            profileDto.setProfilePhoto(user.getProfilePhoto());
+            model.addAttribute("employer", employer);
+            model.addAttribute("currentPage", "profile_e");
+            
+            return "employer/profile-edit";
+        }
+        
         user.setName(profileDto.getName());
         employer.setCompanyName(profileDto.getCompanyName());
         employer.setCompanyEmail(profileDto.getCompanyEmail());
@@ -204,6 +225,7 @@ public class EmployerController {
         }
 
         userRepository.save(user);
+        employerRepository.save(employer);
 
         return "redirect:/employer/profile";
     }

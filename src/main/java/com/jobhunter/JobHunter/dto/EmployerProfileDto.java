@@ -28,7 +28,7 @@ public class EmployerProfileDto {
     @NotBlank(message = "Company location is required")
     private String companyLocation;
 
-    // User
+
     @NotBlank(message = "Your name is required")
     private String name;
     

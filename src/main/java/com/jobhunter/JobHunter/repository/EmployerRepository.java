@@ -22,6 +22,9 @@ public interface EmployerRepository extends JpaRepository<Employer, Long> {
 
     List<Employer> findAllByOrderByIdDesc();
     
+    Optional<Employer> findByCompanyEmail(String companyEmail);
+
+    boolean existsByCompanyEmailAndIdNot(String companyEmail, Long id);
     
 
 }
