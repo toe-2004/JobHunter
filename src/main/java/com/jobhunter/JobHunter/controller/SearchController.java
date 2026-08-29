@@ -47,7 +47,6 @@ public class SearchController {
 	             jobRepository.findByCategoryNameContainingIgnoreCase(keyword)
 	         );
 
-	         // FREELANCER SEARCH
 	         freelancerSet.addAll(
 	             freelancerRepository
 	                 .findByUser_NameContainingIgnoreCase(keyword)
@@ -60,9 +59,6 @@ public class SearchController {
 	     }
 
 	     List<Freelancer> freelancers = new ArrayList<>(freelancerSet);
-
-	     System.out.println("JOBS = " + jobs.size());
-	     System.out.println("FREELANCERS = " + freelancers.size());
 
 	     model.addAttribute("jobs", jobs);
 	     model.addAttribute("freelancers", freelancers);

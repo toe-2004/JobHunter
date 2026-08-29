@@ -44,15 +44,6 @@ public class HomeController {
         return "redirect:/viewHomeJob";
     }
     
-    @GetMapping("/test")
-    public String test() {
-        return "employer/test";
-    }
-    @GetMapping("/test1")
-    public String test1() {
-        return "employer/test1";
-    }
-    
     
     @GetMapping("/register")
     public String registerPage(Model model) {

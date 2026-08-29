@@ -1,22 +1,17 @@
 package com.jobhunter.JobHunter.controller;
 
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -52,19 +47,6 @@ public class FreelancerController {
 
     @Autowired
     private FreelancerSkillRepository freelancerSkillRepository;
-
-    private User getCurrentUser() {
-
-        Authentication auth =
-                SecurityContextHolder
-                        .getContext()
-                        .getAuthentication();
-
-        return userRepository
-                .findByEmail(auth.getName())
-                .orElseThrow(() ->
-                        new RuntimeException("User not found"));
-    }
 
 
         @GetMapping("/freelancer/dashboard")
@@ -120,7 +102,11 @@ public class FreelancerController {
     @GetMapping("/freelancer/create")
     public String createFreelancer(Model model) {
 
-        User user = getCurrentUser();
+    	 Authentication auth =
+                 SecurityContextHolder.getContext().getAuthentication();
+
+         User user = userRepository.findByEmail(auth.getName())
+                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         model.addAttribute("user", user);
 
@@ -165,7 +151,11 @@ public class FreelancerController {
     @GetMapping("/freelancer/profile")
     public String viewProfile(Model model) {
 
-        User user = getCurrentUser();
+    	 	Authentication auth =
+                 SecurityContextHolder.getContext().getAuthentication();
+
+         User user = userRepository.findByEmail(auth.getName())
+                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         model.addAttribute(
                 "user",
@@ -200,7 +190,7 @@ public class FreelancerController {
     @Transactional
     @PostMapping("/freelancer/profile")
     public String saveProfile(
-
+    		@RequestParam("name") String name,
             @ModelAttribute("freelancer")
             Freelancer freelancer,
 
@@ -219,8 +209,12 @@ public class FreelancerController {
     ) throws IOException {
 
 
-        User user = getCurrentUser();
+    	 Authentication auth =
+                 SecurityContextHolder.getContext().getAuthentication();
 
+         User user = userRepository.findByEmail(auth.getName())
+                 .orElseThrow(() -> new RuntimeException("User not found"));
+        user.setName(name);
 
         Optional<Freelancer> optionalFreelancer =
                 freelancerRepository
@@ -395,7 +389,11 @@ public class FreelancerController {
     @GetMapping("/freelancer/edit")
     public String editFreelancer(Model model) {
 
-        User user = getCurrentUser();
+    	 Authentication auth =
+                 SecurityContextHolder.getContext().getAuthentication();
+
+         User user = userRepository.findByEmail(auth.getName())
+                 .orElseThrow(() -> new RuntimeException("User not found"));
 
 
         Freelancer freelancer =
@@ -570,7 +568,11 @@ public class FreelancerController {
     @GetMapping("/freelancer-application-lists")
     public String applicationList(Model model) {
 
-        User user = getCurrentUser();
+    	 Authentication auth =
+                 SecurityContextHolder.getContext().getAuthentication();
+
+         User user = userRepository.findByEmail(auth.getName())
+                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         model.addAttribute(
                 "user",
@@ -608,7 +610,11 @@ public class FreelancerController {
     @GetMapping("/freelancer-recent-hire-requests")
     public String allHireRequests(Model model) {
 
-        User user = getCurrentUser();
+    	 Authentication auth =
+                 SecurityContextHolder.getContext().getAuthentication();
+
+         User user = userRepository.findByEmail(auth.getName())
+                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         model.addAttribute(
                 "user",

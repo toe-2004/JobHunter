@@ -67,12 +67,16 @@ public class EmployerController {
 
     @PostMapping("/register")
     public String registerEmployer(@AuthenticationPrincipal UserDetails userDetails,
-            @Valid @ModelAttribute("employerForm") EmployerRegistrationDto form, BindingResult result) {
+            @Valid @ModelAttribute("employerForm") EmployerRegistrationDto form, BindingResult result,Model model) {
 
+    	User user = userService.findByEmail(userDetails.getUsername());
+    	model.addAttribute("user", user);
         if (result.hasErrors()) {
             return "employer/register";
         }
-        User user = userService.findByEmail(userDetails.getUsername());
+       
+        try {
+        	 
         employerService.createEmployer(user.getId(), form);
 
         user.setRole(Role.EMPLOYER);
@@ -91,7 +95,14 @@ public class EmployerController {
                 );
 
         SecurityContextHolder.getContext().setAuthentication(newAuth);
+        
         return "redirect:/employer/dashboard";
+        } catch (IllegalStateException ex)
+        		{ 
+        		model.addAttribute("error", ex.getMessage()); 
+        		model.addAttribute("employerForm", form); 
+        			return "employer/register"; 
+        		}
     }
 
     @GetMapping("/dashboard")

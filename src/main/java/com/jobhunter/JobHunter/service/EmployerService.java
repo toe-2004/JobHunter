@@ -97,7 +97,8 @@ public class EmployerService {
             throw new IllegalStateException(
                     "Company email already exists");
         }
-
+        
+        
         user.setRole(Role.EMPLOYER);
         Employer employer = new Employer();
         employer.setUser(user);
