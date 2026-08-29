@@ -81,7 +81,7 @@ public class User {
 	private Long id;
 
 	@NotBlank(message = "Name is required")
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private String name;
 
 	@NotBlank(message = "Email is required")
