@@ -129,7 +129,7 @@ body {
 
     color: var(--primary);
 
-    box-shadow:none;
+    box-shadow: none;
 
     /* No movement */
     transform: none;
@@ -166,7 +166,7 @@ body {
 }
 
 .sidebar-profile.active .username {
-    color:var(--primary);
+    color: var(--primary);
 }
 
 .sidebar-profile.active .user-role {
@@ -397,7 +397,7 @@ body {
 
     .mobile-profile .user-role {
         font-size: 10px;
-        color:white;
+        color: white;
     }
 
     .sidebar-nav,
@@ -455,7 +455,7 @@ body {
 
     .mobile-profile .user-role {
         font-size: 10px;
-        color:white;
+        color: white;
     }
 
     .mobile-menu .menu-button {
@@ -477,6 +477,7 @@ body {
     .sidebar-brand {
         padding: 8px 10px;
     }
+
     .mobile-profile .profile-photo {
         width: 36px;
         height: 36px;
@@ -490,7 +491,7 @@ body {
 
     .mobile-profile .user-role {
         font-size: 9px;
-        color:white;
+        color: white;
     }
 
     .mobile-menu .menu-button {
@@ -502,6 +503,7 @@ body {
         min-width: 190px;
     }
 }
+
 body.modal-open {
     padding-right: 0 !important;
 }
@@ -512,8 +514,9 @@ body.modal-open {
 
 .modal-open .sidebar {
     padding-right: 0 !important;
-}css
-.sidebar-wrapper {
+}
+
+css .sidebar-wrapper {
     position: relative;
 }
 
@@ -624,6 +627,7 @@ body.modal-open {
     cursor: pointer;
     text-align: left;
 }
+
 body.modal-open {
     padding-right: 0 !important;
 }

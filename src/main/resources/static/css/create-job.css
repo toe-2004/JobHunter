@@ -24,7 +24,8 @@ select {
 }
 
 .main-content {
-    width: 100%;
+    width: calc(100% - 250px);
+    margin-left: 250px;
     min-width: 0;
     padding: 38px 45px 60px;
 }
@@ -194,7 +195,7 @@ textarea.form-control {
     width: 100%;
 }
 
-.input-wrapper > i {
+.input-wrapper>i {
     position: absolute;
     left: 14px;
     top: 50%;
@@ -702,7 +703,6 @@ textarea.form-control {
 }
 
 @media (max-width: 1200px) {
-
     .main-content {
         padding: 30px 25px 50px;
     }
@@ -710,12 +710,12 @@ textarea.form-control {
     .form-container {
         max-width: 900px;
     }
-
 }
 
-@media (max-width: 992px) {
-
+@media (max-width: 991.98px) {
     .main-content {
+        width: 100%;
+        margin-left: 0;
         padding: 25px 20px 45px;
     }
 
@@ -731,13 +731,12 @@ textarea.form-control {
     .fixed-price-field {
         grid-column: 1 / -1;
     }
-
 }
 
-@media (max-width: 768px) {
-
+@media (max-width: 767.98px) {
     .main-content {
         width: 100%;
+        margin-left: 0;
         padding: 20px 15px 35px;
     }
 
@@ -792,11 +791,9 @@ textarea.form-control {
     .form-actions {
         padding: 20px 22px;
     }
-
 }
 
 @media (max-width: 576px) {
-
     .main-content {
         padding: 14px 10px 25px;
     }
@@ -869,7 +866,7 @@ textarea.form-control {
         padding-left: 36px;
     }
 
-    .input-wrapper > i {
+    .input-wrapper>i {
         left: 12px;
         font-size: 12px;
     }
@@ -974,11 +971,9 @@ textarea.form-control {
     .modal-footer {
         padding: 14px 16px;
     }
-
 }
 
 @media (max-width: 380px) {
-
     .main-content {
         padding: 10px 7px 20px;
     }
@@ -1030,5 +1025,4 @@ textarea.form-control {
     .modal-create-btn {
         width: 100%;
     }
-
 }

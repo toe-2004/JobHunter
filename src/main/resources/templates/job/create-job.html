@@ -1,597 +1,421 @@
 <!DOCTYPE html>
 
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="_csrf"
-      th:content="${_csrf.token}">
+    <meta name="_csrf" th:content="${_csrf.token}">
 
-<meta name="_csrf_header"
-      th:content="${_csrf.headerName}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
 
-<title>Create Job | JobHunter</title>
+    <title>Create Job | JobHunter</title>
 
-<link rel="stylesheet"
-      th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 
-<link rel="stylesheet"
-      th:href="@{/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
 
-<link rel="stylesheet"
-      th:href="@{/css/sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}">
 
-<link rel="stylesheet"
-      th:href="@{/css/create-job.css}">
+    <link rel="stylesheet" th:href="@{/css/create-job.css}">
 
-<script th:src="@{/js/bootstrap.bundle.min.js}"
-        defer></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}" defer></script>
 
-<script th:src="@{/js/create-job.js}"
-        defer></script>
+    <script th:src="@{/js/create-job.js}" defer></script>
 
 </head>
 
 <body>
 
-<div th:replace="~{fragments/sidebar_for_employer :: sidebar}">
-</div>
+    <div th:replace="~{fragments/sidebar_for_employer :: sidebar}">
+    </div>
 
-<main class="main-content">
+    <main class="main-content">
 
-<div class="form-container">
+        <div class="form-container">
 
-    <div class="form-card">
+            <div class="form-card">
 
-        <div class="page-header">
+                <div class="page-header">
 
-            <div class="header-icon">
-                <i class="fa-solid fa-briefcase"></i>
-            </div>
+                    <div class="header-icon">
+                        <i class="fa-solid fa-briefcase"></i>
+                    </div>
 
-            <div class="header-content">
+                    <div class="header-content">
 
-                <h1 th:text="${job.id == null
+                        <h1 th:text="${job.id == null
                               ? 'Create Job Post'
                               : 'Edit Job Post'}">
-                    Create Job Post
-                </h1>
+                            Create Job Post
+                        </h1>
 
-                <p>
-                    Fill in the details below to create
-                    a new job opportunity.
-                </p>
+                        <p>
+                            Fill in the details below to create
+                            a new job opportunity.
+                        </p>
 
-            </div>
+                    </div>
 
-        </div>
+                </div>
 
-        <form th:action="${job.id == null}
+                <form th:action="${job.id == null}
                 ? @{/create-job}
-                : @{/edit-job/{id}(id=${job.id})}"
-              method="post"
-              th:object="${job}">
+                : @{/edit-job/{id}(id=${job.id})}" method="post" th:object="${job}">
 
-            <section class="form-section">
+                    <section class="form-section">
 
-                <div class="section-heading">
+                        <div class="section-heading">
 
-                    <div class="section-icon">
-                        <i class="fa-solid fa-circle-info"></i>
-                    </div>
+                            <div class="section-icon">
+                                <i class="fa-solid fa-circle-info"></i>
+                            </div>
 
-                    <div>
+                            <div>
 
-                        <h3>Job Information</h3>
+                                <h3>Job Information</h3>
 
-                        <p>
-                            Basic information about the position
-                        </p>
+                                <p>
+                                    Basic information about the position
+                                </p>
 
-                    </div>
-
-                </div>
-
-                <div class="field-group">
-
-                    <label class="form-label">
-                        Job Title
-                        <span class="required">*</span>
-                    </label>
-
-                    <div class="input-wrapper">
-
-                        <i class="fa-solid fa-heading"></i>
-
-                        <input
-                            type="text"
-                            class="form-control icon-input"
-                            th:field="*{title}"
-                            placeholder="e.g. Frontend Developer"
-                            required>
-
-                    </div>
-
-                </div>
-
-                <div class="field-group">
-
-                    <label class="form-label">
-                        Description
-                        <span class="required">*</span>
-                    </label>
-
-                    <textarea
-                        class="form-control description-input"
-                        th:field="*{description}"
-                        placeholder="Describe the job responsibilities, requirements and expectations..."
-                        required></textarea>
-
-                    <div class="field-hint">
-                        Give candidates a clear understanding
-                        of the role and responsibilities.
-                    </div>
-
-                </div>
-
-                <div class="field-group">
-
-                    <label class="form-label">
-                        Category
-                        <span class="required">*</span>
-                    </label>
-
-                    <div class="input-wrapper">
-
-                        <i class="fa-solid fa-layer-group"></i>
-
-                        <select
-                            class="form-select icon-select"
-                            th:field="*{category}"
-                            required>
-
-                            <option value="">
-                                Select a category
-                            </option>
-
-                            <option
-                                th:each="c : ${categories}"
-                                th:value="${c.id}"
-                                th:text="${c.name}">
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-            <section class="form-section">
-
-                <div class="section-heading">
-
-                    <div class="section-icon">
-                        <i class="fa-solid fa-sliders"></i>
-                    </div>
-
-                    <div>
-
-                        <h3>Job Details</h3>
-
-                        <p>
-                            Define the requirements for this job
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <div class="details-grid">
-
-                    <div class="field-group">
-
-                        <label class="form-label">
-                            Employment Type
-                        </label>
-
-                        <select
-                            class="form-select"
-                            th:field="*{employmentType}"
-                            id="employmentType">
-
-                            <option
-                                value=""
-                                disabled>
-                                Select Employment Type
-                            </option>
-
-                            <option
-                                th:each="t : ${employmentTypes}"
-                                th:value="${t}"
-                                th:text="${t}">
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                    <div class="field-group">
-
-                        <label class="form-label">
-                            Duration
-                        </label>
-
-                        <select
-                            class="form-select"
-                            th:field="*{duration}">
-
-                            <option
-                                th:each="d : ${durations}"
-                                th:value="${d}"
-                                th:text="${d}">
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                    <div class="field-group">
-
-                        <label class="form-label">
-                            Experience Level
-                        </label>
-
-                        <select
-                            class="form-select"
-                            th:field="*{experienceLevel}">
-
-                            <option
-                                th:each="e : ${experienceLevels}"
-                                th:value="${e}"
-                                th:text="${e}">
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                </div>
-
-            </section>
-
-            <section class="form-section">
-
-                <div class="section-heading">
-
-                    <div class="section-icon">
-                        <i class="fa-solid fa-wallet"></i>
-                    </div>
-
-                    <div>
-
-                        <h3>Budget & Salary</h3>
-
-                        <p>
-                            Set the expected compensation
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <div class="salary-grid">
-
-                    <div class="field-group hourly-field">
-
-                        <label class="form-label">
-                            Salary Min
-                        </label>
-
-                        <div class="money-input">
-
-                            <span>$</span>
-
-                            <input
-                                type="number"
-                                step="0.01"
-                                min="0"
-                                th:field="*{salaryMin}"
-                                id="salaryMin"
-                                placeholder="500000">
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="field-group">
 
-                    <div class="field-group hourly-field">
+                            <label class="form-label">
+                                Job Title
+                                <span class="required">*</span>
+                            </label>
 
-                        <label class="form-label">
-                            Salary Max
-                        </label>
+                            <div class="input-wrapper">
 
-                        <div class="money-input">
+                                <i class="fa-solid fa-heading"></i>
 
-                            <span>$</span>
+                                <input type="text" class="form-control icon-input" th:field="*{title}"
+                                    placeholder="e.g. Frontend Developer" required>
 
-                            <input
-                                type="number"
-                                step="0.01"
-                                min="0"
-                                th:field="*{salaryMax}"
-                                id="salaryMax"
-                                placeholder="1000000">
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="field-group">
 
-                    <div class="field-group fixed-price-field">
+                            <label class="form-label">
+                                Description
+                                <span class="required">*</span>
+                            </label>
 
-                        <label class="form-label">
-                            Fixed Budget
-                        </label>
+                            <textarea class="form-control description-input" th:field="*{description}"
+                                placeholder="Describe the job responsibilities, requirements and expectations..."
+                                required></textarea>
 
-                        <div class="money-input">
-
-                            <span>$</span>
-
-                            <input
-                                type="number"
-                                step="0.01"
-                                min="0"
-                                th:field="*{budget}"
-                                id="budget"
-                                placeholder="500000">
+                            <div class="field-hint">
+                                Give candidates a clear understanding
+                                of the role and responsibilities.
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="field-group">
 
-                </div>
+                            <label class="form-label">
+                                Category
+                                <span class="required">*</span>
+                            </label>
 
-                <div class="field-group deadline-field">
+                            <div class="input-wrapper">
 
-                    <label class="form-label">
-                        Application Deadline
-                    </label>
+                                <i class="fa-solid fa-layer-group"></i>
 
-                    <div class="input-wrapper">
+                                <select class="form-select icon-select" th:field="*{category}" required>
 
-                        <i class="fa-regular fa-calendar"></i>
+                                    <option value="">
+                                        Select a category
+                                    </option>
 
-                        <input
-                            type="datetime-local"
-                            class="form-control icon-input"
-                            th:field="*{deadline}">
+                                    <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}">
+                                    </option>
 
-                    </div>
+                                </select>
 
-                </div>
-
-            </section>
-
-            <section class="form-section skills-section">
-
-                <div class="skills-heading">
-
-                    <div class="section-heading no-margin">
-
-                        <div class="section-icon">
-                            <i class="fa-solid fa-code"></i>
-                        </div>
-
-                        <div>
-
-                            <h3>Required Skills</h3>
-
-                            <p>
-                                Select the skills candidates
-                                should have
-                            </p>
+                            </div>
 
                         </div>
 
-                    </div>
+                    </section>
 
-                    <button
-                        type="button"
-                        class="create-skill-btn"
-                        id="openSkillBtn">
+                    <section class="form-section">
 
-                        <i class="fa-solid fa-plus"></i>
+                        <div class="section-heading">
 
-                        New Skill
+                            <div class="section-icon">
+                                <i class="fa-solid fa-sliders"></i>
+                            </div>
 
-                    </button>
+                            <div>
 
-                </div>
+                                <h3>Job Details</h3>
 
-                <div class="skill-dropdown"
-                     id="skillDropdown">
+                                <p>
+                                    Define the requirements for this job
+                                </p>
 
-                    <button
-                        type="button"
-                        class="skill-dropdown-btn"
-                        id="skillDropdownBtn">
+                            </div>
 
-                        <span id="selectedSkillsText">
-                            Select required skills
-                        </span>
+                        </div>
 
-                        <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+                        <div class="details-grid">
 
-                    </button>
+                            <div class="field-group">
 
-                    <div
-                        class="skill-dropdown-menu"
-                        id="skillDropdownMenu">
+                                <label class="form-label">
+                                    Employment Type
+                                </label>
 
-                        <div
-                            th:each="skill : ${skills}"
-                            class="skill-option"
-                            th:classappend="${selectedSkillIds != null
+                                <select class="form-select" th:field="*{employmentType}" id="employmentType">
+
+                                    <option value="" disabled>
+                                        Select Employment Type
+                                    </option>
+
+                                    <option th:each="t : ${employmentTypes}" th:value="${t}" th:text="${t}">
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="field-group">
+
+                                <label class="form-label">
+                                    Duration
+                                </label>
+
+                                <select class="form-select" th:field="*{duration}">
+
+                                    <option th:each="d : ${durations}" th:value="${d}" th:text="${d}">
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="field-group">
+
+                                <label class="form-label">
+                                    Experience Level
+                                </label>
+
+                                <select class="form-select" th:field="*{experienceLevel}">
+
+                                    <option th:each="e : ${experienceLevels}" th:value="${e}" th:text="${e}">
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                    <section class="form-section">
+
+                        <div class="section-heading">
+
+                            <div class="section-icon">
+                                <i class="fa-solid fa-wallet"></i>
+                            </div>
+
+                            <div>
+
+                                <h3>Budget & Salary</h3>
+
+                                <p>
+                                    Set the expected compensation
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <div class="salary-grid">
+
+                            <div class="field-group hourly-field">
+
+                                <label class="form-label">
+                                    Salary Min
+                                </label>
+
+                                <div class="money-input">
+
+                                    <span>$</span>
+
+                                    <input type="number" step="0.01" min="0" th:field="*{salaryMin}" id="salaryMin"
+                                        placeholder="500000">
+
+                                </div>
+
+                            </div>
+
+                            <div class="field-group hourly-field">
+
+                                <label class="form-label">
+                                    Salary Max
+                                </label>
+
+                                <div class="money-input">
+
+                                    <span>$</span>
+
+                                    <input type="number" step="0.01" min="0" th:field="*{salaryMax}" id="salaryMax"
+                                        placeholder="1000000">
+
+                                </div>
+
+                            </div>
+
+                            <div class="field-group fixed-price-field">
+
+                                <label class="form-label">
+                                    Fixed Budget
+                                </label>
+
+                                <div class="money-input">
+
+                                    <span>$</span>
+
+                                    <input type="number" step="0.01" min="0" th:field="*{budget}" id="budget"
+                                        placeholder="500000">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="field-group deadline-field">
+
+                            <label class="form-label">
+                                Application Deadline
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <i class="fa-regular fa-calendar"></i>
+
+                                <input type="datetime-local" class="form-control icon-input" th:field="*{deadline}">
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                    <section class="form-section skills-section">
+
+                        <div class="skills-heading">
+
+                            <div class="section-heading no-margin">
+
+                                <div class="section-icon">
+                                    <i class="fa-solid fa-code"></i>
+                                </div>
+
+                                <div>
+
+                                    <h3>Required Skills</h3>
+
+                                    <p>
+                                        Select the skills candidates
+                                        should have
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <button type="button" class="create-skill-btn" id="openSkillBtn">
+
+                                <i class="fa-solid fa-plus"></i>
+
+                                New Skill
+
+                            </button>
+
+                        </div>
+
+                        <div class="skill-dropdown" id="skillDropdown">
+
+                            <button type="button" class="skill-dropdown-btn" id="skillDropdownBtn">
+
+                                <span id="selectedSkillsText">
+                                    Select required skills
+                                </span>
+
+                                <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+
+                            </button>
+
+                            <div class="skill-dropdown-menu" id="skillDropdownMenu">
+
+                                <div th:each="skill : ${skills}" class="skill-option" th:classappend="${selectedSkillIds != null
                                 and selectedSkillIds.contains(skill.id)}
-                                ? 'selected' : ''"
-                            th:attr="data-id=${skill.id}">
+                                ? 'selected' : ''" th:attr="data-id=${skill.id}">
 
-                            <span class="skill-check">
-                                <i class="fa-solid fa-check"></i>
-                            </span>
+                                    <span class="skill-check">
+                                        <i class="fa-solid fa-check"></i>
+                                    </span>
 
-                            <span th:text="${skill.name}">
-                                Java
-                            </span>
+                                    <span th:text="${skill.name}">
+                                        Java
+                                    </span>
 
-                        </div>
+                                </div>
 
-                        <div
-                            th:if="${skills == null or skills.isEmpty()}"
-                            class="no-skills">
+                                <div th:if="${skills == null or skills.isEmpty()}" class="no-skills">
 
-                            <i class="fa-regular fa-folder-open"></i>
+                                    <i class="fa-regular fa-folder-open"></i>
 
-                            <span>
-                                No skills available.
-                            </span>
+                                    <span>
+                                        No skills available.
+                                    </span>
 
-                        </div>
+                                </div>
 
-                    </div>
-
-                </div>
-
-                <div id="selectedSkillInputs"></div>
-
-            </section>
-
-            <div class="form-actions">
-
-                <a
-                    href="javascript:history.back()"
-                    class="cancel-btn">
-
-                    <i class="fa-solid fa-arrow-left"></i>
-
-                    Cancel
-
-                </a>
-
-                <button
-                    type="submit"
-                    class="submit-btn">
-
-                    <span
-                        th:text="${job.id == null
-                            ? 'Create Job'
-                            : 'Update Job'}">
-                        Create Job
-                    </span>
-
-                    <i class="fa-solid fa-arrow-right"></i>
-
-                </button>
-
-            </div>
-
-        </form>
-
-        <div
-            class="modal-overlay"
-            id="skillModal">
-
-            <div class="skill-modal">
-
-                <div class="modal-header">
-
-                    <div class="modal-title-wrapper">
-
-                        <div class="modal-icon">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        </div>
-
-                        <div>
-
-                            <h2>
-                                Create New Skill
-                            </h2>
-
-                            <p>
-                                Add a skill to your skill library.
-                            </p>
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div id="selectedSkillInputs"></div>
 
-                    <button
-                        type="button"
-                        class="close-btn"
-                        id="closeSkillBtn">
+                    </section>
 
-                        <i class="fa-solid fa-xmark"></i>
+                    <div class="form-actions">
 
-                    </button>
+                        <a href="javascript:history.back()" class="cancel-btn">
 
-                </div>
-
-                <form id="skillForm">
-
-                    <div class="modal-body">
-
-                        <label for="skillName">
-
-                            Skill Name
-
-                            <span class="required">*</span>
-
-                        </label>
-
-                        <div class="modal-input-wrapper">
-
-                            <i class="fa-solid fa-code"></i>
-
-                            <input
-                                type="text"
-                                id="skillName"
-                                name="name"
-                                placeholder="e.g. Java, React, Figma"
-                                autocomplete="off"
-                                required>
-
-                        </div>
-
-                        <small>
-                            Enter a unique skill name.
-                        </small>
-
-                    </div>
-
-                    <div class="modal-footer">
-
-                        <button
-                            type="button"
-                            class="modal-cancel-btn"
-                            id="cancelSkillBtn">
+                            <i class="fa-solid fa-arrow-left"></i>
 
                             Cancel
 
-                        </button>
+                        </a>
 
-                        <button
-                            type="submit"
-                            class="modal-create-btn">
+                        <button type="submit" class="submit-btn">
 
-                            <i class="fa-solid fa-plus"></i>
+                            <span th:text="${job.id == null
+                            ? 'Create Job'
+                            : 'Update Job'}">
+                                Create Job
+                            </span>
 
-                            Create Skill
+                            <i class="fa-solid fa-arrow-right"></i>
 
                         </button>
 
@@ -599,15 +423,97 @@
 
                 </form>
 
+                <div class="modal-overlay" id="skillModal">
+
+                    <div class="skill-modal">
+
+                        <div class="modal-header">
+
+                            <div class="modal-title-wrapper">
+
+                                <div class="modal-icon">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                </div>
+
+                                <div>
+
+                                    <h2>
+                                        Create New Skill
+                                    </h2>
+
+                                    <p>
+                                        Add a skill to your skill library.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                            <button type="button" class="close-btn" id="closeSkillBtn">
+
+                                <i class="fa-solid fa-xmark"></i>
+
+                            </button>
+
+                        </div>
+
+                        <form id="skillForm">
+
+                            <div class="modal-body">
+
+                                <label for="skillName">
+
+                                    Skill Name
+
+                                    <span class="required">*</span>
+
+                                </label>
+
+                                <div class="modal-input-wrapper">
+
+                                    <i class="fa-solid fa-code"></i>
+
+                                    <input type="text" id="skillName" name="name" placeholder="e.g. Java, React, Figma"
+                                        autocomplete="off" required>
+
+                                </div>
+
+                                <small>
+                                    Enter a unique skill name.
+                                </small>
+
+                            </div>
+
+                            <div class="modal-footer">
+
+                                <button type="button" class="modal-cancel-btn" id="cancelSkillBtn">
+
+                                    Cancel
+
+                                </button>
+
+                                <button type="submit" class="modal-create-btn">
+
+                                    <i class="fa-solid fa-plus"></i>
+
+                                    Create Skill
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
 
-    </div>
-
-</div>
-
-</main>
+    </main>
 
 </body>
+
 </html>
