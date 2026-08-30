@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 
@@ -11,21 +10,25 @@
     <title>Edit Employer Profile | JobHunter</title>
 
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
     <link rel="stylesheet" th:href="@{/css/all.min.css}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap"
         rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" th:href="@{/css/sidebar.css}">
+
     <link rel="stylesheet" th:href="@{/css/employer_profile_edit.css}">
+
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
     <script th:src="@{/js/profile-edit.js}" defer></script>
 	<script th:src="@{/js/employer-photo-edit.js}" defer></script>
 
@@ -41,8 +44,7 @@
 
             <div class="back-wrapper">
 
-                <a href="#" class="back-button"
-                   onclick="history.back(); return false;">
+                <a href="#" class="back-button" onclick="history.back(); return false;">
 
                     <i class="fa-solid fa-arrow-left"></i>
                     Back
@@ -71,12 +73,8 @@
 
             <div class="form-card">
 
-                <form th:action="@{/employer/profile-update}"
-                      th:object="${profile}"
-                      method="post"
-                      enctype="multipart/form-data"
-                      id="employerProfileForm"
-                      >
+                <form th:action="@{/employer/profile-update}" th:object="${profile}" method="post"
+                    enctype="multipart/form-data" id="employerProfileForm">
 
                     <section class="form-section photo-section">
 
@@ -102,17 +100,12 @@
 
                             <div class="current-photo" id="photoContainer">
 
-                                <img
-                                    th:if="${profile.profilePhoto != null && !profile.profilePhoto.isEmpty()}"
-                                    th:src="@{'/uploads/' + ${profile.profilePhoto}}"
-                                    alt="Company Photo"
-                                    id="photoPreview"
-                                    class="com-profile-photo">
+                                <img th:if="${profile.profilePhoto != null && !profile.profilePhoto.isEmpty()}"
+                                    th:src="@{'/uploads/' + ${profile.profilePhoto}}" alt="Company Photo"
+                                    id="photoPreview" class="com-profile-photo">
 
-                                <div
-                                    th:if="${profile.profilePhoto == null || profile.profilePhoto.isEmpty()}"
-                                    class="photo-placeholder"
-                                    id="photoPlaceholder">
+                                <div th:if="${profile.profilePhoto == null || profile.profilePhoto.isEmpty()}"
+                                    class="photo-placeholder" id="photoPlaceholder">
 
                                     <i class="fa-solid fa-building"></i>
 
@@ -129,21 +122,19 @@
                                     A square image works best.
                                 </p>
 
-								<label for="profilePhotoFile" class="upload-button">
-								    <i class="fa-solid fa-upload"></i>
-								    Choose Photo
-								</label>
-								<input
-								    type="file"
-								    id="profilePhotoFile"
-								    name="profilePhotoFile"
-								    accept="image/jpeg,image/jpg,image/png,image/webp"
-								    hidden>
+                                <label for="profilePhotoFile" class="upload-button">
+
+                                    <i class="fa-solid fa-upload"></i>
+                                    Choose Photo
+
+                                </label>
+
+                                <input type="file" id="profilePhotoFile" name="profilePhotoFile"
+                                    accept="image/jpeg,image/jpg,image/png,image/webp" hidden>
 
                                 <div id="photoError" class="error"></div>
 
-                                <div id="selectedFileName"
-                                     class="selected-file-name"></div>
+                                <div id="selectedFileName" class="selected-file-name"></div>
 
                             </div>
 
@@ -184,21 +175,17 @@
 
                                     <i class="fa-solid fa-building"></i>
 
-                                    <input
-                                        type="text"
-                                        id="companyName"
-                                        th:field="*{companyName}"
-                                        th:errorclass="is-invalid"
-                                        placeholder="Enter company name"
-                                        maxlength="150"
+                                    <input type="text" id="companyName" th:field="*{companyName}"
+                                        th:errorclass="is-invalid" placeholder="Enter company name" maxlength="150"
                                         autocomplete="organization">
 
                                 </div>
 
-                                <div class="error" th:errors="*{companyName}"></div>
+                                <div class="error" th:errors="*{companyName}">
+                                </div>
 
-                                <div class="client-error"
-                                     id="companyNameError"></div>
+                                <div class="client-error" id="companyNameError">
+                                </div>
 
                             </div>
 
@@ -212,22 +199,17 @@
                                 <div class="input-wrapper">
 
                                     <i class="fa-solid fa-envelope"></i>
-									<input
-																	    type="email"
-																	    id="companyEmail"
-																	    th:field="*{companyEmail}"
-																	    th:errorclass="is-invalid"
-																	    placeholder="company@example.com"
-																	    maxlength="150"
-																	    autocomplete="email">
-                                    
+
+                                    <input type="email" id="companyEmail" th:field="*{companyEmail}"
+                                        th:errorclass="is-invalid" placeholder="company@example.com" maxlength="150"
+                                        autocomplete="email">
 
                                 </div>
-								
-								
 
-								<div class="error" th:errors="*{companyEmail}"></div>
-                                
+                                <div class="error" th:errors="*{companyEmail}">
+                                </div>
+
+                            </div>
 
                             <div class="form-group">
 
@@ -240,22 +222,17 @@
 
                                     <i class="fa-solid fa-phone"></i>
 
-                                    <input
-                                        type="tel"
-                                        id="companyPhone"
-                                        th:field="*{companyPhone}"
-                                        th:errorclass="is-invalid"
-                                        placeholder="09123456789"
-                                        inputmode="numeric"
-                                        autocomplete="tel"
-                                        maxlength="15">
+                                    <input type="tel" id="companyPhone" th:field="*{companyPhone}"
+                                        th:errorclass="is-invalid" placeholder="09123456789" inputmode="numeric"
+                                        autocomplete="tel" maxlength="15">
 
                                 </div>
 
-                                <div class="error" th:errors="*{companyPhone}"></div>
+                                <div class="error" th:errors="*{companyPhone}">
+                                </div>
 
-                                <div class="client-error"
-                                     id="companyPhoneError"></div>
+                                <div class="client-error" id="companyPhoneError">
+                                </div>
 
                             </div>
 
@@ -270,20 +247,16 @@
 
                                     <i class="fa-solid fa-location-dot"></i>
 
-                                    <input
-                                        type="text"
-                                        id="companyLocation"
-                                        th:field="*{companyLocation}"
-                                        th:errorclass="is-invalid"
-                                        placeholder="Yangon, Myanmar"
-                                        maxlength="150">
+                                    <input type="text" id="companyLocation" th:field="*{companyLocation}"
+                                        th:errorclass="is-invalid" placeholder="Yangon, Myanmar" maxlength="150">
 
                                 </div>
 
-                                <div class="error" th:errors="*{companyLocation}"></div>
+                                <div class="error" th:errors="*{companyLocation}">
+                                </div>
 
-                                <div class="client-error"
-                                     id="companyLocationError"></div>
+                                <div class="client-error" id="companyLocationError">
+                                </div>
 
                             </div>
 
@@ -299,18 +272,14 @@
 
                                 <i class="fa-solid fa-align-left"></i>
 
-                                <textarea
-                                    id="companyDescription"
-                                    th:field="*{companyDescription}"
-                                    rows="6"
-                                    th:errorclass="is-invalid"
-                                    maxlength="3000"
+                                <textarea id="companyDescription" th:field="*{companyDescription}" rows="6"
+                                    th:errorclass="is-invalid" maxlength="3000"
                                     placeholder="Tell job seekers about your company, your work culture, services, and what makes your company unique..."></textarea>
 
                             </div>
 
-                            <div class="error"
-                                 th:errors="*{companyDescription}"></div>
+                            <div class="error" th:errors="*{companyDescription}">
+                            </div>
 
                         </div>
 
@@ -347,21 +316,16 @@
 
                                 <i class="fa-solid fa-user"></i>
 
-                                <input
-                                    type="text"
-                                    id="name"
-                                    th:field="*{name}"
-                                    th:errorclass="is-invalid"
-                                    placeholder="Enter your name"
-                                    maxlength="100"
-                                    autocomplete="name">
+                                <input type="text" id="name" th:field="*{name}" th:errorclass="is-invalid"
+                                    placeholder="Enter your name" maxlength="100" autocomplete="name">
 
                             </div>
 
-                            <div class="error" th:errors="*{name}"></div>
+                            <div class="error" th:errors="*{name}">
+                            </div>
 
-                            <div class="client-error"
-                                 id="nameError"></div>
+                            <div class="client-error" id="nameError">
+                            </div>
 
                         </div>
 
@@ -369,16 +333,14 @@
 
                     <div class="form-actions">
 
-                        <a th:href="@{/employer/profile}"
-                           class="cancel-btn">
+                        <a th:href="@{/employer/profile}" class="cancel-btn">
 
                             <i class="fa-solid fa-xmark"></i>
                             Cancel
 
                         </a>
 
-                        <button type="submit"
-                                class="save-btn">
+                        <button type="submit" class="save-btn">
 
                             <i class="fa-solid fa-check"></i>
                             Save Changes
@@ -398,4 +360,3 @@
 </body>
 
 </html>
-
