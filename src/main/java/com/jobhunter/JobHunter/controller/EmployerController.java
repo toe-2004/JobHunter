@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.UUID;
 import java.util.List;
@@ -154,20 +155,31 @@ public class EmployerController {
 
     @PostMapping("/profile-update")
     public String updateProfile(
-    		@Valid @ModelAttribute("profile") EmployerProfileDto profileDto,
-    	    BindingResult bindingResult,
-    	    @RequestParam(value = "profilePhotoFile", required = false)
-    	    MultipartFile profilePhoto,
-    	    Authentication auth,
-    	    RedirectAttributes redirectAttributes,
-    	    Model model) throws IOException {
 
-    		
-        Employer employer = employerRepository.findByUserEmail(auth.getName())
-                        .orElseThrow(() ->
-                                new RuntimeException("Employer not found"));
+            @Valid @ModelAttribute("profile") EmployerProfileDto profileDto,
+
+            BindingResult bindingResult,
+
+            @RequestParam(
+                    value = "profilePhotoFile",
+                    required = false
+            )
+            MultipartFile profilePhoto,
+
+            Authentication auth,
+
+            RedirectAttributes redirectAttributes,
+
+            Model model) throws IOException {
+
+        Employer employer = employerRepository
+                .findByUserEmail(auth.getName())
+                .orElseThrow(() ->
+                        new RuntimeException("Employer not found"));
 
         User user = employer.getUser();
+
+        // Validation errors
         if (bindingResult.hasErrors()) {
 
             model.addAttribute("employer", employer);
@@ -176,7 +188,13 @@ public class EmployerController {
             return "employer/profile-edit";
         }
 
-        boolean emailExists = employerRepository.existsByCompanyEmailAndIdNot(profileDto.getCompanyEmail().trim(),employer.getId());
+        // Check duplicate email
+        boolean emailExists =
+                employerRepository.existsByCompanyEmailAndIdNot(
+                        profileDto.getCompanyEmail().trim(),
+                        employer.getId()
+                );
+
         if (emailExists) {
 
             bindingResult.rejectValue(
@@ -184,47 +202,94 @@ public class EmployerController {
                     "duplicate",
                     "Email is already registered."
             );
-            profileDto.setProfilePhoto(user.getProfilePhoto());
+
+            profileDto.setProfilePhoto(
+                    user.getProfilePhoto()
+            );
+
             model.addAttribute("employer", employer);
             model.addAttribute("currentPage", "profile_e");
-            
+
             return "employer/profile-edit";
         }
-        
+
+        // Update user information
         user.setName(profileDto.getName());
-        employer.setCompanyName(profileDto.getCompanyName());
-        employer.setCompanyEmail(profileDto.getCompanyEmail());
-        employer.setCompanyPhone(profileDto.getCompanyPhone());
-        employer.setCompanyLocation(profileDto.getCompanyLocation());
-        employer.setCompanyDescription(profileDto.getCompanyDescription());
+
+        // Update employer information
+        employer.setCompanyName(
+                profileDto.getCompanyName()
+        );
+
+        employer.setCompanyEmail(
+                profileDto.getCompanyEmail()
+        );
+
+        employer.setCompanyPhone(
+                profileDto.getCompanyPhone()
+        );
+
+        employer.setCompanyLocation(
+                profileDto.getCompanyLocation()
+        );
+
+        employer.setCompanyDescription(
+                profileDto.getCompanyDescription()
+        );
+
+        // ==========================================
+        // PROFILE PHOTO
+        // ==========================================
+
         if (profilePhoto != null && !profilePhoto.isEmpty()) {
 
-            String uploadDir = "uploads/";
-            if (user.getProfilePhoto() != null &&
-                    !user.getProfilePhoto().isEmpty()) {
+            Path uploadPath = Paths.get("uploads");
 
-                Path oldPhotoPath = Paths.get(uploadDir)
-                        .resolve(user.getProfilePhoto())
-                        .normalize();
+            // Create uploads folder if it doesn't exist
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            // Remember old photo
+            String oldPhoto = user.getProfilePhoto();
+
+            // Create new filename
+            String originalFileName =
+                    profilePhoto.getOriginalFilename();
+
+            String fileName =
+                    UUID.randomUUID()
+                            + "_"
+                            + originalFileName;
+
+            Path newPhotoPath =
+                    uploadPath.resolve(fileName);
+
+            // Save NEW photo
+            Files.copy(
+                    profilePhoto.getInputStream(),
+                    newPhotoPath,
+                    StandardCopyOption.REPLACE_EXISTING
+            );
+
+            // Update database value
+            user.setProfilePhoto(fileName);
+
+            // Delete OLD photo
+            if (oldPhoto != null && !oldPhoto.isEmpty()) {
+
+                Path oldPhotoPath =
+                        uploadPath
+                                .resolve(oldPhoto)
+                                .normalize();
 
                 Files.deleteIfExists(oldPhotoPath);
             }
-            File directory = new File(uploadDir);
-
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
-
-            String fileName = UUID.randomUUID() + "_" + profilePhoto.getOriginalFilename();
-
-            Path filePath = Paths.get(uploadDir + fileName);
-
-            Files.write(filePath,profilePhoto.getBytes());
-
-            user.setProfilePhoto(fileName);
         }
 
+        // Save changes
         userRepository.save(user);
+
         employerRepository.save(employer);
 
         return "redirect:/employer/profile";
