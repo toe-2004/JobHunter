@@ -192,7 +192,7 @@ public class Job {
     @Column(nullable = false)
     private JobStatus status;
 
-    @OneToMany(mappedBy = "job")
+    @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Application> applications;
 
     @OneToMany(mappedBy = "job")
