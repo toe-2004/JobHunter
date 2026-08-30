@@ -1,294 +1,244 @@
-<!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Freelancer Profile | JobHunter</title>
 
-    <link rel="stylesheet"
-          th:href="@{/css/bootstrap.min.css}">
-    <script th:src="@{/js/bootstrap.bundle.min.js}"
-            defer></script>
-    <link rel="stylesheet"
-          th:href="@{/css/all.min.css}">
-    <link rel="stylesheet"
-          th:href="@{/css/sidebar.css}">
-    <link rel="stylesheet"
-          th:href="@{/css/freelancer-profile.css}">
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <script th:src="@{/js/bootstrap.bundle.min.js}" defer></script>
+    <link rel="stylesheet" th:href="@{/css/all.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/sidebar.css}" />
+    <link rel="stylesheet" th:href="@{/css/freelancer-profile.css}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
-    <style>
+    <style></style>
+  </head>
 
-    </style>
-</head>
+  <body>
+    <div th:replace="~{fragments/sidebar_for_freelancer :: sidebar}"></div>
 
-<body>
-
-<div th:replace="~{fragments/sidebar_for_freelancer :: sidebar}">
-</div>
-
-<main class="main-content">
-    <div class="page-wrapper">
-
+    <main class="main-content">
+      <div class="page-wrapper">
         <div class="profile-header">
+          <div class="profile-foto-wrapper">
+            <img
+              th:if="${freelancer.user.profilePhoto != null}"
+              th:src="@{'/uploads/' + ${freelancer.user.profilePhoto}}"
+              class="profile-foto"
+              alt="Freelancer Profile Photo"
+            />
 
-            <div class="profile-foto-wrapper">
-                <img
-                    th:if="${freelancer.user.profilePhoto != null}"
-                    th:src="@{'/uploads/' + ${freelancer.user.profilePhoto}}"
-                    class="profile-foto"
-                    alt="Freelancer Profile Photo">
+            <div
+              th:if="${freelancer.user.profilePhoto == null}"
+              class="default-foto"
+            >
+              <i class="fa-solid fa-user"></i>
+            </div>
+          </div>
 
-                <div
-                    th:if="${freelancer.user.profilePhoto == null}"
-                    class="default-foto">
-                    <i class="fa-solid fa-user"></i>
-                </div>
+          <div class="profile-details">
+            <h1 class="profile-name" th:text="${freelancer.user.name}">
+              Freelancer Name
+            </h1>
+
+            <div class="profile-title" th:text="${freelancer.title}">
+              Professional Title
             </div>
 
-            <div class="profile-details">
-                <h1
-                    class="profile-name"
-                    th:text="${freelancer.user.name}">
-                    Freelancer Name
-                </h1>
-
-                <div
-                    class="profile-title"
-                    th:text="${freelancer.title}">
-                    Professional Title
-                </div>
-
-                <div class="location">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <span
-                        th:text="${freelancer.location}">
-                        Location
-                    </span>
-                </div>
+            <div class="location">
+              <i class="fa-solid fa-location-dot"></i>
+              <span th:text="${freelancer.location}"> Location </span>
             </div>
+          </div>
 
-            <div class="header-action">
-                <a
-                    th:href="@{/freelancer/edit}"
-                    class="edit-profile-btn">
-                    <i class="fa-solid fa-pen"></i>
-                    Edit Profile
-                </a>
-            </div>
-
+          <div class="header-action">
+            <a th:href="@{/freelancer/edit}" class="edit-profile-btn">
+              <i class="fa-solid fa-pen"></i>
+              Edit Profile
+            </a>
+          </div>
         </div>
 
         <div class="content-grid">
+          <main>
+            <section class="section">
+              <div class="section-header">
+                <div class="section-icon">
+                  <i class="fa-solid fa-user"></i>
+                </div>
+                <h2>About</h2>
+              </div>
 
-            <main>
-
-                <section class="section">
-                    <div class="section-header">
-                        <div class="section-icon">
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-                        <h2>
-                            About
-                        </h2>
-                    </div>
-
-                    <p
-                        class="about-text"
-                        th:if="${freelancer.summary != null
+              <p
+                class="about-text"
+                th:if="${freelancer.summary != null
                                 and !#strings.isEmpty(freelancer.summary)}"
-                        th:text="${freelancer.summary}">
-                    </p>
+                th:text="${freelancer.summary}"
+              ></p>
 
-                    <p
-                        class="about-text"
-                        th:if="${freelancer.summary == null
-                                or #strings.isEmpty(freelancer.summary)}">
-                        No professional summary provided.
-                    </p>
-                </section>
+              <p
+                class="about-text"
+                th:if="${freelancer.summary == null
+                                or #strings.isEmpty(freelancer.summary)}"
+              >
+                No professional summary provided.
+              </p>
+            </section>
 
-                <section class="section">
-                    <div class="section-header">
-                        <div class="section-icon">
-                            <i class="fa-solid fa-briefcase"></i>
-                        </div>
-                        <h2>
-                            Experience
-                        </h2>
-                    </div>
+            <section class="section">
+              <div class="section-header">
+                <div class="section-icon">
+                  <i class="fa-solid fa-briefcase"></i>
+                </div>
+                <h2>Experience</h2>
+              </div>
 
-                    <div
-                        class="timeline"
-                        th:if="${freelancer.experience != null
-                                and !#strings.isEmpty(freelancer.experience)}">
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-label">
-                                Professional Experience
-                            </div>
-                            <div
-                                class="timeline-value"
-                                th:text="${freelancer.experience}">
-                                Experience
-                            </div>
-                        </div>
-                    </div>
+              <div
+                class="timeline"
+                th:if="${freelancer.experience != null
+                                and !#strings.isEmpty(freelancer.experience)}"
+              >
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-label">Professional Experience</div>
+                  <div
+                    class="timeline-value"
+                    th:text="${freelancer.experience}"
+                  >
+                    Experience
+                  </div>
+                </div>
+              </div>
 
-                    <p
-                        class="about-text"
-                        th:if="${freelancer.experience == null
-                                or #strings.isEmpty(freelancer.experience)}">
-                        No experience information added yet.
-                    </p>
-                </section>
+              <p
+                class="about-text"
+                th:if="${freelancer.experience == null
+                                or #strings.isEmpty(freelancer.experience)}"
+              >
+                No experience information added yet.
+              </p>
+            </section>
 
-                <section class="section">
-                    <div class="section-header">
-                        <div class="section-icon">
-                            <i class="fa-solid fa-graduation-cap"></i>
-                        </div>
-                        <h2>
-                            Education
-                        </h2>
-                    </div>
+            <section class="section">
+              <div class="section-header">
+                <div class="section-icon">
+                  <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <h2>Education</h2>
+              </div>
 
-                    <div
-                        class="timeline"
-                        th:if="${freelancer.education != null
-                                and !#strings.isEmpty(freelancer.education)}">
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-label">
-                                Educational Background
-                            </div>
-                            <div
-                                class="timeline-value"
-                                th:text="${freelancer.education}">
-                                Education
-                            </div>
-                        </div>
-                    </div>
+              <div
+                class="timeline"
+                th:if="${freelancer.education != null
+                                and !#strings.isEmpty(freelancer.education)}"
+              >
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-label">Educational Background</div>
+                  <div class="timeline-value" th:text="${freelancer.education}">
+                    Education
+                  </div>
+                </div>
+              </div>
 
-                    <p
-                        class="about-text"
-                        th:if="${freelancer.education == null
-                                or #strings.isEmpty(freelancer.education)}">
-                        No education information added yet.
-                    </p>
-                </section>
+              <p
+                class="about-text"
+                th:if="${freelancer.education == null
+                                or #strings.isEmpty(freelancer.education)}"
+              >
+                No education information added yet.
+              </p>
+            </section>
+          </main>
 
-            </main>
+          <aside>
+            <section class="section">
+              <div class="section-header">
+                <div class="section-icon">
+                  <i class="fa-solid fa-address-card"></i>
+                </div>
+                <h2>Contact</h2>
+              </div>
 
-            <aside>
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div>
+                  <span class="contact-label"> Email </span>
+                  <span
+                    class="contact-value"
+                    th:text="${freelancer.user.email}"
+                  >
+                    email@example.com
+                  </span>
+                </div>
+              </div>
 
-                <section class="section">
-                    <div class="section-header">
-                        <div class="section-icon">
-                            <i class="fa-solid fa-address-card"></i>
-                        </div>
-                        <h2>
-                            Contact
-                        </h2>
-                    </div>
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fa-solid fa-phone"></i>
+                </div>
+                <div>
+                  <span class="contact-label"> Phone </span>
+                  <span class="contact-value" th:text="${freelancer.phone}">
+                    Phone
+                  </span>
+                </div>
+              </div>
 
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fa-solid fa-envelope"></i>
-                        </div>
-                        <div>
-                            <span class="contact-label">
-                                Email
-                            </span>
-                            <span
-                                class="contact-value"
-                                th:text="${freelancer.user.email}">
-                                email@example.com
-                            </span>
-                        </div>
-                    </div>
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div>
+                  <span class="contact-label"> Location </span>
+                  <span class="contact-value" th:text="${freelancer.location}">
+                    Location
+                  </span>
+                </div>
+              </div>
+            </section>
 
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fa-solid fa-phone"></i>
-                        </div>
-                        <div>
-                            <span class="contact-label">
-                                Phone
-                            </span>
-                            <span
-                                class="contact-value"
-                                th:text="${freelancer.phone}">
-                                Phone
-                            </span>
-                        </div>
-                    </div>
+            <section class="section">
+              <div class="section-header">
+                <div class="section-icon">
+                  <i class="fa-solid fa-code"></i>
+                </div>
+                <h2>Skills</h2>
+              </div>
 
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fa-solid fa-location-dot"></i>
-                        </div>
-                        <div>
-                            <span class="contact-label">
-                                Location
-                            </span>
-                            <span
-                                class="contact-value"
-                                th:text="${freelancer.location}">
-                                Location
-                            </span>
-                        </div>
-                    </div>
-                </section>
+              <div
+                class="skills"
+                th:if="${freelancer.freelancerSkills != null
+                                and !freelancer.freelancerSkills.isEmpty()}"
+              >
+                <span
+                  class="skill"
+                  th:each="fs : ${freelancer.freelancerSkills}"
+                >
+                  <i class="fa-solid fa-check"></i>
+                  <span th:text="${fs.skill.name}"> Skill </span>
+                </span>
+              </div>
 
-                <section class="section">
-                    <div class="section-header">
-                        <div class="section-icon">
-                            <i class="fa-solid fa-code"></i>
-                        </div>
-                        <h2>
-                            Skills
-                        </h2>
-                    </div>
-
-                    <div
-                        class="skills"
-                        th:if="${freelancer.freelancerSkills != null
-                                and !freelancer.freelancerSkills.isEmpty()}">
-                        <span
-                            class="skill"
-                            th:each="fs : ${freelancer.freelancerSkills}">
-                            <i class="fa-solid fa-check"></i>
-                            <span
-                                th:text="${fs.skill.name}">
-                                Skill
-                            </span>
-                        </span>
-                    </div>
-
-                    <p
-                        class="about-text"
-                        th:if="${freelancer.freelancerSkills == null
-                                or freelancer.freelancerSkills.isEmpty()}">
-                        No skills added yet.
-                    </p>
-                </section>
-
-            </aside>
-
+              <p
+                class="about-text"
+                th:if="${freelancer.freelancerSkills == null
+                                or freelancer.freelancerSkills.isEmpty()}"
+              >
+                No skills added yet.
+              </p>
+            </section>
+          </aside>
         </div>
-
-    </div>
-</main>
-
-</body>
+      </div>
+    </main>
+  </body>
 </html>

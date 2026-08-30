@@ -322,9 +322,7 @@ public class DataSeeder implements CommandLineRunner {
 
             user.setRole(Role.FREELANCER);
 
-            user.setProfilePhoto(
-                    "default_profile.jpg"
-            );
+            user.setProfilePhoto(null);
 
             userRepo.save(user);
 
@@ -480,9 +478,7 @@ public class DataSeeder implements CommandLineRunner {
 
             user.setRole(Role.EMPLOYER);
 
-            user.setProfilePhoto(
-                    "default_employer_profile.jpg"
-            );
+            user.setProfilePhoto(null);
 
             userRepo.save(user);
 
@@ -555,9 +551,7 @@ public class DataSeeder implements CommandLineRunner {
 
             user.setRole(Role.GUEST);
 
-            user.setProfilePhoto(
-                    "default_profile.jpg"
-            );
+            user.setProfilePhoto(null);
 
             userRepo.save(user);
 
