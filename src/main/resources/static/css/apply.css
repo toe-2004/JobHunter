@@ -66,11 +66,9 @@ body {
 
 .job-information {
     padding: 28px 32px;
-    background: linear-gradient(
-        135deg,
-        #E3F2FD 0%,
-        #F7FAFF 100%
-    );
+    background: linear-gradient(135deg,
+            #E3F2FD 0%,
+            #F7FAFF 100%);
     border-bottom: 1px solid #DCEAF7;
 }
 
@@ -376,4 +374,23 @@ body {
     .file-upload {
         min-height: 115px;
     }
+}
+
+.selected-cv-name {
+    display: none;
+    max-width: 100%;
+    margin-top: 10px;
+    padding: 7px 12px;
+    background: #E3F2FD;
+    border: 1px solid #BBDEFB;
+    border-radius: 7px;
+    color: #1976D2;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.4;
+    word-break: break-all;
+}
+
+.selected-cv-name.show {
+    display: block;
 }
